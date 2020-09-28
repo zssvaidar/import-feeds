@@ -1,0 +1,16 @@
+{
+  "fields": {
+    "rowNumber": "Reihe",
+    "importResult": "Ergebnis importieren",
+    "type": "Art",
+    "entityName": "Entität",
+    "entityId": "Objekt-ID",
+    "message": "Botschaft"
+  },
+  "links": {
+    "importResult": "Ergebnis importieren"
+  },
+  "labels": {
+    "Create ImportResultLog": "Importergebnisprotokoll erstellen"
+  }
+}

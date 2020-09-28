@@ -1,0 +1,43 @@
+{
+  "fields": {
+    "link": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Link"
+    },
+    "jsonArray": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
+    },
+    "array": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
+    },
+    "multiEnum": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
+    },
+    "arrayMultiLang": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
+    },
+    "multiEnumMultiLang": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
+    },
+    "linkMultiple": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\LinkMultiple"
+    },
+    "image": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Image"
+    },
+    "bool": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Boolean"
+    },
+    "int": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Integer"
+    },
+    "float": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\FloatValue"
+    },
+    "currency": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Currency"
+    },
+    "unit": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Unit"
+    }
+  }
+}

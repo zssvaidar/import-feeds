@@ -1,0 +1,39 @@
+[
+  {
+    "name": "name",
+    "link": true
+  },
+  {
+    "name": "importFeed"
+  },
+  {
+    "name": "attachment"
+  },
+  {
+    "name": "state"
+  },
+  {
+    "name": "isRestored"
+  },
+  {
+    "name": "start"
+  },
+  {
+    "name": "end"
+  },
+  {
+    "name": "createdCount",
+    "notSortable": true
+  },
+  {
+    "name": "updatedCount",
+    "notSortable": true
+  },
+  {
+    "name": "errorsCount",
+    "notSortable": true
+  },
+  {
+    "name": "errorsAttachment"
+  }
+]

@@ -1,0 +1,14 @@
+{
+    "controller": "controllers/record",
+    "iconClass": "fas fa-clock",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "relationshipPanels": {
+        "importCronJobLogs": {
+            "select": false,
+            "create": false,
+            "rowActionsView": "views/record/row-actions/empty"
+        }
+    }
+}

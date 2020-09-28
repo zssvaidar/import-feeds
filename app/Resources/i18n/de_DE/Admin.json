@@ -1,0 +1,11 @@
+{
+  "labels": {
+    "simpleImport": "Einfacher Import",
+    "importFeed": "Import Feed",
+    "importCronJob": "Import Cron Job"
+  },
+  "descriptions": {
+    "importFeed": "Import-Feed konfigurieren, um Daten zu Treo Entities zu importieren.",
+    "importCronJob": "Cron Job für Datenimport konfigurieren."
+  }
+}

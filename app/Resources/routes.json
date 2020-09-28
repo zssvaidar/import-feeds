@@ -1,0 +1,10 @@
+[
+  {
+    "route": "/ImportFeed/:attachmentId/fileColumns",
+    "method": "get",
+    "params": {
+      "controller": "ImportFeed",
+      "action": "GetFileColumns"
+    }
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "fields": {
+    "importFeed": "Import Feed",
+    "state": "State",
+    "start": "Start",
+    "end": "End",
+    "createdCount": "Created",
+    "updatedCount": "Updated",
+    "errorsCount": "Errors",
+    "attachment": "Imported file",
+    "errorsAttachment": "Error file",
+    "isRestored": "Restored"
+  },
+  "links": {
+    "importFeed": "Import Feed",
+    "importResultLogs": "Errors Log"
+  },
+  "labels": {
+    "Create ImportResult": "Create Import Result",
+    "Restore": "Restore"
+  },
+  "options": {
+    "state": {
+      "Pending": "Pending",
+      "Running": "Running",
+      "Done": "Done"
+    }
+  },
+  "messages": {
+    "Do you really want to restore data? Old values will be delete.": "Do you really want to restore data? Old values will be delete."
+  },
+  "tooltips": {
+    "errorsAttachment": "Rows from 'Imported file' that have not been imported."
+  },
+  "exceptions": {
+    "Current Import Result has been already restored.": "Current Import Result has been already restored."
+  }
+}

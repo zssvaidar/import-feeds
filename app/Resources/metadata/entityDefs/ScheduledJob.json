@@ -1,0 +1,13 @@
+{
+  "fields": {
+    "importCronJob": {
+      "type": "link"
+    }
+  },
+  "links": {
+    "importCronJob": {
+      "type": "belongsTo",
+      "entity": "ImportCronJob"
+    }
+  }
+}

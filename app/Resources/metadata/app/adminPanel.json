@@ -1,0 +1,22 @@
+{
+  "data": {
+    "label": "Import",
+    "itemList": [
+      {
+        "url": "#Import",
+        "label": "simpleImport",
+        "description": "import"
+      },
+      {
+        "url": "#ImportFeed",
+        "label": "importFeed",
+        "description": "importFeed"
+      },
+      {
+        "url": "#ImportCronJob",
+        "label": "importCronJob",
+        "description": "importCronJob"
+      }
+    ]
+  }
+}

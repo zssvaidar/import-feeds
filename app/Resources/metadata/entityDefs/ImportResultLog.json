@@ -1,0 +1,94 @@
+{
+  "fields": {
+    "name": {
+      "type": "varchar",
+      "trim": true,
+      "readOnly": true
+    },
+    "importResult": {
+      "type": "link",
+      "readOnly": true
+    },
+    "type": {
+      "type": "enum",
+      "options": [
+        "create",
+        "update",
+        "error"
+      ],
+      "default": "create",
+      "readOnly": true
+    },
+    "entityName": {
+      "type": "varchar",
+      "readOnly": true
+    },
+    "entityId": {
+      "type": "varchar",
+      "readOnly": true
+    },
+    "message": {
+      "type": "text",
+      "rows": 30,
+      "lengthOfCut": 400,
+      "readOnly": true
+    },
+    "rowNumber": {
+      "type": "int",
+      "readOnly": true
+    },
+    "createdAt": {
+      "type": "datetime",
+      "readOnly": true
+    },
+    "modifiedAt": {
+      "type": "datetime",
+      "readOnly": true
+    },
+    "createdBy": {
+      "type": "link",
+      "readOnly": true,
+      "view": "views/fields/user"
+    },
+    "modifiedBy": {
+      "type": "link",
+      "readOnly": true,
+      "view": "views/fields/user"
+    },
+    "restoreData": {
+      "type": "array",
+      "layoutDetailDisabled": true,
+      "layoutMassUpdateDisabled": true,
+      "noLoad": true,
+      "readOnly": true
+    }
+  },
+  "links": {
+    "importResult": {
+      "type": "belongsTo",
+      "foreign": "importResultLogs",
+      "entity": "ImportResult"
+    },
+    "createdBy": {
+      "type": "belongsTo",
+      "entity": "User"
+    },
+    "modifiedBy": {
+      "type": "belongsTo",
+      "entity": "User"
+    }
+  },
+  "collection": {
+    "sortBy": "rowNumber",
+    "asc": true,
+    "fullTextSearch": false
+  },
+  "indexes": {
+    "name": {
+      "columns": [
+        "name",
+        "deleted"
+      ]
+    }
+  }
+}

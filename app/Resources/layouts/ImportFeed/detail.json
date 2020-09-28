@@ -1,0 +1,60 @@
+[
+  {
+    "label": "Overview",
+    "style": "default",
+    "rows": [
+      [
+        {
+          "name": "isActive"
+        },
+        {
+          "name": "fileDataAction"
+        }
+      ],
+      [
+        {
+          "name": "name"
+        },
+        {
+          "name": "type"
+        }
+      ],
+      [
+        {
+          "name": "description"
+        },
+        {
+          "name": "limit"
+        }
+      ]
+    ]
+  },
+  {
+    "label": "File properties",
+    "style": "info",
+    "rows": [
+      [
+        {
+          "name": "file"
+        },
+        false
+      ],
+      [
+        {
+          "name": "isFileHeaderRow"
+        },
+        {
+          "name": "decimalMark"
+        }
+      ],
+      [
+        {
+          "name": "fileFieldDelimiter"
+        },
+        {
+          "name": "fileTextQualifier"
+        }
+      ]
+    ]
+  }
+]

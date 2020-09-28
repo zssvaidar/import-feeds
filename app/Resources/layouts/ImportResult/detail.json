@@ -1,0 +1,54 @@
+[
+  {
+    "label": "Overview",
+    "style": "default",
+    "rows": [
+      [
+        {
+          "name": "name"
+        },
+        {
+          "name": "importFeed"
+        }
+      ],
+      [
+        {
+          "name": "state"
+        },
+        {
+          "name": "isRestored"
+        }
+      ],
+      [
+        {
+          "name": "attachment"
+        },
+        false
+      ],
+      [
+        {
+          "name": "start"
+        },
+        {
+          "name": "end"
+        }
+      ],
+      [
+        {
+          "name": "createdCount"
+        },
+        {
+          "name": "updatedCount"
+        }
+      ],
+      [
+        {
+          "name": "errorsCount"
+        },
+        {
+          "name": "errorsAttachment"
+        }
+      ]
+    ]
+  }
+]

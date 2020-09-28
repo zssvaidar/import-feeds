@@ -1,0 +1,190 @@
+{
+  "fields": {
+    "name": {
+      "type": "varchar",
+      "required": true,
+      "trim": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "isActive": {
+      "type": "bool"
+    },
+    "type": {
+      "type": "enum",
+      "required": true,
+      "options": [
+        "simple"
+      ],
+      "default": "simple",
+      "view": "import:views/import-feed/fields/enum-with-custom-tooltip"
+    },
+    "data": {
+      "type": "jsonObject",
+      "layoutListDisabled": true
+    },
+    "limit": {
+      "type": "int",
+      "required": true,
+      "default": "1000",
+      "min": 1
+    },
+    "importFile": {
+      "type": "file",
+      "notStorable": true,
+      "layoutDetailDisabled": true,
+      "layoutListDisabled": true,
+      "layoutMassUpdateDisabled": true,
+      "layoutFiltersDisabled": true,
+      "exportDisabled": true,
+      "importDisabled": true,
+      "textFilterDisabled": true,
+      "emHidden": true
+    },
+    "file": {
+      "type": "file",
+      "required": false,
+      "sourceList": [],
+      "view": "import:views/import-feed/fields/file"
+    },
+    "fileFieldDelimiter": {
+      "type": "enum",
+      "required": true,
+      "options": [
+        ",",
+        ";",
+        "\\t",
+        "|"
+      ],
+      "default": ","
+    },
+    "fileTextQualifier": {
+      "type": "enum",
+      "required": true,
+      "options": [
+        "doubleQuote",
+        "singleQuote"
+      ],
+      "default": "Double Quote"
+    },
+    "fileDataAction": {
+      "type": "enum",
+      "required": true,
+      "options": [
+        "create",
+        "update",
+        "create_update"
+      ],
+      "default": "create"
+    },
+    "isFileHeaderRow": {
+      "type": "bool"
+    },
+    "decimalMark": {
+      "type": "enum",
+      "required": true,
+      "options": [
+        ".",
+        ","
+      ],
+      "default": "."
+    },
+    "createdAt": {
+      "type": "datetime",
+      "readOnly": true
+    },
+    "modifiedAt": {
+      "type": "datetime",
+      "readOnly": true
+    },
+    "createdBy": {
+      "type": "link",
+      "readOnly": true,
+      "view": "views/fields/user"
+    },
+    "modifiedBy": {
+      "type": "link",
+      "readOnly": true,
+      "view": "views/fields/user"
+    },
+    "ownerUser": {
+      "type": "link",
+      "required": true,
+      "view": "views/fields/owner-user"
+    },
+    "assignedUser": {
+      "type": "link",
+      "required": true,
+      "view": "views/fields/assigned-user"
+    },
+    "teams": {
+      "type": "linkMultiple",
+      "view": "views/fields/teams"
+    },
+    "importResults": {
+      "type": "linkMultiple",
+      "layoutDetailDisabled": true,
+      "layoutMassUpdateDisabled": true,
+      "noLoad": true,
+      "importDisabled": true
+    }
+  },
+  "links": {
+    "file": {
+      "type": "belongsTo",
+      "entity": "Attachment"
+    },
+    "createdBy": {
+      "type": "belongsTo",
+      "entity": "User"
+    },
+    "modifiedBy": {
+      "type": "belongsTo",
+      "entity": "User"
+    },
+    "ownerUser": {
+      "type": "belongsTo",
+      "entity": "User"
+    },
+    "assignedUser": {
+      "type": "belongsTo",
+      "entity": "User"
+    },
+    "teams": {
+      "type": "hasMany",
+      "entity": "Team",
+      "relationName": "EntityTeam",
+      "layoutRelationshipsDisabled": true
+    },
+    "importResults": {
+      "type": "hasMany",
+      "foreign": "importFeed",
+      "entity": "ImportResult"
+    }
+  },
+  "collection": {
+    "sortBy": "createdAt",
+    "asc": false
+  },
+  "indexes": {
+    "name": {
+      "columns": [
+        "name",
+        "deleted"
+      ]
+    },
+    "ownerUser": {
+      "columns": [
+        "ownerUserId",
+        "deleted"
+      ]
+    },
+    "assignedUser": {
+      "columns": [
+        "assignedUserId",
+        "deleted"
+      ]
+    }
+  }
+}

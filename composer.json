@@ -1,0 +1,26 @@
+{
+  "name": "atrocore/import-feeds",
+  "require": {
+    "atrocore/core": "~1.0.0",
+    "atrocore/import-feeds-common": "~1.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Import\\": "app/"
+    }
+  },
+  "extra": {
+    "treoId": "Import",
+    "name": {
+      "default": "Import Feeds"
+    },
+    "description": {
+      "default": "The module adds possibility to use import feeds in a user-friendly way."
+    },
+    "tags": [
+      "usability",
+      "data",
+      "exchange"
+    ]
+  }
+}

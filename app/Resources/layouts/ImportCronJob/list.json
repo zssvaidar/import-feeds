@@ -1,0 +1,13 @@
+[
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "importFeed",
+        "link": true
+    },
+    {
+        "name": "isActive"
+    }
+]

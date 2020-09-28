@@ -1,0 +1,6 @@
+{
+  "views/record/search": [
+    "__APPEND__",
+    "import"
+  ]
+}

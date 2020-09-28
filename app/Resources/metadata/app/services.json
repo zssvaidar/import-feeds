@@ -1,0 +1,5 @@
+{
+  "CsvFileParser": "\\Import\\Services\\CsvFileParser",
+  "ImportRestore": "\\Import\\Services\\ImportRestore",
+  "ImportTypeSimple": "\\Import\\Services\\ImportTypeSimple"
+}

@@ -1,0 +1,87 @@
+{
+  "fields": {
+    "file": "Example File (CSV)",
+    "isActive": "Active",
+    "type": "Type",
+    "limit": "Limit",
+    "fileFieldDelimiter": "Field Delimiter",
+    "fileTextQualifier": "Text Qualifier",
+    "isFileHeaderRow": "Header Row",
+    "importJobs": "Import Jobs",
+    "importCronJobs": "Import Cron Jobs",
+    "importFeedTypeSimples": "Import Feed Type Simple",
+    "fileDataAction": "Action",
+    "decimalMark": "Decimal Mark",
+    "importFile": "Data File (CSV)",
+    "column": "File Column",
+    "default": "Default Value",
+    "importResults": "Import Results",
+    "locale": "Locale"
+  },
+  "links": {
+    "importJobs": "Import Jobs",
+    "importCronJobs": "Import Cron Jobs",
+    "importFeedTypeSimples": "Import Feed Type Simple",
+    "importResults": "Import Results"
+  },
+  "labels": {
+    "File properties": "File properties",
+    "Simple Type Settings": "Simple Type Settings",
+    "Create ImportFeed": "Create Import Feed",
+    "entity": "Entity",
+    "configurator": "Configurator",
+    "convertFile": "Loading file, please wait...",
+    "convertSuccess": "File loaded",
+    "runImport": "Run Import",
+    "addEntityField": "Add entity field",
+    "addProductAttribute": "Add Product attribute",
+    "addProductImage": "Add Product image",
+    "importRunning": "Import Running",
+    "delimiter": "Field value delimiter",
+    "importBy": "Import By"
+  },
+  "additionalTranslates": {
+    "importName": "Importing data by feed '%s'"
+  },
+  "options": {
+    "language": {
+      "main": "Main locale"
+    },
+    "type": {
+      "simple": "Simple",
+      "product": "Product"
+    },
+    "fileFieldDelimiter": {
+      ",": ",",
+      ";": ";",
+      "\\t": "\\t",
+      "|": "|"
+    },
+    "fileTextQualifier": {
+      "doubleQuote": "Double Quote",
+      "singleQuote": "Single Quote"
+    },
+    "fileDataAction": {
+      "create": "Create Only",
+      "create_update": "Create & Update",
+      "update": "Update Only"
+    }
+  },
+  "messages": {
+    "delimitersMustBeDifferent": "Delimiters for fields and field values must be different.",
+    "columnOrDefaultValueIsRequired": "{column} or {default} is required."
+  },
+  "exceptions": {
+    "File invalid. Only CSV is allowed.": "File invalid. Only CSV is allowed.",
+    "No such file": "No such file",
+    "Import feed is inactive": "Import feed is inactive",
+    "Wrong file. The file does not match the template": "Wrong file. The file does not match the template",
+    "Count of file rows is less than one": "Count of file rows is less than one",
+    "Configurator settings incorrect": "Configurator settings incorrect"
+  },
+  "types": {
+    "simple": "Import Feed type, intended for importing values into any TreoCore entity",
+    "product": "Import Feed type that allows you to configure the import of values into the product entity, taking into account the values of the product's main fields, product attribute values, and product-related images, with the ability to associate a specific column of the imported file with the corresponding field pertaining to the product, its attribute and / or image relating to the product",
+    "productImage": "Import Feed type, providing the ability to import product images with image binding to a specific channel. For importing, the import file must have a column sku, columns with images should be named according to the channel code to which this image will relate, in the case of the omission of the corresponding channel or the channel code does not match the column name, the image will be imported from the Scope channel, but without selecting a channel. For Global Scope, the column name should be Global"
+  }
+}

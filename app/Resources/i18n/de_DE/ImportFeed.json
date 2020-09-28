@@ -1,0 +1,78 @@
+{
+  "fields": {
+    "file": "Beispieldatei (CSV)",
+    "isActive": "Aktiv",
+    "type": "Typ",
+    "limit": "Grenze",
+    "fileFieldDelimiter": "Feld-Trennzeichen",
+    "fileTextQualifier": "Texttrenner",
+    "isFileHeaderRow": "Header Zeile",
+    "fileDataAction": "Aktion",
+    "decimalMark": "Dezimaltrennzeichen",
+    "column": "Datei-Spalte",
+    "defaultValue": "Default-Wert",
+    "locale": "Gebietsschema"
+  },
+  "links": [],
+  "labels": {
+    "File properties": "Dateieigenschaften",
+    "Simple Type Settings": "Einfache typ-einstellungen",
+    "Create ImportFeed": "Import Feed erstellen",
+    "entity": "Entität",
+    "configurator": "Konfigurator",
+    "convertFile": "Datei wird geladen, bitte warten ...",
+    "convertSuccess": "File loaded",
+    "runImport": "Import durchführen",
+    "importFile": "Daten Datei (CSV)",
+    "addEntityField": "Entitätsfeld hinzufügen",
+    "addProductAttribute": "Produktattribut hinzufügen",
+    "addProductImage": "Produktbild hinzufügen",
+    "importRunning": "Importieren läuft",
+    "delimiter": "Feldwert Begrenzer",
+    "importBy": "Import von"
+  },
+  "additionalTranslates": {
+    "importName": "Importieren von Daten nach Feed '%s'"
+  },
+  "options": {
+    "language": {
+      "main": "Hauptgebietsschema"
+    },
+    "type": {
+      "simple": "Einfach",
+      "product": "Artikel"
+    },
+    "fileFieldDelimiter": {
+      ",": ",",
+      ";": ";",
+      "\\t": "\\t",
+      "|": "|"
+    },
+    "fileTextQualifier": {
+      "doubleQuote": "Doppel Anführungszeichen",
+      "singleQuote": "Anführungszeichen"
+    },
+    "fileDataAction": {
+      "create": "Nur erstellen",
+      "create_update": "Erstellen und aktualisieren",
+      "update": "Nur aktualisieren"
+    }
+  },
+  "messages": {
+    "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein.",
+    "columnOrDefaultValueIsRequired": "{column} oder {default} ist erforderlich"
+  },
+  "exceptions": {
+    "File invalid. Only CSV is allowed.": "Datei ungültig Nur CSV ist erlaubt.",
+    "No such file": "Keine solche Datei",
+    "Import feed is inactive": "Feed importieren ist inaktiv",
+    "Wrong file. The file does not match the template": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein",
+    "Count of file rows is less than one": "Die Anzahl der Dateireihen ist kleiner als eins",
+    "Configurator settings incorrect": "Konfigurator-Einstellungen falsch"
+  },
+  "types": {
+    "simple": "Import-Feed Typ, für Import von Werten in eine der TreoPIM-Entitäten.",
+    "product": "Import-Feed Typ, mit dem Sie den Import von Werten in die Produktentität konfigurieren können, wobei die Werte der Produkt-Hauptfelder, Produktattributwerte und produktbezogenen Bilder berücksichtigt werden. Es ist möglich, eine bestimmte Spalte der importierten Datei mit dem entsprechenden Feld zuzuordnen, das sich auf das Produkt dessen Attribut und / oder produktbezogenes Produktbild bezieht.",
+    "productImage": "Import-Feed Typ, dank dem Produktbilder mit Bildbindung zu einem bestimmten Kanal importiert werden können. Für Import muss die Importdatei die Spalte SKU haben. Spalten mit Bildern sollten entsprechend dem Kanalcode benannt werden, auf den sich dieses Bild bezieht. Wenn der entsprechende Kanal weggelassen wird oder der Kanalcode nicht mit dem Spaltennamen übereinstimmt, wird das Bild aus dem Scope-Kanal importiert, ohne einen Kanal auszuwählen. Für Global Scope sollte der Spaltenname Global sein."
+  }
+}

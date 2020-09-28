@@ -1,0 +1,22 @@
+{
+  "entity": true,
+  "layouts": false,
+  "tab": true,
+  "acl": true,
+  "aclActionList": [
+    "read",
+    "delete"
+  ],
+  "aclPortal": true,
+  "customizable": false,
+  "importable": false,
+  "notifications": false,
+  "stream": false,
+  "disabled": false,
+  "type": "Base",
+  "module": "Import",
+  "object": true,
+  "hasAssignedUser": false,
+  "hasTeam": false,
+  "hasOwner": false
+}

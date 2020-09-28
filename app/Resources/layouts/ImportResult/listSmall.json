@@ -1,0 +1,39 @@
+[
+  {
+    "name": "name",
+    "link": true,
+    "notSortable": true
+  },
+  {
+    "name": "attachment",
+    "notSortable": true
+  },
+  {
+    "name": "state",
+    "notSortable": true
+  },
+  {
+    "name": "start",
+    "notSortable": true
+  },
+  {
+    "name": "end",
+    "notSortable": true
+  },
+  {
+    "name": "createdCount",
+    "notSortable": true
+  },
+  {
+    "name": "updatedCount",
+    "notSortable": true
+  },
+  {
+    "name": "errorsCount",
+    "notSortable": true
+  },
+  {
+    "name": "errorsAttachment",
+    "notSortable": true
+  }
+]

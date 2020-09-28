@@ -1,0 +1,192 @@
+{
+  "controller": "controllers/record",
+  "boolFilterList": [
+    "onlyMy"
+  ],
+  "iconClass": "fas fa-cloud-download-alt",
+  "quickCreate": true,
+  "navigateToEntityAfterQuickCreate": true,
+  "disabledSelectList": true,
+  "quickCreateOptions": {
+    "fullFormDisabled": true
+  },
+  "views": {
+    "list": "import:views/list",
+    "detail": "import:views/detail"
+  },
+  "recordViews": {
+    "detail": "import:views/import-feed/record/detail"
+  },
+  "relationshipPanels": {
+    "importResults": {
+      "create": false,
+      "select": false,
+      "rowActionsView": "import:views/import-feed/record/row-actions/view-remove-restore",
+      "view": "import:views/import-feed/record/panels/import-results",
+      "filters": {
+        "isRestored": {
+          "type": "isFalse",
+          "attribute": "isRestored"
+        }
+      }
+    }
+  },
+  "bottomPanels": {
+    "detail": [
+      {
+        "name": "simpleTypeSettings",
+        "label": "Simple Type Settings",
+        "view": "import:views/import-feed/record/panels/simple-type-settings"
+      }
+    ]
+  },
+  "optionalBottomPanels": {
+    "simpleTypeSettings": [
+      {
+        "field": "type",
+        "value": "simple"
+      }
+    ]
+  },
+  "additionalDropdownItems": {
+    "runImport": {
+      "name": "runImport",
+      "label": "runImport",
+      "actionViewPath": "import:views/import-feed/actions/run-import",
+      "action": "runImport",
+      "optionsToPass": [
+        "model"
+      ],
+      "iconClass": "far fa-arrow-alt-circle-up",
+      "conditions": [
+        {
+          "type": "type",
+          "value": "detail"
+        }
+      ]
+    }
+  },
+  "additionalRowActions": {
+    "runImport": {
+      "name": "runImport",
+      "label": "runImport",
+      "actionViewPath": "import:views/import-feed/actions/run-import",
+      "action": "runImport",
+      "optionsToPass": [
+        "model"
+      ],
+      "iconClass": "far fa-arrow-alt-circle-up"
+    }
+  },
+  "configuratorButtons": {
+    "Product": [
+      {
+        "name": "addAttribute",
+        "action": "addAttribute"
+      }
+    ]
+  },
+  "customEntities": {
+    "productCategories": {
+      "entity": "Category"
+    }
+  },
+  "dynamicLogic": {
+    "fields": {
+      "file": {
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "isNotEmpty",
+              "attribute": "id"
+            }
+          ]
+        }
+      },
+      "type": {
+        "readOnly": {
+          "conditionGroup": [
+            {
+              "type": "isNotEmpty",
+              "attribute": "id"
+            }
+          ]
+        }
+      },
+      "isFileHeaderRow": {
+        "readOnly": {
+          "conditionGroup": [
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "simple"
+            },
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "product"
+            }
+          ]
+        }
+      },
+      "fileFieldDelimiter": {
+        "readOnly": {
+          "conditionGroup": [
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "simple"
+            },
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "product"
+            },
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "productImage"
+            }
+          ]
+        }
+      },
+      "fileTextQualifier": {
+        "readOnly": {
+          "conditionGroup": [
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "simple"
+            },
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "product"
+            },
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "productImage"
+            }
+          ]
+        }
+      },
+      "decimalMark": {
+        "readOnly": {
+          "conditionGroup": [
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "simple"
+            },
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "product"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

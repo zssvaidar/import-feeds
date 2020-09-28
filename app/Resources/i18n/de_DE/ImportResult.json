@@ -1,0 +1,38 @@
+{
+  "fields": {
+    "importFeed": "Feed importieren",
+    "state": "Zustand",
+    "start": "Start",
+    "end": "Ende",
+    "createdCount": "Erstellt",
+    "updatedCount": "Aktualisierte",
+    "errorsCount": "Fehler",
+    "attachment": "Importierte Datei",
+    "errorsAttachment": "Fehlerdatei",
+    "isRestored": "Restauriert"
+  },
+  "links": {
+    "importFeed": "Feed importieren",
+    "importResultLogs": "Fehlerprotokoll"
+  },
+  "labels": {
+    "Create ImportResult": "Importergebnis erstellen",
+    "Restore": "Wiederherstellen"
+  },
+  "options": {
+    "state": {
+      "Pending": "Schwebend",
+      "Running": "Läuft",
+      "Done": "Erledigt"
+    }
+  },
+  "messages": {
+    "Do you really want to restore data? Old values will be deleted.": "Möchten Sie wirklich Daten wiederherstellen? Alte Werte werden gelöscht."
+  },
+  "tooltips": {
+    "errorsAttachment": "Zeilen aus 'Importierter Datei', die nicht importiert wurden."
+  },
+  "exceptions": {
+    "Current Import Result has been already restored.": "Das aktuelle Importergebnis wurde bereits wiederhergestellt."
+  }
+}

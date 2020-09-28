@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Overview",
+    "style": "default",
+    "rows": [
+      [
+        {
+          "name": "importResult"
+        },
+        false
+      ],
+      [
+        {
+          "name": "name"
+        },
+        false
+      ],
+      [
+        {
+          "name": "message"
+        },
+        false
+      ]
+    ]
+  }
+]
