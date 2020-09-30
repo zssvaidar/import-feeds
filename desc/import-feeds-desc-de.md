@@ -3,11 +3,11 @@ Dank des Moduls "Import Feeds" kann der Datenimport über Import Feeds auf zwei 
 - **manuell** – über die vorkonfigurierten Importvorlagen, d. h. über Import Feeds selbst;  
 - **automatisch** – über den vorkonfigurierten Import-Cron-Job. 
 
-Sie können über Import Feeds jedes in Ihrem System verfügbare Datenfeld importieren, einschließlich [mehrsprachiger Felder und Attribute](https://treopim.com/de/shop/multi-languages), Entitätsfelder der Typen `Currency`, `Unit`, und auch andere Typen. Außerdem, wenn das Modul ["Product Variants"](https://treopim.com/de/shop/product-variants) in Ihrem [PIM-System](https://treopim.com/de) installiert ist, besteht auch die Möglichkeit, [Produktvarianten](#Produktvarianten) zu importieren.
+Sie können über Import Feeds jedes in Ihrem System verfügbare Datenfeld importieren, einschließlich [mehrsprachiger Felder und Attribute](https://atropim.com/de/shop/multi-languages), Entitätsfelder der Typen `Currency`, `Unit`, und auch andere Typen. Außerdem, wenn das Modul ["Product Variants"](https://atropim.com/de/shop/product-variants) in Ihrem [PIM-System](https://atropim.com/de) installiert ist, besteht auch die Möglichkeit, [Produktvarianten](#Produktvarianten) zu importieren.
 
 Import Feeds können weiter konfiguriert und angepasst sowie in unterschiedlichen Zeitabständen wieder benutzt werden. Import Feeds können auch verwendet werden, um den Datenimport-Prozess über [Import-Cron-Jobs](#konfiguration-des-cron-jobs) zu automatisieren.
 
-Standardmäßig kommt der Import Feed vom Typ `Einfach` mit der Installation des Moduls "Import Feeds". Zusammen mit der Installation anderer [Module](https://treopim.com/de/shop) kann jedoch die Liste der Import-Feed-Typen erweitert werden, und diese zusätzlichen Import Feeds können entsprechend  Ihren Anforderungen weiter angepasst werden. Gleichzeitig werden zusätzliche Import Feeds mit Hilfe der Logik des Moduls "Import Feeds" funktionieren.
+Standardmäßig kommt der Import Feed vom Typ `Einfach` mit der Installation des Moduls "Import Feeds". Zusammen mit der Installation anderer [Module](https://atropim.com/de/shop) kann jedoch die Liste der Import-Feed-Typen erweitert werden, und diese zusätzlichen Import Feeds können entsprechend  Ihren Anforderungen weiter angepasst werden. Gleichzeitig werden zusätzliche Import Feeds mit Hilfe der Logik des Moduls "Import Feeds" funktionieren.
 
 ## Installation 
 Um das Modul „Import Feeds“ in Ihrem System zu installieren, gehen Sie zur `Administration > Modulmanager`. Finden Sie dieses Modul in der Liste „Shop“ und klicken Sie auf `Installieren`:
@@ -19,8 +19,8 @@ Wählen Sie im angezeigten Installations-Pop-up die gewünschte Version aus und 
 Um das Modul „Import Feeds“ zu aktualisieren / zu entfernen, nutzen Sie entsprechende Optionen aus seinem Menü für einzelne Datensatzaktionen im `Administration > Modulmanager`. 
 
 ## Funktionen für den Administrator
-Das Modul „Import Feeds“ erweitert die Funktionalität des [TreoPIM](https://treopim.com/help/what-is-treopim)-Systems erheblich, so ist die weitere Modulbeschreibung im Kontext von TreoPIM gegeben.
-Nach der Modulinstallation wird eine neue `Import-Feeds`-Konfigurationsgruppe zum TreoPIM-Adminbereich hinzugefügt. Es ist auch möglich, `Import-Cron-Jobs`, `Import Feeds` und `Import-Ergebnisse` als separate Navigationsmenüpunkte auf der Seite `Administration > Benutzeroberfläche` hinzuzufügen:
+Das Modul „Import Feeds“ erweitert die Funktionalität des [AtroPIM](https://atropim.com/help/what-is-atropim)-Systems erheblich, so ist die weitere Modulbeschreibung im Kontext von AtroPIM gegeben.
+Nach der Modulinstallation wird eine neue `Import-Feeds`-Konfigurationsgruppe zum AtroPIM-Adminbereich hinzugefügt. Es ist auch möglich, `Import-Cron-Jobs`, `Import Feeds` und `Import-Ergebnisse` als separate Navigationsmenüpunkte auf der Seite `Administration > Benutzeroberfläche` hinzuzufügen:
 ![Import feeds adding](_assets/import-feeds-add.jpg)
 ### Zugangsrechte
 Um die Erstellung, Bearbeitung, Nutzung und Entfernung des Import Feeds für andere Nutzer zu ermöglichen, konfigurieren Sie die entsprechenden Zugangsrechte zu den Entitäten `Import-Cron-Jobs`, `Import Feeds` und `Import-Ergebnisse` für die gewünschte Benutzer- / Team- / Portalbenutzerrolle auf der Seite `Administration > Rollen > 'Rollenname'`:
@@ -48,7 +48,7 @@ Um den Import Feed zu konfigurieren, klicken Sie auf den gewünschten Datensatz 
 
 Inline-Bearbeitung wird hier unterstützt. Bevor Sie Änderungen vornehmen, müssen Sie auf das Stiftsymbol rechts neben jedem bearbeitbaren Feld klicken.
 
-*Ausführliche Informationen zur Inline-Bearbeitung und zu anderen Funktionen des TreoPIM-Systems finden Sie im Abschnitt **Entity Records** des Artikels [**Views and Panels**](https://treopim.com/help/views-and-panels) in unserem User Guide.*
+*Ausführliche Informationen zur Inline-Bearbeitung und zu anderen Funktionen des AtroPIM-Systems finden Sie im Abschnitt **Entity Records** des Artikels [**Views and Panels**](https://atropim.com/help/views-and-panels) in unserem User Guide.*
 
 Folgende Einstellungen sind im Panel `ÜBERBLICK` verfügbar:
 
@@ -89,7 +89,7 @@ Bitte beachten Sie, dass `Feld-Trennzeichen` und `Feldwert-Begrenzer` verschiede
 
 ### Konfigurator
 
-Die Konfiguration der Entitätsfelder wird im Panel `KONFIGURATOR` entweder auf der Detail-Ansichtsseite  oder auf der Seite der Bearbeitungsansicht des Import Feeds durchgeführt. Standardmäßig werden dort die Pflichtfelder des Entitätstyps angezeigt, der im Panel `EINFACHE TYP-EINSTELLUNGEN` definiert ist. Abhängig von dieser Auswahl enthält das Panel `KONFIGURATOR` verschiedene Felder. Für [Produkte](https://treopim.com/help/products) sieht dieses Panel wie folgt aus:
+Die Konfiguration der Entitätsfelder wird im Panel `KONFIGURATOR` entweder auf der Detail-Ansichtsseite  oder auf der Seite der Bearbeitungsansicht des Import Feeds durchgeführt. Standardmäßig werden dort die Pflichtfelder des Entitätstyps angezeigt, der im Panel `EINFACHE TYP-EINSTELLUNGEN` definiert ist. Abhängig von dieser Auswahl enthält das Panel `KONFIGURATOR` verschiedene Felder. Für [Produkte](https://atropim.com/help/products) sieht dieses Panel wie folgt aus:
 
 ![Configurator panel](_assets/configurator-panel.jpg)
 
@@ -110,7 +110,7 @@ Bitte beachten Sie, dass entweder das Feld `Datei-Spalte` oder ` Standardwert` a
 
 ![Field creation error](_assets/field-creation-error.jpg)
 
-Entitätsfelder der Typen `Currency` und `Unit` sowie [mehrsprachige Felder](https://treopim.com/de/shop/multi-languages) können auch zu Import Feeds hinzugefügt werden:
+Entitätsfelder der Typen `Currency` und `Unit` sowie [mehrsprachige Felder](https://atropim.com/de/shop/multi-languages) können auch zu Import Feeds hinzugefügt werden:
 
 ![Field creation unit](_assets/field-creation-unit.jpg)
 
@@ -127,11 +127,11 @@ Bitte beachten Sie, dass Entitätsfelder nur einmal zum Import-Feed-Datensatz hi
 Wenn das Entitätsfeld zu dem Konfigurator hinzugefügt wurde, wird es zu der Drop-down-Liste `ID` im Panel [`EINFACHE TYP-ENEINSTELLUNGEN`](#einfache-typ-einstellungen) hinzugefügt.
 
 #### Hinzufügen von Produktattributen 
-Das Modul „Import Feeds“ ermöglicht es ebenfalls, [Produktattribut](https://treopim.com/help/products)-Werte zu importieren, darunter auch [mehrsprachige Attribute](https://treopim.com/de/shop/multi-languages#mehrsprachige-attribute). Sie können zum Import Feed im `KONFIGURATOR`-Panel mit Hilfe der Option `Produktattribut hinzufügen` aus dem Drop-down-Menü hinzugefügt werden:
+Das Modul „Import Feeds“ ermöglicht es ebenfalls, [Produktattribut](https://atropim.com/help/products)-Werte zu importieren, darunter auch [mehrsprachige Attribute](https://atropim.com/de/shop/multi-languages#mehrsprachige-attribute). Sie können zum Import Feed im `KONFIGURATOR`-Panel mit Hilfe der Option `Produktattribut hinzufügen` aus dem Drop-down-Menü hinzugefügt werden:
 
 ![Product attribute adding](_assets/add-attribute.jpg)
 
-Bitte beachten Sie, dass diese Funktion nur dann verfügbar ist, wenn das [TreoPIM-Modul](https://treopim.com/help/what-is-treopim) zusammen mit dem Modul "Import Feeds" installiert ist.
+Bitte beachten Sie, dass diese Funktion nur dann verfügbar ist, wenn das [AtroPIM-Modul](https://atropim.com/help/what-is-atropim) zusammen mit dem Modul "Import Feeds" installiert ist.
 
 Wählen Sie im angezeigten Erstellungs-Pop-up das Attribut aus der Liste der vorhandenen Attribute aus, definieren Sie dessen Standardwert und/oder wählen Sie dessen Datei-Spalte aus. Außerdem definieren Sie die Umfangsebene des Attributes - `Global` oder `Channel`. 
 
@@ -144,7 +144,7 @@ Mit Hilfe des Moduls "Import Feeds" können des Weiteren *Produktbilder* zum Imp
 
 ![Product image adding](_assets/add-product-image.jpg)
 
-Bitte beachten Sie, dass diese Funktion nur dann verfügbar ist, wenn das TreoPIM-Modul zusammen mit dem Modul "Import Feeds" installiert ist.
+Bitte beachten Sie, dass diese Funktion nur dann verfügbar ist, wenn das AtroPIM-Modul zusammen mit dem Modul "Import Feeds" installiert ist.
 
 Wählen Sie im angezeigten Erstellungs-Pop-up die Datei-Spalte für den Bildimport aus und/oder hängen Sie  die lokal gespeicherte Bilddatei an, die als Standardwert für Import verwendet werden soll. Definieren Sie auch die Umfangsebene für das Bild - `Global` oder `Channel`. 
 
@@ -154,7 +154,7 @@ Nachdem Sie die Datensätze [Entitätsfeld](#hinzufügen-der-entitätsfelder), [
 
 ![Single record menu](_assets/single-record-menu.jpg)
 
-Wenn Sie weitere Fragen zur Konfiguration des Import Feeds haben, können Sie gerne jederzeit mit uns [Kontakt aufnehmen](https://treopim.com/de/kontakt).
+Wenn Sie weitere Fragen zur Konfiguration des Import Feeds haben, können Sie gerne jederzeit mit uns [Kontakt aufnehmen](https://atropim.com/de/kontakt).
 
 ## Import-Feed-Ausführung  
 Um den Import der Daten über den aktiven Import Feed zu starten, wählen Sie die Option `Import durchführen` im Menü "Aktionen" auf der Detail-Ansichtsseite des Import Feeds oder im Menü für einzelne Datensatzaktionen auf der Seite der Listenansicht von "Import Feeds":
@@ -228,12 +228,12 @@ Um die vollständige Liste der Fehlerdatensätze anzuschauen, nutzen Sie den Bef
 
 Alternativ können Sie die Details des Datensatzes mit den Importergebnissen in dem Pop-up ansehen, welches angezeigt wird, wenn Sie die Option `Ansehen` aus dem Menü für einzelne Datensatzaktionen für den gewünschten Datensatz auf der Seite der Listenansicht  von Importergebnissen nutzen. Das Gleiche gilt für das Panel `IMPORT RESULTS`  des aktuell geöffneten Import Feeds:
 ![Import result pop-up](_assets/import-result-popup.jpg)
-Bitte beachten Sie, dass Sie die importierte Datei von jeder [Interface-Seite](https://treopim.com/help/views-and-panels) herunterladen können, wo ihr Name anklickbar ist.
+Bitte beachten Sie, dass Sie die importierte Datei von jeder [Interface-Seite](https://atropim.com/help/views-and-panels) herunterladen können, wo ihr Name anklickbar ist.
 
 #### Fehlerdatei
 Alle Daten der erforderlichen Entitätsfelder werden zu der Importdatei hinzugefügt. Falls ein Pflichtfeld in dem zum Import Feed hinzugefügten Entitätsdatensatz leer (d. h. nicht ausgefüllt) ist oder die eingegebenen Daten nicht validiert werden (z. B. stimmen die eingegebenen Daten mit dem Feldtyp nicht überein, beispielsweise Text anstelle von numerischen Werten in den Feldern von Typen `Boolean`,` Currency`, `Float`,` Unit`, sodass der eingegebene Link im System nicht existiert usw.), wird dieser Datensatz nicht importiert. Stattdessen wird er zu der Fehlerdatei hinzugefügt - einer separat generierten CSV-Datei, die nur Zeilen der Datensätze mit Fehlern enthält.
 
-Sie können die Fehlerdatei von jeder [Interface-Seite](https://treopim.com/help/views-and-panels) herunterladen, wo ihr Name anklickbar ist, (z.B. Seite der Listenansicht von Importergebnissen, Seite der Detailansicht/ schnellen Detailansicht von Importergebnissen usw.), die Daten in den definierten Zeilen korrigieren und den Importvorgang erneut durchführen. Dabei sollen Sie die korrigierte Fehlerdatei als die zu importierende Datei nutzen. 
+Sie können die Fehlerdatei von jeder [Interface-Seite](https://atropim.com/help/views-and-panels) herunterladen, wo ihr Name anklickbar ist, (z.B. Seite der Listenansicht von Importergebnissen, Seite der Detailansicht/ schnellen Detailansicht von Importergebnissen usw.), die Daten in den definierten Zeilen korrigieren und den Importvorgang erneut durchführen. Dabei sollen Sie die korrigierte Fehlerdatei als die zu importierende Datei nutzen. 
 
 #### Datenwiederherstellung 
 Das Modul "Import Feeds" unterstützt die Wiederherstellung für einzelne Datensätze der Importergebnisse in den Vor-Import-Zustand. Dafür wählen Sie die Option `Wiederherstellen` aus dem Menü für einzelne Datensatzaktionen für den gewünschten Datensatz mit den Importergebnissen auf der Detail-Ansichtsseite des Import Feeds:
@@ -259,7 +259,7 @@ Um den Import Feed Datensatz zu *entfernen*, nutzen Sie die entsprechende Option
 
 Klicken Sie in der angezeigten Bestätigungsnachricht auf den Button `Entfernen`, um den Vorgang abzuschließen.
 
-Das Modul "Import Feeds" unterstützt auch allgemeine TreoCore-Massenaktionen, die für mehrere ausgewählte Import Feed Datensätze gelten, d.h. Datensätze mit festgelegten Checkboxen. Diese Aktionen finden Sie im entsprechenden Menü auf der Ansichtsseite der Import Feeds Liste:
+Das Modul "Import Feeds" unterstützt auch allgemeine AtroCore-Massenaktionen, die für mehrere ausgewählte Import Feed Datensätze gelten, d.h. Datensätze mit festgelegten Checkboxen. Diese Aktionen finden Sie im entsprechenden Menü auf der Ansichtsseite der Import Feeds Liste:
 ![Mass actions](_assets/mass-actions.jpg)
 
 - **Löschen** – um die ausgewählten Import Feed Datensätze zu entfernen (Mehrfachlöschung).
@@ -298,15 +298,15 @@ Um den Import Cron Jobs Queue und die Statusdetails anzusehen, gehen Sie zu `Adm
 
 ### Produktvarianten 
 
-Wenn das Modul ["Product Variants"](https://treopim.com/de/shop/product-variants) in Ihrem [TreoPIM-System]((https://treopim.com/help/what-is-treopim))  installiert ist,  können Produktvarianten über Import Feeds importiert werden. Fügen Sie dazu das Entitätsfeld `Konfigurierbares Produkt` auf die [oben beschriebene Weise](#hinzufügen-der-entitätsfelder) hinzu :
+Wenn das Modul ["Product Variants"](https://atropim.com/de/shop/product-variants) in Ihrem [AtroPIM-System]((https://atropim.com/help/what-is-atropim))  installiert ist,  können Produktvarianten über Import Feeds importiert werden. Fügen Sie dazu das Entitätsfeld `Konfigurierbares Produkt` auf die [oben beschriebene Weise](#hinzufügen-der-entitätsfelder) hinzu :
 
 ![Create configurable product](_assets/create-configurable-product.jpg)
 
-Stellen Sie sicher, dass das konfigurierbare Produkt und seine Variante(-n) zu derselben [Produktfamilie](https://treopim.com/help/product-families) und demselben [Katalog](https://treopim.com/help/catalogs) gehören. Andernfalls werden diese Datensätze nicht importiert, sondern zu der [Fehlerdatei](#fehlerdatei) hinzugefügt.
+Stellen Sie sicher, dass das konfigurierbare Produkt und seine Variante(-n) zu derselben [Produktfamilie](https://atropim.com/help/product-families) und demselben [Katalog](https://atropim.com/help/catalogs) gehören. Andernfalls werden diese Datensätze nicht importiert, sondern zu der [Fehlerdatei](#fehlerdatei) hinzugefügt.
 
 Die Einrichtung anderer Felder und Attribute für den Datensatz des konfigurierbaren Produkts ist gleich wie bei dem [einfachen Produkt](#konfiguration-von-import-feeds).
 
-Alle Attribute vom Typ `Enum` sowie [mehrsprachige Attribute](https://treopim.com/de/shop/multi-languages#mehrsprachige-attribute), die im Panel `Konfigurator` auf der Detailansichtsseite des gewünschten Import-Feed-Datensatzes hinzugefügt wurden, werden zu *variantenbildenden*, während Attribute von anderen Typen als einfache Attribute der Produktvarianten importiert werden.
+Alle Attribute vom Typ `Enum` sowie [mehrsprachige Attribute](https://atropim.com/de/shop/multi-languages#mehrsprachige-attribute), die im Panel `Konfigurator` auf der Detailansichtsseite des gewünschten Import-Feed-Datensatzes hinzugefügt wurden, werden zu *variantenbildenden*, während Attribute von anderen Typen als einfache Attribute der Produktvarianten importiert werden.
 
 Vor der Durchführung des Importvorgangs für Produktvarianten wird die Datenvalidierung aufgrund des Entitätsfelds `Konfigurierbares Produkt` vorgenommen. Abhängig von den Validierungsergebnissen kann es verschiedene Szenarien geben:
 
