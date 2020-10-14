@@ -1,18 +1,18 @@
 {
   "fields": {
-    "importFeed": "Feed importieren",
+    "importFeed": "Import Feed",
     "state": "Zustand",
     "start": "Start",
     "end": "Ende",
     "createdCount": "Erstellt",
-    "updatedCount": "Aktualisierte",
+    "updatedCount": "Aktualisiert",
     "errorsCount": "Fehler",
     "attachment": "Importierte Datei",
     "errorsAttachment": "Fehlerdatei",
-    "isRestored": "Restauriert"
+    "isRestored": "Wiederhergestellt"
   },
   "links": {
-    "importFeed": "Feed importieren",
+    "importFeed": "Import Feed",
     "importResultLogs": "Fehlerprotokoll"
   },
   "labels": {
