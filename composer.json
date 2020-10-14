@@ -15,7 +15,7 @@
       "default": "Import Feeds"
     },
     "description": {
-      "default": "The module adds possibility to use import feeds in a user-friendly way."
+      "default": "The module enables to use preconfigured feeds (templates) for data import."
     },
     "tags": [
       "usability",
