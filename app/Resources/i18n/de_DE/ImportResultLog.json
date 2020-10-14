@@ -1,14 +1,14 @@
 {
   "fields": {
-    "rowNumber": "Reihe",
-    "importResult": "Ergebnis importieren",
-    "type": "Art",
+    "rowNumber": "Reihennummer",
+    "importResult": "Importergebnis",
+    "type": "Typ"
     "entityName": "Entität",
     "entityId": "Objekt-ID",
-    "message": "Botschaft"
+    "message": "Nachricht"
   },
   "links": {
-    "importResult": "Ergebnis importieren"
+    "importResult": "Importergebnis"
   },
   "labels": {
     "Create ImportResultLog": "Importergebnisprotokoll erstellen"
