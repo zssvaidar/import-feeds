@@ -5,16 +5,16 @@
   },
   "scopeNames": {
     "ImportFeed": "Import Feed",
-    "ImportCronJob": "Import Cron Job",
-    "ImportCronJobLog": "Import Cron Job Log",
-    "ImportResult": "Import Result",
-    "ImportResultLog": "Import Result Log"
+    "ImportCronJob": "Import Cronjob",
+    "ImportCronJobLog": "Import Cronjob Protokoll",
+    "ImportResult": "Import-Ergebnis",
+    "ImportResultLog": "Import Ergebnisprotokoll"
   },
   "scopeNamesPlural": {
     "ImportFeed": "Import Feeds",
-    "ImportCronJob": "Import Cron Jobs",
-    "ImportCronJobLog": "Import Cron Job Logs",
-    "ImportResult": "Import Results",
-    "ImportResultLog": "Import Result Logs"
+    "ImportCronJob": "Import Cronjobs",
+    "ImportCronJobLog": "Import Cronjob Protokoll",
+    "ImportResult": "Import Ergebnisse",
+    "ImportResultLog": "Import Ergebnisprotokoll"
   }
 }
