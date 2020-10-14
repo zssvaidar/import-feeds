@@ -10,7 +10,7 @@
         "link": "Link"
     },
     "labels": {
-        "Create ImportCronJob": "Import des Cronjobs erstellen"
+        "Create ImportCronJob": "Import Cronjob erstellen"
     },
     "links": {
         "createdBy": "erstellt von",
