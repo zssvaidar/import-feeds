@@ -1,10 +1,10 @@
 {
   "labels": {
-    "Create ImportCronJobLog": "Import Cron Job Log erstellen"
+    "Create ImportCronJobLog": "Import Cronjob Protokolleintrag erstellen"
   },
   "descriptions": {
-    "File content can't be empty": "Der Dateiinhalt darf nicht leer oder nicht korrekt sein",
-    "Not valid import cron job": "Nicht gültiger import cron job",
-    "Import job created": "Import job erstellt"
+    "File content can't be empty": "Der Dateiinhalt darf nicht leer sein",
+    "Not valid import cron job": "Import Cronjob ist nicht gültig",
+    "Import job created": "Importjob erstellt"
   }
 }
