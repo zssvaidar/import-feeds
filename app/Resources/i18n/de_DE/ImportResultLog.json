@@ -2,7 +2,7 @@
   "fields": {
     "rowNumber": "Reihennummer",
     "importResult": "Importergebnis",
-    "type": "Typ"
+    "type": "Typ",
     "entityName": "Entität",
     "entityId": "Objekt-ID",
     "message": "Nachricht"
