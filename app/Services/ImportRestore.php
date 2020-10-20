@@ -57,7 +57,7 @@ class ImportRestore extends QueueManagerBase
                 'importResultId' => $data['importResultId'],
                 'type' => ['create', 'update']
             ])
-            ->order('createdAt', 'DESC')
+            ->order('rowNumber', 'DESC')
             ->limit($data['offset'], $data['limit'])
             ->find()
             ->toArray();
