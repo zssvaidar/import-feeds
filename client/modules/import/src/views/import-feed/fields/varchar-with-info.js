@@ -67,9 +67,7 @@ Espo.define('import:views/import-feed/fields/varchar-with-info', 'views/fields/v
             if (this.model.get('attributeId') && this.model.get('locale')) {
                 name += ' > ' + this.model.get('locale');
             }
-            if (this.model.get('pimImage')) {
-                name = this.translate('productImage', 'labels', 'Product');
-            }
+
             return name;
         }
 

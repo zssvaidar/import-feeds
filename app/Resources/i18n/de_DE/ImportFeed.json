@@ -26,37 +26,24 @@
     "importFile": "Daten Datei (CSV)",
     "addEntityField": "Entitätsfeld hinzufügen",
     "addProductAttribute": "Produktattribut hinzufügen",
-    "addProductImage": "Produktbild hinzufügen",
     "importRunning": "Import läuft",
     "delimiter": "Feldwert Trennzeichen",
-    "importBy": "Import von"
+    "importBy": "Import von",
+    "main": "Hauptgebietsschema",
+    "simple": "Simple",
+    "product": "Produkt",
+    ",": ",",
+    ";": ";",
+    "\\t": "\\t",
+    "|": "|",
+    "doubleQuote": "Doppel Anführungszeichen",
+    "singleQuote": "Anführungszeichen",
+    "create": "Nur erstellen",
+    "create_update": "Erstellen und aktualisieren",
+    "update": "Nur aktualisieren"
   },
   "additionalTranslates": {
     "importName": "Importieren von Daten nach Feed '%s'"
-  },
-  "options": {
-    "language": {
-      "main": "Hauptgebietsschema"
-    },
-    "type": {
-      "simple": "Simple",
-      "product": "Produkt"
-    },
-    "fileFieldDelimiter": {
-      ",": ",",
-      ";": ";",
-      "\\t": "\\t",
-      "|": "|"
-    },
-    "fileTextQualifier": {
-      "doubleQuote": "Doppel Anführungszeichen",
-      "singleQuote": "Anführungszeichen"
-    },
-    "fileDataAction": {
-      "create": "Nur erstellen",
-      "create_update": "Erstellen und aktualisieren",
-      "update": "Nur aktualisieren"
-    }
   },
   "messages": {
     "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein.",

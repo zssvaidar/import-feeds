@@ -8,13 +8,9 @@
     "importCronJob": "ImportCronJob"
   },
   "labels": {
-    "Create ImportCronJobLog": "Create Import Cron Job Log"
-  },
-  "options": {
-    "status": {
-      "success": "Success",
-      "error": "Error"
-    }
+    "Create ImportCronJobLog": "Create Import Cron Job Log",
+    "success": "Success",
+    "error": "Error"
   },
   "descriptions": {
     "File content can't be empty": "File content can't be empty or not correct link",

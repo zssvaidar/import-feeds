@@ -35,37 +35,24 @@
     "runImport": "Run Import",
     "addEntityField": "Add entity field",
     "addProductAttribute": "Add Product attribute",
-    "addProductImage": "Add Product image",
     "importRunning": "Import Running",
     "delimiter": "Field value delimiter",
-    "importBy": "Import By"
+    "importBy": "Import By",
+    "main": "Main locale",
+    "simple": "Simple",
+    "product": "Product",
+    ",": ",",
+    ";": ";",
+    "\\t": "\\t",
+    "|": "|",
+    "doubleQuote": "Double Quote",
+    "singleQuote": "Single Quote",
+    "create": "Create Only",
+    "create_update": "Create & Update",
+    "update": "Update Only"
   },
   "additionalTranslates": {
     "importName": "Importing data by feed '%s'"
-  },
-  "options": {
-    "language": {
-      "main": "Main locale"
-    },
-    "type": {
-      "simple": "Simple",
-      "product": "Product"
-    },
-    "fileFieldDelimiter": {
-      ",": ",",
-      ";": ";",
-      "\\t": "\\t",
-      "|": "|"
-    },
-    "fileTextQualifier": {
-      "doubleQuote": "Double Quote",
-      "singleQuote": "Single Quote"
-    },
-    "fileDataAction": {
-      "create": "Create Only",
-      "create_update": "Create & Update",
-      "update": "Update Only"
-    }
   },
   "messages": {
     "delimitersMustBeDifferent": "Delimiters for fields and field values must be different.",

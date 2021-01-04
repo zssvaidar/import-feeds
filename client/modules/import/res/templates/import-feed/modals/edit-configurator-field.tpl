@@ -44,9 +44,9 @@
             </div>
             <div class="cell col-sm-6">
                 <label class="control-label">
-                    <span class="label-text">{{translate 'channels' scope='Product' category='fields'}}</span>
+                    <span class="label-text">{{translate 'channel' scope='ProductAttributeValue' category='fields'}}</span>
                 </label>
-                <div class="field" data-name="channels">{{{channels}}}</div>
+                <div class="field" data-name="channel">{{{channel}}}</div>
             </div>
         </div>
         <div class="row">

@@ -17,14 +17,10 @@
   },
   "labels": {
     "Create ImportResult": "Importergebnis erstellen",
-    "Restore": "Wiederherstellen"
-  },
-  "options": {
-    "state": {
-      "Pending": "Schwebend",
-      "Running": "Läuft",
-      "Done": "Erledigt"
-    }
+    "Restore": "Wiederherstellen",
+    "Pending": "Schwebend",
+    "Running": "Läuft",
+    "Done": "Erledigt"
   },
   "messages": {
     "Do you really want to restore data? Old values will be deleted.": "Möchten Sie wirklich Daten wiederherstellen? Alte Werte werden gelöscht."

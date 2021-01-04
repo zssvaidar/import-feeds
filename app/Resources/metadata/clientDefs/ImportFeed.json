@@ -141,11 +141,6 @@
               "type": "notEquals",
               "attribute": "type",
               "value": "product"
-            },
-            {
-              "type": "notEquals",
-              "attribute": "type",
-              "value": "productImage"
             }
           ]
         }
@@ -162,11 +157,6 @@
               "type": "notEquals",
               "attribute": "type",
               "value": "product"
-            },
-            {
-              "type": "notEquals",
-              "attribute": "type",
-              "value": "productImage"
             }
           ]
         }

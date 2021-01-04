@@ -82,7 +82,7 @@ Espo.define('import:views/import-feed/record/panels/components/simple-type-list'
             if (model && this.scope) {
                 this.notify(this.translate('loading', 'messages'));
 
-                let view = model.get('pimImage') ? this.options.configImageView : this.options.configModalView;
+                let view = this.options.configModalView;
                 this.createView('modal', view, {
                     isAttribute: !!model.get('attributeId'),
                     scope: model.get('entity'),
