@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace Import\Jobs;
 
 use Espo\Core\Exceptions\Error;
-use Treo\Entities\Attachment;
+use Espo\Entities\Attachment;
 use Import\Entities\ImportCronJob;
 
 /**

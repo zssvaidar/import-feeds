@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
-use Treo\Entities\Attachment;
+use Espo\Entities\Attachment;
 
 /**
  * Class CsvFileParser
