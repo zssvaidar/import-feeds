@@ -175,20 +175,20 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                 }
             }, view => {
                 this.listenTo(this.model, 'change:scope', () => {
-                    this.checkChannelsVisibility();
+                    this.checkChannelVisibility();
                 });
             });
 
-            this.createView('channels', 'views/fields/link-multiple', {
+            this.createView('channel', 'views/fields/link', {
                 model: this.model,
-                name: 'channels',
-                el: `${this.options.el} .field[data-name="channels"]`,
+                name: 'channel',
+                el: `${this.options.el} .field[data-name="channel"]`,
                 mode: 'edit',
                 foreignScope: 'Channel',
                 params: {
                     required: true
                 },
-                labelText: this.translate('channels', 'fields', 'Product')
+                labelText: this.translate('channel', 'fields', 'ProductAttributeValue')
             }, view => {});
 
             const options = this.getConfig().get('inputLanguageList') || [];
@@ -217,7 +217,7 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                 this.getView('scope').show();
                 this.getView('scope').setNotDisabled();
             }
-            this.checkChannelsVisibility();
+            this.checkChannelVisibility();
 
             if (!(this.model.get('attributeId') && (this.model.get('isMultilang') || this.model.get('locale'))
                 && !['enum','multiEnum'].includes(this.model.get('type')))) {
@@ -250,18 +250,18 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
             }
         },
 
-        checkChannelsVisibility() {
-            let channels = this.getView('channels');
+        checkChannelVisibility() {
+            let channel = this.getView('channel');
             if (this.model.get('scope') === 'Channel') {
-                channels.params.required = true;
-                channels.show();
-                channels.setNotDisabled();
+                channel.params.required = true;
+                channel.show();
+                channel.setNotDisabled();
             } else {
-                channels.params.required = false;
-                channels.hide();
-                channels.setDisabled();
+                channel.params.required = false;
+                channel.hide();
+                channel.setDisabled();
             }
-            channels.reRender();
+            channel.reRender();
         },
 
         getTranslatesForImportByField() {

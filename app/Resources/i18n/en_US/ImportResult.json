@@ -17,14 +17,10 @@
   },
   "labels": {
     "Create ImportResult": "Create Import Result",
-    "Restore": "Restore"
-  },
-  "options": {
-    "state": {
-      "Pending": "Pending",
-      "Running": "Running",
-      "Done": "Done"
-    }
+    "Restore": "Restore",
+    "Pending": "Pending",
+    "Running": "Running",
+    "Done": "Done"
   },
   "messages": {
     "Do you really want to restore data? Old values will be delete.": "Do you really want to restore data? Old values will be delete."

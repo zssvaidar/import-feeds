@@ -30,8 +30,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         configModalView: 'import:views/import-feed/modals/edit-configurator-field',
 
-        configImageView: 'import:views/import-feed/modals/edit-image-field',
-
         configuratorFields: ['entity', 'delimiter', 'idField'],
 
         validations: ['configurator', 'delimiters'],
@@ -344,7 +342,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     buttonsDisabled: true,
                     rowActionsView: this.configRowActionsView,
                     configModalView: this.configModalView,
-                    configImageView: this.configImageView,
                     mode: this.mode,
                     entityFields: this.entityFields,
                     selectedFields: this.selectedFields,
@@ -430,10 +427,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 configuratorActions.push({
                     action: 'addProductAttribute',
                     label: this.translate('addProductAttribute', 'labels', 'ImportFeed')
-                },
-                {
-                    action: 'addProductImage',
-                    label: this.translate('addProductImage', 'labels', 'ImportFeed')
                 });
             }
             return configuratorActions;
@@ -488,27 +481,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 scope: 'Attribute',
                 entityFields: this.entityFields,
                 selectedFields: this.selectedFields,
-                fileColumns: this.fileColumns
-            }, view => {
-                view.once('after:render', () => {
-                    this.notify(false);
-                });
-
-                view.render();
-
-                this.listenToOnce(view, 'remove', () => {
-                    this.clearView('modal');
-                });
-
-                this.listenToOnce(view, 'after:save', m => this.collection.trigger('configuration-update', m));
-            });
-        },
-
-        actionAddProductImage() {
-            this.notify('Loading...');
-
-            this.createView('modal', this.configImageView, {
-                scope: 'PimImage',
                 fileColumns: this.fileColumns
             }, view => {
                 view.once('after:render', () => {
@@ -622,8 +594,8 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 column: model.get('column'),
                 default: model.get('default'),
                 scope: model.get('scope'),
-                channelsIds: model.get('channelsIds'),
-                channelsNames: model.get('channelsNames')
+                channelId: model.get('channelId'),
+                channelName: model.get('channelName')
             };
             let attributeId = model.get('attributeId');
             if (attributeId) {
@@ -642,12 +614,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     extraConf.locale = model.get('locale');
                 }
 		_.extend(result, extraConf);
-            } else if (model.get('pimImage')) {
-                _.extend(result, {
-                    pimImage: true,
-                    default: model.get('defaultId'),
-                    defaultName: model.get('defaultName')
-                });
             } else {
                 if (this.entityFields[model.get('name')]) {
                     result.locale = model.get('locale');
