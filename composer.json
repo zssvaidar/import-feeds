@@ -1,7 +1,7 @@
 {
   "name": "atrocore/import-feeds",
   "require": {
-    "atrocore/core": "~1.0.0",
+    "atrocore/core": "~1.1.0",
     "atrocore/import-feeds-common": "~1.1.0"
   },
   "autoload": {

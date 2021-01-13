@@ -29,7 +29,7 @@ use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Templates\Services\Base;
 use Import\Entities\ImportFeed as ImportFeedEntity;
 use Import\Entities\ImportResult;
-use Treo\Entities\Attachment;
+use Espo\Entities\Attachment;
 
 /**
  * Class ImportFeed

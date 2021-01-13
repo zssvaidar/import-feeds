@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace Import\Listeners;
 
 use Import\Entities\ImportResult;
-use Treo\Entities\Attachment;
+use Espo\Entities\Attachment;
 use Treo\Listeners\AbstractListener;
 use Treo\Core\EventManager\Event;
 
