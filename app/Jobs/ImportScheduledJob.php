@@ -122,6 +122,6 @@ class ImportScheduledJob extends \Espo\Core\Jobs\Base
             return $attachment;
         }
 
-        throw new Error("File content can't be empty");
+        throw new Error("fileContentCantBeEmpty");
     }
 }

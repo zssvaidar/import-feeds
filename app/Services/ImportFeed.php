@@ -59,10 +59,10 @@ class ImportFeed extends Base
         $attachment = $this->getEntityManager()->getEntity('Attachment', $attachmentId);
 
         if (!($attachment instanceof Attachment)) {
-            throw new BadRequest($this->exception("No such file"));
+            throw new BadRequest($this->exception("noSuchFile"));
         }
         if (!in_array($attachment->get('type'), $this->validFileTypes)) {
-            throw new BadRequest($this->exception("File invalid. Only CSV is allowed."));
+            throw new BadRequest($this->exception("onlyCsvIsAllowed"));
         }
 
         // prepare settings
@@ -95,7 +95,7 @@ class ImportFeed extends Base
 
         // check if empty configuration data
         if (empty($data['data'])) {
-            throw new Error($this->exception('Configurator settings incorrect'));
+            throw new Error($this->exception('configuratorSettingsIncorrect'));
         }
 
         // create service
@@ -203,7 +203,7 @@ class ImportFeed extends Base
         $count = $this->getCsvFileParser()->getCountRows($attachment, $delimiter, $enclosure);
 
         if ($count < 1) {
-            throw new BadRequest($this->exception("Count of file rows is less than one"));
+            throw new BadRequest($this->exception("countOfFileRowsIsLessThanOne"));
         }
 
         return $count;
@@ -231,7 +231,7 @@ class ImportFeed extends Base
 
         // is feed active ?
         if (!$feed->get('isActive')) {
-            throw new BadRequest($this->exception("Import feed is inactive"));
+            throw new BadRequest($this->exception("importFeedIsInactive"));
         }
 
         return $feed;
@@ -251,12 +251,12 @@ class ImportFeed extends Base
 
         // is file exists ?
         if (empty($file)) {
-            throw new NotFound($this->exception("No such file"));
+            throw new NotFound($this->exception("noSuchFile"));
         }
 
         // is file valid ?
         if (!$this->isFileValid($feed, $file)) {
-            throw new BadRequest($this->exception("Wrong file. The file does not match the template"));
+            throw new BadRequest($this->exception("theFileDoesNotMatchTheTemplate"));
         }
 
         return $file;

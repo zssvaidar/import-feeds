@@ -13,7 +13,7 @@
     "error": "Error"
   },
   "descriptions": {
-    "File content can't be empty": "File content can't be empty or not correct link",
+    "fileContentCantBeEmpty": "File content can't be empty or not correct link",
     "Not valid import cron job": "Not valid import cron job",
     "Import job created": "Import job created"
   }

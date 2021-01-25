@@ -120,7 +120,7 @@ class ImportResult extends Base
                 }
             }
         } else {
-            throw new BadRequest($this->translate('Current Import Result has been already restored.', 'exceptions'));
+            throw new BadRequest($this->translate('currentImportResultHasBeenAlreadyRestored', 'exceptions'));
         }
 
         return true;
