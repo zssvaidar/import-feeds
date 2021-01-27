@@ -59,12 +59,12 @@
     "columnOrDefaultValueIsRequired": "{column} or {default} is required."
   },
   "exceptions": {
-    "File invalid. Only CSV is allowed.": "File invalid. Only CSV is allowed.",
-    "No such file": "No such file",
-    "Import feed is inactive": "Import feed is inactive",
-    "Wrong file. The file does not match the template": "Wrong file. The file does not match the template",
-    "Count of file rows is less than one": "Count of file rows is less than one",
-    "Configurator settings incorrect": "Configurator settings incorrect"
+    "onlyCsvIsAllowed": "File invalid. Only CSV is allowed.",
+    "noSuchFile": "No such file",
+    "importFeedIsInactive": "Import feed is inactive",
+    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template",
+    "countOfFileRowsIsLessThanOne": "Count of file rows is less than one",
+    "configuratorSettingsIncorrect": "Configurator settings incorrect"
   },
   "types": {
     "simple": "Import Feed type, intended for importing values into any TreoCore entity",

@@ -23,12 +23,12 @@
     "Done": "Done"
   },
   "messages": {
-    "Do you really want to restore data? Old values will be delete.": "Do you really want to restore data? Old values will be delete."
+    "doYouReallyWantToRestoreData": "Do you really want to restore data? Old values will be delete."
   },
   "tooltips": {
     "errorsAttachment": "Rows from 'Imported file' that have not been imported."
   },
   "exceptions": {
-    "Current Import Result has been already restored.": "Current Import Result has been already restored."
+    "currentImportResultHasBeenAlreadyRestored": "Current Import Result has been already restored."
   }
 }

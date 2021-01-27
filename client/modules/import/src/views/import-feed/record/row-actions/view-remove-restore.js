@@ -45,7 +45,7 @@ Espo.define('import:views/import-feed/record/row-actions/view-remove-restore', '
 
         actionRestore: function () {
             this.confirm({
-                message: this.translate('Do you really want to restore data? Old values will be deleted.', 'messages', 'ImportResult'),
+                message: this.translate('doYouReallyWantToRestoreData', 'messages', 'ImportResult'),
                 confirmText: 'Restore'
             }, function () {
                 $.ajax({

@@ -50,12 +50,12 @@
     "columnOrDefaultValueIsRequired": "{column} oder {default} ist erforderlich"
   },
   "exceptions": {
-    "File invalid. Only CSV is allowed.": "Datei ist ungültig. Nur CSV ist erlaubt.",
-    "No such file": "Keine solche Datei",
-    "Import feed is inactive": "Import Feed ist inaktiv",
-    "Wrong file. The file does not match the template": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein",
-    "Count of file rows is less than one": "Die Anzahl der Dateireihen ist kleiner als eins",
-    "Configurator settings incorrect": "Konfigurator-Einstellungen falsch"
+    "onlyCsvIsAllowed": "Datei ist ungültig. Nur CSV ist erlaubt.",
+    "noSuchFile": "Keine solche Datei",
+    "importFeedIsInactive": "Import Feed ist inaktiv",
+    "theFileDoesNotMatchTheTemplate": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein",
+    "countOfFileRowsIsLessThanOne": "Die Anzahl der Dateireihen ist kleiner als eins",
+    "configuratorSettingsIncorrect": "Konfigurator-Einstellungen falsch"
   },
   "types": {
     "simple": "Import-Feed Typ für Import der Daten in eine Entität.",

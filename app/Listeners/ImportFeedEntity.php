@@ -43,11 +43,11 @@ class ImportFeedEntity extends AbstractListener
         $entity = $event->getArgument('entity');
 
         if (!$this->isFileValid($entity)) {
-            throw new Error($this->exception('File invalid. Only CSV is allowed.'));
+            throw new Error($this->exception('onlyCsvIsAllowed'));
         }
 
         if (!$this->isConfiguratorValid($entity)) {
-            throw new Error($this->exception('Configurator settings incorrect'));
+            throw new Error($this->exception('configuratorSettingsIncorrect'));
         }
     }
 

@@ -23,12 +23,12 @@
     "Done": "Erledigt"
   },
   "messages": {
-    "Do you really want to restore data? Old values will be deleted.": "Möchten Sie wirklich Daten wiederherstellen? Alte Werte werden gelöscht."
+    "doYouReallyWantToRestoreData": "Möchten Sie wirklich Daten wiederherstellen? Alte Werte werden gelöscht."
   },
   "tooltips": {
     "errorsAttachment": "Zeilen aus 'Importierter Datei', die nicht importiert wurden."
   },
   "exceptions": {
-    "Current Import Result has been already restored.": "Das aktuelle Importergebnis wurde bereits wiederhergestellt."
+    "currentImportResultHasBeenAlreadyRestored": "Das aktuelle Importergebnis wurde bereits wiederhergestellt."
   }
 }
