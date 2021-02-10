@@ -24,7 +24,7 @@ namespace Import\Types\Simple\FieldConverters;
 
 use Espo\ORM\Entity;
 use Treo\Core\Container;
-use Treo\Core\Utils\Config;
+use Espo\Core\Utils\Config;
 use Treo\Core\Utils\Metadata;
 
 /**
