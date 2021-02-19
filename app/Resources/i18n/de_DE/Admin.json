@@ -1,6 +1,5 @@
 {
   "labels": {
-    "simpleImport": "Einfacher Import",
     "importFeed": "Import Feed",
     "importCronJob": "Import Cronjob"
   },
