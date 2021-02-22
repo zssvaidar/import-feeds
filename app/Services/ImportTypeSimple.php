@@ -26,13 +26,12 @@ use Espo\Core\Exceptions\Error;
 use Import\Entities\ImportFeed;
 use Import\Types\Simple\Handlers\DefaultHandler;
 use Espo\Entities\Attachment;
-use Treo\Services\AbstractService;
-use Treo\Services\QueueManagerServiceInterface;
+use Treo\Services\QueueManagerBase;
 
 /**
  * Class ImportTypeSimple
  */
-class ImportTypeSimple extends AbstractService implements QueueManagerServiceInterface
+class ImportTypeSimple extends QueueManagerBase
 {
     /**
      * @param ImportFeed $feed

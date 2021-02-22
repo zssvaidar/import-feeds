@@ -24,13 +24,12 @@ namespace Import\Services;
 
 use Espo\Services\Record;
 use Treo\Core\ServiceFactory;
-use Treo\Services\AbstractService;
-use Treo\Services\QueueManagerServiceInterface;
+use Treo\Services\QueueManagerBase;
 
 /**
  * Class ImportRestore
  */
-class ImportRestore extends AbstractService implements QueueManagerServiceInterface
+class ImportRestore extends QueueManagerBase
 {
     /**
      * @var array
