@@ -22,15 +22,15 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
-use Espo\Core\Utils\Json;
 use Espo\Services\Record;
 use Treo\Core\ServiceFactory;
-use Treo\Services\QueueManagerBase;
+use Treo\Services\AbstractService;
+use Treo\Services\QueueManagerServiceInterface;
 
 /**
  * Class ImportRestore
  */
-class ImportRestore extends QueueManagerBase
+class ImportRestore extends AbstractService implements QueueManagerServiceInterface
 {
     /**
      * @var array
