@@ -24,7 +24,7 @@ namespace Import\Services;
 
 use Espo\Services\Record;
 use Treo\Core\ServiceFactory;
-use Treo\Services\QueueManagerBase;
+use Espo\Services\QueueManagerBase;
 
 /**
  * Class ImportRestore

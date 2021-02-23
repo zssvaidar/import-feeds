@@ -26,7 +26,7 @@ use Espo\Core\Exceptions\Error;
 use Import\Entities\ImportFeed;
 use Import\Types\Simple\Handlers\DefaultHandler;
 use Espo\Entities\Attachment;
-use Treo\Services\QueueManagerBase;
+use Espo\Services\QueueManagerBase;
 
 /**
  * Class ImportTypeSimple
