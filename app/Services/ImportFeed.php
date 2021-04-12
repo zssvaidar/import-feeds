@@ -80,8 +80,8 @@ class ImportFeed extends Base
      * @param string $attachmentId
      *
      * @return bool
-     *
      * @throws BadRequest
+     * @throws Error
      * @throws Forbidden
      * @throws NotFound
      */
@@ -104,9 +104,6 @@ class ImportFeed extends Base
         } catch (\Throwable $e) {
         }
 
-        // get count
-        $count = $this->getCountRows($this->getFile($attachmentId, $feed), $feed->getDelimiter(), $feed->getEnclosure());
-
         // create import result
         if (!empty($service) && method_exists($service, 'getEntityType')) {
             $data['data']->importResultId = $this
@@ -114,34 +111,7 @@ class ImportFeed extends Base
                 ->get('id');
         }
 
-        // prepare is header row true
-        if ($data['isFileHeaderRow']) {
-            // prepare count
-            $count--;
-            // prepare offset
-            $data['offset'] = 1;
-        }
-
-        if ($count <= $data['limit']) {
-            // push
-            $this->push($this->getName($feed), $this->getImportTypeService($feed), $data);
-        } else {
-            $offset = $data['offset'];
-            while ($offset < $count) {
-                // prepare offset
-                $data["offset"] = $offset;
-
-                // prepare $to
-                $to = $offset + $data['limit'];
-                $to = ($to > $count) ? $count : $to;
-
-                // push
-                $this->push($this->getName($feed) . " [$offset-$to]", $this->getImportTypeService($feed), $data);
-
-                // increase
-                $offset = $offset + $data['limit'];
-            }
-        }
+        $this->push($this->getName($feed), $this->getImportTypeService($feed), $data);
 
         return true;
     }
@@ -187,7 +157,7 @@ class ImportFeed extends Base
      */
     protected function push(string $name, string $serviceName, array $data = []): bool
     {
-        return $this->getInjection('queueManager')->push($name, $serviceName, $data);
+        return $this->getInjection('queueManager')->push($name, $serviceName, $data, true);
     }
 
     /**
@@ -325,8 +295,8 @@ class ImportFeed extends Base
     protected function getPrepareData(ImportFeedEntity $feed, string $attachmentId): array
     {
         return [
-            "offset"          => 0,
-            "limit"           => $feed->get('limit'),
+            "offset"          => $feed->isFileHeaderRow() ? 1 : 0,
+            "limit"           => \PHP_INT_MAX,
             "delimiter"       => $feed->getDelimiter(),
             "enclosure"       => $feed->getEnclosure(),
             "isFileHeaderRow" => $feed->isFileHeaderRow(),
