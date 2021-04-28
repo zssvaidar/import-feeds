@@ -350,4 +350,11 @@ Prior to running the import process for product variants, data validation is per
 
 In all other cases, besides the described scenarios, the product variants import via import feeds is performed in the same way as the [simple product import](#running-import-feed). Also note that once the import process is completed, all fields and panels are automatically unlocked for the imported product variants.
 
-***Get the "Import Feeds" module now to run import of your data manually or automatically via highly customizable and reusable import templates!***
+## Purchase Conditions
+The price does not include VAT. For the price stated above you will get the module including updates and upgrades for one year. After that, you may still use your last version of the module, or purchase the module again with a 50% discount, which gives you a right to updates and upgrades for an additional year. Furthermore, our EULA (End-User License Agreement) will apply.
+
+## Customization
+The module can be adapted to your needs, additional functions can be programmed, existing functions can be changed. Please contact us regarding this. Our GTC (General Terms and Conditions) apply.
+
+## Demo
+Please contact us, and we will send you the access data for the demo version.
