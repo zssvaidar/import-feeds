@@ -54,8 +54,7 @@ Espo.define('import:views/import-feed/modals/run-import-options', 'views/modal',
                 model: this.model,
                 name: 'importFile',
                 params: {
-                    required: true,
-                    accept: ['.csv']
+                    required: true
                 },
                 mode: 'edit',
                 inlineEditDisabled: true

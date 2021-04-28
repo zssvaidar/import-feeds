@@ -93,11 +93,6 @@ class ImportFeed extends Base
         // prepare data
         $data = $this->getPrepareData($feed, $attachmentId);
 
-        // check if empty configuration data
-        if (empty($data['data'])) {
-            throw new Error($this->exception('configuratorSettingsIncorrect'));
-        }
-
         // create service
         try {
             $service = $this->getServiceFactory()->create($this->getImportTypeService($feed));

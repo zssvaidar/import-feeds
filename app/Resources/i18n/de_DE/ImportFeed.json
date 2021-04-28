@@ -23,7 +23,7 @@
     "convertFile": "Datei wird geladen, bitte warten ...",
     "convertSuccess": "Datei hochgeladen",
     "runImport": "Import durchführen",
-    "importFile": "Daten Datei (CSV)",
+    "importFile": "Daten Datei",
     "addEntityField": "Entitätsfeld hinzufügen",
     "addProductAttribute": "Produktattribut hinzufügen",
     "importRunning": "Import läuft",
