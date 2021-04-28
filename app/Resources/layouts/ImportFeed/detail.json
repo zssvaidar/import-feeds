@@ -8,7 +8,7 @@
           "name": "isActive"
         },
         {
-          "name": "fileDataAction"
+          "name": "type"
         }
       ],
       [
@@ -16,7 +16,7 @@
           "name": "name"
         },
         {
-          "name": "type"
+          "name": "fileDataAction"
         }
       ],
       [
@@ -32,6 +32,15 @@
   {
     "label": "File properties",
     "style": "info",
+    "dynamicLogicVisible": {
+      "conditionGroup": [
+        {
+          "type": "equals",
+          "attribute": "type",
+          "value": "simple"
+        }
+      ]
+    },
     "rows": [
       [
         {

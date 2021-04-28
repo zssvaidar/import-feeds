@@ -94,11 +94,25 @@
   "dynamicLogic": {
     "fields": {
       "file": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        },
         "required": {
           "conditionGroup": [
             {
               "type": "isNotEmpty",
               "attribute": "id"
+            },
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
             }
           ]
         }
@@ -114,65 +128,112 @@
         }
       },
       "isFileHeaderRow": {
-        "readOnly": {
+        "visible": {
           "conditionGroup": [
             {
-              "type": "notEquals",
+              "type": "equals",
               "attribute": "type",
               "value": "simple"
-            },
-            {
-              "type": "notEquals",
-              "attribute": "type",
-              "value": "product"
             }
           ]
         }
       },
       "fileFieldDelimiter": {
-        "readOnly": {
+        "visible": {
           "conditionGroup": [
             {
-              "type": "notEquals",
+              "type": "equals",
               "attribute": "type",
               "value": "simple"
-            },
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
             {
-              "type": "notEquals",
+              "type": "equals",
               "attribute": "type",
-              "value": "product"
+              "value": "simple"
             }
           ]
         }
       },
       "fileTextQualifier": {
-        "readOnly": {
+        "visible": {
           "conditionGroup": [
             {
-              "type": "notEquals",
+              "type": "equals",
               "attribute": "type",
               "value": "simple"
-            },
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
             {
-              "type": "notEquals",
+              "type": "equals",
               "attribute": "type",
-              "value": "product"
+              "value": "simple"
             }
           ]
         }
       },
       "decimalMark": {
-        "readOnly": {
+        "visible": {
           "conditionGroup": [
             {
-              "type": "notEquals",
+              "type": "equals",
               "attribute": "type",
               "value": "simple"
-            },
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
             {
-              "type": "notEquals",
+              "type": "equals",
               "attribute": "type",
-              "value": "product"
+              "value": "simple"
+            }
+          ]
+        }
+      },
+      "fileDataAction": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        }
+      },
+      "limit": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
             }
           ]
         }

@@ -14,6 +14,7 @@
     "type": {
       "type": "enum",
       "required": true,
+      "prohibitedEmptyValue": true,
       "options": [
         "simple"
       ],
@@ -26,7 +27,7 @@
     },
     "limit": {
       "type": "int",
-      "required": true,
+      "required": false,
       "default": "1000",
       "min": 1
     },
@@ -50,7 +51,7 @@
     },
     "fileFieldDelimiter": {
       "type": "enum",
-      "required": true,
+      "required": false,
       "options": [
         ",",
         ";",
@@ -61,7 +62,7 @@
     },
     "fileTextQualifier": {
       "type": "enum",
-      "required": true,
+      "required": false,
       "options": [
         "doubleQuote",
         "singleQuote"
@@ -70,7 +71,7 @@
     },
     "fileDataAction": {
       "type": "enum",
-      "required": true,
+      "required": false,
       "options": [
         "create",
         "update",
@@ -83,7 +84,7 @@
     },
     "decimalMark": {
       "type": "enum",
-      "required": true,
+      "required": false,
       "options": [
         ".",
         ","
