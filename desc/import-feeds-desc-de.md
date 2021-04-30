@@ -317,5 +317,8 @@ Vor der Durchführung des Importvorgangs für Produktvarianten wird die Datenval
 
 In allen anderen Fällen, wird, neben den beschriebenen Szenarien, der Import der Produktvarianten über Import Feeds genauso wie der [Import der einfachen Produkte](#import-feed-ausführung) durchgeführt. Bitte beachten Sie, dass alle Felder und Panels für die importierten Produktvarianten nach dem Abschluss des Importvorgangs automatisch entsperrt werden.
 
-**Erwerben Sie das Modul „Import Feeds“ jetzt, um Ihre Daten über höchst anpassbare und wiederverwendbare Importtemplates manuell oder automatisch zu importieren!**
+## Anpassung
+Das Modul kann an Ihre Bedürfnisse angepasst werden – zusätzliche Funktionen können hinzu programmiert werden, vorhandene Funktionen können geändert werden. Bitte kontaktieren Sie uns diesbezüglich. Es gelten unsere AGB (Allgemeine Geschäftsbedingungen).
 
+## Demo
+Bitte kontaktieren Sie uns und wir senden Ihnen die Zugangsdaten für die Demoversion.
