@@ -1,5 +1,8 @@
 {
   "fields": {
+    "enumMultiLang": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\EnumMultiLang"
+    },
     "link": {
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\Link"
     },

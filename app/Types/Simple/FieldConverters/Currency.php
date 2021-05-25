@@ -34,6 +34,11 @@ class Currency extends AbstractConverter
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
     {
+        if (isset($config['attributeId'])) {
+            $this->convertAttribute($inputRow, $entityType, $config, $row, $delimiter);
+            return;
+        }
+
         // prepare values
         $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
         $currency = (!empty($config['columnCurrency']) && $row[$config['columnCurrency']] != '') ? $row[$config['columnCurrency']] : $config['defaultCurrency'];
@@ -58,8 +63,33 @@ class Currency extends AbstractConverter
      */
     public function prepareValue(\stdClass $restore, Entity $entity, array $item)
     {
-        $restore->{$item['name'] . 'Currency'} = $entity->get($item['name'] . 'Currency');
+        if (isset($item['attributeId'])) {
+            $restore->data = $entity->get('data');
+        } else {
+            $restore->{$item['name'] . 'Currency'} = $entity->get($item['name'] . 'Currency');
+        }
 
         parent::prepareValue($restore, $entity, $item);
+    }
+
+    protected function convertAttribute(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    {
+        // prepare values
+        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
+        $currency = (!empty($config['columnCurrency']) && $row[$config['columnCurrency']] != '') ? $row[$config['columnCurrency']] : $config['defaultCurrency'];
+
+        // validate currency float value
+        if (filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
+            throw new \Exception("Incorrect value for field '{$config['name']}'");
+        }
+
+        // validate currency
+        if (!in_array($currency, $this->getConfig()->get('currencyList', []))) {
+            throw new \Exception("Incorrect currency for field '{$config['name']}'");
+        }
+
+        // set values to input row
+        $inputRow->{$config['name']} = (float)$value;
+        $inputRow->data = (object)['currency' => $currency];
     }
 }

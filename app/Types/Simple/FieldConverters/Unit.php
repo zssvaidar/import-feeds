@@ -34,6 +34,11 @@ class Unit extends AbstractConverter
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
     {
+        if (isset($config['attributeId'])) {
+            $this->convertAttribute($inputRow, $entityType, $config, $row, $delimiter);
+            return;
+        }
+
         // prepare values
         $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
         $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
@@ -58,7 +63,11 @@ class Unit extends AbstractConverter
      */
     public function prepareValue(\stdClass $restore, Entity $entity, array $item)
     {
-        $restore->{$item['name'] . 'Unit'} = $entity->get($item['name'] . 'Unit');
+        if (isset($item['attributeId'])) {
+            $restore->data = $entity->get('data');
+        } else {
+            $restore->{$item['name'] . 'Unit'} = $entity->get($item['name'] . 'Unit');
+        }
 
         parent::prepareValue($restore, $entity, $item);
     }
@@ -66,7 +75,7 @@ class Unit extends AbstractConverter
     /**
      * @param string $unit
      * @param string $entityType
-     * @param array $config
+     * @param array  $config
      *
      * @return bool
      */
@@ -93,12 +102,37 @@ class Unit extends AbstractConverter
 
     /**
      * @param string $entityType
-     * @param array $config
+     * @param array  $config
      *
      * @return string
      */
     protected function getMeasure(string $entityType, array $config): string
     {
-        return (string)$this->getMetadata()->get(['entityDefs', $entityType, 'fields', $config['name'], 'measure']);
+        if (!isset($config['attributeId'])) {
+            return (string)$this->getMetadata()->get(['entityDefs', $entityType, 'fields', $config['name'], 'measure']);
+        } else {
+            return $config['attribute']->get('typeValue')[0];
+        }
+    }
+
+    protected function convertAttribute(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    {
+        // prepare values
+        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
+        $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
+
+        // validate unit float value
+        if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
+            throw new \Exception("Incorrect value for attribute '{$config['attribute']->get('name')}'");
+        }
+
+        // validate measuring unit
+        if (!$this->validateUnit($unit, $entityType, $config)) {
+            throw new \Exception("Incorrect measuring unit for attribute '{$config['attribute']->get('name')}'");
+        }
+
+        // prepare input row for attribute
+        $inputRow->{$config['name']} = (float)$value;
+        $inputRow->data = (object)['unit' => $unit];
     }
 }
