@@ -27,6 +27,7 @@ use Espo\Core\Exceptions\Error;
 use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Templates\Services\Base;
+use Espo\ORM\Entity;
 use Import\Entities\ImportFeed as ImportFeedEntity;
 use Import\Entities\ImportResult;
 use Espo\Entities\Attachment;
@@ -322,4 +323,18 @@ class ImportFeed extends Base
         return $entity;
     }
 
+    protected function getRequiredFields(Entity $entity, \stdClass $data): array
+    {
+        return [];
+    }
+
+    protected function getFieldsThatConflict(Entity $entity, \stdClass $data): array
+    {
+        return [];
+    }
+
+    protected function isEntityUpdated(Entity $entity, \stdClass $data): bool
+    {
+        return true;
+    }
 }

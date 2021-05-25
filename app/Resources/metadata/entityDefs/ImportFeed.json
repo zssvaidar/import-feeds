@@ -52,6 +52,7 @@
     "fileFieldDelimiter": {
       "type": "enum",
       "required": false,
+      "prohibitedEmptyValue": true,
       "options": [
         ",",
         ";",
@@ -63,6 +64,7 @@
     "fileTextQualifier": {
       "type": "enum",
       "required": false,
+      "prohibitedEmptyValue": true,
       "options": [
         "doubleQuote",
         "singleQuote"
@@ -72,6 +74,7 @@
     "fileDataAction": {
       "type": "enum",
       "required": false,
+      "prohibitedEmptyValue": true,
       "options": [
         "create",
         "update",
@@ -85,6 +88,7 @@
     "decimalMark": {
       "type": "enum",
       "required": false,
+      "prohibitedEmptyValue": true,
       "options": [
         ".",
         ","

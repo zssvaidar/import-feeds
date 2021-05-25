@@ -58,8 +58,6 @@
     "configuratorSettingsIncorrect": "Konfigurator-Einstellungen falsch"
   },
   "types": {
-    "simple": "Import-Feed Typ für Import der Daten in eine Entität.",
-    "product": "Import-Feed Typ für Import der Produktdaten, es werden Produktfeldwerte und Produktattributwerte importiert. Es ist möglich, eine bestimmte Spalte der zu importierenden Datei einem entsprechenden Feld zuzuordnen.",
-    "productImage": "Import-Feed Typ für Import der Produktbilder mit Bindung zu einem bestimmten Kanal. Für Import muss die Importdatei die Spalte SKU haben. Spalten mit Bildern sollten entsprechend dem Kanalcode benannt werden, für den das Bild bestimmt ist. Wenn der entsprechende Kanal weggelassen wird oder der Kanalcode nicht mit dem Spaltennamen übereinstimmt, wird das Bild aus dem Scope-Kanal importiert, ohne einen Kanal auszuwählen. Für Global Scope sollte der Spaltenname Global sein."
+    "simple": "Import-Feed Typ für Import der Daten in eine Entität."
   }
 }

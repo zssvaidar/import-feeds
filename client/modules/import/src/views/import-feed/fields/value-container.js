@@ -187,15 +187,7 @@ Espo.define('import:views/import-feed/fields/value-container', 'views/fields/bas
         },
 
         validate() {
-            let validate = false;
-            let view = this.getView('default');
-            if (view) {
-                validate = view.validate();
-            }
-            if (!validate) {
-                validate = this.validateColumn();
-            }
-            return validate;
+            return this.validateColumn();
         },
 
         validateColumn() {

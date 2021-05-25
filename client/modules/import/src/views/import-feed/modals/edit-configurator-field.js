@@ -109,6 +109,7 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                     name: 'name',
                     el: `${this.options.el} .field[data-name="name"]`,
                     mode: 'edit',
+                    prohibitedEmptyValue: true,
                     params: {
                         options: options,
                         translatedOptions: translatedOptions,
@@ -170,6 +171,7 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                 name: 'scope',
                 el: `${this.options.el} .field[data-name="scope"]`,
                 mode: 'edit',
+                prohibitedEmptyValue: true,
                 params: {
                     options: ['Global', 'Channel']
                 }
