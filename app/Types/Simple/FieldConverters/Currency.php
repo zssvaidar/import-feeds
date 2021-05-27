@@ -34,14 +34,26 @@ class Currency extends AbstractConverter
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
     {
-        if (isset($config['attributeId'])) {
-            $this->convertAttribute($inputRow, $entityType, $config, $row, $delimiter);
-            return;
-        }
+        $value = $config['default'];
+        $currency = $config['defaultCurrency'];
 
-        // prepare values
-        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
-        $currency = (!empty($config['columnCurrency']) && $row[$config['columnCurrency']] != '') ? $row[$config['columnCurrency']] : $config['defaultCurrency'];
+        if (!empty($config['singleColumn'])) {
+            if (!empty(!empty($config['column']) && $row[$config['column']] != '')) {
+                $parts = explode(' ', $row[$config['column']]);
+                if (isset($parts[1])) {
+                    $value = $parts[0];
+                    $currency = $parts[1];
+                }
+            }
+        } else {
+            if (!empty($config['column']) && $row[$config['column']] != '') {
+                $value = $row[$config['column']];
+            }
+
+            if (!empty($config['columnCurrency']) && $row[$config['columnCurrency']] != '') {
+                $currency = $row[$config['columnCurrency']];
+            }
+        }
 
         // validate currency float value
         if (filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
@@ -53,9 +65,15 @@ class Currency extends AbstractConverter
             throw new \Exception("Incorrect currency for field '{$config['name']}'");
         }
 
-        // set values to input row
-        $inputRow->{$config['name']} = (float)$value;
-        $inputRow->{$config['name'] . 'Currency'} = $currency;
+        if (isset($config['attributeId'])) {
+            // prepare input row for attribute
+            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->data = (object)['currency' => $currency];
+        } else {
+            // set values to input row
+            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->{$config['name'] . 'Currency'} = $currency;
+        }
     }
 
     /**
@@ -70,26 +88,5 @@ class Currency extends AbstractConverter
         }
 
         parent::prepareValue($restore, $entity, $item);
-    }
-
-    protected function convertAttribute(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
-    {
-        // prepare values
-        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
-        $currency = (!empty($config['columnCurrency']) && $row[$config['columnCurrency']] != '') ? $row[$config['columnCurrency']] : $config['defaultCurrency'];
-
-        // validate currency float value
-        if (filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
-            throw new \Exception("Incorrect value for field '{$config['name']}'");
-        }
-
-        // validate currency
-        if (!in_array($currency, $this->getConfig()->get('currencyList', []))) {
-            throw new \Exception("Incorrect currency for field '{$config['name']}'");
-        }
-
-        // set values to input row
-        $inputRow->{$config['name']} = (float)$value;
-        $inputRow->data = (object)['currency' => $currency];
     }
 }

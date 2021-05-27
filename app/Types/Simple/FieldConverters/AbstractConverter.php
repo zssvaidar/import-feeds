@@ -23,9 +23,9 @@ declare(strict_types=1);
 namespace Import\Types\Simple\FieldConverters;
 
 use Espo\ORM\Entity;
-use Treo\Core\Container;
+use Espo\Core\Container;
 use Espo\Core\Utils\Config;
-use Treo\Core\Utils\Metadata;
+use Espo\Core\Utils\Metadata;
 
 /**
  * Class AbstractConverter

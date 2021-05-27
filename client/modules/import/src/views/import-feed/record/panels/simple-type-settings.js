@@ -1,5 +1,3 @@
-
-
 /*
  * Import Feeds
  * Free Extension
@@ -592,6 +590,9 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             let result = {
                 name: model.get('name'),
                 column: model.get('column'),
+                singleColumn: model.get('singleColumn'),
+                columnCurrency: model.get('columnCurrency'),
+                columnUnit: model.get('columnUnit'),
                 default: model.get('default'),
                 scope: model.get('scope'),
                 channelId: model.get('channelId'),

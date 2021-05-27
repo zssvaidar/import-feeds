@@ -34,14 +34,26 @@ class Unit extends AbstractConverter
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
     {
-        if (isset($config['attributeId'])) {
-            $this->convertAttribute($inputRow, $entityType, $config, $row, $delimiter);
-            return;
-        }
+        $value = $config['default'];
+        $unit = $config['defaultUnit'];
 
-        // prepare values
-        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
-        $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
+        if (!empty($config['singleColumn'])) {
+            if (!empty(!empty($config['column']) && $row[$config['column']] != '')) {
+                $parts = explode(' ', $row[$config['column']]);
+                if (isset($parts[1])) {
+                    $value = $parts[0];
+                    $unit = $parts[1];
+                }
+            }
+        } else {
+            if (!empty($config['column']) && $row[$config['column']] != '') {
+                $value = $row[$config['column']];
+            }
+
+            if (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') {
+                $unit = $row[$config['columnUnit']];
+            }
+        }
 
         // validate unit float value
         if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
@@ -53,9 +65,15 @@ class Unit extends AbstractConverter
             throw new \Exception("Incorrect measuring unit for field '{$config['name']}'");
         }
 
-        // set values to input row
-        $inputRow->{$config['name']} = (float)$value;
-        $inputRow->{$config['name'] . 'Unit'} = $unit;
+        if (isset($config['attributeId'])) {
+            // prepare input row for attribute
+            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->data = (object)['unit' => $unit];
+        } else {
+            // set values to input row
+            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->{$config['name'] . 'Unit'} = $unit;
+        }
     }
 
     /**
@@ -113,26 +131,5 @@ class Unit extends AbstractConverter
         } else {
             return $config['attribute']->get('typeValue')[0];
         }
-    }
-
-    protected function convertAttribute(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
-    {
-        // prepare values
-        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
-        $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
-
-        // validate unit float value
-        if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
-            throw new \Exception("Incorrect value for attribute '{$config['attribute']->get('name')}'");
-        }
-
-        // validate measuring unit
-        if (!$this->validateUnit($unit, $entityType, $config)) {
-            throw new \Exception("Incorrect measuring unit for attribute '{$config['attribute']->get('name')}'");
-        }
-
-        // prepare input row for attribute
-        $inputRow->{$config['name']} = (float)$value;
-        $inputRow->data = (object)['unit' => $unit];
     }
 }
