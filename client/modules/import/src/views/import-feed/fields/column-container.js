@@ -1,5 +1,3 @@
-
-
 /*
  * Import Feeds
  * Free Extension
@@ -26,13 +24,11 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
         detailTemplate: 'import:import-feed/fields/column-container/base',
         editTemplate: 'import:import-feed/fields/column-container/base',
 
-        complexTypes: ['currency', 'unit'],
-
-        columns: [],
+        containerViews: {},
 
         data() {
             return {
-                columns: this.columns
+                containerViews: this.containerViews
             }
         },
 
@@ -42,55 +38,89 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
             this.params = this.options.params || this.defs.params || {};
 
             this.createColumnFields();
-            this.listenTo(this.model, 'change:name change:attributeId', () => {
+            this.listenTo(this.model, 'change:name change:attributeId change:singleColumn', () => {
                 this.createColumnFields();
                 this.reRender();
             });
         },
 
         createColumnFields() {
-            this.clearColumnData();
-            this.updateColumnData();
-
-            this.columns.forEach(column => {
-                this.createView(column.name, 'import:views/import-feed/fields/column', {
-                    model: this.model,
-                    el: `${this.options.el} .field[data-name="${column.name}"]`,
-                    name: column.name,
-                    defs: this.defs,
-                    params: this.params,
-                    inlineEditDisabled: true,
-                    mode: this.mode
-                }, view => view.render());
+            this.containerViews = {};
+            this.containerViews['column'] = true;
+            this.createView('column', 'import:views/import-feed/fields/column', {
+                model: this.model,
+                el: `${this.options.el} .field[data-name="column"]`,
+                name: 'column',
+                defs: this.defs,
+                params: this.params,
+                inlineEditDisabled: true,
+                mode: this.mode
             });
-        },
 
-        clearColumnData() {
-            this.columns.forEach(name => this.clearView(name));
-            this.columns = [
-                {
-                    name: 'column',
-                    label: ''
-                }
-            ];
-        },
-
-        updateColumnData() {
             const fieldDefs = this.getMetadata().get(['entityDefs', this.model.get('entity'), 'fields', this.model.get('name')]) || {};
             const type = this.model.get('type') || this.model.getFieldType('default') || fieldDefs.type || 'base';
 
-            if (this.complexTypes.includes(type)) {
-                this.getFieldManager().getActualAttributes(type, 'column').forEach(name => {
-                    const existed = this.columns.some(item => item.name === name);
-                    if (!existed) {
-                        const fieldPart = name.replace('column', '').toLowerCase();
-                        this.columns.push({
-                            name: name,
-                            label: (this.getLanguage().data['FieldManager']["fieldParts"][type] || {})[fieldPart] || ''
-                        });
-                    }
-                });
+            if (type === 'currency') {
+                this.createSingleColumnField(type);
+                if (this.model.get('singleColumn')) {
+                    this.containerViews['columnCurrency'] = true;
+                    this.createView('columnCurrency', 'import:views/import-feed/fields/column', {
+                        model: this.model,
+                        el: `${this.options.el} .field[data-name="columnCurrency"]`,
+                        name: 'columnCurrency',
+                        defs: this.defs,
+                        params: this.params,
+                        inlineEditDisabled: true,
+                        mode: this.mode
+                    });
+                }
             }
+
+            if (type === 'unit') {
+                this.createSingleColumnField(type);
+                if (this.model.get('singleColumn')) {
+                    this.containerViews['columnUnit'] = true;
+                    this.createView('columnUnit', 'import:views/import-feed/fields/column', {
+                        model: this.model,
+                        el: `${this.options.el} .field[data-name="columnUnit"]`,
+                        name: 'columnUnit',
+                        defs: this.defs,
+                        params: this.params,
+                        inlineEditDisabled: true,
+                        mode: this.mode
+                    });
+                }
+            }
+        },
+
+        createSingleColumnField(type) {
+            this.containerViews['singleColumn'] = true;
+            this.createView('singleColumn', 'views/fields/bool', {
+                model: this.model,
+                el: `${this.options.el} .field[data-name="singleColumn"]`,
+                name: 'singleColumn',
+                inlineEditDisabled: true,
+                mode: this.mode
+            }, view => {
+                view.listenToOnce(view, 'after:render', () => {
+                    this.initTooltip('singleColumn' + type.charAt(0).toUpperCase() + type.slice(1));
+                });
+            });
+        },
+
+        initTooltip(name) {
+            $a = this.$el.find('.single-column-info');
+            $a.popover({
+                placement: 'bottom',
+                container: 'body',
+                content: this.translate(name, 'tooltips', 'ImportFeed').replace(/(\r\n|\n|\r)/gm, '<br>'),
+                trigger: 'click',
+                html: true
+            }).on('shown.bs.popover', function () {
+                $('body').one('click', function () {
+                    $a.popover('hide');
+                });
+            });
         },
 
         fetch() {

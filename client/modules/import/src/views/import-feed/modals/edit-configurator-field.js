@@ -133,6 +133,8 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                 }, view => {});
             }
 
+            console.log(this.model);
+
             this.createView('column', 'import:views/import-feed/fields/column-container', {
                 model: this.model,
                 name: 'column',
