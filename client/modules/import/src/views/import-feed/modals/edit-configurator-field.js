@@ -1,5 +1,3 @@
-
-
 /*
  * Import Feeds
  * Free Extension
@@ -132,8 +130,6 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                     foreignScope: 'Attribute'
                 }, view => {});
             }
-
-            console.log(this.model);
 
             this.createView('column', 'import:views/import-feed/fields/column-container', {
                 model: this.model,

@@ -64,12 +64,12 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
                 this.createSingleColumnField(type);
                 if (this.model.get('singleColumn')) {
                     this.containerViews['columnCurrency'] = true;
-                    this.createView('columnCurrency', 'import:views/import-feed/fields/column', {
+                    this.createView('columnCurrency', 'import:views/import-feed/fields/column-currency', {
                         model: this.model,
                         el: `${this.options.el} .field[data-name="columnCurrency"]`,
                         name: 'columnCurrency',
                         defs: this.defs,
-                        params: this.params,
+                        columnParams: this.params,
                         inlineEditDisabled: true,
                         mode: this.mode
                     });
@@ -80,12 +80,12 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
                 this.createSingleColumnField(type);
                 if (this.model.get('singleColumn')) {
                     this.containerViews['columnUnit'] = true;
-                    this.createView('columnUnit', 'import:views/import-feed/fields/column', {
+                    this.createView('columnUnit', 'import:views/import-feed/fields/column-unit', {
                         model: this.model,
                         el: `${this.options.el} .field[data-name="columnUnit"]`,
                         name: 'columnUnit',
                         defs: this.defs,
-                        params: this.params,
+                        columnParams: this.params,
                         inlineEditDisabled: true,
                         mode: this.mode
                     });

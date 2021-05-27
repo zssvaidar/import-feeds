@@ -1,5 +1,3 @@
-
-
 /*
  * Import Feeds
  * Free Extension

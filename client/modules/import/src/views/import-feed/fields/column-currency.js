@@ -17,18 +17,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-Espo.define('import:views/import-result/record/list', 'views/record/list',
+Espo.define('import:views/import-feed/fields/column-currency', 'views/fields/enum',
     Dep => Dep.extend({
 
-        rowActionsView: 'views/record/row-actions/view-and-remove',
+        setup() {
+            this.prohibitedEmptyValue = true;
 
-        getSelectAttributeList: function (callback) {
-            Dep.prototype.getSelectAttributeList.call(this, attributeList => {
-                if (Array.isArray(attributeList) && !attributeList.includes('entityName')) {
-                    attributeList.push('entityName', 'importFeedId');
+            Dep.prototype.setup.call(this);
+
+            this.params.options = [];
+            this.translatedOptions = {};
+
+            $.each(this.options.columnParams.translatedOptions, (k, v) => {
+                if (k !== '') {
+                    this.params.options.push(k);
+                    this.translatedOptions[k] = v;
                 }
-                callback(attributeList);
-            });
+            })
         },
 
     })
