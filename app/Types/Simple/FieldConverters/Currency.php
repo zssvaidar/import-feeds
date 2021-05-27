@@ -39,9 +39,26 @@ class Currency extends AbstractConverter
             return;
         }
 
-        // prepare values
-        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
-        $currency = (!empty($config['columnCurrency']) && $row[$config['columnCurrency']] != '') ? $row[$config['columnCurrency']] : $config['defaultCurrency'];
+        $value = $config['default'];
+        $currency = $config['defaultCurrency'];
+
+        if (!empty($config['singleColumn'])) {
+            if (!empty(!empty($config['column']) && $row[$config['column']] != '')) {
+                $parts = explode(' ', $row[$config['column']]);
+                if (isset($parts[1])) {
+                    $value = $parts[0];
+                    $currency = $parts[1];
+                }
+            }
+        } else {
+            if (!empty($config['column']) && $row[$config['column']] != '') {
+                $value = $row[$config['column']];
+            }
+
+            if (!empty($config['columnCurrency']) && $row[$config['columnCurrency']] != '') {
+                $currency = $row[$config['columnCurrency']];
+            }
+        }
 
         // validate currency float value
         if (filter_var($value, FILTER_VALIDATE_FLOAT) === false) {

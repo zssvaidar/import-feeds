@@ -62,7 +62,7 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
 
             if (type === 'currency') {
                 this.createSingleColumnField(type);
-                if (this.model.get('singleColumn')) {
+                if (!this.model.get('singleColumn')) {
                     this.containerViews['columnCurrency'] = true;
                     this.createView('columnCurrency', 'import:views/import-feed/fields/column-currency', {
                         model: this.model,
@@ -78,7 +78,7 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
 
             if (type === 'unit') {
                 this.createSingleColumnField(type);
-                if (this.model.get('singleColumn')) {
+                if (!this.model.get('singleColumn')) {
                     this.containerViews['columnUnit'] = true;
                     this.createView('columnUnit', 'import:views/import-feed/fields/column-unit', {
                         model: this.model,
@@ -94,6 +94,10 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
         },
 
         createSingleColumnField(type) {
+            if (!this.model.has('singleColumn')) {
+                this.model.set('singleColumn', true, {silent: true});
+            }
+
             this.containerViews['singleColumn'] = true;
             this.createView('singleColumn', 'views/fields/bool', {
                 model: this.model,

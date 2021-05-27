@@ -39,9 +39,26 @@ class Unit extends AbstractConverter
             return;
         }
 
-        // prepare values
-        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
-        $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
+        $value = $config['default'];
+        $unit = $config['defaultUnit'];
+
+        if (!empty($config['singleColumn'])) {
+            if (!empty(!empty($config['column']) && $row[$config['column']] != '')) {
+                $parts = explode(' ', $row[$config['column']]);
+                if (isset($parts[1])) {
+                    $value = $parts[0];
+                    $unit = $parts[1];
+                }
+            }
+        } else {
+            if (!empty($config['column']) && $row[$config['column']] != '') {
+                $value = $row[$config['column']];
+            }
+
+            if (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') {
+                $unit = $row[$config['columnUnit']];
+            }
+        }
 
         // validate unit float value
         if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
