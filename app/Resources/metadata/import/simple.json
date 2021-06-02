@@ -25,7 +25,10 @@
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\LinkMultiple"
     },
     "image": {
-      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Image"
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Asset"
+    },
+    "asset": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Asset"
     },
     "bool": {
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\Boolean"
