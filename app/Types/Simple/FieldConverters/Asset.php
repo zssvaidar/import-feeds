@@ -47,7 +47,7 @@ class Asset extends AbstractConverter
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
     {
         if (!empty($row[$config['column']])) {
-            $attachment = $this->createAttachment((string)$row[$config['column']]);
+            $attachment = $this->createAttachment((string)$row[$config['column']], $entityType, (string)$config['name']);
             $inputRow->{$config['name'] . 'Id'} = $attachment->get('id');
             $inputRow->{$config['name'] . 'Name'} = $attachment->get('name');
         } elseif (!empty($config['default'])) {
@@ -70,10 +70,12 @@ class Asset extends AbstractConverter
         $restore->{$item['name'] . 'Id'} = $value;
     }
 
-    protected function createAttachment(string $url): Attachment
+    protected function createAttachment(string $url, string $relatedType, string $field): Attachment
     {
         $attachment = new \stdClass();
         $attachment->name = basename($url);
+        $attachment->relatedType = $relatedType;
+        $attachment->field = $field;
         $attachment->storageFilePath = $this->getAttachmentRepository()->getDestPath(FilePathBuilder::UPLOAD);
         $attachment->storageThumbPath = $this->getAttachmentRepository()->getDestPath(FilePathBuilder::UPLOAD);
 
