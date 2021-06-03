@@ -80,7 +80,7 @@ class ImportFeedEntity extends AbstractListener
 
         foreach ($configurator as $key => $item) {
             // if don't set file column and default values
-            if ($item['column'] == '' && $item['default'] == '') {
+            if ($item['column'] == [] && $item['default'] == '') {
                 return false;
             }
         }

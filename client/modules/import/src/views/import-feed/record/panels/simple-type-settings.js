@@ -586,6 +586,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 name: model.get('name'),
                 column: model.get('column'),
                 singleColumn: model.get('singleColumn'),
+                createIfNotExist: model.get('createIfNotExist'),
                 columnCurrency: model.get('columnCurrency'),
                 columnUnit: model.get('columnUnit'),
                 default: model.get('default'),
