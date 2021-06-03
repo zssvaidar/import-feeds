@@ -13,10 +13,11 @@
     "fileDataAction": "Action",
     "decimalMark": "Decimal Mark",
     "importFile": "Data File",
-    "column": "File Column",
+    "column": "File Column(s)",
     "default": "Default Value",
     "importResults": "Import Results",
-    "locale": "Locale"
+    "locale": "Locale",
+    "createIfNotExist": "Create if not exist"
   },
   "links": {
     "importJobs": "Import Jobs",

@@ -169,12 +169,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 };
                 Object.keys(fields).forEach(name => {
                     let field = fields[name];
-                    if (
-                        !field.customizationDisabled && !field.disabled && !field.notStorable && !!field.type
-                        && !notAvailableFieldsList.includes(name) && (name === 'code' || !field.emHidden)
-                        && (!field.importDisabled && (!notAvailableTypes.includes(field.type) || ('importDisabled' in field))
-                        && !(field.multilangField && ['enum', 'multiEnum'].includes(field.type)))
-                    ) {
+                    if (!field.disabled && !notAvailableFieldsList.includes(name) && !notAvailableTypes.includes(field.type) && !field.importDisabled) {
                         result[name] = field;
                     }
                 });
@@ -614,7 +609,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 if (model.get('isMultilang') || model.get('locale')) {
                     extraConf.locale = model.get('locale');
                 }
-		_.extend(result, extraConf);
+                _.extend(result, extraConf);
             } else {
                 if (this.entityFields[model.get('name')]) {
                     result.locale = model.get('locale');

@@ -9,9 +9,10 @@
     "isFileHeaderRow": "Header Zeile",
     "fileDataAction": "Aktion",
     "decimalMark": "Dezimaltrennzeichen",
-    "column": "Spalte",
+    "column": "Spalte(n)",
     "defaultValue": "Default-Wert",
-    "locale": "Gebietsschema"
+    "locale": "Gebietsschema",
+    "createIfNotExist": "Erstellen, falls nicht vorhanden"
   },
   "links": [],
   "labels": {

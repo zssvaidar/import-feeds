@@ -40,14 +40,14 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
             this.scope = this.options.scope;
 
             this.buttonList.push({
-                name: 'save',
-                label: 'Save',
-                style: 'primary'
-            },
-            {
-                name: 'cancel',
-                label: 'Cancel'
-            });
+                    name: 'save',
+                    label: 'Save',
+                    style: 'primary'
+                },
+                {
+                    name: 'cancel',
+                    label: 'Cancel'
+                });
 
             this.id = this.options.id;
 
@@ -76,8 +76,19 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
 
             this.createBaseFields();
 
+            this.listenTo(this.model, 'change:name', () => {
+                this.model.set('column', null);
+            });
+
             this.listenTo(this.model, 'change:attributeId change:name', () => {
                 this.applyDynamicChanges();
+            });
+
+            this.listenTo(this.model, 'change:column', () => {
+                if (this.model.get('column') && this.model.get('column').length > 1 && this.getMetadata().get(`entityDefs.${this.scope}.fields.${this.model.get('name')}.type`) !== 'linkMultiple') {
+                    this.model.set('column', [this.model.get('column').pop()]);
+                    this.getView('column').reRender();
+                }
             });
         },
 
@@ -114,7 +125,8 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                         required: true,
                         readOnly: this.model.getFieldParam('default', 'required')
                     }
-                }, view => {});
+                }, view => {
+                });
             } else {
                 if (this.model.get('attributeId')) {
                     this.model.set({attributeName: this.model.get('name')});
@@ -128,8 +140,16 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                         required: true
                     },
                     foreignScope: 'Attribute'
-                }, view => {});
+                }, view => {
+                });
             }
+
+            let columnOptions = [];
+            let columnTranslatedOptions = {};
+            this.fileColumns.forEach(v => {
+                columnOptions.push(v.column.toString());
+                columnTranslatedOptions[v.column.toString()] = v.name;
+            });
 
             this.createView('column', 'import:views/import-feed/fields/column-container', {
                 model: this.model,
@@ -137,13 +157,11 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                 el: `${this.options.el} .field[data-name="column"]`,
                 mode: 'edit',
                 params: {
-                    options: ['', ...this.fileColumns.map(item => item.column.toString())],
-                    translatedOptions: this.fileColumns.reduce((prev, curr) => {
-                        prev[curr.column.toString()] = curr.name;
-                        return prev;
-                    }, {'': ''})
+                    options: columnOptions,
+                    translatedOptions: columnTranslatedOptions
                 }
-            }, view => {});
+            }, view => {
+            });
 
             this.createView('default', 'import:views/import-feed/fields/value-container', {
                 isAttribute: this.isAttribute,
@@ -151,9 +169,10 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                 name: 'default',
                 el: `${this.options.el} .field[data-name="default"]`,
                 mode: 'edit'
-            }, view => {});
+            }, view => {
+            });
 
-            this.createView('field', 'views/fields/enum', {
+            this.createView('field', 'views/fields/multi-enum', {
                 model: this.model,
                 name: 'field',
                 el: `${this.options.el} .field[data-name="field"]`,
@@ -162,7 +181,16 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                     options: [],
                     translatedOptions: {}
                 }
-            }, view => {});
+            }, view => {
+            });
+
+            this.createView('createIfNotExist', 'views/fields/bool', {
+                model: this.model,
+                name: 'createIfNotExist',
+                el: `${this.options.el} .field[data-name="createIfNotExist"]`,
+                mode: 'edit'
+            }, view => {
+            });
 
             this.createView('scope', 'views/fields/enum', {
                 model: this.model,
@@ -189,7 +217,8 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                     required: true
                 },
                 labelText: this.translate('channel', 'fields', 'ProductAttributeValue')
-            }, view => {});
+            }, view => {
+            });
 
             const options = this.getConfig().get('inputLanguageList') || [];
             const translatedOptions = options.reduce((prev, curr) => {
@@ -206,7 +235,8 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                     options: ['', ...options],
                     translatedOptions: translatedOptions
                 }
-            }, view => {});
+            }, view => {
+            });
         },
 
         applyDynamicChanges() {
@@ -220,7 +250,7 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
             this.checkChannelVisibility();
 
             if (!(this.model.get('attributeId') && (this.model.get('isMultilang') || this.model.get('locale'))
-                && !['enum','multiEnum'].includes(this.model.get('type')))) {
+                && !['enum', 'multiEnum'].includes(this.model.get('type')))) {
                 this.getView('locale').setDisabled();
                 this.getView('locale').hide();
             } else {
@@ -238,6 +268,13 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                 field.show();
             } else {
                 field.hide();
+            }
+
+            let createIfNotExist = this.getView('createIfNotExist');
+            if (['link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.scope}.fields.${this.model.get('name')}.type`))) {
+                createIfNotExist.show();
+            } else {
+                createIfNotExist.hide();
             }
 
             // hide default field
@@ -270,7 +307,7 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
             if (entity) {
                 let fields = this.getMetadata().get(['entityDefs', entity, 'fields']) || {};
                 result = Object.keys(fields)
-                    .filter(name => ['varchar'].includes(fields[name].type) && !fields[name].layoutDetailDisabled)
+                    .filter(name => !['jsonObject', 'linkMultiple'].includes(fields[name].type) && !fields[name].disabled && !fields[name].importDisabled)
                     .reduce((prev, curr) => {
                         prev[curr] = this.translate(curr, 'fields', entity);
                         return prev;
