@@ -66,10 +66,12 @@
     },
     "attachment": {
       "type": "file",
+      "noAsset": true,
       "readOnly": true
     },
     "errorsAttachment": {
       "type": "file",
+      "noAsset": true,
       "readOnly": true,
       "tooltip": true
     },
