@@ -32,7 +32,7 @@ class Currency extends AbstractConverter
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
         $value = $config['default'];
         $currency = $config['defaultCurrency'];
@@ -79,7 +79,7 @@ class Currency extends AbstractConverter
     /**
      * @inheritDoc
      */
-    public function prepareValue(\stdClass $restore, Entity $entity, array $item)
+    public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         if (isset($item['attributeId'])) {
             $restore->data = $entity->get('data');

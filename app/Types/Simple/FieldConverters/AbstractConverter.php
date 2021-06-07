@@ -22,10 +22,12 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\FieldConverters;
 
+use Espo\Core\Services\Base;
 use Espo\ORM\Entity;
 use Espo\Core\Container;
 use Espo\Core\Utils\Config;
 use Espo\Core\Utils\Metadata;
+use Espo\ORM\EntityManager;
 
 /**
  * Class AbstractConverter
@@ -38,51 +40,45 @@ abstract class AbstractConverter
     protected $container;
 
     /**
-     * AbstractConverter constructor.
-     *
-     * @param Container $container
+     * @var array
      */
+    private $services = [];
+
     public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
-    /**
-     * @param \stdClass $inputRow
-     * @param string    $entityType
-     * @param array     $config
-     * @param array     $row
-     * @param string    $delimiter
-     *
-     * @return mixed
-     */
-    abstract public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter);
+    abstract public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void;
 
-    /**
-     * @param \stdClass $restore
-     * @param Entity $entity
-     * @param array $item
-     */
-    public function prepareValue(\stdClass $restore, Entity $entity, array $item)
+    public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $field = $item['name'];
 
         $restore->{$field} = $entity->get($field);
     }
 
-    /**
-     * @return Config
-     */
     protected function getConfig(): Config
     {
         return $this->container->get('config');
     }
 
-    /**
-     * @return Metadata
-     */
     protected function getMetadata(): Metadata
     {
         return $this->container->get('metadata');
+    }
+
+    protected function getEntityManager(): EntityManager
+    {
+        return $this->container->get('entityManager');
+    }
+
+    protected function getService(string $name): Base
+    {
+        if (!isset($this->services[$name])) {
+            $this->services[$name] = $this->container->get('serviceFactory')->create($name);
+        }
+
+        return $this->services[$name];
     }
 }

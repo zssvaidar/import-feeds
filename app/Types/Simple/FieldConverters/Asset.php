@@ -44,7 +44,7 @@ class Asset extends AbstractConverter
      *
      * @throws Error
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
         if (!empty($row[$config['column']])) {
             $attachment = $this->createAttachment((string)$row[$config['column']], $entityType, (string)$config['name']);
@@ -59,7 +59,7 @@ class Asset extends AbstractConverter
     /**
      * @inheritDoc
      */
-    public function prepareValue(\stdClass $restore, Entity $entity, array $item)
+    public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $value = null;
 

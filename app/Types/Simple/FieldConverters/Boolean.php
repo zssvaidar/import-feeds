@@ -30,7 +30,7 @@ class Boolean extends AbstractConverter
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
         $result = (isset($config['column']) && ($row[$config['column']]) != '') ? $row[$config['column']] : $config['default'];
 

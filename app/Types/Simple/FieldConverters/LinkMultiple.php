@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
 /**
@@ -32,7 +34,7 @@ class LinkMultiple extends AbstractConverter
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
         // prepare ids
         $ids = explode(',', $config['default']);
@@ -40,41 +42,49 @@ class LinkMultiple extends AbstractConverter
         // prepare names
         $names = isset($config['defaultNames']) ? array_values($config['defaultNames']) : [];
 
-        if (!is_null($config['column']) && !empty($row[$config['column']])) {
-            $ids = explode($delimiter, $row[$config['column']]);
+        if (!empty($config['column'])) {
+            $entityName = $this->container->get('metadata')->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
+            $ids = [];
+            $names = [];
 
-            // get entity name
-            $entityName = $this
-                ->container
-                ->get('metadata')
-                ->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
+            foreach ($config['column'] as $column) {
+                $items = explode($delimiter, $row[$column]);
+                foreach ($items as $item) {
+                    $values = explode('|', $item);
+                    $where = [];
+                    foreach ($config['field'] as $k => $field) {
+                        $where[$field] = $values[$k];
+                    }
 
-            if (!empty($entityName)) {
-                // find entity
-                $entities = $this
-                    ->container
-                    ->get('entityManager')
-                    ->getRepository($entityName)
-                    ->select(['id', 'name'])
-                    ->where([$config['field'] => $ids])
-                    ->find()
-                    ->toArray();
+                    $entity = $this->getEntityManager()
+                        ->getRepository($entityName)
+                        ->select(['id', 'name'])
+                        ->where($where)
+                        ->findOne();
 
-                if (count($entities) > 0) {
-                    $ids = array_column($entities, 'id');
-                    $names = array_column($entities, 'name');
+                    if (empty($entity)) {
+                        if (empty($config['createIfNotExist'])) {
+                            throw new BadRequest("No related entity found.");
+                        }
+
+                        $post = Json::decode(Json::encode($where));
+                        $entity = $this->getService($entityName)->createEntity($post);
+                    }
+
+                    $ids[$entity->get('id')] = $entity->get('id');
+                    $names[$entity->get('id')] = $entity->get('name');
                 }
             }
         }
 
-        $inputRow->{$config['name'] . 'Ids'} = (array)$ids;
-        $inputRow->{$config['name'] . 'Names'} = $names;
+        $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
+        $inputRow->{$config['name'] . 'Names'} = array_values($names);
     }
 
     /**
      * @inheritDoc
      */
-    public function prepareValue(\stdClass $restore, Entity $entity, array $item)
+    public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $ids = null;
         $names = null;
