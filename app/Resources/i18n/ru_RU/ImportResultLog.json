@@ -1,0 +1,16 @@
+{
+  "fields": {
+    "rowNumber": "Row",
+    "importResult": "Import Result",
+    "type": "Type",
+    "entityName": "Entity",
+    "entityId": "Entity Id",
+    "message": "Error Message"
+  },
+  "links": {
+    "importResult": "Import Result"
+  },
+  "labels": {
+    "Create ImportResultLog": "Create Import Result Log"
+  }
+}

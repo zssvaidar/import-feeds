@@ -1,0 +1,79 @@
+{
+  "fields": {
+    "file": "Example File (CSV)",
+    "isActive": "Active",
+    "type": "Type",
+    "limit": "Limit",
+    "fileFieldDelimiter": "Field Delimiter",
+    "fileTextQualifier": "Text Qualifier",
+    "isFileHeaderRow": "Header Row",
+    "importJobs": "Import Jobs",
+    "importCronJobs": "Import Cron Jobs",
+    "importFeedTypeSimples": "Import Feed Type Simple",
+    "fileDataAction": "Action",
+    "decimalMark": "Decimal Mark",
+    "importFile": "Data File",
+    "column": "File Column",
+    "default": "Default Value",
+    "importResults": "Import Results",
+    "locale": "Locale"
+  },
+  "links": {
+    "importJobs": "Import Jobs",
+    "importCronJobs": "Import Cron Jobs",
+    "importFeedTypeSimples": "Import Feed Type Simple",
+    "importResults": "Import Results"
+  },
+  "labels": {
+    "singleColumn": "Single Column",
+    "currency": "Currency",
+    "unit": "Unit",
+    "File properties": "File properties",
+    "Simple Type Settings": "Simple Type Settings",
+    "Create ImportFeed": "Create Import Feed",
+    "entity": "Entity",
+    "configurator": "Configurator",
+    "convertFile": "Loading file, please wait...",
+    "convertSuccess": "File loaded",
+    "runImport": "Run Import",
+    "addEntityField": "Add entity field",
+    "addProductAttribute": "Add Product attribute",
+    "importRunning": "Import Running",
+    "delimiter": "Field value delimiter",
+    "importBy": "Import By",
+    "main": "Main locale",
+    "simple": "Simple",
+    "product": "Product",
+    ",": ",",
+    ";": ";",
+    "\\t": "\\t",
+    "|": "|",
+    "doubleQuote": "Double Quote",
+    "singleQuote": "Single Quote",
+    "create": "Create Only",
+    "create_update": "Create & Update",
+    "update": "Update Only"
+  },
+  "additionalTranslates": {
+    "importName": "Importing data by feed '%s'"
+  },
+  "messages": {
+    "delimitersMustBeDifferent": "Delimiters for fields and field values must be different.",
+    "columnOrDefaultValueIsRequired": "{column} or {default} is required."
+  },
+  "exceptions": {
+    "onlyCsvIsAllowed": "File invalid. Only CSV is allowed.",
+    "noSuchFile": "No such file",
+    "importFeedIsInactive": "Import feed is inactive",
+    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template",
+    "countOfFileRowsIsLessThanOne": "Count of file rows is less than one",
+    "configuratorSettingsIncorrect": "Configurator settings incorrect"
+  },
+  "types": {
+    "simple": "Import Feed type, intended for importing values into any entity"
+  },
+  "tooltips": {
+    "singleColumnCurrency": "Numerical value and currency name come in a single column, e.g. \"5 EUR\".",
+    "singleColumnUnit": "Numerical value and measure unit come in a single column, e.g. \"5 cm\"."
+  }
+}
