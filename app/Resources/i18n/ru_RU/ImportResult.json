@@ -1,34 +1,34 @@
 {
   "fields": {
-    "importFeed": "Import Feed",
-    "state": "State",
-    "start": "Start",
-    "end": "End",
-    "createdCount": "Created",
-    "updatedCount": "Updated",
-    "errorsCount": "Errors",
-    "attachment": "Imported file",
-    "errorsAttachment": "Error file",
-    "isRestored": "Restored"
+    "importFeed": "Импортный фид",
+    "state": "Статус",
+    "start": "Н ",
+    "end": "Окончание",
+    "createdCount": "Создан",
+    "updatedCount": "Обновлен",
+    "errorsCount": "Ошибка",
+    "attachment": "Проимпортированный файл",
+    "errorsAttachment": "Файл ошибок",
+    "isRestored": "Восстановлен"
   },
   "links": {
-    "importFeed": "Import Feed",
-    "importResultLogs": "Errors Log"
+    "importFeed": "Импортный фид",
+    "importResultLogs": "Лог с ошибками"
   },
   "labels": {
-    "Create ImportResult": "Create Import Result",
-    "Restore": "Restore",
-    "Pending": "Pending",
-    "Running": "Running",
-    "Done": "Done"
+    "Create ImportResult": "Сгенерировать результаты импорта",
+    "Restore": "Восстановить",
+    "Pending": "В очереди",
+    "Running": "Выполняется",
+    "Done": "Выполнено"
   },
   "messages": {
-    "doYouReallyWantToRestoreData": "Do you really want to restore data? Old values will be delete."
+    "doYouReallyWantToRestoreData": "Вы действительно хотите восстановить данные? Старые значения будут удалены."
   },
   "tooltips": {
-    "errorsAttachment": "Rows from 'Imported file' that have not been imported."
+    "errorsAttachment": "Строчки с 'Imported file' которые не были проимпортированы."
   },
   "exceptions": {
-    "currentImportResultHasBeenAlreadyRestored": "Current Import Result has been already restored."
+    "currentImportResultHasBeenAlreadyRestored": "Текущие результаты импорта уже восстановлены."
   }
 }
