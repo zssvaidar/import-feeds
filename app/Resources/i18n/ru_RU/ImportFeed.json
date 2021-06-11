@@ -1,79 +1,79 @@
 {
   "fields": {
-    "file": "Example File (CSV)",
-    "isActive": "Active",
-    "type": "Type",
-    "limit": "Limit",
-    "fileFieldDelimiter": "Field Delimiter",
-    "fileTextQualifier": "Text Qualifier",
-    "isFileHeaderRow": "Header Row",
-    "importJobs": "Import Jobs",
-    "importCronJobs": "Import Cron Jobs",
-    "importFeedTypeSimples": "Import Feed Type Simple",
-    "fileDataAction": "Action",
-    "decimalMark": "Decimal Mark",
-    "importFile": "Data File",
-    "column": "File Column",
-    "default": "Default Value",
-    "importResults": "Import Results",
+    "file": "Файл-пример (CSV)",
+    "isActive": "Активный",
+    "type": "Тип",
+    "limit": "Предельное значение",
+    "fileFieldDelimiter": "Разделитель полей",
+    "fileTextQualifier": "Классификатор текста",
+    "isFileHeaderRow": "Название строчки",
+    "importJobs": "Задания на импорт",
+    "importCronJobs": "Кронджобы для импорта",
+    "importFeedTypeSimples": "Импортный фид простого типа",
+    "fileDataAction": "Действие",
+    "decimalMark": "Десятичный разделитель",
+    "importFile": "Файл данных",
+    "column": "Колонка файла",
+    "default": "Значение, установленное по умолчанию",
+    "importResults": "Результаты импорта",
     "locale": "Locale"
   },
   "links": {
-    "importJobs": "Import Jobs",
-    "importCronJobs": "Import Cron Jobs",
-    "importFeedTypeSimples": "Import Feed Type Simple",
-    "importResults": "Import Results"
+    "importJobs": "Задания на импорт",
+    "importCronJobs": "Кронджобы для импорта",
+    "importFeedTypeSimples": "Тип импортного фида простой",
+    "importResults": "Результаты импорта"
   },
   "labels": {
-    "singleColumn": "Single Column",
-    "currency": "Currency",
-    "unit": "Unit",
-    "File properties": "File properties",
-    "Simple Type Settings": "Simple Type Settings",
-    "Create ImportFeed": "Create Import Feed",
-    "entity": "Entity",
-    "configurator": "Configurator",
-    "convertFile": "Loading file, please wait...",
-    "convertSuccess": "File loaded",
-    "runImport": "Run Import",
-    "addEntityField": "Add entity field",
-    "addProductAttribute": "Add Product attribute",
-    "importRunning": "Import Running",
-    "delimiter": "Field value delimiter",
+    "singleColumn": "Одна колонка",
+    "currency": "Валюта",
+    "unit": "Единица",
+    "File properties": "Свойства файла",
+    "Simple Type Settings": "Настройки простого типа",
+    "Create ImportFeed": "Создать импортный фид",
+    "entity": "Сущность",
+    "configurator": "Конфигуратор",
+    "convertFile": "Загрузка файла, подождите...",
+    "convertSuccess": "Файл загружен",
+    "runImport": "Запустить импорт",
+    "addEntityField": "Добавить поле сущности",
+    "addProductAttribute": "Добавить поле атрибута",
+    "importRunning": "Импорт выполняется",
+    "delimiter": "Разделитель значений поля",
     "importBy": "Import By",
     "main": "Main locale",
-    "simple": "Simple",
-    "product": "Product",
+    "simple": "Простой",
+    "product": "Продукт",
     ",": ",",
     ";": ";",
     "\\t": "\\t",
     "|": "|",
-    "doubleQuote": "Double Quote",
-    "singleQuote": "Single Quote",
-    "create": "Create Only",
-    "create_update": "Create & Update",
-    "update": "Update Only"
+    "doubleQuote": "Двойные кавычки",
+    "singleQuote": "Одинарные кавычки",
+    "create": "Только создать",
+    "create_update": "Создать и обновить",
+    "update": "Только обновить"
   },
   "additionalTranslates": {
-    "importName": "Importing data by feed '%s'"
+    "importName": "Импорт данных по фиду '%s'"
   },
   "messages": {
-    "delimitersMustBeDifferent": "Delimiters for fields and field values must be different.",
-    "columnOrDefaultValueIsRequired": "{column} or {default} is required."
+    "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными.",
+    "columnOrDefaultValueIsRequired": "{column} или {default} обязательны."
   },
   "exceptions": {
-    "onlyCsvIsAllowed": "File invalid. Only CSV is allowed.",
-    "noSuchFile": "No such file",
-    "importFeedIsInactive": "Import feed is inactive",
-    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template",
-    "countOfFileRowsIsLessThanOne": "Count of file rows is less than one",
-    "configuratorSettingsIncorrect": "Configurator settings incorrect"
+    "onlyCsvIsAllowed": "Файл недействителен. Разрешен только CSV.",
+    "noSuchFile": "Такого файла не существует",
+    "importFeedIsInactive": "Импортный фид неактивный",
+    "theFileDoesNotMatchTheTemplate": "Ошибочный файл. Файл не соответствует шаблону",
+    "countOfFileRowsIsLessThanOne": "Количество строк в файле меньше единицы",
+    "configuratorSettingsIncorrect": "Неправильные настройки конфигуратора"
   },
   "types": {
-    "simple": "Import Feed type, intended for importing values into any entity"
+    "simple": "Тип, импортного фида, предназначенный для импорта значений в любую сущность"
   },
   "tooltips": {
-    "singleColumnCurrency": "Numerical value and currency name come in a single column, e.g. \"5 EUR\".",
-    "singleColumnUnit": "Numerical value and measure unit come in a single column, e.g. \"5 cm\"."
+    "singleColumnCurrency": "Числовое значение и название валюты заносятся в один столбец, например \"5 EUR\".",
+    "singleColumnUnit": "Числовое значение и единица измерения заносятся в один столбец, например \"5 cm\"."
   }
 }
