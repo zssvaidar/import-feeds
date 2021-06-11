@@ -1,10 +1,10 @@
 {
   "labels": {
-    "importFeed": "Import Feeds",
-    "importCronJob": "Import Cron Job"
+    "importFeed": "Импортные фиды",
+    "importCronJob": "Кронджоб для импорта"
   },
   "descriptions": {
-    "importFeed": "Configuration of import templates to be used for importing data to the TreoCore entities",
-    "importCronJob": "Configuration of scheduled jobs for importing data via import feeds"
+    "importFeed": "Конфигурация шаблонов импорта, которые будут использоваться для импорта данных в сущности TreoCore",
+    "importCronJob": "Настройка запланированных заданий для импорта данных через импортные фиды"
   }
 }
