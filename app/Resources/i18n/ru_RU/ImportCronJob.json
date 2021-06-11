@@ -1,19 +1,19 @@
 {
     "fields": {
-        "importFeed": "Import Feed",
-        "link": "Link",
-        "scheduling": "Scheduling",
-        "isActive": "Active",
-        "importCronJobLogs": "Logs"
+        "importFeed": "Импортный фид",
+        "link": "Линк",
+        "scheduling": "Планирование",
+        "isActive": "Активный",
+        "importCronJobLogs": "Логи"
     },
     "links": {
-        "importFeed": "Import Feed",
-        "importCronJobLogs": "Logs"
+        "importFeed": "Импортный фид",
+        "importCronJobLogs": "Логи"
     },
     "labels": {
-        "Create ImportCronJob": "Create Import Cron Job"
+        "Create ImportCronJob": "Создать кронджоб для импорта"
     },
     "tooltips": {
-        "scheduling": "Crontab notation. Defines frequency of job runs.\n\n*/5 * * * * - every 5 minutes\n\n0 */2 * * * - every 2 hours\n\n30 1 * * * - at 01:30 once a day\n\n0 0 1 * * - on the first day of the month"
+        "scheduling": "Запись Crontab. Определяет частоту выполнения заданий.\n\n*/5 * * * * - каждые 5 мин\n\n0 */2 * * * - каждые 2 часа\n\n30 1 * * * - в 01:30 один раз в день\n\n0 0 1 * * - в первый день месяца"
     }
 }
