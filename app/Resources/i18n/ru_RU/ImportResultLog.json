@@ -1,16 +1,16 @@
 {
   "fields": {
-    "rowNumber": "Row",
-    "importResult": "Import Result",
-    "type": "Type",
-    "entityName": "Entity",
-    "entityId": "Entity Id",
-    "message": "Error Message"
+    "rowNumber": "Cтрочка",
+    "importResult": "Результат импорта",
+    "type": "Тип",
+    "entityName": "Сущность",
+    "entityId": "Id сущности",
+    "message": "Сообщение об ошибке"
   },
   "links": {
-    "importResult": "Import Result"
+    "importResult": "Результат импорта"
   },
   "labels": {
-    "Create ImportResultLog": "Create Import Result Log"
+    "Create ImportResultLog": "Создать лог результатов импорта"
   }
 }
