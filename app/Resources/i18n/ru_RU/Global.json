@@ -1,20 +1,20 @@
 {
   "fields": {
-    "createdByImport": "Created by import",
-    "updatedByImport": "Updated by import"
+    "createdByImport": "Создано при импорте",
+    "updatedByImport": "Обновлено при импорте"
   },
   "scopeNames": {
-    "ImportFeed": "Import Feed",
-    "ImportCronJob": "Import Cron Job",
-    "ImportCronJobLog": "Import Cron Job Log",
-    "ImportResult": "Import Result",
-    "ImportResultLog": "Import Result Log"
+    "ImportFeed": "Импортный фид",
+    "ImportCronJob": "Кронджоб для импорта",
+    "ImportCronJobLog": "Лог кронджоба для импорта",
+    "ImportResult": "Результаты импорта",
+    "ImportResultLog": "Лог результатов импорта"
   },
   "scopeNamesPlural": {
-    "ImportFeed": "Import Feeds",
-    "ImportCronJob": "Import Cron Jobs",
-    "ImportCronJobLog": "Import Cron Job Logs",
-    "ImportResult": "Import Results",
-    "ImportResultLog": "Import Result Logs"
+    "ImportFeed": "Импортные фиды",
+    "ImportCronJob": "Кронджобы для импорта",
+    "ImportCronJobLog": "Логи кронджобов для импорта",
+    "ImportResult": "Результаты импорта",
+    "ImportResultLog": "Логи результатов импорта"
   }
 }
