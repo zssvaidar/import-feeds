@@ -1,20 +1,20 @@
 {
   "fields": {
-    "executionTime": "Execution Time",
-    "status": "Status",
-    "importCronJob": "ImportCronJob"
+    "executionTime": "Время выполнения",
+    "status": "Статус",
+    "importCronJob": "Кронджоб для импорта"
   },
   "links": {
-    "importCronJob": "ImportCronJob"
+    "importCronJob": "Кронджоб для импорта"
   },
   "labels": {
-    "Create ImportCronJobLog": "Create Import Cron Job Log",
-    "success": "Success",
-    "error": "Error"
+    "Create ImportCronJobLog": "Создать лог кронджоба для импорта",
+    "success": "Успешно",
+    "error": "Ошибка"
   },
   "descriptions": {
-    "fileContentCantBeEmpty": "File content can't be empty or not correct link",
-    "Not valid import cron job": "Not valid import cron job",
-    "Import job created": "Import job created"
+    "fileContentCantBeEmpty": "Содержимое файла не может быть пустым или неправильная ссылка",
+    "Not valid import cron job": "Недействительный импорт кронджоба",
+    "Import job created": "Задание для импорта создано"
   }
 }
