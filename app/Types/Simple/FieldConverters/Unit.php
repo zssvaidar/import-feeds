@@ -27,7 +27,7 @@ use Espo\ORM\Entity;
 /**
  * Class Unit
  */
-class Unit extends AbstractConverter
+class Unit extends FloatValue
 {
     /**
      * @inheritDoc
@@ -43,18 +43,13 @@ class Unit extends AbstractConverter
         $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
         $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
 
-        // validate unit float value
-        if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
-            throw new \Exception("Incorrect value for field '{$config['name']}'");
-        }
-
         // validate measuring unit
         if (!$this->validateUnit($unit, $entityType, $config)) {
             throw new \Exception("Incorrect measuring unit for field '{$config['name']}'");
         }
 
         // set values to input row
-        $inputRow->{$config['name']} = (float)$value;
+        $inputRow->{$config['name']} = self::prepareFloatValue($value);
         $inputRow->{$config['name'] . 'Unit'} = $unit;
     }
 
@@ -121,18 +116,13 @@ class Unit extends AbstractConverter
         $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
         $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
 
-        // validate unit float value
-        if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
-            throw new \Exception("Incorrect value for attribute '{$config['attribute']->get('name')}'");
-        }
-
         // validate measuring unit
         if (!$this->validateUnit($unit, $entityType, $config)) {
             throw new \Exception("Incorrect measuring unit for attribute '{$config['attribute']->get('name')}'");
         }
 
         // prepare input row for attribute
-        $inputRow->{$config['name']} = (float)$value;
+        $inputRow->{$config['name']} = self::prepareFloatValue($value);
         $inputRow->data = (object)['unit' => $unit];
     }
 }
