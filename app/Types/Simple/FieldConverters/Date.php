@@ -22,23 +22,27 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\FieldConverters;
 
-/**
- * Class FloatValue
- */
-class FloatValue extends AbstractConverter
-{
-    public static function prepareFloatValue(string $value): float
-    {
-        return (float)str_replace(',', '.', preg_replace("/[^0-9]\.,/", "", $value));
-    }
+use Import\Types\Simple\FieldConverters\AbstractConverter;
 
+/**
+ * Class Date
+ */
+class Date extends AbstractConverter
+{
     /**
      * @inheritDoc
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
     {
+        // prepare values
         $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
 
-        $inputRow->{$config['name']} = self::prepareFloatValue($value);
+        try {
+            $value = (new \DateTime($value))->format('Y-m-d');
+        } catch (\Throwable $e) {
+            throw new \Exception("Incorrect date for field '{$config['name']}'");
+        }
+
+        $inputRow->{$config['name']} = $value;
     }
 }

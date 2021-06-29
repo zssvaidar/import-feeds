@@ -27,7 +27,7 @@ use Espo\ORM\Entity;
 /**
  * Class Currency
  */
-class Currency extends AbstractConverter
+class Currency extends FloatValue
 {
     /**
      * @inheritDoc
@@ -55,11 +55,6 @@ class Currency extends AbstractConverter
             }
         }
 
-        // validate currency float value
-        if (filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
-            throw new \Exception("Incorrect value for field '{$config['name']}'");
-        }
-
         // validate currency
         if (!in_array($currency, $this->getConfig()->get('currencyList', []))) {
             throw new \Exception("Incorrect currency for field '{$config['name']}'");
@@ -67,11 +62,11 @@ class Currency extends AbstractConverter
 
         if (isset($config['attributeId'])) {
             // prepare input row for attribute
-            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->{$config['name']} = self::prepareFloatValue($value);
             $inputRow->data = (object)['currency' => $currency];
         } else {
             // set values to input row
-            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->{$config['name']} = self::prepareFloatValue($value);
             $inputRow->{$config['name'] . 'Currency'} = $currency;
         }
     }

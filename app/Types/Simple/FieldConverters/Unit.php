@@ -27,7 +27,7 @@ use Espo\ORM\Entity;
 /**
  * Class Unit
  */
-class Unit extends AbstractConverter
+class Unit extends FloatValue
 {
     /**
      * @inheritDoc
@@ -55,11 +55,6 @@ class Unit extends AbstractConverter
             }
         }
 
-        // validate unit float value
-        if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
-            throw new \Exception("Incorrect value for field '{$config['name']}'");
-        }
-
         // validate measuring unit
         if (!$this->validateUnit($unit, $entityType, $config)) {
             throw new \Exception("Incorrect measuring unit for field '{$config['name']}'");
@@ -67,11 +62,11 @@ class Unit extends AbstractConverter
 
         if (isset($config['attributeId'])) {
             // prepare input row for attribute
-            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->{$config['name']} = self::prepareFloatValue($value);
             $inputRow->data = (object)['unit' => $unit];
         } else {
             // set values to input row
-            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->{$config['name']} = self::prepareFloatValue($value);
             $inputRow->{$config['name'] . 'Unit'} = $unit;
         }
     }
