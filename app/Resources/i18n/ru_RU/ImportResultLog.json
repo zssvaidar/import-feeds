@@ -1,0 +1,16 @@
+{
+  "fields": {
+    "rowNumber": "Cтрочка",
+    "importResult": "Результат импорта",
+    "type": "Тип",
+    "entityName": "Сущность",
+    "entityId": "Id сущности",
+    "message": "Сообщение об ошибке"
+  },
+  "links": {
+    "importResult": "Результат импорта"
+  },
+  "labels": {
+    "Create ImportResultLog": "Создать лог результатов импорта"
+  }
+}

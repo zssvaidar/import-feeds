@@ -1,0 +1,79 @@
+{
+  "fields": {
+    "file": "Файл-пример (CSV)",
+    "isActive": "Активный",
+    "type": "Тип",
+    "limit": "Предельное значение",
+    "fileFieldDelimiter": "Разделитель полей",
+    "fileTextQualifier": "Классификатор текста",
+    "isFileHeaderRow": "Название строчки",
+    "importJobs": "Задания на импорт",
+    "importCronJobs": "Кронджобы для импорта",
+    "importFeedTypeSimples": "Импортный фид простого типа",
+    "fileDataAction": "Действие",
+    "decimalMark": "Десятичный разделитель",
+    "importFile": "Файл данных",
+    "column": "Колонка файла",
+    "default": "Значение, установленное по умолчанию",
+    "importResults": "Результаты импорта",
+    "locale": "Locale"
+  },
+  "links": {
+    "importJobs": "Задания на импорт",
+    "importCronJobs": "Кронджобы для импорта",
+    "importFeedTypeSimples": "Тип импортного фида простой",
+    "importResults": "Результаты импорта"
+  },
+  "labels": {
+    "singleColumn": "Одна колонка",
+    "currency": "Валюта",
+    "unit": "Единица",
+    "File properties": "Свойства файла",
+    "Simple Type Settings": "Настройки простого типа",
+    "Create ImportFeed": "Создать импортный фид",
+    "entity": "Сущность",
+    "configurator": "Конфигуратор",
+    "convertFile": "Загрузка файла, подождите...",
+    "convertSuccess": "Файл загружен",
+    "runImport": "Запустить импорт",
+    "addEntityField": "Добавить поле сущности",
+    "addProductAttribute": "Добавить поле атрибута",
+    "importRunning": "Импорт выполняется",
+    "delimiter": "Разделитель значений поля",
+    "importBy": "Import By",
+    "main": "Main locale",
+    "simple": "Простой",
+    "product": "Продукт",
+    ",": ",",
+    ";": ";",
+    "\\t": "\\t",
+    "|": "|",
+    "doubleQuote": "Двойные кавычки",
+    "singleQuote": "Одинарные кавычки",
+    "create": "Только создать",
+    "create_update": "Создать и обновить",
+    "update": "Только обновить"
+  },
+  "additionalTranslates": {
+    "importName": "Импорт данных по фиду '%s'"
+  },
+  "messages": {
+    "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными.",
+    "columnOrDefaultValueIsRequired": "{column} или {default} обязательны."
+  },
+  "exceptions": {
+    "onlyCsvIsAllowed": "Файл недействителен. Разрешен только CSV.",
+    "noSuchFile": "Такого файла не существует",
+    "importFeedIsInactive": "Импортный фид неактивный",
+    "theFileDoesNotMatchTheTemplate": "Ошибочный файл. Файл не соответствует шаблону",
+    "countOfFileRowsIsLessThanOne": "Количество строк в файле меньше единицы",
+    "configuratorSettingsIncorrect": "Неправильные настройки конфигуратора"
+  },
+  "types": {
+    "simple": "Тип, импортного фида, предназначенный для импорта значений в любую сущность"
+  },
+  "tooltips": {
+    "singleColumnCurrency": "Числовое значение и название валюты заносятся в один столбец, например \"5 EUR\".",
+    "singleColumnUnit": "Числовое значение и единица измерения заносятся в один столбец, например \"5 cm\"."
+  }
+}

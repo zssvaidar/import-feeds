@@ -44,6 +44,9 @@
     },
     "unit": {
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\Unit"
+    },
+    "date": {
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\Date"
     }
   }
 }
