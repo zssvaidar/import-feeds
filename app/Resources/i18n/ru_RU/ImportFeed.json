@@ -1,5 +1,6 @@
 {
   "fields": {
+    "unusedColumns": "Неиспользуемые столбцы",
     "file": "Файл-пример (CSV)",
     "isActive": "Активный",
     "type": "Тип",

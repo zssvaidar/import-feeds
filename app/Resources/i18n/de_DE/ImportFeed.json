@@ -1,5 +1,6 @@
 {
   "fields": {
+    "unusedColumns": "Nicht verwendete Spalten Column",
     "file": "Beispieldatei (CSV)",
     "isActive": "Aktiv",
     "type": "Typ",
