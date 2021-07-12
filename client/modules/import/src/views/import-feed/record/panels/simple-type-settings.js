@@ -667,7 +667,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             configuration = configuration || {};
             let extraConf = {};
             let type = model.getFieldType('default');
-            if (['link', 'linkMultiple'].includes(type)) {
+            if (['asset', 'link', 'linkMultiple'].includes(type)) {
                 let field = model.get('field');
                 extraConf = {
                     foreign: model.getLinkParam('default', 'entity'),

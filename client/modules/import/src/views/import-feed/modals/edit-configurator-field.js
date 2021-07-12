@@ -261,7 +261,7 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
             let field = this.getView('field');
             let translatedOptions = this.getTranslatesForImportByField();
             let options = Object.keys(translatedOptions);
-            if (options.length && !this.isAttribute && ['link', 'linkMultiple'].includes(this.model.getFieldType('default'))) {
+            if (options.length && !this.isAttribute && ['asset', 'link', 'linkMultiple'].includes(this.model.getFieldType('default'))) {
                 field.params.options = options;
                 field.translatedOptions = translatedOptions;
                 field.reRender();
@@ -271,7 +271,7 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
             }
 
             let createIfNotExist = this.getView('createIfNotExist');
-            if (['link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.scope}.fields.${this.model.get('name')}.type`))) {
+            if (['asset', 'link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.scope}.fields.${this.model.get('name')}.type`))) {
                 createIfNotExist.show();
             } else {
                 createIfNotExist.hide();

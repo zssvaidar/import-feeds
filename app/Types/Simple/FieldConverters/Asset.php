@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Exceptions\Error;
 use Espo\Entities\Attachment;
 use Espo\ORM\Entity;
@@ -46,14 +47,52 @@ class Asset extends AbstractConverter
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
+        // prepare default entity id
+        $value = $config['default'];
+
+        // prepare default entity name
+        $name = isset($config['defaultName']) ? $config['defaultName'] : null;
+
         if (!empty($row[$config['column'][0]])) {
-            $attachment = $this->createAttachment((string)$row[$config['column'][0]], $entityType, (string)$config['name']);
-            $inputRow->{$config['name'] . 'Id'} = $attachment->get('id');
-            $inputRow->{$config['name'] . 'Name'} = $attachment->get('name');
-        } elseif (!empty($config['default'])) {
-            $inputRow->{$config['name'] . 'Id'} = $config['default'];
-            $inputRow->{$config['name'] . 'Name'} = $config['defaultName'];
+            // get entity name
+            $entityName = $this->getMetadata()->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
+
+            $values = explode('|', $row[$config['column'][0]]);
+            $where = [];
+            foreach ($config['field'] as $k => $field) {
+                if ($field != 'url') {
+                    $where[$field] = $values[$k];
+                } else {
+                    $url = $values[$k];
+                }
+            }
+
+            if (!empty($where)) {
+                $entity = $this->getEntityManager()
+                    ->getRepository($entityName)
+                    ->select(['id', 'name'])
+                    ->where($where)
+                    ->findOne();
+            }
+
+            if (!empty($entity)) {
+                $value = $entity->get('id');
+                $name = $entity->get('name');
+            } else {
+                if (empty($config['createIfNotExist'])) {
+                    throw new BadRequest("No related entity found.");
+                }
+
+                if (!empty($url)) {
+                    $attachment = $this->createAttachment((string)$url, $entityName, (string)$config['name']);
+                    $value = $attachment->get('id');
+                    $name = $attachment->get('name');
+                }
+            }
         }
+
+        $inputRow->{$config['name'] . 'Id'} = $value;
+        $inputRow->{$config['name'] . 'Name'} = $name;
     }
 
     /**

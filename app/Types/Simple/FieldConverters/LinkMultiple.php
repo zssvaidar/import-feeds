@@ -29,7 +29,7 @@ use Espo\ORM\Entity;
 /**
  * Class LinkMultiple
  */
-class LinkMultiple extends AbstractConverter
+class LinkMultiple extends Asset
 {
     /**
      * @inheritDoc
