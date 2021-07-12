@@ -46,8 +46,8 @@ class Asset extends AbstractConverter
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
-        if (!empty($row[$config['column']])) {
-            $attachment = $this->createAttachment((string)$row[$config['column']], $entityType, (string)$config['name']);
+        if (!empty($row[$config['column'][0]])) {
+            $attachment = $this->createAttachment((string)$row[$config['column'][0]], $entityType, (string)$config['name']);
             $inputRow->{$config['name'] . 'Id'} = $attachment->get('id');
             $inputRow->{$config['name'] . 'Name'} = $attachment->get('name');
         } elseif (!empty($config['default'])) {

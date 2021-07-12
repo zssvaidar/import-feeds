@@ -34,7 +34,7 @@ class Integer extends AbstractConverter
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
-        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
+        $value = (!empty($config['column'][0]) && $row[$config['column'][0]] != '') ? $row[$config['column'][0]] : $config['default'];
 
         if (!is_null($value) && filter_var($value, FILTER_VALIDATE_INT) === false) {
             throw new \Exception("Incorrect value for field '{$config['name']}'");

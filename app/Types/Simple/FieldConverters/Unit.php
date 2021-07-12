@@ -38,16 +38,16 @@ class Unit extends FloatValue
         $unit = $config['defaultUnit'];
 
         if (!empty($config['singleColumn'])) {
-            if (!empty(!empty($config['column']) && $row[$config['column']] != '')) {
-                $parts = explode(' ', $row[$config['column']]);
+            if (!empty(!empty($config['column'][0]) && $row[$config['column'][0]] != '')) {
+                $parts = explode(' ', $row[$config['column'][0]]);
                 if (isset($parts[1])) {
                     $value = $parts[0];
                     $unit = $parts[1];
                 }
             }
         } else {
-            if (!empty($config['column']) && $row[$config['column']] != '') {
-                $value = $row[$config['column']];
+            if (!empty($config['column'][0]) && $row[$config['column'][0]] != '') {
+                $value = $row[$config['column'][0]];
             }
 
             if (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') {

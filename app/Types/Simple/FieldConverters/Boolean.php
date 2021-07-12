@@ -32,7 +32,7 @@ class Boolean extends AbstractConverter
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
-        $result = (isset($config['column']) && ($row[$config['column']]) != '') ? $row[$config['column']] : $config['default'];
+        $result = (isset($config['column'][0]) && ($row[$config['column'][0]]) != '') ? $row[$config['column'][0]] : $config['default'];
 
         if (is_null(filter_var($result, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) {
             throw new \Exception("Incorrect value for field '{$config['name']}'");
