@@ -55,7 +55,7 @@ class DefaultHandler extends AbstractHandler
         // find exists if it needs
         $exists = [];
         if (in_array($data['action'], ['update', 'create_update']) && !empty($idRow)) {
-            $exists = $this->getExists($entityType, $idRow['name'], array_column($fileData, $idRow['column']));
+            $exists = $this->getExists($entityType, $idRow['name'], array_column($fileData, (string)$idRow['column']));
         }
 
         // prepare file row

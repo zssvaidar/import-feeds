@@ -122,13 +122,13 @@ abstract class AbstractHandler
         }
 
         // prepare value
-        if (is_null($item['column'][0]) || $row[$item['column'][0]] == '') {
+        if (is_null($item['column']) || $row[$item['column']] == '') {
             $value = $item['default'];
             if (!empty($value) && is_string($value)) {
                 $value = str_replace("{{hash}}", Util::generateId(), $value);
             }
         } else {
-            $value = $row[$item['column'][0]];
+            $value = $row[$item['column']];
         }
 
         // set

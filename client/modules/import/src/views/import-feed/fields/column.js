@@ -17,7 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-Espo.define('import:views/import-feed/fields/column', 'views/fields/multi-enum',
+Espo.define('import:views/import-feed/fields/column', 'views/fields/enum',
     Dep => Dep.extend({
 
         setup() {

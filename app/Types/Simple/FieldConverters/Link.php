@@ -42,11 +42,11 @@ class Link extends AbstractConverter
         // prepare default entity name
         $name = isset($config['defaultName']) ? $config['defaultName'] : null;
 
-        if (!empty($row[$config['column'][0]])) {
+        if (!empty($row[$config['column']])) {
             // get entity name
             $entityName = $this->getMetadata()->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
 
-            $values = explode('|', $row[$config['column'][0]]);
+            $values = explode('|', $row[$config['column']]);
             $where = [];
             foreach ($config['field'] as $k => $field) {
                 $where[$field] = $values[$k];
