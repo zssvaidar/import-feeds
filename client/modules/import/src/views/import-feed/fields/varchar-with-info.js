@@ -36,7 +36,14 @@ Espo.define('import:views/import-feed/fields/varchar-with-info', 'views/fields/v
 
             let fieldName = (this.model.get('customData') || {}).fieldName;
             if (this.model.get('isLink') || this.model.get('isLinkMultiple') && fieldName) {
-                extraInfo = `<span class="text-muted small">${this.translate('importBy', 'labels', 'ImportFeed')}: ${fieldName}</span>`;
+                const entityName = this.model.getLinkParam('default', 'entity');
+
+                let translated = [];
+                fieldName.forEach(field => {
+                    translated.push(this.translate(field, 'fields', entityName));
+                });
+
+                extraInfo = `<span class="text-muted small">${this.translate('importBy', 'labels', 'ImportFeed')}: ${translated.join(', ')}</span>`;
                 if (this.model.get('createIfNotExist')) {
                     extraInfo += `<br><span class="text-muted small">${this.translate('createIfNotExist', 'fields', 'ImportFeed')}</span>`;
                 }

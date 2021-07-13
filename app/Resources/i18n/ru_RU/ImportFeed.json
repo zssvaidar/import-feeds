@@ -26,6 +26,7 @@
     "importResults": "Результаты импорта"
   },
   "labels": {
+    "channelCode": "Канал (код)",
     "singleColumn": "Одна колонка",
     "currency": "Валюта",
     "unit": "Единица",

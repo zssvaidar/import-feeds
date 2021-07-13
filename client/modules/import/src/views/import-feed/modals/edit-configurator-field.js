@@ -313,6 +313,11 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                         return prev;
                     }, {'id': this.translate('id', 'fields', 'Global')});
             }
+
+            if (this.model.get('entity') === 'Product' && entity === 'Asset') {
+                result['channel'] = this.translate('channelCode', 'labels', 'ImportFeed');
+            }
+
             return result;
         },
 

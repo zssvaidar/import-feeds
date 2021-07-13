@@ -27,6 +27,7 @@
     "importResults": "Import Results"
   },
   "labels": {
+    "channelCode": "Channel (code)",
     "singleColumn": "Single Column",
     "currency": "Currency",
     "unit": "Unit",

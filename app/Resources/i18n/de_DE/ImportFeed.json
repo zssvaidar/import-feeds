@@ -17,6 +17,7 @@
   },
   "links": [],
   "labels": {
+    "channelCode": "Kanal (Code)",
     "singleColumn": "Einzelne Spalten",
     "currency": "Währung",
     "unit": "Einheit",
