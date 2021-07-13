@@ -76,7 +76,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
             this.listenTo(this.model, 'fileUpdate change:fileFieldDelimiter change:fileTextQualifier change:isFileHeaderRow', () => {
                 this.loadFileColumns(null, true);
-                this.updateUnusedColumns();
             });
 
             this.listenTo(this.model, 'change:fileDataAction', () => {
@@ -179,34 +178,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
         },
 
         getEntityConfiguration(entity) {
-            let result = [];
-            Object.keys(this.entityFields).forEach(name => {
-                let field = this.entityFields[name];
-                if (field.required) {
-                    let data = {
-                        name: name,
-                        column: null,
-                        default: null
-                    };
-                    if (['link', 'linkMultiple'].includes(field.type)) {
-                        let options = {
-                            foreign: this.getMetadata().get(['entityDefs', entity, 'links', name, 'entity']) || {},
-                            field: 'id',
-                            customData: {
-                                fieldName: this.getLanguage().translate('id', 'fields', 'Global')
-                            }
-                        };
-                        if (field.type === 'link') {
-                            options.isLink = true;
-                        } else {
-                            options.isLinkMultiple = true;
-                        }
-                        _.extend(data, options);
-                    }
-                    result.push(data);
-                }
-            });
-            return result;
+            return [];
         },
 
         getTranslatedOptionsForIdField() {
@@ -401,6 +373,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                             prev[curr.column.toString()] = curr.name;
                             return prev;
                         }, {'': ''}),
+                        readOnly: true,
                         inlineEditDisabled: true
                     },
                     view: 'import:views/import-feed/fields/column'
@@ -410,6 +383,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     notSortable: true,
                     type: 'base',
                     params: {
+                        readOnly: true,
                         inlineEditDisabled: true
                     },
                     view: 'import:views/import-feed/fields/value-container'
@@ -419,6 +393,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         updateFileColumns(response, withRowsUpdating) {
             this.fileColumns = response;
+            this.updateUnusedColumns();
             if (withRowsUpdating) {
                 let translatedOptions = this.fileColumns.reduce((prev, curr) => {
                     prev[curr.column.toString()] = curr.name;
@@ -462,7 +437,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         updateUnusedColumns() {
             let usedColumns = {};
-            if (this.configData.configuration) {
+            if (this.configData && this.configData.configuration) {
                 this.configData.configuration.forEach(item => {
                     (item.column || []).forEach(column => {
                         usedColumns[column] = true;
@@ -477,11 +452,13 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 }
             });
 
-            this.panelModel.set('unusedColumns', unusedColumns);
+            if (this.panelModel) {
+                this.panelModel.set('unusedColumns', unusedColumns);
 
-            let view = this.getView('unusedColumns');
-            if (view) {
-                view.reRender();
+                let view = this.getView('unusedColumns');
+                if (view) {
+                    view.reRender();
+                }
             }
         },
 
