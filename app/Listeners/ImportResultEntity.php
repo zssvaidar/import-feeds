@@ -88,9 +88,6 @@ class ImportResultEntity extends AbstractListener
      */
     protected function deleteAttachments(ImportResult $entity): void
     {
-        if (!empty($attachment = $entity->get('attachment'))) {
-            $this->getEntityManager()->removeEntity($attachment);
-        }
         if (!empty($attachment = $entity->get('errorsAttachment'))) {
             $this->getEntityManager()->removeEntity($attachment);
         }

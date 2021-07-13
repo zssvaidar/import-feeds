@@ -53,26 +53,37 @@ class LinkMultiple extends Asset
                     $values = explode('|', $item);
                     $where = [];
                     foreach ($config['field'] as $k => $field) {
-                        $where[$field] = $values[$k];
+                        if ($field != 'url' && $entityName != 'Asset') {
+                            $where[$field] = $values[$k];
+                        } else {
+                            $url = $values[$k];
+                        }
                     }
 
-                    $entity = $this->getEntityManager()
-                        ->getRepository($entityName)
-                        ->select(['id', 'name'])
-                        ->where($where)
-                        ->findOne();
+                    $entity = null;
+                    if (!empty($where)) {
+                        $entity = $this->getEntityManager()
+                            ->getRepository($entityName)
+                            ->select(['id', 'name'])
+                            ->where($where)
+                            ->findOne();
+                    }
 
                     if (empty($entity)) {
                         if (empty($config['createIfNotExist'])) {
                             throw new BadRequest("No related entity found.");
                         }
 
-                        $post = Json::decode(Json::encode($where));
-                        $entity = $this->getService($entityName)->createEntity($post);
+                        if (!empty($url)) {
+                            $attachment = $this->createAttachment((string)$url, $entityName, (string)$config['name']);
+                            $entity = $this->getEntityManager()->getRepository('Asset')->where(['fileId' => $attachment->get('id')])->findOne();
+                        }
                     }
 
-                    $ids[$entity->get('id')] = $entity->get('id');
-                    $names[$entity->get('id')] = $entity->get('name');
+                    if (!empty($entity)) {
+                        $ids[$entity->get('id')] = $entity->get('id');
+                        $names[$entity->get('id')] = $entity->get('name');
+                    }
                 }
             }
         }
