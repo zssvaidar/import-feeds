@@ -2,8 +2,8 @@
   "name": "atrocore/import-feeds",
   "description": "",
   "require": {
-    "atrocore/core": ">=1.1.46 <1.3.0",
-    "atrocore/import-feeds-common": "~1.2.0"
+    "atrocore/core": "~1.2.55",
+    "atrocore/import-feeds-common": "~1.2.1"
   },
   "autoload": {
     "psr-4": {

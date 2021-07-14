@@ -58,6 +58,10 @@ Espo.define('import:views/import-feed/fields/value-container', 'views/fields/bas
                 this.params.measure = (this.model.get('options') || [])[0];
             }
 
+            if (this.model.get('default') === '' && type === 'linkMultiple'){
+                this.model.set('defaultIds', [], {silent: true});
+            }
+
             this.createView('default', this.getValueFieldView(type), {
                 el: `${this.options.el} > .field[data-name="default"]`,
                 model: this.model,
@@ -112,10 +116,10 @@ Espo.define('import:views/import-feed/fields/value-container', 'views/fields/bas
 
         extendFieldParams(name) {
             let options = this.model.getFieldParam(this.name, 'options') || [];
-            let translatedOptions = options.reduce((prev, curr) => {
-                prev[curr] = this.getLanguage().translateOption(curr, name, this.model.get('entity'));
-                return prev
-            }, {'': ''});
+            let translatedOptions = {};
+            options.forEach(v => {
+                translatedOptions[v] = this.getLanguage().translateOption(v, name, this.model.get('entity'));
+            });
             _.extend(this.params, {
                 required: this.model.getFieldParam(this.name, 'required'),
                 translatedOptions: translatedOptions

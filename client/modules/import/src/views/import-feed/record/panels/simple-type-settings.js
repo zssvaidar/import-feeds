@@ -169,12 +169,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 };
                 Object.keys(fields).forEach(name => {
                     let field = fields[name];
-                    if (
-                        !field.customizationDisabled && !field.disabled && !field.notStorable && !!field.type
-                        && !notAvailableFieldsList.includes(name) && (name === 'code' || !field.emHidden)
-                        && (!field.importDisabled && (!notAvailableTypes.includes(field.type) || ('importDisabled' in field))
-                        && !(field.multilangField && ['enum', 'multiEnum'].includes(field.type)))
-                    ) {
+                    if (!field.disabled && !notAvailableFieldsList.includes(name) && !notAvailableTypes.includes(field.type) && !field.importDisabled) {
                         result[name] = field;
                     }
                 });
@@ -183,34 +178,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
         },
 
         getEntityConfiguration(entity) {
-            let result = [];
-            Object.keys(this.entityFields).forEach(name => {
-                let field = this.entityFields[name];
-                if (field.required) {
-                    let data = {
-                        name: name,
-                        column: null,
-                        default: null
-                    };
-                    if (['link', 'linkMultiple'].includes(field.type)) {
-                        let options = {
-                            foreign: this.getMetadata().get(['entityDefs', entity, 'links', name, 'entity']) || {},
-                            field: 'id',
-                            customData: {
-                                fieldName: this.getLanguage().translate('id', 'fields', 'Global')
-                            }
-                        };
-                        if (field.type === 'link') {
-                            options.isLink = true;
-                        } else {
-                            options.isLinkMultiple = true;
-                        }
-                        _.extend(data, options);
-                    }
-                    result.push(data);
-                }
-            });
-            return result;
+            return [];
         },
 
         getTranslatedOptionsForIdField() {
@@ -238,10 +206,12 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             this.getModelFactory().create(null, model => {
                 this.panelModel = model;
                 this.updatePanelModelAttributes();
+                this.updateUnusedColumns();
 
                 this.listenTo(this.panelModel, 'change:entity', () => {
                     this.loadConfiguration(this.panelModel.get('entity'));
                     this.updateIdFieldOptions();
+                    this.updateUnusedColumns();
                     this.updatePanelModelAttributes();
                     this.updateCollection();
                     this.createConfiguratorList();
@@ -299,6 +269,19 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     });
                     view.render();
                 });
+
+                this.createView('unusedColumns', 'views/fields/multi-enum', {
+                    model: this.panelModel,
+                    el: this.options.el + ' .field[data-name="unusedColumns"]',
+                    name: 'unusedColumns',
+                    mode: this.mode,
+                    params: {
+                        readOnly: true
+                    },
+                    inlineEditDisabled: true
+                }, view => {
+                    view.render();
+                });
             });
         },
 
@@ -323,6 +306,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     }
                     this.configData = this.getConfigurationData();
                     this.updateIdFieldOptions();
+                    this.updateUnusedColumns();
                     if (this.mode !== 'edit') {
                         this.save(() => this.createConfiguratorList());
                     } else {
@@ -389,6 +373,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                             prev[curr.column.toString()] = curr.name;
                             return prev;
                         }, {'': ''}),
+                        readOnly: true,
                         inlineEditDisabled: true
                     },
                     view: 'import:views/import-feed/fields/column'
@@ -398,6 +383,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     notSortable: true,
                     type: 'base',
                     params: {
+                        readOnly: true,
                         inlineEditDisabled: true
                     },
                     view: 'import:views/import-feed/fields/value-container'
@@ -407,6 +393,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         updateFileColumns(response, withRowsUpdating) {
             this.fileColumns = response;
+            this.updateUnusedColumns();
             if (withRowsUpdating) {
                 let translatedOptions = this.fileColumns.reduce((prev, curr) => {
                     prev[curr.column.toString()] = curr.name;
@@ -445,6 +432,33 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     view.setNotRequired();
                 }
                 view.reRender();
+            }
+        },
+
+        updateUnusedColumns() {
+            let usedColumns = {};
+            if (this.configData && this.configData.configuration) {
+                this.configData.configuration.forEach(item => {
+                    (item.column || []).forEach(column => {
+                        usedColumns[column] = true;
+                    });
+                });
+            }
+
+            let unusedColumns = [];
+            $.each(this.fileColumns, (k, item) => {
+                if (!usedColumns[item.column]) {
+                    unusedColumns.push(item.name);
+                }
+            });
+
+            if (this.panelModel) {
+                this.panelModel.set('unusedColumns', unusedColumns);
+
+                let view = this.getView('unusedColumns');
+                if (view) {
+                    view.reRender();
+                }
             }
         },
 
@@ -591,6 +605,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 name: model.get('name'),
                 column: model.get('column'),
                 singleColumn: model.get('singleColumn'),
+                createIfNotExist: model.get('createIfNotExist'),
                 columnCurrency: model.get('columnCurrency'),
                 columnUnit: model.get('columnUnit'),
                 default: model.get('default'),
@@ -614,7 +629,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 if (model.get('isMultilang') || model.get('locale')) {
                     extraConf.locale = model.get('locale');
                 }
-		_.extend(result, extraConf);
+                _.extend(result, extraConf);
             } else {
                 if (this.entityFields[model.get('name')]) {
                     result.locale = model.get('locale');
@@ -629,7 +644,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             configuration = configuration || {};
             let extraConf = {};
             let type = model.getFieldType('default');
-            if (['link', 'linkMultiple'].includes(type)) {
+            if (['asset', 'link', 'linkMultiple'].includes(type)) {
                 let field = model.get('field');
                 extraConf = {
                     foreign: model.getLinkParam('default', 'entity'),
@@ -701,6 +716,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             this.configData = Espo.Utils.cloneDeep(this.initialData);
             this.entityFields = this.getEntityFields(this.configData.entity);
             this.updateIdFieldOptions();
+            this.updateUnusedColumns();
             this.updatePanelModelAttributes();
             this.updateCollection();
             this.createConfiguratorList();

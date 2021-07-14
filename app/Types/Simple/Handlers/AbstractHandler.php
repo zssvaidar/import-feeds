@@ -110,33 +110,25 @@ abstract class AbstractHandler
         return $result;
     }
 
-    /**
-     * @param \stdClass $inputRow
-     * @param string    $entityType
-     * @param array     $item
-     * @param array     $row
-     * @param string    $delimiter
-     */
-    protected function convertItem(\stdClass $inputRow, string $entityType, array $item, array $row, string $delimiter)
+    protected function convertItem(\stdClass $inputRow, string $entityType, array $item, array $row, string $delimiter): void
     {
         // get converter
-        $converter = $this
-            ->getMetadata()
-            ->get(['import', 'simple', 'fields', $this->getType($entityType, $item), 'converter']);
+        $converter = $this->getMetadata()->get(['import', 'simple', 'fields', $this->getType($entityType, $item), 'converter']);
 
         // delegate
         if (!empty($converter)) {
-            return (new $converter($this->container))->convert($inputRow, $entityType, $item, $row, $delimiter);
+            (new $converter($this->container))->convert($inputRow, $entityType, $item, $row, $delimiter);
+            return;
         }
 
         // prepare value
-        if (is_null($item['column']) || $row[$item['column']] == '') {
+        if (is_null($item['column'][0]) || $row[$item['column'][0]] == '') {
             $value = $item['default'];
             if (!empty($value) && is_string($value)) {
                 $value = str_replace("{{hash}}", Util::generateId(), $value);
             }
         } else {
-            $value = $row[$item['column']];
+            $value = $row[$item['column'][0]];
         }
 
         // set

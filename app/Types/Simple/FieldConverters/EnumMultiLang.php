@@ -33,9 +33,9 @@ class EnumMultiLang extends AbstractConverter
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
-        $value = (is_null($config['column']) || $row[$config['column']] == '') ? $config['default'] : $row[$config['column']];
+        $value = (is_null($config['column'][0]) || $row[$config['column'][0]] == '') ? $config['default'] : $row[$config['column'][0]];
         $inputRow->{$config['name']} = $value;
 
         if (isset($config['attributeId'])) {

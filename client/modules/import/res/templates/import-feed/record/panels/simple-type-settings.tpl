@@ -19,6 +19,12 @@
             {{{delimiter}}}
         </div>
     </div>
+    <div class="cell form-group col-sm-6 col-xs-12" data-name="unusedColumns">
+        <label class="control-label" data-name="unusedColumns"><span class="label-text">{{translate 'unusedColumns' scope='ImportFeed' category='fields'}}</span></label>
+        <div class="field" data-name="unusedColumns">
+            {{{unusedColumns}}}
+        </div>
+    </div>
 </div>
 <div class="panel panel-default panel-configurator">
     <div class="panel-heading">
@@ -34,7 +40,7 @@
         </div>
         <h4 class="panel-title">{{translate 'configurator' scope=scope category='labels'}}</h4>
     </div>
-    <div class="mapping-container">
+    <div class="mapping-container panel-body panel-collapse collapse in">
         <div class="list-container">{{{configurator}}}</div>
     </div>
 </div>

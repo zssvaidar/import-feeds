@@ -1,5 +1,6 @@
 {
   "fields": {
+    "unusedColumns": "Nicht verwendete Spalten Column",
     "file": "Beispieldatei (CSV)",
     "isActive": "Aktiv",
     "type": "Typ",
@@ -9,12 +10,14 @@
     "isFileHeaderRow": "Header Zeile",
     "fileDataAction": "Aktion",
     "decimalMark": "Dezimaltrennzeichen",
-    "column": "Spalte",
+    "column": "Spalte(n)",
     "defaultValue": "Default-Wert",
-    "locale": "Gebietsschema"
+    "locale": "Gebietsschema",
+    "createIfNotExist": "Erstellen, falls nicht vorhanden"
   },
   "links": [],
   "labels": {
+    "channelCode": "Kanal (Code)",
     "singleColumn": "Einzelne Spalten",
     "currency": "Währung",
     "unit": "Einheit",
@@ -31,7 +34,7 @@
     "addProductAttribute": "Produktattribut hinzufügen",
     "importRunning": "Import läuft",
     "delimiter": "Feldwert Trennzeichen",
-    "importBy": "Import von",
+    "importBy": "Verwandte Entitätsfelder",
     "main": "Hauptgebietsschema",
     "simple": "Simple",
     "product": "Produkt",

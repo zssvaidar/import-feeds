@@ -22,17 +22,19 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
 /**
  * Class LinkMultiple
  */
-class LinkMultiple extends AbstractConverter
+class LinkMultiple extends Asset
 {
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
         // prepare ids
         $ids = explode(',', $config['default']);
@@ -40,41 +42,92 @@ class LinkMultiple extends AbstractConverter
         // prepare names
         $names = isset($config['defaultNames']) ? array_values($config['defaultNames']) : [];
 
-        if (!is_null($config['column']) && !empty($row[$config['column']])) {
-            $ids = explode($delimiter, $row[$config['column']]);
+        if (!empty($config['column'])) {
+            $entityName = $this->container->get('metadata')->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
+            $ids = [];
+            $names = [];
 
-            // get entity name
-            $entityName = $this
-                ->container
-                ->get('metadata')
-                ->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
+            foreach ($config['column'] as $column) {
+                $items = explode($delimiter, $row[$column]);
+                if (empty($items)) {
+                    continue 1;
+                }
 
-            if (!empty($entityName)) {
-                // find entity
-                $entities = $this
-                    ->container
-                    ->get('entityManager')
-                    ->getRepository($entityName)
-                    ->select(['id', 'name'])
-                    ->where([$config['field'] => $ids])
-                    ->find()
-                    ->toArray();
+                foreach ($items as $item) {
+                    $values = explode('|', $item);
+                    $where = [];
+                    if ($config['foreign'] === 'Asset') {
+                        foreach ($config['field'] as $k => $field) {
+                            if ($field === 'id') {
+                                $where[$field] = $values[$k];
+                            }
+                            if ($field === 'url') {
+                                $url = $values[$k];
+                            }
+                        }
+                    } else {
+                        foreach ($config['field'] as $k => $field) {
+                            $where[$field] = $values[$k];
+                        }
+                    }
 
-                if (count($entities) > 0) {
-                    $ids = array_column($entities, 'id');
-                    $names = array_column($entities, 'name');
+                    $entity = null;
+                    if (!empty($where)) {
+                        $entity = $this->getEntityManager()
+                            ->getRepository($entityName)
+                            ->select(['id', 'name'])
+                            ->where($where)
+                            ->findOne();
+                    }
+
+                    if (empty($entity)) {
+                        if (empty($config['createIfNotExist'])) {
+                            throw new BadRequest("No related entity found.");
+                        }
+
+                        $post = [];
+                        if ($config['foreign'] === 'Asset') {
+                            if (!empty($url)) {
+                                foreach ($config['field'] as $k => $field) {
+                                    $post[$field] = $values[$k];
+                                }
+                                $attachment = $this->createAttachment((string)$url, $entityName, (string)$config['name']);
+                                $post['name'] = basename($url);
+                                $post['fileId'] = $attachment->get('id');
+                                $post['private'] = !empty($post['private']);
+                            }
+                        } else {
+                            foreach ($config['field'] as $k => $field) {
+                                $post[$field] = $values[$k];
+                            }
+                        }
+
+                        if (!empty($post)) {
+                            $entity = $this->getService($config['foreign'])->createEntity(Json::decode(Json::encode($post)));
+                            if ($entityType === 'Product') {
+                                $inputData = empty($inputRow->data) ? [] : Json::decode($inputRow->data, true);
+                                $inputData['productAssets'][] = ["assetId" => $entity->get('id'), "channelId" => $post['channel']];
+                                $inputRow->data = Json::encode($inputData);
+                            }
+                        }
+                    }
+
+                    if (!empty($entity)) {
+                        $ids[$entity->get('id')] = $entity->get('id');
+                        $names[$entity->get('id')] = $entity->get('name');
+                    }
                 }
             }
         }
 
-        $inputRow->{$config['name'] . 'Ids'} = (array)$ids;
-        $inputRow->{$config['name'] . 'Names'} = $names;
+        $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
+        $inputRow->{$config['name'] . 'Names'} = array_values($names);
     }
 
     /**
      * @inheritDoc
      */
-    public function prepareValue(\stdClass $restore, Entity $entity, array $item)
+    public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $ids = null;
         $names = null;

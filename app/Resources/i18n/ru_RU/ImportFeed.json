@@ -1,5 +1,6 @@
 {
   "fields": {
+    "unusedColumns": "Неиспользуемые столбцы",
     "file": "Файл-пример (CSV)",
     "isActive": "Активный",
     "type": "Тип",
@@ -25,6 +26,7 @@
     "importResults": "Результаты импорта"
   },
   "labels": {
+    "channelCode": "Канал (код)",
     "singleColumn": "Одна колонка",
     "currency": "Валюта",
     "unit": "Единица",
@@ -40,7 +42,7 @@
     "addProductAttribute": "Добавить поле атрибута",
     "importRunning": "Импорт выполняется",
     "delimiter": "Разделитель значений поля",
-    "importBy": "Import By",
+    "importBy": "Поля связанных сущностей",
     "main": "Main locale",
     "simple": "Простой",
     "product": "Продукт",

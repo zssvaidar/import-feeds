@@ -32,22 +32,22 @@ class Unit extends FloatValue
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
         $value = $config['default'];
         $unit = $config['defaultUnit'];
 
         if (!empty($config['singleColumn'])) {
-            if (!empty(!empty($config['column']) && $row[$config['column']] != '')) {
-                $parts = explode(' ', $row[$config['column']]);
+            if (!empty(!empty($config['column'][0]) && $row[$config['column'][0]] != '')) {
+                $parts = explode(' ', $row[$config['column'][0]]);
                 if (isset($parts[1])) {
                     $value = $parts[0];
                     $unit = $parts[1];
                 }
             }
         } else {
-            if (!empty($config['column']) && $row[$config['column']] != '') {
-                $value = $row[$config['column']];
+            if (!empty($config['column'][0]) && $row[$config['column'][0]] != '') {
+                $value = $row[$config['column'][0]];
             }
 
             if (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') {
@@ -74,7 +74,7 @@ class Unit extends FloatValue
     /**
      * @inheritDoc
      */
-    public function prepareValue(\stdClass $restore, Entity $entity, array $item)
+    public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         if (isset($item['attributeId'])) {
             $restore->data = $entity->get('data');

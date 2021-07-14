@@ -1,5 +1,6 @@
 {
   "fields": {
+    "unusedColumns": "Unused Columns",
     "file": "Example File (CSV)",
     "isActive": "Active",
     "type": "Type",
@@ -13,10 +14,11 @@
     "fileDataAction": "Action",
     "decimalMark": "Decimal Mark",
     "importFile": "Data File",
-    "column": "File Column",
+    "column": "File Column(s)",
     "default": "Default Value",
     "importResults": "Import Results",
-    "locale": "Locale"
+    "locale": "Locale",
+    "createIfNotExist": "Create if not exist"
   },
   "links": {
     "importJobs": "Import Jobs",
@@ -25,6 +27,7 @@
     "importResults": "Import Results"
   },
   "labels": {
+    "channelCode": "Channel (code)",
     "singleColumn": "Single Column",
     "currency": "Currency",
     "unit": "Unit",
@@ -40,7 +43,7 @@
     "addProductAttribute": "Add Product attribute",
     "importRunning": "Import Running",
     "delimiter": "Field value delimiter",
-    "importBy": "Import By",
+    "importBy": "Related Entity Fields",
     "main": "Main locale",
     "simple": "Simple",
     "product": "Product",

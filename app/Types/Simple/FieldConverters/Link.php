@@ -34,7 +34,7 @@ class Link extends AbstractConverter
      *
      * @throws \Exception
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
         // prepare default entity id
         $value = $config['default'];
@@ -42,19 +42,20 @@ class Link extends AbstractConverter
         // prepare default entity name
         $name = isset($config['defaultName']) ? $config['defaultName'] : null;
 
-        if (!is_null($config['column']) && !empty($row[$config['column']])) {
+        if (!empty($row[$config['column'][0]])) {
             // get entity name
-            $entityName = $this
-                ->container
-                ->get('metadata')
-                ->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
+            $entityName = $this->getMetadata()->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
 
-            $entity = $this
-                ->container
-                ->get('entityManager')
+            $values = explode('|', $row[$config['column'][0]]);
+            $where = [];
+            foreach ($config['field'] as $k => $field) {
+                $where[$field] = $values[$k];
+            }
+
+            $entity = $this->getEntityManager()
                 ->getRepository($entityName)
                 ->select(['id', 'name'])
-                ->where([$config['field'] => $row[$config['column']]])
+                ->where($where)
                 ->findOne();
 
             if (!empty($entity)) {
@@ -72,7 +73,7 @@ class Link extends AbstractConverter
     /**
      * @inheritDoc
      */
-    public function prepareValue(\stdClass $restore, Entity $entity, array $item)
+    public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $value = null;
 

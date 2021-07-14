@@ -20,25 +20,40 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
+namespace Import\Migrations;
+
+use Treo\Core\Migration\Base;
 
 /**
- * Class FloatValue
+ * Class V1Dot0Dot12
  */
-class FloatValue extends AbstractConverter
+class V1Dot0Dot12 extends Base
 {
-    public static function prepareFloatValue(string $value): float
+    /**
+     * @inheritDoc
+     */
+    public function up(): void
     {
-        return (float)str_replace(',', '.', preg_replace("/[^0-9]\.,/", "", $value));
+        $this->execute("DELETE FROM import_feed WHERE 1");
     }
 
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    public function down(): void
     {
-        $value = (!empty($config['column'][0]) && $row[$config['column'][0]] != '') ? $row[$config['column'][0]] : $config['default'];
+        $this->up();
+    }
 
-        $inputRow->{$config['name']} = self::prepareFloatValue($value);
+    /**
+     * @param string $sql
+     */
+    protected function execute(string $sql)
+    {
+        try {
+            $this->getPDO()->exec($sql);
+        } catch (\Throwable $e) {
+            // ignore all
+        }
     }
 }

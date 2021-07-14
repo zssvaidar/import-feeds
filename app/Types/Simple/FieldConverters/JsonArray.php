@@ -33,12 +33,12 @@ class JsonArray extends AbstractConverter
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
         $value = null;
 
         $value
-            = (isset($row[$config['column']]) && !empty($row[$config['column']])) ? $row[$config['column']] : $config['default'];
+            = (isset($row[$config['column'][0]]) && !empty($row[$config['column'][0]])) ? $row[$config['column'][0]] : $config['default'];
 
         if (is_string($value)) {
             $value = explode($delimiter, $value);
