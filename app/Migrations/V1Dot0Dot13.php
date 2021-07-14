@@ -25,9 +25,9 @@ namespace Import\Migrations;
 use Treo\Core\Migration\Base;
 
 /**
- * Class V1Dot0Dot12
+ * Class V1Dot0Dot13
  */
-class V1Dot0Dot12 extends Base
+class V1Dot0Dot13 extends Base
 {
     /**
      * @inheritDoc
