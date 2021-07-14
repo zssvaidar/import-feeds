@@ -18,7 +18,6 @@
   "links": [],
   "labels": {
     "channelCode": "Kanal (Code)",
-    "singleColumn": "Einzelne Spalten",
     "currency": "Währung",
     "unit": "Einheit",
     "File properties": "Dateieigenschaften",
@@ -65,9 +64,5 @@
   },
   "types": {
     "simple": "Import-Feed Typ für Import der Daten in eine Entität."
-  },
-  "tooltips": {
-    "singleColumnCurrency": "Der numerische Wert und der Währungsname kommen in einer einzelnen Spalte, z. \"5 EUR\".",
-    "singleColumnUnit": "Der numerische Wert und die Maßeinheit kommen in einer einzelnen Spalte, z. \"5 cm\"."
   }
 }

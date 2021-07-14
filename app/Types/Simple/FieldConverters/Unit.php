@@ -37,11 +37,13 @@ class Unit extends FloatValue
         $value = $config['default'];
         $unit = $config['defaultUnit'];
 
-        if (!empty($config['singleColumn'])) {
+        $isSingleColumn = !isset($config['column'][1]);
+
+        if ($isSingleColumn) {
             if (!empty(!empty($config['column'][0]) && $row[$config['column'][0]] != '')) {
                 $parts = explode(' ', $row[$config['column'][0]]);
+                $value = $parts[0];
                 if (isset($parts[1])) {
-                    $value = $parts[0];
                     $unit = $parts[1];
                 }
             }
@@ -50,8 +52,8 @@ class Unit extends FloatValue
                 $value = $row[$config['column'][0]];
             }
 
-            if (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') {
-                $unit = $row[$config['columnUnit']];
+            if (!empty($config['column'][1]) && $row[$config['column'][1]] != '') {
+                $unit = $row[$config['column'][1]];
             }
         }
 
@@ -62,11 +64,11 @@ class Unit extends FloatValue
 
         if (isset($config['attributeId'])) {
             // prepare input row for attribute
-            $inputRow->{$config['name']} = self::prepareFloatValue($value);
+            $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
             $inputRow->data = (object)['unit' => $unit];
         } else {
             // set values to input row
-            $inputRow->{$config['name']} = self::prepareFloatValue($value);
+            $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
             $inputRow->{$config['name'] . 'Unit'} = $unit;
         }
     }

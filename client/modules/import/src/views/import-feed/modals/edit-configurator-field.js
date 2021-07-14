@@ -84,10 +84,31 @@ Espo.define('import:views/import-feed/modals/edit-configurator-field', 'views/mo
                 this.applyDynamicChanges();
             });
 
-            this.listenTo(this.model, 'change:column', () => {
-                if (this.model.get('column') && this.model.get('column').length > 1 && this.getMetadata().get(`entityDefs.${this.scope}.fields.${this.model.get('name')}.type`) !== 'linkMultiple') {
-                    this.model.set('column', [this.model.get('column').pop()]);
-                    this.getView('column').reRender();
+            this.listenTo(this.model, 'change:column', (model, data, additional) => {
+                if (additional.skipColumnListener) {
+                    return;
+                }
+
+                const type = this.getMetadata().get(`entityDefs.${this.scope}.fields.${this.model.get('name')}.type`);
+                const types = {linkMultiple: 999, currency: 2, unit: 2};
+                const maxLength = types[type] ? types[type] : 1;
+
+                if (this.model.get('column') && this.model.get('column').length > maxLength) {
+                    let items = Espo.Utils.clone(this.model.get('column'));
+
+                    let promise = new Promise((resolve, reject) => {
+                        while (items.length > maxLength) {
+                            let first = items.shift();
+                            if (items.length === maxLength) {
+                                resolve();
+                            }
+                        }
+                    });
+
+                    promise.then(() => {
+                        this.model.set('column', items, {skipColumnListener: true});
+                        this.getView('column').reRender();
+                    });
                 }
             });
         },

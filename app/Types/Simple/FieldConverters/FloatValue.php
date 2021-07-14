@@ -39,6 +39,6 @@ class FloatValue extends AbstractConverter
     {
         $value = (!empty($config['column'][0]) && $row[$config['column'][0]] != '') ? $row[$config['column'][0]] : $config['default'];
 
-        $inputRow->{$config['name']} = self::prepareFloatValue($value);
+        $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
     }
 }

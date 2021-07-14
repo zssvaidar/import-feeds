@@ -127,6 +127,8 @@ class DefaultHandler extends AbstractHandler
 
                 // push log
                 $this->log($entityType, $importResultId, 'error', (string)$fileRow, $message);
+
+                $updatedEntity = null;
             }
 
             if (!empty($updatedEntity)) {

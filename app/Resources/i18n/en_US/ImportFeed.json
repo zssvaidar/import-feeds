@@ -28,7 +28,6 @@
   },
   "labels": {
     "channelCode": "Channel (code)",
-    "singleColumn": "Single Column",
     "currency": "Currency",
     "unit": "Unit",
     "File properties": "File properties",
@@ -74,9 +73,5 @@
   },
   "types": {
     "simple": "Import Feed type, intended for importing values into any entity"
-  },
-  "tooltips": {
-    "singleColumnCurrency": "Numerical value and currency name come in a single column, e.g. \"5 EUR\".",
-    "singleColumnUnit": "Numerical value and measure unit come in a single column, e.g. \"5 cm\"."
   }
 }

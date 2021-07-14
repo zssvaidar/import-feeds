@@ -37,11 +37,13 @@ class Currency extends FloatValue
         $value = $config['default'];
         $currency = $config['defaultCurrency'];
 
-        if (!empty($config['singleColumn'])) {
-            if (!empty(!empty($config['column'][0]) && $row[$config['column'][0]] != '')) {
+        $isSingleColumn = !isset($config['column'][1]);
+
+        if ($isSingleColumn) {
+            if (!empty($config['column'][0]) && $row[$config['column'][0]] != '') {
                 $parts = explode(' ', $row[$config['column'][0]]);
+                $value = $parts[0];
                 if (isset($parts[1])) {
-                    $value = $parts[0];
                     $currency = $parts[1];
                 }
             }
@@ -50,8 +52,8 @@ class Currency extends FloatValue
                 $value = $row[$config['column'][0]];
             }
 
-            if (!empty($config['columnCurrency']) && $row[$config['columnCurrency']] != '') {
-                $currency = $row[$config['columnCurrency']];
+            if (!empty($config['column'][1]) && $row[$config['column'][1]] != '') {
+                $currency = $row[$config['column'][1]];
             }
         }
 
@@ -62,11 +64,11 @@ class Currency extends FloatValue
 
         if (isset($config['attributeId'])) {
             // prepare input row for attribute
-            $inputRow->{$config['name']} = self::prepareFloatValue($value);
+            $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
             $inputRow->data = (object)['currency' => $currency];
         } else {
             // set values to input row
-            $inputRow->{$config['name']} = self::prepareFloatValue($value);
+            $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
             $inputRow->{$config['name'] . 'Currency'} = $currency;
         }
     }

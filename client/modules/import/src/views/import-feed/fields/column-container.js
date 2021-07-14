@@ -38,7 +38,7 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
             this.params = this.options.params || this.defs.params || {};
 
             this.createColumnFields();
-            this.listenTo(this.model, 'change:name change:attributeId change:singleColumn', () => {
+            this.listenTo(this.model, 'change:name change:attributeId', () => {
                 this.createColumnFields();
                 this.reRender();
             });
@@ -55,60 +55,6 @@ Espo.define('import:views/import-feed/fields/column-container', 'views/fields/ba
                 params: this.params,
                 inlineEditDisabled: true,
                 mode: this.mode
-            });
-
-            const fieldDefs = this.getMetadata().get(['entityDefs', this.model.get('entity'), 'fields', this.model.get('name')]) || {};
-            const type = this.model.get('type') || this.model.getFieldType('default') || fieldDefs.type || 'base';
-
-            if (type === 'currency') {
-                this.createSingleColumnField(type);
-                if (!this.model.get('singleColumn')) {
-                    this.containerViews['columnCurrency'] = true;
-                    this.createView('columnCurrency', 'import:views/import-feed/fields/column-currency', {
-                        model: this.model,
-                        el: `${this.options.el} .field[data-name="columnCurrency"]`,
-                        name: 'columnCurrency',
-                        defs: this.defs,
-                        columnParams: this.params,
-                        inlineEditDisabled: true,
-                        mode: this.mode
-                    });
-                }
-            }
-
-            if (type === 'unit') {
-                this.createSingleColumnField(type);
-                if (!this.model.get('singleColumn')) {
-                    this.containerViews['columnUnit'] = true;
-                    this.createView('columnUnit', 'import:views/import-feed/fields/column-unit', {
-                        model: this.model,
-                        el: `${this.options.el} .field[data-name="columnUnit"]`,
-                        name: 'columnUnit',
-                        defs: this.defs,
-                        columnParams: this.params,
-                        inlineEditDisabled: true,
-                        mode: this.mode
-                    });
-                }
-            }
-        },
-
-        createSingleColumnField(type) {
-            if (!this.model.has('singleColumn')) {
-                this.model.set('singleColumn', true, {silent: true});
-            }
-
-            this.containerViews['singleColumn'] = true;
-            this.createView('singleColumn', 'views/fields/bool', {
-                model: this.model,
-                el: `${this.options.el} .field[data-name="singleColumn"]`,
-                name: 'singleColumn',
-                inlineEditDisabled: true,
-                mode: this.mode
-            }, view => {
-                view.listenToOnce(view, 'after:render', () => {
-                    this.initTooltip('singleColumn' + type.charAt(0).toUpperCase() + type.slice(1));
-                });
             });
         },
 
