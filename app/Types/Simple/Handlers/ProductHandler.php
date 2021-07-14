@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\Handlers;
 
+use Espo\Core\Utils\Json;
 use Espo\Core\Utils\Util;
 use Espo\ORM\Entity;
 use Espo\Services\Record;
@@ -169,6 +170,10 @@ class ProductHandler extends AbstractHandler
                 $this->saved = false;
 
                 $this->getEntityManager()->getPDO()->commit();
+
+                if ($action === 'create') {
+                    $this->afterCreateAction($entity);
+                }
             } catch (\Throwable $e) {
                 // roll back transaction
                 $this->getEntityManager()->getPDO()->rollBack();
@@ -330,5 +335,32 @@ class ProductHandler extends AbstractHandler
         }
 
         return $result;
+    }
+
+    protected function afterCreateAction(Entity $entity): void
+    {
+        if (!empty($entity->get('data'))) {
+            $productData = Json::decode(Json::encode($entity->get('data')), true);
+            if (!empty($productData['productAssets'])) {
+                foreach ($productData['productAssets'] as $row) {
+                    if (empty($row['channelId'])) {
+                        $channelId = '';
+                    } else {
+                        $channel = $this->getEntityManager()->getRepository('Channel')->where(['code' => $row['channelId']])->findOne();
+                        if (!empty($channel)) {
+                            $channelId = $channel->get('id');
+                        }
+                    }
+
+                    $sql = "UPDATE product_asset SET channel='$channelId' WHERE asset_id='{$row['assetId']}' AND product_id='{$entity->get('id')}' AND deleted=0";
+
+                    try {
+                        $this->getEntityManager()->nativeQuery($sql);
+                    } catch (\Throwable $e) {
+                        $GLOBALS['log']->error('Updating of Product Asset relation failed. Message: ' . $e->getMessage());
+                    }
+                }
+            }
+        }
     }
 }
