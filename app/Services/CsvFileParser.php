@@ -27,7 +27,7 @@ use Espo\Entities\Attachment;
 /**
  * Class CsvFileParser
  */
-class CsvFileParser extends \Treo\Services\AbstractService
+class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
 {
 
     /**
