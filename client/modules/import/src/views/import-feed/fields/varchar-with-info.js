@@ -34,13 +34,13 @@ Espo.define('import:views/import-feed/fields/varchar-with-info', 'views/fields/v
         getExtraInfo() {
             let extraInfo = null;
 
-            let fieldName = (this.model.get('customData') || {}).fieldName;
-            if (this.model.get('isLink') || this.model.get('isLinkMultiple') && fieldName) {
+            let fields = (this.model.get('field') || []);
+            if (this.model.get('isLink') || this.model.get('isLinkMultiple') && fields) {
                 const entityName = this.model.getLinkParam('default', 'entity');
 
                 let translated = [];
-                if (Array.isArray(fieldName)) {
-                    fieldName.forEach(field => {
+                if (Array.isArray(fields)) {
+                    fields.forEach(field => {
                         translated.push(this.translate(field, 'fields', entityName));
                     });
                 }
