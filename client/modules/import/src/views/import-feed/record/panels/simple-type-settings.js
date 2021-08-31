@@ -103,7 +103,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             let fileId = this.model.get('fileId');
             let promise = null;
             if (fileId) {
-                promise = this.ajaxGetRequest(`ImportFeed/${this.model.get('fileId')}/fileColumns?delimiter=` +
+                promise = this.ajaxGetRequest(`ImportFeed/${this.model.get('fileId')}/fileColumns?importFeedId=${this.model.get('id')}&delimiter=` +
                     `${this.model.get('fileFieldDelimiter')}&enclosure=${this.model.get('fileTextQualifier')}` +
                     `&isHeaderRow=${this.model.get('isFileHeaderRow') ? 1 : 0}`);
             } else {
