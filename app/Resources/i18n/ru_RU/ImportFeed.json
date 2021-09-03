@@ -4,7 +4,6 @@
     "file": "Файл-пример (CSV)",
     "isActive": "Активный",
     "type": "Тип",
-    "limit": "Предельное значение",
     "fileFieldDelimiter": "Разделитель полей",
     "fileTextQualifier": "Классификатор текста",
     "isFileHeaderRow": "Название строчки",

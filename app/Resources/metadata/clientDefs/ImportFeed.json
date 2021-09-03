@@ -217,26 +217,6 @@
             }
           ]
         }
-      },
-      "limit": {
-        "visible": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        },
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        }
       }
     }
   }

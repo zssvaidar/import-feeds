@@ -92,7 +92,7 @@ class ImportResult extends Base
                 $importFeed = $importResult->get('importFeed');
 
                 // prepare limit
-                $limit = $importFeed->get('limit');
+                $limit = \PHP_INT_MAX;
 
                 // prepare data
                 $data = [

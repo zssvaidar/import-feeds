@@ -25,12 +25,6 @@
       "type": "jsonObject",
       "layoutListDisabled": true
     },
-    "limit": {
-      "type": "int",
-      "required": false,
-      "default": "1000",
-      "min": 1
-    },
     "importFile": {
       "type": "file",
       "notStorable": true,

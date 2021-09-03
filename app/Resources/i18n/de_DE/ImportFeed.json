@@ -4,7 +4,6 @@
     "file": "Beispieldatei (CSV)",
     "isActive": "Aktiv",
     "type": "Typ",
-    "limit": "Grenze",
     "fileFieldDelimiter": "Feld-Trennzeichen",
     "fileTextQualifier": "Textqualifier",
     "isFileHeaderRow": "Header Zeile",
