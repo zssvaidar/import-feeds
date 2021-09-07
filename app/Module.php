@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import;
 
+use Espo\Core\OpenApiGenerator;
 use Treo\Core\ModuleManager\AbstractModule;
 
 /**
@@ -35,5 +36,61 @@ class Module extends AbstractModule
     public static function getLoadOrder(): int
     {
         return 5110;
+    }
+
+    public function prepareApiDocs(array &$data, array $schemas): void
+    {
+        parent::prepareApiDocs($data, $schemas);
+
+        $data['paths']["/ImportFeed/{attachmentId}/fileColumns"]['get'] = [
+            'tags'        => ['ImportFeed'],
+            "summary"     => "Get file columns",
+            "description" => "Get file columns",
+            "operationId" => "getFileColumns",
+            'security'    => [['Authorization-Token' => []]],
+            'parameters'  => [
+                [
+                    "name"     => "attachmentId",
+                    "in"       => "path",
+                    "required" => true,
+                    "schema"   => [
+                        "type" => "string",
+                    ]
+                ],
+            ],
+            "responses"   => OpenApiGenerator::prepareResponses([
+                "type"  => "array",
+                "items" => [
+                    "type" => "object"
+                ]
+            ]),
+        ];
+
+        $data['paths']["/ImportFeed/action/runImport"]['post'] = [
+            'tags'        => ['ImportFeed'],
+            "summary"     => "Run import",
+            "description" => "Run import",
+            "operationId" => "runImport",
+            'security'    => [['Authorization-Token' => []]],
+            'requestBody' => [
+                'required' => true,
+                'content'  => [
+                    'application/json' => [
+                        'schema' => [
+                            "type"       => "object",
+                            "properties" => [
+                                "importFeedId" => [
+                                    "type" => "string",
+                                ],
+                                "attachmentId" => [
+                                    "type" => "string",
+                                ],
+                            ],
+                        ]
+                    ]
+                ],
+            ],
+            "responses"   => OpenApiGenerator::prepareResponses(["type" => "boolean"]),
+        ];
     }
 }
