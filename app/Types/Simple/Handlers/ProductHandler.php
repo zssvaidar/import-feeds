@@ -74,10 +74,13 @@ class ProductHandler extends AbstractHandler
         // find ID row
         $idRow = $this->getIdRow($data['data']['configuration'], $idField);
 
+        // prepare row column number
+        $rowColumn = is_array($idRow['column']) ? array_shift($idRow['column']) : $idRow['column'];
+
         // find exists if it needs
         $exists = [];
         if (in_array($data['action'], ['update', 'create_update']) && !empty($idRow)) {
-            $exists = $this->getExistsProducts($idRow['name'], array_column($fileData, $idRow['column']), $data['data']['configuration']);
+            $exists = $this->getExistsProducts($idRow['name'], array_column($fileData, $rowColumn), $data['data']['configuration']);
         }
 
         // prepare file row
@@ -90,14 +93,14 @@ class ProductHandler extends AbstractHandler
             if ($data['action'] == 'create') {
                 $id = null;
             } elseif ($data['action'] == 'update') {
-                if (isset($exists[$row[$idRow['column']]])) {
-                    $id = $exists[$row[$idRow['column']]];
+                if (isset($exists[$row[$rowColumn]])) {
+                    $id = $exists[$row[$rowColumn]];
                 } else {
                     // skip row if such item does not exist
                     continue 1;
                 }
             } elseif ($data['action'] == 'create_update') {
-                $id = (isset($exists[$row[$idRow['column']]])) ? $exists[$row[$idRow['column']]] : null;
+                $id = (isset($exists[$row[$rowColumn]])) ? $exists[$row[$rowColumn]] : null;
             }
 
             // prepare entity
@@ -301,7 +304,7 @@ class ProductHandler extends AbstractHandler
      */
     protected function getExistsProducts(string $name, array $ids, array $configuration): array
     {
-        $catalogId = 'no-such-catalog';
+        $catalogId = null;
         foreach ($configuration as $row) {
             if ($row['name'] === 'catalog') {
                 if (empty($row['column'])) {
