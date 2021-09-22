@@ -192,7 +192,12 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 options = this.selectedFields;
             }
 
-            options.forEach(field => translatedOptions[field] = this.translate(field, 'fields', this.panelModel.get('entity')));
+            options.forEach(field => {
+                if (!this.getMetadata().get(`entityDefs.${this.panelModel.get('entity')}.fields.${field}.notStorable`)) {
+                    translatedOptions[field] = this.translate(field, 'fields', this.panelModel.get('entity'));
+                }
+            });
+
             return translatedOptions;
         },
 
