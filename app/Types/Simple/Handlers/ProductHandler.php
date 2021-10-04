@@ -94,13 +94,13 @@ class ProductHandler extends AbstractHandler
                 $id = null;
             } elseif ($data['action'] == 'update') {
                 if (isset($exists[$row[$rowColumn]])) {
-                    $id = $exists[$row[$rowColumn]];
+                    $id = (string)$exists[$row[$rowColumn]];
                 } else {
                     // skip row if such item does not exist
                     continue 1;
                 }
             } elseif ($data['action'] == 'create_update') {
-                $id = (isset($exists[$row[$rowColumn]])) ? $exists[$row[$rowColumn]] : null;
+                $id = (isset($exists[$row[$rowColumn]])) ? (string)$exists[$row[$rowColumn]] : null;
             }
 
             // prepare entity
