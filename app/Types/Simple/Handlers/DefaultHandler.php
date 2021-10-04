@@ -46,18 +46,6 @@ class DefaultHandler extends AbstractHandler
         // create service
         $service = $this->getServiceFactory()->create($entityType);
 
-        // prepare id field
-        $idField = isset($data['data']['idField']) ? $data['data']['idField'] : "";
-
-        // find ID row
-        $idRow = $this->getIdRow($data['data']['configuration'], $idField);
-
-        // find exists if it needs
-        $exists = [];
-        if (in_array($data['action'], ['update', 'create_update']) && !empty($idRow)) {
-            $exists = $this->getExists($entityType, $idRow['name'], array_column($fileData, (string)$idRow['column']));
-        }
-
         // prepare file row
         $fileRow = (int)$data['offset'];
 
@@ -66,24 +54,19 @@ class DefaultHandler extends AbstractHandler
             // increment file row number
             $fileRow++;
 
-            // prepare id
-            if ($data['action'] == 'create') {
-                $id = null;
-            } elseif ($data['action'] == 'update') {
-                if (isset($exists[$row[$idRow['column']]])) {
-                    $id = $exists[$row[$idRow['column']]];
-                } else {
-                    // skip row if such item does not exist
+            $entity = null;
+            if ($data['action'] == 'update') {
+                $entity = $this->findExistEntity('Product', $data['data'], $row);
+                if (empty($entity)) {
                     continue 1;
                 }
             } elseif ($data['action'] == 'create_update') {
-                $id = (isset($exists[$row[$idRow['column']]])) ? $exists[$row[$idRow['column']]] : null;
+                $entity = $this->findExistEntity('Product', $data['data'], $row);
             }
 
-            try {
-                // prepare entity
-                $entity = !empty($id) ? $this->getEntityManager()->getEntity($entityType, $id) : null;
+            $id = empty($entity) ? null : $entity->get('id');
 
+            try {
                 // begin transaction
                 $this->getEntityManager()->getPDO()->beginTransaction();
 

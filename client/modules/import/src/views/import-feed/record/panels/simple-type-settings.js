@@ -253,7 +253,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 });
 
                 let translatedOptions = this.getTranslatedOptionsForIdField();
-                this.createView('idField', 'views/fields/enum', {
+                this.createView('idField', 'views/fields/multi-enum', {
                     model: this.panelModel,
                     el: this.options.el + ' .field[data-name="idField"]',
                     name: 'idField',

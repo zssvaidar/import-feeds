@@ -68,43 +68,23 @@ class ProductHandler extends AbstractHandler
         // create service
         $service = $this->getServiceFactory()->create($entityType);
 
-        // prepare id field
-        $idField = isset($data['data']['idField']) ? $data['data']['idField'] : "";
-
-        // find ID row
-        $idRow = $this->getIdRow($data['data']['configuration'], $idField);
-
-        // prepare row column number
-        $rowColumn = is_array($idRow['column']) ? array_shift($idRow['column']) : $idRow['column'];
-
-        // find exists if it needs
-        $exists = [];
-        if (in_array($data['action'], ['update', 'create_update']) && !empty($idRow)) {
-            $exists = $this->getExistsProducts($idRow['name'], array_column($fileData, $rowColumn), $data['data']['configuration']);
-        }
-
         // prepare file row
         $fileRow = (int)$data['offset'];
 
         foreach ($fileData as $row) {
             $fileRow++;
 
-            // prepare id
-            if ($data['action'] == 'create') {
-                $id = null;
-            } elseif ($data['action'] == 'update') {
-                if (isset($exists[$row[$rowColumn]])) {
-                    $id = $exists[$row[$rowColumn]];
-                } else {
-                    // skip row if such item does not exist
+            $entity = null;
+            if ($data['action'] == 'update') {
+                $entity = $this->findExistEntity('Product', $data['data'], $row);
+                if (empty($entity)) {
                     continue 1;
                 }
             } elseif ($data['action'] == 'create_update') {
-                $id = (isset($exists[$row[$rowColumn]])) ? $exists[$row[$rowColumn]] : null;
+                $entity = $this->findExistEntity('Product', $data['data'], $row);
             }
 
-            // prepare entity
-            $entity = !empty($id) ? $this->getEntityManager()->getEntity($entityType, $id) : null;
+            $id = empty($entity) ? null : $entity->get('id');
 
             // prepare row
             $input = new \stdClass();
