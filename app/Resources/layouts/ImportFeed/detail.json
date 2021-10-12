@@ -36,6 +36,10 @@
           "type": "equals",
           "attribute": "type",
           "value": "simple"
+        },
+        {
+          "type": "notEmpty",
+          "attribute": "id"
         }
       ]
     },
