@@ -88,8 +88,9 @@ class ImportFeed extends Base
      */
     public function runImport(string $importFeedId, string $attachmentId): bool
     {
-        // get importFeed
         $feed = $this->getImportFeed($importFeedId);
+
+        $this->validateFile($attachmentId, $feed);
 
         // prepare data
         $data = $this->getPrepareData($feed, $attachmentId);
@@ -211,21 +212,15 @@ class ImportFeed extends Base
      * @throws BadRequest
      * @throws NotFound
      */
-    protected function getFile(string $attachmentId, ImportFeedEntity $feed): Attachment
+    protected function validateFile(string $attachmentId, ImportFeedEntity $feed): void
     {
-        $file = $this->getEntityManager()->getEntity('Attachment', $attachmentId);
-
-        // is file exists ?
-        if (empty($file)) {
+        if (empty($file = $this->getEntityManager()->getEntity('Attachment', $attachmentId))) {
             throw new NotFound($this->exception("noSuchFile"));
         }
 
-        // is file valid ?
         if (!$this->isFileValid($feed, $file)) {
             throw new BadRequest($this->exception("theFileDoesNotMatchTheTemplate"));
         }
-
-        return $file;
     }
 
     /**
@@ -245,7 +240,14 @@ class ImportFeed extends Base
         $templateColumns = $this
             ->getCsvFileParser()
             ->getFileColumns($feed->get('file'), $delimiter, $enclosure, $isFileHeaderRow);
+
         $fileColumns = $this->getCsvFileParser()->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
+
+        foreach ($fileColumns as $k => $row) {
+            if ($row['name'] === \Import\Repositories\ImportResult::IMPORT_ERRORS_COLUMN) {
+                unset($fileColumns[$k]);
+            }
+        }
 
         return array_column($templateColumns, 'name') == array_column($fileColumns, 'name');
     }

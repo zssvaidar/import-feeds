@@ -30,6 +30,8 @@ use Espo\ORM\Entity;
  */
 class ImportResult extends Base
 {
+    public const IMPORT_ERRORS_COLUMN = 'Import Errors';
+
     protected function afterSave(Entity $entity, array $options = [])
     {
         if ($entity->isAttributeChanged('state') && $entity->get('state') == 'Done') {
@@ -53,12 +55,12 @@ class ImportResult extends Base
         parent::afterRemove($entity, $options);
     }
 
-    protected function generateErrorsAttachment(Entity $importResult): bool
+    public function generateErrorsAttachment(Entity $importResult): bool
     {
         $errorsRows = $this
             ->getEntityManager()
             ->getRepository('ImportResultLog')
-            ->select(['rowNumber'])
+            ->select(['rowNumber', 'message'])
             ->where([
                 'importResultId' => $importResult->get('id'),
                 'type'           => 'error'
@@ -70,14 +72,14 @@ class ImportResult extends Base
             return false;
         }
 
-        $errorsRowsNumbers = array_column($errorsRows, 'rowNumber');
+        $errorsRowsNumbers = array_column($errorsRows, 'message', 'rowNumber');
 
         // get importFeed
         $feed = $importResult->get('importFeed');
 
         // add header row if it needs
         if (!empty($feed->get('isFileHeaderRow'))) {
-            $errorsRowsNumbers[] = 1;
+            $errorsRowsNumbers[1] = self::IMPORT_ERRORS_COLUMN;
         }
 
         // get file data
@@ -89,7 +91,9 @@ class ImportResult extends Base
         // collect errors rows
         $errorsRows = [];
         foreach ($data as $k => $row) {
-            if (in_array($k + 1, $errorsRowsNumbers)) {
+            $key = $k + 1;
+            if (isset($errorsRowsNumbers[$key])) {
+                $row[] = $errorsRowsNumbers[$key];
                 $errorsRows[] = $row;
             }
         }
