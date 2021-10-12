@@ -4,6 +4,9 @@
     "onlyMy"
   ],
   "iconClass": "fas fa-cloud-download-alt",
+  "recordViews": {
+    "detail": "import:views/import-feed/record/detail"
+  },
   "relationshipPanels": {
     "importResults": {
       "create": false,
