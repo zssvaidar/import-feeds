@@ -26,7 +26,9 @@ class V1Dot2Dot0 extends V1Dot0Dot13
 {
     public function up(): void
     {
-        $this->execute("DELETE FROM import_feed WHERE 1");
+        $this->execute("DELETE FROM `import_feed` WHERE 1");
+        $this->execute("DELETE FROM `scheduled_job` WHERE `job`='ImportScheduledJob'");
+        $this->execute("DELETE FROM `job` WHERE `name`='ImportScheduledJob'");
     }
 
     public function down(): void
