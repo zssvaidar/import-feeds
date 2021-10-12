@@ -34,8 +34,7 @@
     "delimiter": "Feldwert Trennzeichen",
     "importBy": "Verwandte Entitätsfelder",
     "main": "Hauptgebietsschema",
-    "simple": "Simple",
-    "product": "Produkt",
+    "simple": "CSV-Datei",
     ",": ",",
     ";": ";",
     "\\t": "\\t",
@@ -62,6 +61,6 @@
     "configuratorSettingsIncorrect": "Konfigurator-Einstellungen falsch"
   },
   "types": {
-    "simple": "Import-Feed Typ für Import der Daten in eine Entität."
+    "simple": "Import-Feed Typ für Import der Daten in eine Entität aus CSV-Datei.",
   }
 }

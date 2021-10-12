@@ -43,8 +43,7 @@
     "delimiter": "Field value delimiter",
     "importBy": "Related Entity Fields",
     "main": "Main locale",
-    "simple": "Simple",
-    "product": "Product",
+    "simple": "CSV File",
     ",": ",",
     ";": ";",
     "\\t": "\\t",
@@ -71,6 +70,6 @@
     "configuratorSettingsIncorrect": "Configurator settings incorrect"
   },
   "types": {
-    "simple": "Import Feed type, intended for importing values into any entity"
+    "simple": "Import Feed type, intended for importing values into any entity from CSV file."
   }
 }
