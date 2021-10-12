@@ -61,6 +61,6 @@
     "configuratorSettingsIncorrect": "Konfigurator-Einstellungen falsch"
   },
   "types": {
-    "simple": "Import-Feed Typ für Import der Daten in eine Entität aus CSV-Datei.",
+    "simple": "Import-Feed Typ für Import der Daten in eine Entität aus CSV-Datei."
   }
 }
