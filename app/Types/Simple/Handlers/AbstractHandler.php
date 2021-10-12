@@ -61,8 +61,9 @@ abstract class AbstractHandler
             foreach ($configuration['configuration'] as $item) {
                 if ($item['name'] === $idField) {
                     $value = $item['default'];
-                    if (isset($item['column'][0])) {
-                        $value = $item['column'][0];
+
+                    if (isset($item['column'][0]) && isset($row[$item['column'][0]])) {
+                        $value = $row[$item['column'][0]];
                     }
 
                     if (!empty($item['isLink'])) {
