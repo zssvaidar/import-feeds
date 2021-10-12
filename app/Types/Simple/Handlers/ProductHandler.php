@@ -192,7 +192,6 @@ class ProductHandler extends AbstractHandler
      */
     protected function importAttribute(Entity $product, array $data, string $delimiter)
     {
-        $attribute = null;
         $entityType = 'ProductAttributeValue';
         $service = $this->getServiceFactory()->create($entityType);
 
@@ -260,64 +259,13 @@ class ProductHandler extends AbstractHandler
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getType(string $entityType, array $item): ?string
     {
-        $result = null;
-
         if (isset($item['attributeId']) && isset($item['type'])) {
-            $result = $item['type'];
-        } else {
-            $result = parent::getType($entityType, $item);
-        }
-        return $result;
-    }
-
-    /**
-     * @param string $name
-     * @param array  $ids
-     * @param array  $configuration
-     *
-     * @return array
-     */
-    protected function getExistsProducts(string $name, array $ids, array $configuration): array
-    {
-        $catalogId = null;
-        foreach ($configuration as $row) {
-            if ($row['name'] === 'catalog') {
-                if (empty($row['column'])) {
-                    $catalogId = $row['default'];
-                } else {
-                    $catalog = $this->getEntityManager()->getRepository('Catalog')->where([$row['field'] => $row['column']])->findOne();
-                    if (!empty($catalog)) {
-                        $catalogId = $catalog->get('id');
-                    }
-                }
-                break;
-            }
+            return $item['type'];
         }
 
-        $select = ($name == 'id') ? [$name] : ['id', $name];
-
-        // get data
-        $data = $this
-            ->getEntityManager()
-            ->getRepository('Product')
-            ->select($select)
-            ->where([$name => $ids, 'catalogId' => $catalogId])
-            ->find();
-
-        $result = [];
-
-        if (count($data) > 0) {
-            foreach ($data as $entity) {
-                $result[$entity->get($name)] = $entity->get('id');
-            }
-        }
-
-        return $result;
+        return parent::getType($entityType, $item);
     }
 
     protected function afterCreateAction(Entity $entity): void
