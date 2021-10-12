@@ -4,19 +4,6 @@
     "onlyMy"
   ],
   "iconClass": "fas fa-cloud-download-alt",
-  "quickCreate": true,
-  "navigateToEntityAfterQuickCreate": true,
-  "disabledSelectList": true,
-  "quickCreateOptions": {
-    "fullFormDisabled": true
-  },
-  "views": {
-    "list": "import:views/list",
-    "detail": "import:views/detail"
-  },
-  "recordViews": {
-    "detail": "import:views/import-feed/record/detail"
-  },
   "relationshipPanels": {
     "importResults": {
       "create": false,
