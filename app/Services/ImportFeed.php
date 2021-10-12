@@ -243,12 +243,6 @@ class ImportFeed extends Base
 
         $fileColumns = $this->getCsvFileParser()->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
 
-        foreach ($fileColumns as $k => $row) {
-            if ($row['name'] === \Import\Repositories\ImportResult::IMPORT_ERRORS_COLUMN) {
-                unset($fileColumns[$k]);
-            }
-        }
-
         return array_column($templateColumns, 'name') == array_column($fileColumns, 'name');
     }
 

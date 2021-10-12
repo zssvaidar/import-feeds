@@ -29,7 +29,7 @@
     "currency": "Валюта",
     "unit": "Единица",
     "File properties": "Свойства файла",
-    "Simple Type Settings": "Настройки простого типа",
+    "Simple Type Settings": "Настройки",
     "Create ImportFeed": "Создать импортный фид",
     "entity": "Сущность",
     "configurator": "Конфигуратор",
@@ -64,7 +64,7 @@
     "onlyCsvIsAllowed": "Файл недействителен. Разрешен только CSV.",
     "noSuchFile": "Такого файла не существует",
     "importFeedIsInactive": "Импортный фид неактивный",
-    "theFileDoesNotMatchTheTemplate": "Ошибочный файл. Файл не соответствует шаблону",
+    "theFileDoesNotMatchTheTemplate": "Файл не соответствует шаблону. Возможно в вашем файле есть колонка с ошибками. Ее нужно удалить.",
     "countOfFileRowsIsLessThanOne": "Количество строк в файле меньше единицы",
     "configuratorSettingsIncorrect": "Неправильные настройки конфигуратора"
   },

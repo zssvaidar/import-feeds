@@ -30,7 +30,7 @@
     "currency": "Currency",
     "unit": "Unit",
     "File properties": "File properties",
-    "Simple Type Settings": "Simple Type Settings",
+    "Simple Type Settings": "Settings",
     "Create ImportFeed": "Create Import Feed",
     "entity": "Entity",
     "configurator": "Configurator",
@@ -65,7 +65,7 @@
     "onlyCsvIsAllowed": "File invalid. Only CSV is allowed.",
     "noSuchFile": "No such file",
     "importFeedIsInactive": "Import feed is inactive",
-    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template",
+    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template. Maybe your file contain the column with error messages, which should be deleted.",
     "countOfFileRowsIsLessThanOne": "Count of file rows is less than one",
     "configuratorSettingsIncorrect": "Configurator settings incorrect"
   },

@@ -20,7 +20,7 @@
     "currency": "Währung",
     "unit": "Einheit",
     "File properties": "Dateieigenschaften",
-    "Simple Type Settings": "Einstellungen des Typs Simple",
+    "Simple Type Settings": "Einstellungen",
     "Create ImportFeed": "Import Feed erstellen",
     "entity": "Entität",
     "configurator": "Konfigurator",
@@ -56,7 +56,7 @@
     "onlyCsvIsAllowed": "Datei ist ungültig. Nur CSV ist erlaubt.",
     "noSuchFile": "Keine solche Datei",
     "importFeedIsInactive": "Import Feed ist inaktiv",
-    "theFileDoesNotMatchTheTemplate": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein",
+    "theFileDoesNotMatchTheTemplate": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein. Möglicherweise enthält Ihre Datei die Spalte mit Fehlermeldungen, diese soll gelöscht werden.",
     "countOfFileRowsIsLessThanOne": "Die Anzahl der Dateireihen ist kleiner als eins",
     "configuratorSettingsIncorrect": "Konfigurator-Einstellungen falsch"
   },
