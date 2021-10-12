@@ -5,15 +5,11 @@
   },
   "scopeNames": {
     "ImportFeed": "Import Feed",
-    "ImportCronJob": "Import Cron Job",
-    "ImportCronJobLog": "Import Cron Job Log",
     "ImportResult": "Import Result",
     "ImportResultLog": "Import Result Log"
   },
   "scopeNamesPlural": {
     "ImportFeed": "Import Feeds",
-    "ImportCronJob": "Import Cron Jobs",
-    "ImportCronJobLog": "Import Cron Job Logs",
     "ImportResult": "Import Results",
     "ImportResultLog": "Import Result Logs"
   }

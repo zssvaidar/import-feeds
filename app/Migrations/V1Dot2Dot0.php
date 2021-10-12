@@ -20,11 +20,17 @@
 
 declare(strict_types=1);
 
-namespace Import\Repositories;
+namespace Import\Migrations;
 
-/**
- * Class ImportCronJobLog
- */
-class ImportCronJobLog extends \Espo\Core\Templates\Repositories\Base
+class V1Dot2Dot0 extends V1Dot0Dot13
 {
+    public function up(): void
+    {
+        $this->execute("DELETE FROM import_feed WHERE 1");
+    }
+
+    public function down(): void
+    {
+        $this->up();
+    }
 }
