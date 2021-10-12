@@ -29,17 +29,13 @@
   },
   {
     "label": "File properties",
-    "style": "info",
+    "style": "default",
     "dynamicLogicVisible": {
       "conditionGroup": [
         {
           "type": "equals",
           "attribute": "type",
           "value": "simple"
-        },
-        {
-          "type": "notEmpty",
-          "attribute": "id"
         }
       ]
     },
