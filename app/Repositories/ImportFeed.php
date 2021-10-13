@@ -46,8 +46,14 @@ class ImportFeed extends Base
 
             if ($entity->has($field)) {
                 $data['feedFields'][$field] = $entity->get($field);
-                if ($row['type'] === 'int') {
-                    $data['feedFields'][$field] = (int)$data[$field];
+
+                switch ($row['type']) {
+                    case 'int':
+                        $data['feedFields'][$field] = (int)$data['feedFields'][$field];
+                        break;
+                    case 'bool':
+                        $data['feedFields'][$field] = !empty($data['feedFields'][$field]);
+                        break;
                 }
             }
         }

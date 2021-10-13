@@ -1,5 +1,8 @@
 {
   "fields": {
+    "entity": "Entität",
+    "delimiter": "Feldwert Trennzeichen",
+    "idField": "ID",
     "unusedColumns": "Nicht verwendete Spalten Column",
     "file": "Beispieldatei (CSV)",
     "isActive": "Aktiv",
@@ -20,9 +23,8 @@
     "currency": "Währung",
     "unit": "Einheit",
     "File properties": "Dateieigenschaften",
-    "Simple Type Settings": "Einstellungen",
+    "Settings": "Einstellungen",
     "Create ImportFeed": "Import Feed erstellen",
-    "entity": "Entität",
     "configurator": "Konfigurator",
     "convertFile": "Datei wird geladen, bitte warten ...",
     "convertSuccess": "Datei hochgeladen",
@@ -31,7 +33,6 @@
     "addEntityField": "Entitätsfeld hinzufügen",
     "addProductAttribute": "Produktattribut hinzufügen",
     "importRunning": "Import läuft",
-    "delimiter": "Feldwert Trennzeichen",
     "importBy": "Verwandte Entitätsfelder",
     "main": "Hauptgebietsschema",
     "simple": "CSV-Datei",

@@ -81,7 +81,8 @@
       "default": "create"
     },
     "isFileHeaderRow": {
-      "type": "bool"
+      "type": "bool",
+      "notStorable": true
     },
     "decimalMark": {
       "type": "enum",
@@ -132,6 +133,35 @@
       "layoutMassUpdateDisabled": true,
       "noLoad": true,
       "importDisabled": true
+    },
+    "entity": {
+      "type": "enum",
+      "notStorable": true,
+      "view": "import:views/import-feed/fields/entity",
+      "required": false,
+      "prohibitedEmptyValue": true,
+      "options": [],
+      "default": "Product"
+    },
+    "idField": {
+      "type": "multi-enum",
+      "notStorable": true,
+      "view": "import:views/import-feed/fields/id-field",
+      "required": false,
+      "prohibitedEmptyValue": true,
+      "options": []
+    },
+    "delimiter": {
+      "type": "varchar",
+      "notStorable": true,
+      "required": false,
+      "default": ";"
+    },
+    "unusedColumns": {
+      "type": "multi-enum",
+      "notStorable": true,
+      "view": "import:views/import-feed/fields/unused-columns",
+      "readOnly": true
     }
   },
   "links": {

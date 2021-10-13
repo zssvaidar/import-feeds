@@ -63,5 +63,36 @@
         }
       ]
     ]
+  },
+  {
+    "label": "Settings",
+    "style": "default",
+    "dynamicLogicVisible": {
+      "conditionGroup": [
+        {
+          "type": "equals",
+          "attribute": "type",
+          "value": "simple"
+        }
+      ]
+    },
+    "rows": [
+      [
+        {
+          "name": "entity"
+        },
+        {
+          "name": "idField"
+        }
+      ],
+      [
+        {
+          "name": "delimiter"
+        },
+        {
+          "name": "unusedColumns"
+        }
+      ]
+    ]
   }
 ]

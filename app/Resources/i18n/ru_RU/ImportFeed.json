@@ -1,5 +1,8 @@
 {
   "fields": {
+    "entity": "Сущность",
+    "delimiter": "Разделитель значений поля",
+    "idField": "ID",
     "unusedColumns": "Неиспользуемые столбцы",
     "file": "Файл-пример (CSV)",
     "isActive": "Активный",
@@ -29,9 +32,8 @@
     "currency": "Валюта",
     "unit": "Единица",
     "File properties": "Свойства файла",
-    "Simple Type Settings": "Настройки",
+    "Settings": "Настройки",
     "Create ImportFeed": "Создать импортный фид",
-    "entity": "Сущность",
     "configurator": "Конфигуратор",
     "convertFile": "Загрузка файла, подождите...",
     "convertSuccess": "Файл загружен",
@@ -39,7 +41,6 @@
     "addEntityField": "Добавить поле сущности",
     "addProductAttribute": "Добавить поле атрибута",
     "importRunning": "Импорт выполняется",
-    "delimiter": "Разделитель значений поля",
     "importBy": "Поля связанных сущностей",
     "main": "Main locale",
     "simple": "CSV Файл",

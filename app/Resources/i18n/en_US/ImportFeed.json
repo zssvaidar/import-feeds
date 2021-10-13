@@ -1,5 +1,8 @@
 {
   "fields": {
+    "entity": "Entity",
+    "delimiter": "Field value delimiter",
+    "idField": "ID",
     "unusedColumns": "Unused Columns",
     "file": "Example File (CSV)",
     "isActive": "Active",
@@ -30,9 +33,8 @@
     "currency": "Currency",
     "unit": "Unit",
     "File properties": "File properties",
-    "Simple Type Settings": "Settings",
+    "Settings": "Settings",
     "Create ImportFeed": "Create Import Feed",
-    "entity": "Entity",
     "configurator": "Configurator",
     "convertFile": "Loading file, please wait...",
     "convertSuccess": "File loaded",
@@ -40,7 +42,6 @@
     "addEntityField": "Add entity field",
     "addProductAttribute": "Add Product attribute",
     "importRunning": "Import Running",
-    "delimiter": "Field value delimiter",
     "importBy": "Related Entity Fields",
     "main": "Main locale",
     "simple": "CSV File",
