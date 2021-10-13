@@ -48,6 +48,7 @@
     "fileFieldDelimiter": {
       "type": "enum",
       "notStorable": true,
+      "dataField": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
@@ -61,6 +62,7 @@
     "fileTextQualifier": {
       "type": "enum",
       "notStorable": true,
+      "dataField": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
@@ -82,11 +84,13 @@
     },
     "isFileHeaderRow": {
       "type": "bool",
-      "notStorable": true
+      "notStorable": true,
+      "dataField": true
     },
     "decimalMark": {
       "type": "enum",
       "notStorable": true,
+      "dataField": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
@@ -137,6 +141,7 @@
     "entity": {
       "type": "enum",
       "notStorable": true,
+      "dataField": true,
       "view": "import:views/import-feed/fields/entity",
       "required": false,
       "prohibitedEmptyValue": true,
@@ -146,6 +151,7 @@
     "idField": {
       "type": "multi-enum",
       "notStorable": true,
+      "dataField": true,
       "view": "import:views/import-feed/fields/id-field",
       "required": false,
       "prohibitedEmptyValue": true,
@@ -154,12 +160,14 @@
     "delimiter": {
       "type": "varchar",
       "notStorable": true,
+      "dataField": true,
       "required": false,
       "default": ";"
     },
     "unusedColumns": {
       "type": "multi-enum",
       "notStorable": true,
+      "dataField": true,
       "view": "import:views/import-feed/fields/unused-columns",
       "readOnly": true
     }

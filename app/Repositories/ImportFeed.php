@@ -54,7 +54,7 @@ class ImportFeed extends Base
         $data = !empty($data = $entity->get('data')) ? Json::decode(Json::encode($data), true) : [];
 
         foreach ($this->getMetadata()->get(['entityDefs', 'ImportFeed', 'fields'], []) as $field => $row) {
-            if (empty($row['notStorable'])) {
+            if (empty($row['notStorable']) || empty($row['dataField'])) {
                 continue 1;
             }
 

@@ -22,6 +22,49 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
 
         setup() {
             Dep.prototype.setup.call(this);
+
+            this.loadFileColumns();
+
+            this.listenTo(this.model, 'fileUpdate change:fileFieldDelimiter change:fileTextQualifier change:isFileHeaderRow', () => {
+                this.loadFileColumns();
+            });
+        },
+
+
+        loadFileColumns() {
+            let fileId = this.model.get('fileId');
+            if (!fileId) {
+                return;
+            }
+
+            let data = {
+                importFeedId: this.model.get('id'),
+                delimiter: this.model.get('fileFieldDelimiter'),
+                enclosure: this.model.get('fileTextQualifier'),
+                isHeaderRow: this.model.get('isFileHeaderRow') ? 1 : 0
+            };
+
+            this.ajaxGetRequest(`ImportFeed/${fileId}/fileColumns`, data).success(response => {
+                const configData = this.model.get('data');
+                let usedColumns = {};
+                if (configData && configData.configuration) {
+                    configData.configuration.forEach(item => {
+                        (item.column || []).forEach(column => {
+                            usedColumns[column] = true;
+                        });
+                    });
+                }
+
+                let columns = [];
+                response.forEach(row => {
+                    if (!usedColumns[row.column]) {
+                        columns.push(row.name);
+                    }
+                });
+
+                this.model.set('unusedColumns', columns);
+                this.reRender();
+            });
         },
 
     })

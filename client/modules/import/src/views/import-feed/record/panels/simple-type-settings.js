@@ -74,10 +74,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 this.wait(false);
             });
 
-            this.listenTo(this.model, 'fileUpdate change:fileFieldDelimiter change:fileTextQualifier change:isFileHeaderRow', () => {
-                this.loadFileColumns(null, true);
-            });
-
             this.listenTo(this.model, 'change:fileDataAction', () => {
                 this.updateIdFieldOptions();
             });
@@ -211,12 +207,10 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             this.getModelFactory().create(null, model => {
                 this.panelModel = model;
                 this.updatePanelModelAttributes();
-                this.updateUnusedColumns();
 
                 this.listenTo(this.panelModel, 'change:entity', () => {
                     this.loadConfiguration(this.panelModel.get('entity'));
                     this.updateIdFieldOptions();
-                    this.updateUnusedColumns();
                     this.updatePanelModelAttributes();
                     this.updateCollection();
                     this.createConfiguratorList();
@@ -274,19 +268,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     });
                     view.render();
                 });
-
-                this.createView('unusedColumns', 'views/fields/multi-enum', {
-                    model: this.panelModel,
-                    el: this.options.el + ' .field[data-name="unusedColumns"]',
-                    name: 'unusedColumns',
-                    mode: this.mode,
-                    params: {
-                        readOnly: true
-                    },
-                    inlineEditDisabled: true
-                }, view => {
-                    view.render();
-                });
             });
         },
 
@@ -311,7 +292,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     }
                     this.configData = this.getConfigurationData();
                     this.updateIdFieldOptions();
-                    this.updateUnusedColumns();
                     if (this.mode !== 'edit') {
                         this.save(() => this.createConfiguratorList());
                     } else {
@@ -398,7 +378,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         updateFileColumns(response, withRowsUpdating) {
             this.fileColumns = response;
-            this.updateUnusedColumns();
             if (withRowsUpdating) {
                 let translatedOptions = this.fileColumns.reduce((prev, curr) => {
                     prev[curr.column.toString()] = curr.name;
@@ -437,33 +416,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                     view.setNotRequired();
                 }
                 view.reRender();
-            }
-        },
-
-        updateUnusedColumns() {
-            let usedColumns = {};
-            if (this.configData && this.configData.configuration) {
-                this.configData.configuration.forEach(item => {
-                    (item.column || []).forEach(column => {
-                        usedColumns[column] = true;
-                    });
-                });
-            }
-
-            let unusedColumns = [];
-            $.each(this.fileColumns, (k, item) => {
-                if (!usedColumns[item.column]) {
-                    unusedColumns.push(item.name);
-                }
-            });
-
-            if (this.panelModel) {
-                this.panelModel.set('unusedColumns', unusedColumns);
-
-                let view = this.getView('unusedColumns');
-                if (view) {
-                    view.reRender();
-                }
             }
         },
 
@@ -718,7 +670,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             this.configData = Espo.Utils.cloneDeep(this.initialData);
             this.entityFields = this.getEntityFields(this.configData.entity);
             this.updateIdFieldOptions();
-            this.updateUnusedColumns();
             this.updatePanelModelAttributes();
             this.updateCollection();
             this.createConfiguratorList();
