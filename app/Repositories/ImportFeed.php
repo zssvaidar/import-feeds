@@ -34,15 +34,19 @@ class ImportFeed extends Base
         $this->setFeedFieldsToDataJson($entity);
 
         if ($entity->get('type') === 'simple') {
-            $data = $entity->getFeedFields();
-
-            // validation
-            if ($data['delimiter'] === $data['fileFieldDelimiter']) {
-                throw new BadRequest($this->getInjection('language')->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
-            }
+            $this->validateSimpleType($entity);
         }
 
         parent::beforeSave($entity, $options);
+    }
+
+    protected function validateSimpleType(Entity $entity): void
+    {
+        $data = $entity->getFeedFields();
+
+        if ($data['delimiter'] === $data['fileFieldDelimiter']) {
+            throw new BadRequest($this->getInjection('language')->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
+        }
     }
 
     protected function setFeedFieldsToDataJson(Entity $entity): void
