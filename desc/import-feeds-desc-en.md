@@ -1,38 +1,21 @@
-The "Import Feeds" module enables the use of import feeds in a user-friendly manner. In general, *import feed* is a data import template that depends on the user needs and entity data to be imported to your system. 
+The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system and its direct relations. You can create, configure and use many inport feeds.
 
-With the help of the "Import Feeds" module, data import may be performed via import feeds in two ways:
-- **manually** – via the preconfigured import templates, i.e. import feeds themselves;
-- **automatically** – via preconfigured import cron job.
+With the help of the "Import Feeds" module, data import may be performed in two ways:
+- **manually** – by using some import feed directly;
+- **automatically** – by scheduled job.
 
-You can import via import feeds any data field available in your system, including [multilingual fields and attributes](https://atropim.com/store/multi-languages), and entity fields of the `Currency`, `Unit`, and other types. Moreover, if you have the ["Product Variants" module](https://atropim.com/store/product-variants) installed in your [PIM system](https://atropim.com), there is also the ability to import [product variants](#product-variants).
+You will be able to create a scheduled job for your import task only if appropriate import feed type is available in your system. Such import feed types enable the system to download some file via URL, execute REST API call, make a query directly to the database and so on (premium modules are needed for this feature).
 
-Import feeds can be further configured and customized, as well as reused at different time intervals. Import feeds can also be used to automate the data import process via [import cron jobs](#import-cron-job-configuration). 
-
-By default, import feed of the `Simple` type comes with the "Import Feeds" module installation. However, along with the installation of other [modules](https://atropim.com/store), the list of import feed types may be extended, and these additional import feeds may be further customized according to your needs. At the same time, additional import feeds will operate using the logic of the "Import Feeds" module.
-
-## Installation 
-
-To install the "Import Feeds" module to your system, go to `Administration > Module Manager`, find this module in the "Store" list and click `Install`: 
-
-![Import install](_assets/import-install.jpg)
-
-Select the desired version in the installation pop-up window that appears and click the `Install` button. The module background will turn green and it will be moved to the "Installed" section of the Module Manager. Click `Run update` to confirm its installation.
-
-> Please, note that running the system update will lead to the logout of all users.
-
-To update/remove the "Import Feeds" module from the system, use the corresponding options from its single record actions menu in `Administration > Module Manager`. 
+With this free module you can manually import the data only via CSV files. Additional import feed types can be added with the help of premium modules or you can code your own import feed types.
 
 ## Administrator Functions
 
-The "Import Feeds" module significantly extends the functionality of the [AtroPIM](https://atropim.com/help/what-is-atropim) system, so further description of the module is given in the context of AtroPIM.
-
-After the module installation, a new `Import` configuration group is added to the AtroPIM administration page. Also it is possible to add `Import Cron Jobs`, `Import Feeds`, and `Import Results` as separate navigation menu items on the `Administration > User Interface` page:
-
+After the module installation two new entities will be created in your system - `Import Feeds` and `Import Results`. Via `Administration > System > User Interface`you can add these items to the navigation of your system.
 ![Import feeds adding](_assets/import-feeds-add.jpg)
 
 ### Access Rights
 
-To enable import feed creation, editing, usage and deletion by other users, configure the corresponding access rights to the `Import cron jobs`, `Import feeds`, `Import results` entities for the desired user / team / portal user role on the `Administration > Roles > 'Role name'` page: 
+To enable import feed creation, editing, usage and deletion by other users, configure the corresponding access rights to the `Import feeds` and `Import results` entities for the desired user / team / portal user role on the `Administration > Roles > 'Role name'` page: 
 
 ![Import role cfg](_assets/import-role-cfg.jpg)
 
