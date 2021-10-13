@@ -47,6 +47,7 @@
     },
     "fileFieldDelimiter": {
       "type": "enum",
+      "notStorable": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
@@ -59,6 +60,7 @@
     },
     "fileTextQualifier": {
       "type": "enum",
+      "notStorable": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [

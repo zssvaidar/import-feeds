@@ -22,15 +22,27 @@ declare(strict_types=1);
 
 namespace Import\Entities;
 
-/**
- * Class ImportFeed
- */
-class ImportFeed extends \Espo\Core\Templates\Entities\Base
+use Espo\Core\Templates\Entities\Base;
+use Espo\Core\Utils\Json;
+
+class ImportFeed extends Base
 {
     /**
      * @var string
      */
     protected $entityType = "ImportFeed";
+
+    public function getFeedFields(): array
+    {
+        if (!empty($data = $this->get('data'))) {
+            $data = Json::decode(Json::encode($data), true);
+            if (!empty($data['feedFields']) && is_array($data['feedFields'])) {
+                return $data['feedFields'];
+            }
+        }
+
+        return [];
+    }
 
     /**
      * @return string

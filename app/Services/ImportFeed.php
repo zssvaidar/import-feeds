@@ -27,6 +27,7 @@ use Espo\Core\Exceptions\Error;
 use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Templates\Services\Base;
+use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 use Import\Entities\ImportFeed as ImportFeedEntity;
 use Import\Entities\ImportResult;
@@ -46,6 +47,15 @@ class ImportFeed extends Base
      * @var array
      */
     protected $validFileTypes = ['text/csv', 'application/vnd.ms-excel', 'text/plain'];
+
+    public function prepareEntityForOutput(Entity $entity)
+    {
+        parent::prepareEntityForOutput($entity);
+
+        foreach ($entity->getFeedFields() as $name => $value) {
+            $entity->set($name, $value);
+        }
+    }
 
     /**
      * @param string $attachmentId

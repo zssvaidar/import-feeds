@@ -22,9 +22,36 @@ declare(strict_types=1);
 
 namespace Import\Repositories;
 
-/**
- * Class ImportFeed
- */
-class ImportFeed extends \Espo\Core\Templates\Repositories\Base
+use Espo\Core\Templates\Repositories\Base;
+use Espo\Core\Utils\Json;
+use Espo\ORM\Entity;
+
+class ImportFeed extends Base
 {
+    protected function beforeSave(Entity $entity, array $options = [])
+    {
+        $this->setFeedFieldsToDataJson($entity);
+
+        parent::beforeSave($entity, $options);
+    }
+
+    protected function setFeedFieldsToDataJson(Entity $entity): void
+    {
+        $data = !empty($data = $entity->get('data')) ? Json::decode(Json::encode($data), true) : [];
+
+        foreach ($this->getMetadata()->get(['entityDefs', 'ImportFeed', 'fields'], []) as $field => $row) {
+            if (empty($row['notStorable'])) {
+                continue 1;
+            }
+
+            if ($entity->has($field)) {
+                $data['feedFields'][$field] = $entity->get($field);
+                if ($row['type'] === 'int') {
+                    $data['feedFields'][$field] = (int)$data[$field];
+                }
+            }
+        }
+
+        $entity->set('data', $data);
+    }
 }
