@@ -11,7 +11,7 @@
     "importResults": {
       "create": false,
       "select": false,
-      "rowActionsView": "import:views/import-feed/record/row-actions/view-remove-restore",
+      "rowActionsView": "views/record/row-actions/view-and-remove",
       "view": "import:views/import-feed/record/panels/import-results",
       "filters": {
         "isRestored": {

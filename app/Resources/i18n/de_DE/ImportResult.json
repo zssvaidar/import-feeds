@@ -8,8 +8,7 @@
     "updatedCount": "Aktualisiert",
     "errorsCount": "Fehler",
     "attachment": "Importierte Datei",
-    "errorsAttachment": "Fehlerdatei",
-    "isRestored": "Wiederhergestellt"
+    "errorsAttachment": "Fehlerdatei"
   },
   "links": {
     "importFeed": "Import Feed",
@@ -17,18 +16,11 @@
   },
   "labels": {
     "Create ImportResult": "Importergebnis erstellen",
-    "Restore": "Wiederherstellen",
     "Pending": "Schwebend",
     "Running": "Läuft",
     "Done": "Erledigt"
   },
-  "messages": {
-    "doYouReallyWantToRestoreData": "Möchten Sie wirklich Daten wiederherstellen? Alte Werte werden gelöscht."
-  },
   "tooltips": {
     "errorsAttachment": "Zeilen aus 'Importierter Datei', die nicht importiert wurden."
-  },
-  "exceptions": {
-    "currentImportResultHasBeenAlreadyRestored": "Das aktuelle Importergebnis wurde bereits wiederhergestellt."
   }
 }

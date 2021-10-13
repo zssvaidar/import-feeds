@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace Import\Controllers;
 
-use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Templates\Controllers\Base;
 
@@ -47,22 +46,6 @@ class ImportResult extends Base
         }
 
         return parent::actionListLinked($params, $data, $request);
-    }
-
-    /**
-     * @param array $params
-     * @param array $data
-     * @param object $request
-     *
-     * @throws BadRequest
-     */
-    public function actionRestore($params, $data, $request)
-    {
-        if (!$request->isPost() || !isset($data->id)) {
-            throw new BadRequest();
-        }
-
-        return $this->getRecordService()->restore($data->id);
     }
 
     /**

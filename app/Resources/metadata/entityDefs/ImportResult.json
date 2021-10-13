@@ -99,10 +99,6 @@
       "type": "link",
       "readOnly": true,
       "view": "views/fields/user"
-    },
-    "isRestored": {
-      "type": "bool",
-      "readOnly": true
     }
   },
   "links": {
