@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\Repositories;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Repositories\Base;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
@@ -31,6 +32,15 @@ class ImportFeed extends Base
     protected function beforeSave(Entity $entity, array $options = [])
     {
         $this->setFeedFieldsToDataJson($entity);
+
+        if ($entity->get('type') === 'simple') {
+            $data = $entity->getFeedFields();
+
+            // validation
+            if ($data['delimiter'] === $data['fileFieldDelimiter']) {
+                throw new BadRequest($this->getInjection('language')->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
+            }
+        }
 
         parent::beforeSave($entity, $options);
     }
@@ -59,5 +69,12 @@ class ImportFeed extends Base
         }
 
         $entity->set('data', $data);
+    }
+
+    protected function init()
+    {
+        parent::init();
+
+        $this->addDependency('language');
     }
 }
