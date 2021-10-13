@@ -12,13 +12,7 @@
       "create": false,
       "select": false,
       "rowActionsView": "views/record/row-actions/view-and-remove",
-      "view": "import:views/import-feed/record/panels/import-results",
-      "filters": {
-        "isRestored": {
-          "type": "isFalse",
-          "attribute": "isRestored"
-        }
-      }
+      "view": "import:views/import-feed/record/panels/import-results"
     }
   },
   "bottomPanels": {
