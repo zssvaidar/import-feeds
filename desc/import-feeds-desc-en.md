@@ -19,7 +19,7 @@ To enable import feed creation, editing, usage and deletion by other users, conf
 
 ![Import role cfg](_assets/import-role-cfg.jpg)
 
-Please, note that enabling at least `Import feeds` reading right for the user is a required minimum for him to be able to run import feeds.
+Please, note that enabling at least `Import feeds` read permission for the user is a required minimum for him to be able to run import feed.
 
 ## User Functions 
 
