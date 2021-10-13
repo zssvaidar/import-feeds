@@ -13,9 +13,7 @@
         {
           "name": "state"
         },
-        {
-          "name": "isRestored"
-        }
+        false
       ],
       [
         {
