@@ -28,25 +28,17 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         configModalView: 'import:views/import-feed/modals/edit-configurator-field',
 
-        configuratorFields: ['entity', 'delimiter', 'idField'],
-
-        validations: ['configurator', 'delimiters'],
+        validations: ['configurator'],
 
         initialData: null,
 
         configData: null,
-
-        defaultEntity: 'Product',
-
-        defaultDelimiter: ';',
 
         entitiesList: [],
 
         entityFields: {},
 
         fileColumns: [],
-
-        panelModel: null,
 
         selectedFields: [],
 
@@ -69,13 +61,8 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             this.loadFileColumns(() => {
                 this.loadConfiguration();
                 this.initialData = Espo.Utils.cloneDeep(this.configData);
-                this.createConfiguratorFields();
                 this.createConfiguratorList();
                 this.wait(false);
-            });
-
-            this.listenTo(this.model, 'change:fileDataAction', () => {
-                this.updateIdFieldOptions();
             });
 
             this.listenTo(this.model, 'after:save', () => {
@@ -119,18 +106,13 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         loadConfiguration(entity) {
             this.entitiesList = this.getEntitiesList();
-            let data = this.model.get('data');
+            this.entityFields = this.getEntityFields(this.model.get('entity'));
 
-            if (!entity && Espo.Utils.isObject(data)) {
-                this.entityFields = this.getEntityFields(data.entity);
-            } else {
-                data = {};
-                data.delimiter = this.defaultDelimiter;
-                data.entity = entity || (this.entitiesList.includes(this.defaultEntity) ? this.defaultEntity : this.entitiesList[0]);
-                this.entityFields = this.getEntityFields(data.entity);
-                data.configuration = this.getEntityConfiguration(data.entity);
-                data.idField = Object.keys(this.getTranslatedOptionsForIdField())[0];
+            let data = this.model.get('data') || {};
+            if (!data.configuration) {
+                data.configuration = this.getEntityConfiguration(this.model.get('entity'));
             }
+
             this.configData = data;
         },
 
@@ -177,106 +159,10 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             return [];
         },
 
-        getTranslatedOptionsForIdField() {
-            this.setupSelected();
-            let options = [];
-            let translatedOptions = {};
-            if (this.model.get('fileDataAction') === 'create_update') {
-                options = ['', ...this.selectedFields];
-            }
-            if (this.model.get('fileDataAction') === 'update') {
-                options = this.selectedFields;
-            }
-
-            options.forEach(field => {
-                if (!this.getMetadata().get(`entityDefs.${this.panelModel.get('entity')}.fields.${field}.notStorable`)) {
-                    translatedOptions[field] = this.translate(field, 'fields', this.panelModel.get('entity'));
-                }
-            });
-
-            return translatedOptions;
-        },
-
         setupSelected() {
             this.selectedFields = ((this.configData || {}).configuration || [])
                 .filter(item => !item.attributeId && !(this.entityFields[item.name] || {}).importMultipleField && !this.forbiddenSelectedFieldsTypes.includes((this.entityFields[item.name] || {}).type))
                 .map(item => item.name);
-        },
-
-        createConfiguratorFields() {
-            this.getModelFactory().create(null, model => {
-                this.panelModel = model;
-                this.updatePanelModelAttributes();
-
-                this.listenTo(this.panelModel, 'change:entity', () => {
-                    this.loadConfiguration(this.panelModel.get('entity'));
-                    this.updateIdFieldOptions();
-                    this.updatePanelModelAttributes();
-                    this.updateCollection();
-                    this.createConfiguratorList();
-                    this.reRender();
-                });
-
-                this.createView('entity', 'views/fields/enum', {
-                    model: this.panelModel,
-                    el: this.options.el + ' .field[data-name="entity"]',
-                    defs: {
-                        name: 'entity',
-                        params: {
-                            options: this.entitiesList,
-                            translatedOptions: this.entitiesList.reduce((prev, curr) => {
-                                prev[curr] = this.translate(curr, 'scopeNames');
-                                return prev;
-                            }, {})
-                        },
-                    },
-                    inlineEditDisabled: true,
-                    mode: this.mode
-                }, view => {
-                    view.render();
-                });
-
-                this.createView('delimiter', 'views/fields/varchar', {
-                    model: this.panelModel,
-                    el: this.options.el + ' .field[data-name="delimiter"]',
-                    name: 'delimiter',
-                    inlineEditDisabled: true,
-                    mode: this.mode
-                }, view => {
-                    view.render();
-                });
-
-                let translatedOptions = this.getTranslatedOptionsForIdField();
-                this.createView('idField', 'views/fields/multi-enum', {
-                    model: this.panelModel,
-                    el: this.options.el + ' .field[data-name="idField"]',
-                    name: 'idField',
-                    mode: this.mode,
-                    params: {
-                        options: Object.keys(translatedOptions),
-                        translatedOptions: translatedOptions,
-                        required: this.model.get('fileDataAction') === 'update'
-                    },
-                    inlineEditDisabled: true
-                }, view => {
-                    view.listenTo(view, 'after:render', () => {
-                        if (this.model.get('fileDataAction') === 'create') {
-                            view.hide();
-                        } else {
-                            view.show();
-                        }
-                    });
-                    view.render();
-                });
-            });
-        },
-
-        updatePanelModelAttributes() {
-            this.panelModel.set({
-                entity: (this.configData || {}).entity,
-                delimiter: (this.configData || {}).delimiter,
-                idField: (this.configData || {}).idField,
-            }, {silent: true});
         },
 
         createConfiguratorList() {
@@ -291,7 +177,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                         this.updateModelInCollection(model);
                     }
                     this.configData = this.getConfigurationData();
-                    this.updateIdFieldOptions();
                     if (this.mode !== 'edit') {
                         this.save(() => this.createConfiguratorList());
                     } else {
@@ -326,8 +211,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             this.collection.total = configuration.length;
             configuration.forEach((item, i) => {
                 this.getModelFactory().create(null, model => {
-                    model.set(_.extend(item, {entity: this.panelModel.get('entity')}));
-
                     model.id = i + 1;
                     this.collection.add(model);
                     this.collection._byId[model.id] = model;
@@ -392,7 +275,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                 action: 'addEntityField',
                 label: this.translate('addEntityField', 'labels', 'ImportFeed')
             }];
-            if (this.panelModel.get('entity') === 'Product') {
+            if (this.model.get('entity') === 'Product') {
                 configuratorActions.push({
                     action: 'addProductAttribute',
                     label: this.translate('addProductAttribute', 'labels', 'ImportFeed')
@@ -401,29 +284,11 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
             return configuratorActions;
         },
 
-        updateIdFieldOptions() {
-            let view = this.getView('idField');
-            if (view) {
-                let translatedOptions = this.getTranslatedOptionsForIdField();
-                if (!Object.keys(translatedOptions).includes(this.panelModel.get('idField'))) {
-                    this.panelModel.set({idField: Object.keys(translatedOptions)[0]}, {silent: true});
-                }
-                view.params.options = Object.keys(translatedOptions);
-                view.translatedOptions = translatedOptions;
-                if (this.model.get('fileDataAction') === 'update') {
-                    view.setRequired();
-                } else {
-                    view.setNotRequired();
-                }
-                view.reRender();
-            }
-        },
-
         actionAddEntityField() {
             this.notify('Loading...');
 
             this.createView('modal', this.configModalView, {
-                scope: this.panelModel.get('entity'),
+                scope: this.model.get('entity'),
                 entityFields: this.entityFields,
                 selectedFields: this.selectedFields,
                 fileColumns: this.fileColumns
@@ -499,11 +364,7 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
         },
 
         getConfigurationData() {
-            let data = {
-                entity: this.panelModel.get('entity'),
-                idField: this.model.get('fileDataAction') === 'create' ? null : this.panelModel.get('idField'),
-                delimiter: this.panelModel.get('delimiter')
-            };
+            let data = this.model.get('data') || {};
             data.configuration = this.collection.map(model => this.getFieldConfiguration(model));
             return data;
         },
@@ -535,18 +396,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
                         });
                     }
                 });
-            }
-            return validate;
-        },
-
-        validateDelimiters() {
-            let validate = false;
-            if (this.model.get('fileFieldDelimiter') === this.panelModel.get('delimiter')) {
-                let delimiter = this.getView('delimiter');
-                delimiter.trigger('invalid');
-                let msg = this.translate('delimitersMustBeDifferent', 'messages', 'ImportFeed');
-                delimiter.showValidationMessage(msg);
-                validate = true;
             }
             return validate;
         },
@@ -638,13 +487,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         setDetailMode() {
             this.mode = 'detail';
-            this.configuratorFields.forEach(field => {
-                let view = this.getView(field);
-                if (view) {
-                    view.setMode('detail');
-                    view.reRender();
-                }
-            });
             let configurator = this.getView('configurator');
             if (configurator) {
                 configurator.setDetailMode();
@@ -653,13 +495,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
 
         setEditMode() {
             this.mode = 'edit';
-            this.configuratorFields.forEach(field => {
-                let view = this.getView(field);
-                if (view) {
-                    view.setMode('edit');
-                    view.reRender();
-                }
-            });
             let configurator = this.getView('configurator');
             if (configurator) {
                 configurator.setEditMode();
@@ -669,8 +504,6 @@ Espo.define('import:views/import-feed/record/panels/simple-type-settings', 'view
         cancelEdit() {
             this.configData = Espo.Utils.cloneDeep(this.initialData);
             this.entityFields = this.getEntityFields(this.configData.entity);
-            this.updateIdFieldOptions();
-            this.updatePanelModelAttributes();
             this.updateCollection();
             this.createConfiguratorList();
             this.reRender();

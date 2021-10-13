@@ -1,25 +1,3 @@
-<div class="row">
-    <div class="cell form-group col-sm-6 col-xs-12" data-name="entity">
-        <label class="control-label" data-name="entity"><span class="label-text">{{translate 'entity' scope=scope category='labels'}}</span></label>
-        <div class="field" data-name="entity">
-            {{{entity}}}
-        </div>
-    </div>
-    <div class="cell form-group col-sm-6 col-xs-12" data-name="idField">
-        <label class="control-label" data-name="idField"><span class="label-text">{{translate 'id' scope='Global' category='fields'}}</span></label>
-        <div class="field" data-name="idField">
-            {{{idField}}}
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="cell form-group col-sm-6 col-xs-12" data-name="delimiter">
-        <label class="control-label" data-name="delimiter"><span class="label-text">{{translate 'delimiter' scope=scope category='labels'}}</span></label>
-        <div class="field" data-name="delimiter">
-            {{{delimiter}}}
-        </div>
-    </div>
-</div>
 <div class="panel panel-default panel-configurator">
     <div class="panel-heading">
         <div class="pull-right btn-group">

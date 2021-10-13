@@ -19,7 +19,7 @@
     "detail": [
       {
         "name": "simpleTypeSettings",
-        "label": "Simple Type Settings",
+        "label": "configurator",
         "view": "import:views/import-feed/record/panels/simple-type-settings"
       }
     ]
