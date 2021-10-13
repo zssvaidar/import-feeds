@@ -85,6 +85,7 @@
     },
     "decimalMark": {
       "type": "enum",
+      "notStorable": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
