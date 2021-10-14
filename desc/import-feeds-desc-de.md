@@ -322,3 +322,11 @@ Das Modul kann an Ihre Bedürfnisse angepasst werden – zusätzliche Funktionen
 
 ## Demo
 https://demo.atropim.com/
+
+### Installation
+
+The Installation Guide is available [here](https://github.com/atrocore/atrocore-docs/blob/master/en/administration/installation.md).
+
+## Lizenz
+
+Dieses Modul wird unter der GNU GPLv3 [Lizenz](https://www.gnu.org/licenses/gpl-3.0.en.html) veröffentlicht.
