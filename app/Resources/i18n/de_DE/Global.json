@@ -5,11 +5,13 @@
   },
   "scopeNames": {
     "ImportFeed": "Import Feed",
+    "ImportConfiguratorItem": "Konfigurator",
     "ImportResult": "Import-Ergebnis",
     "ImportResultLog": "Import Ergebnisprotokoll"
   },
   "scopeNamesPlural": {
     "ImportFeed": "Import Feeds",
+    "ImportConfiguratorItem": "Konfigurator",
     "ImportResult": "Import Ergebnisse",
     "ImportResultLog": "Import Ergebnisprotokoll"
   }

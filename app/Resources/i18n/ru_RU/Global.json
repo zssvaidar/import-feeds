@@ -5,11 +5,13 @@
   },
   "scopeNames": {
     "ImportFeed": "Импортный фид",
+    "ImportConfiguratorItem": "Конфигуратор",
     "ImportResult": "Результаты импорта",
     "ImportResultLog": "Лог результатов импорта"
   },
   "scopeNamesPlural": {
     "ImportFeed": "Импортные фиды",
+    "ImportConfiguratorItem": "Конфигуратор",
     "ImportResult": "Результаты импорта",
     "ImportResultLog": "Логи результатов импорта"
   }
