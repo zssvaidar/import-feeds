@@ -42,9 +42,7 @@ class ImportFeed extends Base
 
     protected function validateSimpleType(Entity $entity): void
     {
-        $data = $entity->getFeedFields();
-
-        if ($data['delimiter'] === $data['fileFieldDelimiter']) {
+        if ($entity->getFeedField('delimiter') === $entity->getFeedField('fileFieldDelimiter')) {
             throw new BadRequest($this->getInjection('language')->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
         }
     }
