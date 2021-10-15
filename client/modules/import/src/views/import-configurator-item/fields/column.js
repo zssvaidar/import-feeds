@@ -21,17 +21,7 @@ Espo.define('import:views/import-configurator-item/fields/column', 'views/fields
     Dep => Dep.extend({
 
         setup() {
-            // let entity = this.model.get('entity');
-            // let fields = this.getEntityFields(entity);
-            //
-            // this.params.options = [];
-            // this.translatedOptions = {};
-            //
-            // $.each(fields, field => {
-            //     this.params.options.push(field);
-            //     this.translatedOptions[field] = this.translate(field, 'fields', entity);
-            // });
-
+            this.params.options = this.model.get('allColumns') || [];
             Dep.prototype.setup.call(this);
         },
 

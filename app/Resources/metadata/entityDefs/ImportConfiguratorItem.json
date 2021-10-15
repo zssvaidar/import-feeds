@@ -6,11 +6,11 @@
       "view": "import:views/import-configurator-item/fields/name"
     },
     "column": {
-      "type": "varchar",
+      "type": "array",
       "view": "import:views/import-configurator-item/fields/column"
     },
     "default": {
-      "type": "varchar",
+      "type": "text",
       "view": "import:views/import-configurator-item/fields/default"
     },
     "createdAt": {
