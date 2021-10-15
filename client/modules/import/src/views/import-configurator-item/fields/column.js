@@ -22,7 +22,40 @@ Espo.define('import:views/import-configurator-item/fields/column', 'views/fields
 
         setup() {
             this.params.options = (localStorage.getItem('importAllColumns') || '').split(',');
+
             Dep.prototype.setup.call(this);
+
+            this.listenTo(this.model, 'change:name', () => {
+                this.model.set('column', null);
+            });
+
+            this.listenTo(this.model, 'change:column', (model, data, additional) => {
+                if (additional.skipColumnListener) {
+                    return;
+                }
+
+                const type = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`) || 'varchar';
+                const types = {linkMultiple: 999, currency: 2, unit: 2};
+                const maxLength = types[type] ? types[type] : 1;
+
+                if (this.model.get('column') && this.model.get('column').length > maxLength) {
+                    let items = Espo.Utils.clone(this.model.get('column'));
+
+                    let promise = new Promise((resolve, reject) => {
+                        while (items.length > maxLength) {
+                            items.shift();
+                            if (items.length === maxLength) {
+                                resolve();
+                            }
+                        }
+                    });
+
+                    promise.then(() => {
+                        this.model.set('column', items, {skipColumnListener: true});
+                        this.reRender();
+                    });
+                }
+            });
         },
 
     })
