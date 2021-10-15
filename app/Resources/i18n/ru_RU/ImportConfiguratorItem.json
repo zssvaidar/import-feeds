@@ -1,9 +1,14 @@
 {
   "fields": {
     "name": "Поле",
+    "column": "Колонка",
+    "default": "По умолчанию",
     "importFeed": "Импортный фид"
   },
   "links": {
     "importFeed": "Импортный фид"
+  },
+  "exceptions": {
+    "columnOrDefaultValueIsRequired": "Колонка или По умолчанию должны быть заполнены."
   }
 }

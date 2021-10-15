@@ -16,8 +16,6 @@
     "fileDataAction": "Действие",
     "decimalMark": "Десятичный разделитель",
     "importFile": "Файл данных",
-    "column": "Колонка файла",
-    "default": "Значение, установленное по умолчанию",
     "importResults": "Результаты импорта",
     "locale": "Locale",
     "configuratorItems": "Конфигуратор"
@@ -56,8 +54,7 @@
     "importName": "Импорт данных по фиду '%s'"
   },
   "messages": {
-    "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными.",
-    "columnOrDefaultValueIsRequired": "{column} или {default} обязательны."
+    "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными."
   },
   "exceptions": {
     "onlyCsvIsAllowed": "Файл недействителен. Разрешен только CSV.",

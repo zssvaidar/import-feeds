@@ -1,5 +1,11 @@
 [
   {
     "name": "name"
+  },
+  {
+    "name": "column"
+  },
+  {
+    "name": "default"
   }
 ]

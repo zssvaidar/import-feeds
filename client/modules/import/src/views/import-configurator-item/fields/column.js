@@ -1,4 +1,3 @@
-<?php
 /*
  * Import Feeds
  * Free Extension
@@ -18,29 +17,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
+Espo.define('import:views/import-configurator-item/fields/column', 'views/fields/multi-enum',
+    Dep => Dep.extend({
 
-namespace Import\Repositories;
+        setup() {
+            // let entity = this.model.get('entity');
+            // let fields = this.getEntityFields(entity);
+            //
+            // this.params.options = [];
+            // this.translatedOptions = {};
+            //
+            // $.each(fields, field => {
+            //     this.params.options.push(field);
+            //     this.translatedOptions[field] = this.translate(field, 'fields', entity);
+            // });
 
-use Espo\Core\Exceptions\BadRequest;
-use Espo\Core\Templates\Repositories\Base;
-use Espo\ORM\Entity;
+            Dep.prototype.setup.call(this);
+        },
 
-class ImportConfiguratorItem extends Base
-{
-    protected function beforeSave(Entity $entity, array $options = [])
-    {
-        if (empty($entity->get('column')) && empty($entity->get('default'))) {
-            throw new BadRequest($this->getInjection('language')->translate('columnOrDefaultValueIsRequired', 'exceptions', 'ImportConfiguratorItem'));
-        }
-
-        parent::beforeSave($entity, $options);
-    }
-
-    protected function init()
-    {
-        parent::init();
-
-        $this->addDependency('language');
-    }
-}
+    })
+);

@@ -12,8 +12,6 @@
     "isFileHeaderRow": "Header Zeile",
     "fileDataAction": "Aktion",
     "decimalMark": "Dezimaltrennzeichen",
-    "column": "Spalte(n)",
-    "defaultValue": "Default-Wert",
     "locale": "Gebietsschema",
     "createIfNotExist": "Erstellen, falls nicht vorhanden",
     "importResults": "Ergebnisse importieren",
@@ -54,8 +52,7 @@
     "importName": "Importieren von Daten nach Feed '%s'"
   },
   "messages": {
-    "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein.",
-    "columnOrDefaultValueIsRequired": "{column} oder {default} ist erforderlich"
+    "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
   },
   "exceptions": {
     "onlyCsvIsAllowed": "Datei ist ungültig. Nur CSV ist erlaubt.",

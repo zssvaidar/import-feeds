@@ -1,9 +1,14 @@
 {
   "fields": {
     "name": "Gebiet",
+    "column": "Spalte(n)",
+    "default": "Default-Wert",
     "importFeed": "Import Feed"
   },
   "links": {
     "importFeed": "Import Feed"
+  },
+  "exceptions": {
+    "columnOrDefaultValueIsRequired": "Spalte oder Standard sollte abgelegt werden."
   }
 }

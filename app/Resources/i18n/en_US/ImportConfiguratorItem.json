@@ -1,9 +1,14 @@
 {
   "fields": {
     "name": "Field",
+    "column": "Column(s)",
+    "default": "Default Value",
     "importFeed": "Import Feed"
   },
   "links": {
     "importFeed": "Import Feed"
+  },
+  "exceptions": {
+    "columnOrDefaultValueIsRequired": "Column or Default should be filed."
   }
 }

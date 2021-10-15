@@ -16,8 +16,6 @@
     "fileDataAction": "Action",
     "decimalMark": "Decimal Mark",
     "importFile": "Data File",
-    "column": "File Column(s)",
-    "default": "Default Value",
     "importResults": "Import Results",
     "locale": "Locale",
     "createIfNotExist": "Create if not exist",
@@ -57,8 +55,7 @@
     "importName": "Importing data by feed '%s'"
   },
   "messages": {
-    "delimitersMustBeDifferent": "Delimiters for fields and field values must be different.",
-    "columnOrDefaultValueIsRequired": "{column} or {default} is required."
+    "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
     "onlyCsvIsAllowed": "File invalid. Only CSV is allowed.",
