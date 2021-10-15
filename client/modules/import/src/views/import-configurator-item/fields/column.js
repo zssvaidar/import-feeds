@@ -21,7 +21,13 @@ Espo.define('import:views/import-configurator-item/fields/column', 'views/fields
     Dep => Dep.extend({
 
         setup() {
-            this.params.options = (localStorage.getItem('importAllColumns') || '').split(',');
+            this.params.options = [];
+            this.translatedOptions = {};
+
+            (localStorage.getItem('importAllColumns') || '').split(',').forEach((name, k) => {
+                this.params.options.push(k.toString());
+                this.translatedOptions[k] = name;
+            });
 
             Dep.prototype.setup.call(this);
 

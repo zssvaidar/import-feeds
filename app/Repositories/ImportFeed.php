@@ -31,13 +31,25 @@ class ImportFeed extends Base
 {
     protected function beforeSave(Entity $entity, array $options = [])
     {
+        $isSimple = $entity->get('type') === 'simple';
+
+        $removeConfigurator = $isSimple && $entity->has('entity') && !$entity->isNew() && $entity->getFeedField('entity') !== $entity->get('entity');
+
         $this->setFeedFieldsToDataJson($entity);
 
-        if ($entity->get('type') === 'simple') {
+        if ($isSimple) {
             $this->validateSimpleType($entity);
         }
 
         parent::beforeSave($entity, $options);
+
+        if ($removeConfigurator) {
+            $this
+                ->getEntityManager()
+                ->getRepository('ImportConfiguratorItem')
+                ->where(['importFeedId' => $entity->get('id')])
+                ->removeCollection();
+        }
     }
 
     protected function validateSimpleType(Entity $entity): void

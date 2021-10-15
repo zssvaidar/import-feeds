@@ -31,6 +31,10 @@ Espo.define('import:views/import-feed/detail', 'views/detail',
                     }
                 };
 
+                this.listenTo(this.model, 'after:save', () => {
+                    $('.action[data-action=refresh][data-panel=configuratorItems]').click();
+                });
+
             },
 
         });
