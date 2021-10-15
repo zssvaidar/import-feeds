@@ -64,7 +64,7 @@
   },
   "collection": {
     "sortBy": "createdAt",
-    "asc": false
+    "asc": true
   },
   "indexes": {
     "name": {
