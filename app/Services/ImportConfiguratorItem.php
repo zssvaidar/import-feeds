@@ -22,6 +22,19 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
-class ImportConfiguratorItem extends \Espo\Core\Templates\Services\Base
+use Espo\Core\Templates\Services\Base;
+use Espo\ORM\Entity;
+
+class ImportConfiguratorItem extends Base
 {
+    protected $mandatorySelectAttributeList = ['importFeedId'];
+
+    public function prepareEntityForOutput(Entity $entity)
+    {
+        parent::prepareEntityForOutput($entity);
+
+        if (!empty($importFeed = $entity->get('importFeed'))) {
+            $entity->set('entity', $importFeed->getFeedField('entity'));
+        }
+    }
 }

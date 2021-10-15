@@ -32,6 +32,13 @@ class ImportFeed extends Base
      */
     protected $entityType = "ImportFeed";
 
+    public function getFeedField(string $name)
+    {
+        $data = $this->getFeedFields();
+
+        return isset($data[$name]) ? $data[$name] : null;
+    }
+
     public function getFeedFields(): array
     {
         if (!empty($data = $this->get('data'))) {

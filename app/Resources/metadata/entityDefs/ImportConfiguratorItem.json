@@ -13,6 +13,10 @@
       "type": "text",
       "view": "import:views/import-configurator-item/fields/default"
     },
+    "entity": {
+      "type": "varchar",
+      "notStorable": true
+    },
     "createdAt": {
       "type": "datetime",
       "readOnly": true
