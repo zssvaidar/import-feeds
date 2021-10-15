@@ -20,6 +20,8 @@
 Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/enum',
     Dep => Dep.extend({
 
+        listTemplate: 'import:import-configurator-item/fields/name/list',
+
         setup() {
             let entity = this.model.get('entity');
             let fields = this.getEntityFields(entity);
@@ -33,6 +35,52 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
             });
 
             Dep.prototype.setup.call(this);
+        },
+
+        data() {
+            let data = Dep.prototype.data.call(this);
+
+            if (this.mode === 'list') {
+                data.value = this.translate(data.value, 'fields', this.model.get('entity'));
+                data.isRequired = !!this.getMetadata().get(['entityDefs', this.model.get('entity'), 'fields', this.model.get('name'), 'required']);
+                data.extraInfo = this.getExtraInfo();
+            }
+
+            return data;
+        },
+
+        getExtraInfo() {
+            let extraInfo = null;
+
+            if (this.model.get('importBy').length > 0) {
+                const entityName = this.model.getLinkParam('default', 'entity');
+                let translated = [];
+                this.model.get('importBy').forEach(field => {
+                    translated.push(this.translate(field, 'fields', entityName));
+                });
+
+                extraInfo = `<span class="text-muted small">${this.translate('importBy', 'fields', 'ImportConfiguratorItem')}: ${translated.join(', ')}</span>`;
+                if (this.model.get('createIfNotExist')) {
+                    extraInfo += `<br><span class="text-muted small">${this.translate('createIfNotExist', 'fields', 'ImportConfiguratorItem')}</span>`;
+                }
+            }
+
+            if (this.model.get('attributeId')) {
+                extraInfo = `
+                    <span class="text-muted small">
+                        ${this.translate('Attribute', 'scopeNames', 'Global')}
+                    </span>`;
+            }
+
+            if (this.model.get('scope')) {
+                extraInfo += `
+                    <br>
+                    <span class="text-muted small">
+                        ${this.translate('scope', 'fields')}: ${this.model.get('scope')}
+                    </span>`;
+            }
+
+            return extraInfo;
         },
 
         getEntityFields(entity) {

@@ -11,6 +11,6 @@
     "importFeed": "Import Feed"
   },
   "exceptions": {
-    "columnOrDefaultValueIsRequired": "Column or Default should be filed."
+    "columnOrDefaultValueIsRequired": "Column or Default should be filled."
   }
 }
