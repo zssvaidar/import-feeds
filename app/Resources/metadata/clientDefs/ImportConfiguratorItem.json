@@ -2,29 +2,5 @@
   "controller": "controllers/record",
   "modalViews": {
     "edit": "import:views/import-configurator-item/modals/edit"
-  },
-  "dynamicLogic": {
-    "fields": {
-      "column": {
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "isEmpty",
-              "attribute": "default"
-            }
-          ]
-        }
-      },
-      "default": {
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "isEmpty",
-              "attribute": "column"
-            }
-          ]
-        }
-      }
-    }
   }
 }

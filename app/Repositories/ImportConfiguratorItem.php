@@ -24,12 +24,21 @@ namespace Import\Repositories;
 
 use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Repositories\Base;
+use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
 class ImportConfiguratorItem extends Base
 {
     protected function beforeSave(Entity $entity, array $options = [])
     {
+        if ($entity->has('defaultId')) {
+            $entity->set('default', empty($entity->get('defaultId')) ? null : $entity->get('defaultId'));
+        }
+
+        if ($entity->has('defaultIds')) {
+            $entity->set('default', empty($entity->get('defaultIds')) ? null : Json::encode($entity->get('defaultIds')));
+        }
+
         if (empty($entity->get('column')) && empty($entity->get('default'))) {
             throw new BadRequest($this->getInjection('language')->translate('columnOrDefaultValueIsRequired', 'exceptions', 'ImportConfiguratorItem'));
         }
