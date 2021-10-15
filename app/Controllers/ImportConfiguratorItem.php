@@ -22,6 +22,73 @@ declare(strict_types=1);
 
 namespace Import\Controllers;
 
-class ImportConfiguratorItem extends \Espo\Core\Templates\Controllers\Base
+use Espo\Core\Exceptions\Forbidden;
+use Espo\Core\Templates\Controllers\Base;
+
+class ImportConfiguratorItem extends Base
 {
+    public function actionList($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function getActionListKanban($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function actionListLinked($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function actionMassUpdate($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function actionMassDelete($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function actionCreateLink($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function actionRemoveLink($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function actionFollow($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function actionUnfollow($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function actionMerge($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function postActionGetDuplicateAttributes($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function postActionMassFollow($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
+
+    public function postActionMassUnfollow($params, $data, $request)
+    {
+        throw new Forbidden();
+    }
 }
