@@ -17,6 +17,41 @@
       "type": "bool",
       "view": "import:views/import-configurator-item/fields/create-if-not-exist"
     },
+    "type": {
+      "type": "enum",
+      "required": false,
+      "prohibitedEmptyValue": true,
+      "options": [
+        "field",
+        "attribute"
+      ],
+      "default": "field"
+    },
+    "attribute": {
+      "type": "link"
+    },
+    "scope": {
+      "type": "enum",
+      "required": false,
+      "prohibitedEmptyValue": true,
+      "options": [
+        "Global",
+        "Channel"
+      ],
+      "default": "Global"
+    },
+    "channel": {
+      "type": "link"
+    },
+    "locale": {
+      "type": "enum",
+      "required": false,
+      "prohibitedEmptyValue": true,
+      "options": [
+        "Main"
+      ],
+      "default": "Main"
+    },
     "default": {
       "type": "text",
       "view": "import:views/import-configurator-item/fields/value-container"
@@ -58,8 +93,17 @@
       "type": "belongsTo",
       "foreign": "configuratorItems",
       "entity": "ImportFeed",
-      "audited": false,
-      "isCustom": true
+      "audited": false
+    },
+    "attribute": {
+      "type": "belongsTo",
+      "entity": "Attribute",
+      "audited": false
+    },
+    "channel": {
+      "type": "belongsTo",
+      "entity": "Channel",
+      "audited": false
     }
   },
   "collection": {

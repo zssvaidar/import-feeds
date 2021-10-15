@@ -5,7 +5,12 @@
     "default": "По умолчанию",
     "importFeed": "Импортный фид",
     "importBy": "Поля связанных сущностей",
-    "createIfNotExist": "Создать если не существует"
+    "createIfNotExist": "Создать если не существует",
+    "locale": "Локаль",
+    "attribute": "Атрибут",
+    "channel": "Канал",
+    "scope": "Область действия",
+    "type": "Тип"
   },
   "links": {
     "importFeed": "Импортный фид"

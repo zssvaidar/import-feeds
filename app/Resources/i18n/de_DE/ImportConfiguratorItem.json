@@ -5,7 +5,12 @@
     "default": "Default-Wert",
     "importFeed": "Import Feed",
     "createIfNotExist": "Erstellen, falls nicht vorhanden",
-    "importBy": "Verwandte Entitätsfelder"
+    "importBy": "Verwandte Entitätsfelder",
+    "locale": "Gebietsschema",
+    "attribute": "Attribut",
+    "channel": "Kanal",
+    "scope": "Scope",
+    "type": "Typ"
   },
   "links": {
     "importFeed": "Import Feed"

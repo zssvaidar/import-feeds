@@ -12,7 +12,6 @@
     "isFileHeaderRow": "Header Zeile",
     "fileDataAction": "Aktion",
     "decimalMark": "Dezimaltrennzeichen",
-    "locale": "Gebietsschema",
     "importResults": "Ergebnisse importieren",
     "configuratorItems": "Konfigurator"
   },

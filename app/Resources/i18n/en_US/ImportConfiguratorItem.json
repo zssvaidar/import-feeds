@@ -5,10 +5,16 @@
     "default": "Default Value",
     "importFeed": "Import Feed",
     "importBy": "Related Entity Fields",
-    "createIfNotExist": "Create if not exist"
+    "createIfNotExist": "Create if not exist",
+    "locale": "Locale",
+    "attribute": "Attribute",
+    "channel": "Channel",
+    "scope": "Scope",
+    "type": "Type"
   },
   "links": {
-    "importFeed": "Import Feed"
+    "importFeed": "Import Feed",
+    "channel": "Channel"
   },
   "exceptions": {
     "columnOrDefaultValueIsRequired": "Column or Default should be filled."
