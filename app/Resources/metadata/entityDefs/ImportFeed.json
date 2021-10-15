@@ -173,7 +173,6 @@
     "unusedColumns": {
       "type": "multi-enum",
       "notStorable": true,
-      "dataField": true,
       "view": "import:views/import-feed/fields/unused-columns",
       "readOnly": true
     }

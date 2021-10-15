@@ -33,6 +33,10 @@
       "type": "varchar",
       "notStorable": true
     },
+    "allColumns": {
+      "type": "array",
+      "notStorable": true
+    },
     "createdAt": {
       "type": "datetime",
       "readOnly": true

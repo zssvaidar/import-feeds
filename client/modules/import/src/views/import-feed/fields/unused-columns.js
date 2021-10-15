@@ -62,7 +62,7 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
                     }
                 });
 
-                this.model.set('allColumns', response.map(row => {return row.name}));
+                localStorage.setItem('importAllColumns', response.map(row => {return row.name}).join(','))
                 this.model.set('unusedColumns', columns);
                 this.reRender();
             });
