@@ -3,7 +3,9 @@
     "name": "Поле",
     "column": "Колонка",
     "default": "По умолчанию",
-    "importFeed": "Импортный фид"
+    "importFeed": "Импортный фид",
+    "importBy": "Поля связанных сущностей",
+    "createIfNotExist": "Создать если не существует"
   },
   "links": {
     "importFeed": "Импортный фид"

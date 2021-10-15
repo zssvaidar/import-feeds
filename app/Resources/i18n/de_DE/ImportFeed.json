@@ -13,7 +13,6 @@
     "fileDataAction": "Aktion",
     "decimalMark": "Dezimaltrennzeichen",
     "locale": "Gebietsschema",
-    "createIfNotExist": "Erstellen, falls nicht vorhanden",
     "importResults": "Ergebnisse importieren",
     "configuratorItems": "Konfigurator"
   },
@@ -35,7 +34,6 @@
     "addEntityField": "Entitätsfeld hinzufügen",
     "addProductAttribute": "Produktattribut hinzufügen",
     "importRunning": "Import läuft",
-    "importBy": "Verwandte Entitätsfelder",
     "main": "Hauptgebietsschema",
     "simple": "CSV-Datei",
     ",": ",",

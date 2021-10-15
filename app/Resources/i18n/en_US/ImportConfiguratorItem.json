@@ -3,7 +3,9 @@
     "name": "Field",
     "column": "Column(s)",
     "default": "Default Value",
-    "importFeed": "Import Feed"
+    "importFeed": "Import Feed",
+    "importBy": "Related Entity Fields",
+    "createIfNotExist": "Create if not exist"
   },
   "links": {
     "importFeed": "Import Feed"

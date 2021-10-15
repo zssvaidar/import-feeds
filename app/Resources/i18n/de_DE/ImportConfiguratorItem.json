@@ -3,7 +3,9 @@
     "name": "Gebiet",
     "column": "Spalte(n)",
     "default": "Default-Wert",
-    "importFeed": "Import Feed"
+    "importFeed": "Import Feed",
+    "createIfNotExist": "Erstellen, falls nicht vorhanden",
+    "importBy": "Verwandte Entitätsfelder"
   },
   "links": {
     "importFeed": "Import Feed"

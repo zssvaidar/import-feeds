@@ -18,7 +18,6 @@
     "importFile": "Data File",
     "importResults": "Import Results",
     "locale": "Locale",
-    "createIfNotExist": "Create if not exist",
     "configuratorItems": "Configurator"
   },
   "links": {
@@ -38,7 +37,6 @@
     "addEntityField": "Add entity field",
     "addProductAttribute": "Add Product attribute",
     "importRunning": "Import Running",
-    "importBy": "Related Entity Fields",
     "main": "Main locale",
     "simple": "CSV File",
     ",": ",",
