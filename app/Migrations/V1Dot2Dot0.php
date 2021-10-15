@@ -29,10 +29,12 @@ class V1Dot2Dot0 extends V1Dot0Dot13
         $this->execute("DELETE FROM `import_feed` WHERE 1");
         $this->execute("DELETE FROM `scheduled_job` WHERE `job`='ImportScheduledJob'");
         $this->execute("DELETE FROM `job` WHERE `name`='ImportScheduledJob'");
+        $this->execute("CREATE TABLE `import_configurator_item` (`id` VARCHAR(24) NOT NULL COLLATE utf8mb4_unicode_ci, `name` VARCHAR(255) DEFAULT NULL COLLATE utf8mb4_unicode_ci, `deleted` TINYINT(1) DEFAULT '0' COLLATE utf8mb4_unicode_ci, `created_at` DATETIME DEFAULT NULL COLLATE utf8mb4_unicode_ci, `import_feed_id` VARCHAR(24) DEFAULT NULL COLLATE utf8mb4_unicode_ci, INDEX `IDX_IMPORT_FEED_ID` (import_feed_id), INDEX `IDX_NAME` (name, deleted), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB");
     }
 
     public function down(): void
     {
-        $this->up();
+        $this->execute("DELETE FROM `import_feed` WHERE 1");
+        $this->execute("DROP TABLE `import_configurator_item`");
     }
 }

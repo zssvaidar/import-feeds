@@ -20,8 +20,8 @@
 
 declare(strict_types=1);
 
-namespace Import\Controllers;
+namespace Import\Services;
 
-class ConfiguratorItem extends \Espo\Core\Templates\Controllers\Base
+class ImportConfiguratorItem extends \Espo\Core\Templates\Services\Base
 {
 }

@@ -182,7 +182,7 @@
     "configuratorItems": {
       "type": "hasMany",
       "foreign": "importFeed",
-      "entity": "ConfiguratorItem",
+      "entity": "ImportConfiguratorItem",
       "audited": false
     },
     "file": {

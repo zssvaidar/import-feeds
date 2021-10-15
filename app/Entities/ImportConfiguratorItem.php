@@ -20,8 +20,9 @@
 
 declare(strict_types=1);
 
-namespace Import\Services;
+namespace Import\Entities;
 
-class ConfiguratorItem extends \Espo\Core\Templates\Services\Base
+class ImportConfiguratorItem extends \Espo\Core\Templates\Entities\Base
 {
+    protected $entityType = "ImportConfiguratorItem";
 }
