@@ -10,10 +10,12 @@
       "view": "import:views/import-configurator-item/fields/column"
     },
     "importBy": {
-      "type": "array"
+      "type": "multiEnum",
+      "view": "import:views/import-configurator-item/fields/import-by"
     },
     "createIfNotExist": {
-      "type": "bool"
+      "type": "bool",
+      "view": "import:views/import-configurator-item/fields/create-if-not-exist"
     },
     "default": {
       "type": "text",
