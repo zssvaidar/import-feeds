@@ -19,13 +19,12 @@
     "column": "Колонка файла",
     "default": "Значение, установленное по умолчанию",
     "importResults": "Результаты импорта",
-    "locale": "Locale"
+    "locale": "Locale",
+    "configuratorItems": "Конфигуратор"
   },
   "links": {
-    "importJobs": "Задания на импорт",
-    "importCronJobs": "Кронджобы для импорта",
-    "importFeedTypeSimples": "Тип импортного фида простой",
-    "importResults": "Результаты импорта"
+    "importResults": "Результаты импорта",
+    "configuratorItems": "Конфигуратор"
   },
   "labels": {
     "channelCode": "Канал (код)",
@@ -34,7 +33,6 @@
     "File properties": "Свойства файла",
     "Settings": "Настройки",
     "Create ImportFeed": "Создать импортный фид",
-    "configurator": "Конфигуратор",
     "convertFile": "Загрузка файла, подождите...",
     "convertSuccess": "Файл загружен",
     "runImport": "Запустить импорт",

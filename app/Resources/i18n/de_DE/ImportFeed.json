@@ -15,9 +15,14 @@
     "column": "Spalte(n)",
     "defaultValue": "Default-Wert",
     "locale": "Gebietsschema",
-    "createIfNotExist": "Erstellen, falls nicht vorhanden"
+    "createIfNotExist": "Erstellen, falls nicht vorhanden",
+    "importResults": "Ergebnisse importieren",
+    "configuratorItems": "Konfigurator"
   },
-  "links": [],
+  "links": {
+    "importResults": "Ergebnisse importieren",
+    "configuratorItems": "Konfigurator"
+  },
   "labels": {
     "channelCode": "Kanal (Code)",
     "currency": "Währung",
@@ -25,7 +30,6 @@
     "File properties": "Dateieigenschaften",
     "Settings": "Einstellungen",
     "Create ImportFeed": "Import Feed erstellen",
-    "configurator": "Konfigurator",
     "convertFile": "Datei wird geladen, bitte warten ...",
     "convertSuccess": "Datei hochgeladen",
     "runImport": "Import durchführen",

@@ -20,13 +20,12 @@
     "default": "Default Value",
     "importResults": "Import Results",
     "locale": "Locale",
-    "createIfNotExist": "Create if not exist"
+    "createIfNotExist": "Create if not exist",
+    "configuratorItems": "Configurator"
   },
   "links": {
-    "importJobs": "Import Jobs",
-    "importCronJobs": "Import Cron Jobs",
-    "importFeedTypeSimples": "Import Feed Type Simple",
-    "importResults": "Import Results"
+    "importResults": "Import Results",
+    "configuratorItems": "Configurator"
   },
   "labels": {
     "channelCode": "Channel (code)",
@@ -35,7 +34,6 @@
     "File properties": "File properties",
     "Settings": "Settings",
     "Create ImportFeed": "Create Import Feed",
-    "configurator": "Configurator",
     "convertFile": "Loading file, please wait...",
     "convertSuccess": "File loaded",
     "runImport": "Run Import",
