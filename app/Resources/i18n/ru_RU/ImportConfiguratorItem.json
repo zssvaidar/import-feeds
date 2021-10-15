@@ -1,5 +1,6 @@
 {
   "fields": {
+    "name": "Поле",
     "importFeed": "Импортный фид"
   },
   "links": {

@@ -1,3 +1,6 @@
 {
-  "controller": "controllers/record"
+  "controller": "controllers/record",
+  "modalViews": {
+    "edit": "import:views/import-configurator-item/modals/edit"
+  }
 }

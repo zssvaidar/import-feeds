@@ -1,5 +1,6 @@
 {
   "fields": {
+    "name": "Gebiet",
     "importFeed": "Import Feed"
   },
   "links": {
