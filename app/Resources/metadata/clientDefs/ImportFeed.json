@@ -15,23 +15,6 @@
       "view": "import:views/import-feed/record/panels/import-results"
     }
   },
-  "bottomPanels": {
-    "detail": [
-      {
-        "name": "simpleTypeSettings",
-        "label": "configurator",
-        "view": "import:views/import-feed/record/panels/simple-type-settings"
-      }
-    ]
-  },
-  "optionalBottomPanels": {
-    "simpleTypeSettings": [
-      {
-        "field": "type",
-        "value": "simple"
-      }
-    ]
-  },
   "additionalDropdownItems": {
     "runImport": {
       "name": "runImport",

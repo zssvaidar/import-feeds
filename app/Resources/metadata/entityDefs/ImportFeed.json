@@ -8,6 +8,12 @@
     "description": {
       "type": "text"
     },
+    "configuratorItems": {
+      "type": "linkMultiple",
+      "layoutDetailDisabled": true,
+      "layoutMassUpdateDisabled": true,
+      "noLoad": true
+    },
     "isActive": {
       "type": "bool"
     },
@@ -173,6 +179,12 @@
     }
   },
   "links": {
+    "configuratorItems": {
+      "type": "hasMany",
+      "foreign": "importFeed",
+      "entity": "ConfiguratorItem",
+      "audited": false
+    },
     "file": {
       "type": "belongsTo",
       "entity": "Attachment"
