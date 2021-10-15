@@ -4,6 +4,9 @@
     "onlyMy"
   ],
   "iconClass": "fas fa-cloud-download-alt",
+  "views": {
+    "detail": "import:views/import-feed/detail"
+  },
   "recordViews": {
     "detail": "import:views/import-feed/record/detail"
   },

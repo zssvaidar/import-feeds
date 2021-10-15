@@ -1,9 +1,9 @@
 {
   "fields": {
     "name": {
-      "type": "varchar",
-      "required": true,
-      "trim": true
+      "type": "enum",
+      "prohibitedEmptyValue": true,
+      "view": "import:views/import-configurator-item/fields/name"
     },
     "createdAt": {
       "type": "datetime",
