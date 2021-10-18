@@ -49,6 +49,18 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
             return data;
         },
 
+        getPreparedValue(value) {
+            if (this.model.get('type') === 'Field') {
+                return this.translate(value, 'fields', this.model.get('entity'));
+            }
+
+            if (this.model.get('type') === 'Attribute') {
+                return 'qwe 1';
+            }
+
+            return '';
+        },
+
         getExtraInfo() {
             let extraInfo = null;
 
@@ -65,19 +77,9 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
                 }
             }
 
-            if (this.model.get('attributeId')) {
-                extraInfo = `
-                    <span class="text-muted small">
-                        ${this.translate('Attribute', 'scopeNames', 'Global')}
-                    </span>`;
-            }
-
-            if (this.model.get('scope')) {
-                extraInfo += `
-                    <br>
-                    <span class="text-muted small">
-                        ${this.translate('scope', 'fields')}: ${this.model.get('scope')}
-                    </span>`;
+            if (this.model.get('type') === 'Attribute') {
+                extraInfo = `<span class="text-muted small">${this.translate('Attribute', 'scopeNames', 'Global')}</span>`;
+                extraInfo += `<br><span class="text-muted small">${this.translate('scope', 'fields')}: ${this.model.get('scope')}</span>`;
             }
 
             return extraInfo;

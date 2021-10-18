@@ -28,7 +28,7 @@ use Espo\ORM\Entity;
 
 class ImportConfiguratorItem extends Base
 {
-    protected $mandatorySelectAttributeList = ['importFeedId', 'importBy', 'createIfNotExist', 'default'];
+    protected $mandatorySelectAttributeList = ['importFeedId', 'importBy', 'createIfNotExist', 'default', 'type', 'attributeId', 'scope'];
 
     public function prepareEntityForOutput(Entity $entity)
     {
@@ -36,6 +36,14 @@ class ImportConfiguratorItem extends Base
 
         if (!empty($importFeed = $entity->get('importFeed'))) {
             $entity->set('entity', $importFeed->getFeedField('entity'));
+
+            if ($entity->get('type') === 'Attribute') {
+                if (!empty($attribute = $this->getEntityManager()->getEntity('Attribute', $entity->get('attributeId')))) {
+                    $entity->set('name', $attribute->get('name'));
+                } else {
+                    $entity->set('name', '-');
+                }
+            }
 
             $fieldType = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
 
