@@ -37,9 +37,7 @@ class ImportConfiguratorItem extends Base
 
         if ($entity->get('type') === 'Field') {
             $type = $this->getMetadata()->get(['entityDefs', $importFeed->getFeedField('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
-        }
-
-        if ($entity->get('type') === 'Attribute') {
+        } elseif ($entity->get('type') === 'Attribute') {
             if (empty($attribute = $entity->get('attribute'))) {
                 throw new BadRequest('No such Attribute.');
             }

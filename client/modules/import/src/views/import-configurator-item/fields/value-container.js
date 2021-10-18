@@ -90,9 +90,11 @@ Espo.define('import:views/import-configurator-item/fields/value-container', 'vie
             }
 
             if (type === 'enum' || type === 'multiEnum') {
-                this.model.defs.fields["default"] = {
-                    options: options
-                };
+                this.params.options = options;
+                this.params.translatedOptions = {};
+                options.forEach(option => {
+                    this.params.translatedOptions[option.toString()] = this.translate(option, 'labels', this.model.get('entity')) || option;
+                });
             }
 
             if (type === 'unit') {
