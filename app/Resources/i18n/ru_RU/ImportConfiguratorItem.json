@@ -2,6 +2,7 @@
   "fields": {
     "name": "Поле",
     "column": "Колонка",
+    "defaultContainer": "По умолчанию",
     "default": "По умолчанию",
     "importFeed": "Импортный фид",
     "importBy": "Поля связанных сущностей",

@@ -75,7 +75,7 @@
         "doubleQuote",
         "singleQuote"
       ],
-      "default": "Double Quote"
+      "default": "doubleQuote"
     },
     "fileDataAction": {
       "type": "enum",

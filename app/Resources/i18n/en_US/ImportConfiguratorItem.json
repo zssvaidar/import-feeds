@@ -2,6 +2,7 @@
   "fields": {
     "name": "Field",
     "column": "Column(s)",
+    "defaultContainer": "Default Value",
     "default": "Default Value",
     "importFeed": "Import Feed",
     "importBy": "Related Entity Fields",

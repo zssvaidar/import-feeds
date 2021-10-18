@@ -5,25 +5,51 @@
     "rows": [
       [
         {
+          "name": "type"
+        },
+        false
+      ],
+      [
+        {
           "name": "name"
         },
+        false
+      ],
+      [
+        {
+          "name": "attribute"
+        },
+        false
+      ],
+      [
         {
           "name": "column"
-        }
-      ],
-      [
-        {
-          "name": "default"
         },
         {
-          "name": "importBy"
+          "name": "defaultContainer"
         }
       ],
       [
-        false,
+        {
+          "name": "importBy"
+        },
         {
           "name": "createIfNotExist"
         }
+      ],
+      [
+        {
+          "name": "scope"
+        },
+        {
+          "name": "channel"
+        }
+      ],
+      [
+        {
+          "name": "locale"
+        },
+        false
       ]
     ]
   }

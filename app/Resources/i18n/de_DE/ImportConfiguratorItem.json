@@ -2,6 +2,7 @@
   "fields": {
     "name": "Gebiet",
     "column": "Spalte(n)",
+    "defaultContainer": "Default-Wert",
     "default": "Default-Wert",
     "importFeed": "Import Feed",
     "createIfNotExist": "Erstellen, falls nicht vorhanden",

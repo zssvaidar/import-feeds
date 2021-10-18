@@ -22,17 +22,17 @@
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
-        "field",
-        "attribute"
+        "Field",
+        "Attribute"
       ],
-      "default": "field"
+      "default": "Field",
+      "view": "import:views/import-configurator-item/fields/type"
     },
     "attribute": {
       "type": "link"
     },
     "scope": {
       "type": "enum",
-      "required": false,
       "prohibitedEmptyValue": true,
       "options": [
         "Global",
@@ -52,9 +52,13 @@
       ],
       "default": "Main"
     },
-    "default": {
+    "defaultContainer": {
       "type": "text",
+      "notStorable": true,
       "view": "import:views/import-configurator-item/fields/value-container"
+    },
+    "default": {
+      "type": "text"
     },
     "defaultId": {
       "type": "varchar",

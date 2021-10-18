@@ -39,7 +39,7 @@ class ImportConfiguratorItem extends Base
             $entity->set('default', empty($entity->get('defaultIds')) ? null : Json::encode($entity->get('defaultIds')));
         }
 
-        if (empty($entity->get('column')) && empty($entity->get('default'))) {
+        if (empty($entity->get('column')) && empty($entity->get('default')) && $entity->get('default') !== false) {
             throw new BadRequest($this->getInjection('language')->translate('columnOrDefaultValueIsRequired', 'exceptions', 'ImportConfiguratorItem'));
         }
 

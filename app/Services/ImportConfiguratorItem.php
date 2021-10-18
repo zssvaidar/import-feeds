@@ -28,7 +28,7 @@ use Espo\ORM\Entity;
 
 class ImportConfiguratorItem extends Base
 {
-    protected $mandatorySelectAttributeList = ['importFeedId', 'importBy', 'createIfNotExist'];
+    protected $mandatorySelectAttributeList = ['importFeedId', 'importBy', 'createIfNotExist', 'default'];
 
     public function prepareEntityForOutput(Entity $entity)
     {
@@ -37,23 +37,31 @@ class ImportConfiguratorItem extends Base
         if (!empty($importFeed = $entity->get('importFeed'))) {
             $entity->set('entity', $importFeed->getFeedField('entity'));
 
+            $fieldType = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
+
+            if ($fieldType === 'bool') {
+                $entity->set('default', !empty($entity->get('default')));
+            }
+
             if (!empty($entity->get('default'))) {
+                // prepare links
                 $linkData = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name')]);
-
-                if ($linkData['type'] === 'belongsTo') {
-                    $entity->set('defaultId', $entity->get('default'));
-                    $relEntity = $this->getEntityManager()->getEntity($linkData['entity'], $entity->get('defaultId'));
-                    $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
-                }
-
-                if ($linkData['type'] === 'hasMany') {
-                    $entity->set('defaultIds', Json::decode($entity->get('default'), true));
-                    $names = [];
-                    foreach ($entity->get('defaultIds') as $id) {
-                        $relEntity = $this->getEntityManager()->getEntity($linkData['entity'], $id);
-                        $names[$id] = empty($relEntity) ? $id : $relEntity->get('name');
+                if (!empty($linkData['type'])) {
+                    if ($linkData['type'] === 'belongsTo') {
+                        $entity->set('defaultId', $entity->get('default'));
+                        $relEntity = $this->getEntityManager()->getEntity($linkData['entity'], $entity->get('defaultId'));
+                        $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
                     }
-                    $entity->set('defaultNames', $names);
+
+                    if ($linkData['type'] === 'hasMany') {
+                        $entity->set('defaultIds', Json::decode($entity->get('default'), true));
+                        $names = [];
+                        foreach ($entity->get('defaultIds') as $id) {
+                            $relEntity = $this->getEntityManager()->getEntity($linkData['entity'], $id);
+                            $names[$id] = empty($relEntity) ? $id : $relEntity->get('name');
+                        }
+                        $entity->set('defaultNames', $names);
+                    }
                 }
             }
         }
