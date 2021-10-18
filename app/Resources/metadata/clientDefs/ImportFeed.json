@@ -7,9 +7,6 @@
   "views": {
     "detail": "import:views/import-feed/detail"
   },
-  "recordViews": {
-    "detail": "import:views/import-feed/record/detail"
-  },
   "relationshipPanels": {
     "configuratorItems": {
       "select": false,
