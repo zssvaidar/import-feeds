@@ -17,7 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-Espo.define('import:views/import-configurator-item/fields/value-container', 'views/fields/base',
+Espo.define('import:views/import-configurator-item/fields/default-container', 'views/fields/base',
     Dep => Dep.extend({
 
         listTemplate: 'import:import-configurator-item/fields/value-container/base',
