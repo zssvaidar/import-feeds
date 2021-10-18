@@ -31,12 +31,38 @@ class ImportConfiguratorItem extends Base
 {
     protected function beforeSave(Entity $entity, array $options = [])
     {
-        if ($entity->has('defaultId')) {
+        if (empty($importFeed = $entity->get('importFeed'))) {
+            throw new BadRequest('ImportFeed is required for Configurator item.');
+        }
+
+        $type = $this->getMetadata()->get(['entityDefs', $importFeed->getFeedField('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
+
+        if (in_array($type, ['link', 'asset']) && $entity->has('defaultId')) {
             $entity->set('default', empty($entity->get('defaultId')) ? null : $entity->get('defaultId'));
         }
 
-        if ($entity->has('defaultIds')) {
+        if ($type === 'linkMultiple' && $entity->has('defaultIds')) {
             $entity->set('default', empty($entity->get('defaultIds')) ? null : Json::encode($entity->get('defaultIds')));
+        }
+
+        if ($type === 'currency') {
+            $old = !$entity->isNew() ? Json::decode($entity->getFetched('default'), true) : ['value' => 0, 'currency' => 'EUR'];
+            $currencyData = [
+                'value'    => $entity->has('default') && strpos((string)$entity->get('default'), '{') === false ? $entity->get('default') : $old['value'],
+                'currency' => $entity->has('defaultCurrency') ? $entity->get('defaultCurrency') : $old['currency']
+            ];
+
+            $entity->set('default', Json::encode($currencyData));
+        }
+
+        if ($type === 'unit') {
+            $old = !$entity->isNew() ? Json::decode($entity->getFetched('default'), true) : ['value' => 0, 'unit' => ''];
+            $unitData = [
+                'value' => $entity->has('default') && strpos((string)$entity->get('default'), '{') === false ? $entity->get('default') : $old['value'],
+                'unit'  => $entity->has('defaultUnit') ? $entity->get('defaultUnit') : $old['unit']
+            ];
+
+            $entity->set('default', Json::encode($unitData));
         }
 
         if (empty($entity->get('column')) && empty($entity->get('default')) && $entity->get('default') !== false) {

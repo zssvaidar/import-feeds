@@ -42,6 +42,14 @@ Espo.define('import:views/import-configurator-item/fields/value-container', 'vie
         clearDefaultField() {
             this.model.set('default', null);
 
+            if (this.model.attributes.defaultCurrency) {
+                delete this.model.attributes.defaultCurrency;
+            }
+
+            if (this.model.attributes.defaultUnit) {
+                delete this.model.attributes.defaultUnit;
+            }
+
             if (this.model.attributes.defaultId) {
                 delete this.model.attributes.defaultId;
             }
@@ -78,6 +86,12 @@ Espo.define('import:views/import-configurator-item/fields/value-container', 'vie
                 this.model.defs.links["default"] = {
                     type: 'hasMany',
                     entity: this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`)
+                };
+            }
+
+            if (type === 'unit') {
+                this.model.defs.fields["default"] = {
+                    measure: this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.measure`)
                 };
             }
         },

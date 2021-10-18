@@ -43,6 +43,18 @@ class ImportConfiguratorItem extends Base
                 $entity->set('default', !empty($entity->get('default')));
             }
 
+            if ($fieldType === 'currency') {
+                $currencyData = Json::decode($entity->get('default'), true);
+                $entity->set('default', $currencyData['value']);
+                $entity->set('defaultCurrency', $currencyData['currency']);
+            }
+
+            if ($fieldType === 'unit') {
+                $unitData = Json::decode($entity->get('default'), true);
+                $entity->set('default', $unitData['value']);
+                $entity->set('defaultUnit', $unitData['unit']);
+            }
+
             if (!empty($entity->get('default'))) {
                 // prepare links
                 $linkData = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name')]);
@@ -65,6 +77,11 @@ class ImportConfiguratorItem extends Base
                 }
             }
         }
+    }
+
+    protected function getFieldsThatConflict(Entity $entity, \stdClass $data): array
+    {
+        return [];
     }
 
     protected function isEntityUpdated(Entity $entity, \stdClass $data): bool
