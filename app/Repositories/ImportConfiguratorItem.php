@@ -35,7 +35,16 @@ class ImportConfiguratorItem extends Base
             throw new BadRequest('ImportFeed is required for Configurator item.');
         }
 
-        $type = $this->getMetadata()->get(['entityDefs', $importFeed->getFeedField('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
+        if ($entity->get('type') === 'Field') {
+            $type = $this->getMetadata()->get(['entityDefs', $importFeed->getFeedField('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
+        }
+
+        if ($entity->get('type') === 'Attribute') {
+            if (empty($attribute = $entity->get('attribute'))) {
+                throw new BadRequest('No such Attribute.');
+            }
+            $type = $attribute->get('type');
+        }
 
         if (in_array($type, ['link', 'asset']) && $entity->has('defaultId')) {
             $entity->set('default', empty($entity->get('defaultId')) ? null : $entity->get('defaultId'));
@@ -63,6 +72,10 @@ class ImportConfiguratorItem extends Base
             ];
 
             $entity->set('default', Json::encode($unitData));
+        }
+
+        if (in_array($type, ['array', 'multiEnum']) && $entity->isAttributeChanged('default')) {
+            $entity->set('default', Json::encode($entity->get('default')));
         }
 
         if (empty($entity->get('column')) && empty($entity->get('default')) && $entity->get('default') !== false) {

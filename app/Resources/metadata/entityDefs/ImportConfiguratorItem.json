@@ -31,6 +31,14 @@
     "attribute": {
       "type": "link"
     },
+    "attributeType": {
+      "type": "varchar",
+      "notStorable": true
+    },
+    "attributeTypeValue": {
+      "type": "array",
+      "notStorable": true
+    },
     "scope": {
       "type": "enum",
       "prohibitedEmptyValue": true,

@@ -74,7 +74,7 @@ Espo.define('import:views/import-configurator-item/fields/value-container', 'vie
             this.clearView('default');
         },
 
-        prepareDefaultModel(type) {
+        prepareDefaultModel(type, options) {
             if (type === 'link') {
                 this.model.defs.links["default"] = {
                     type: 'belongsTo',
@@ -89,6 +89,12 @@ Espo.define('import:views/import-configurator-item/fields/value-container', 'vie
                 };
             }
 
+            if (type === 'enum' || type === 'multiEnum') {
+                this.model.defs.fields["default"] = {
+                    options: options
+                };
+            }
+
             if (type === 'unit') {
                 this.model.defs.fields["default"] = {
                     measure: this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.measure`)
@@ -97,9 +103,28 @@ Espo.define('import:views/import-configurator-item/fields/value-container', 'vie
         },
 
         createDefaultField() {
-            let type = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`) || 'varchar';
+            let type = 'varchar';
 
-            this.prepareDefaultModel(type);
+            let options = [];
+
+            if (this.model.get('type') === 'Field') {
+                type = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`) || 'varchar';
+                options = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.options`) || [];
+            }
+
+            if (this.model.get('type') === 'Attribute') {
+                if (this.model.get('attributeType')) {
+                    type = this.model.get('attributeType');
+                    options = this.model.get('attributeTypeValue');
+                } else {
+                    this.ajaxGetRequest(`Attribute/${this.model.get('attributeId')}`, null, {async: false}).then(response => {
+                        type = response.type;
+                        options = response.typeValue || [];
+                    });
+                }
+            }
+
+            this.prepareDefaultModel(type, options);
 
             this.createView('default', this.getValueFieldView(type), {
                 el: `${this.options.el} > .field[data-name="default"]`,

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Services\Base;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
@@ -37,18 +38,27 @@ class ImportConfiguratorItem extends Base
         if (!empty($importFeed = $entity->get('importFeed'))) {
             $entity->set('entity', $importFeed->getFeedField('entity'));
 
+            if ($entity->get('type') === 'Field') {
+                $fieldType = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
+            }
+
             if ($entity->get('type') === 'Attribute') {
                 if (!empty($attribute = $this->getEntityManager()->getEntity('Attribute', $entity->get('attributeId')))) {
                     $entity->set('name', $attribute->get('name'));
+                    $entity->set('attributeType', $attribute->get('type'));
+                    $entity->set('attributeTypeValue', $attribute->get('typeValue'));
+                    $fieldType = $attribute->get('type');
                 } else {
-                    $entity->set('name', '-');
+                    throw new BadRequest('No such Attribute.');
                 }
             }
 
-            $fieldType = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
-
             if ($fieldType === 'bool') {
                 $entity->set('default', !empty($entity->get('default')));
+            }
+
+            if (in_array($fieldType, ['array', 'multiEnum'])) {
+                $entity->set('default', !empty($entity->get('default')) ? Json::decode($entity->get('default'), true) : []);
             }
 
             if ($fieldType === 'currency') {
