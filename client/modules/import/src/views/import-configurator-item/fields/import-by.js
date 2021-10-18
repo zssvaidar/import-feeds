@@ -35,12 +35,27 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
             this.params.options = [];
             this.translatedOptions = {};
 
-            let translatedOptions = this.getTranslatesForImportByField();
-            let options = Object.keys(translatedOptions);
+            let foreignEntity = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`);
+            if (foreignEntity) {
+                this.params.options.push('id');
+                this.translatedOptions['id'] = this.translate('id', 'fields', 'Global');
 
-            if (options.length && ['asset', 'link', 'linkMultiple'].includes(this.model.getFieldType('default'))) {
-                this.params.options = options;
-                this.translatedOptions = translatedOptions;
+                $.each(this.getMetadata().get(`entityDefs.${foreignEntity}.fields`) || {}, (name, data) => {
+                    if (
+                        data.type
+                        && !['asset', 'link', 'linkMultiple', 'jsonObject'].includes(data.type)
+                        && !data.disabled
+                        && !data.importDisabled
+                    ) {
+                        this.params.options.push(name);
+                        this.translatedOptions[name] = this.translate(name, 'fields', foreignEntity);
+                    }
+                });
+
+                if (this.model.get('entity') === 'Product' && foreignEntity === 'Asset') {
+                    this.params.options.push('channel');
+                    this.translatedOptions['channel'] = this.translate('channelCode', 'labels', 'ImportFeed');
+                }
             }
 
             if (callback) {
@@ -51,31 +66,11 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            if (['asset', 'link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`))) {
+            if (this.params.options.length > 0) {
                 this.show();
             } else {
                 this.hide();
             }
-        },
-
-        getTranslatesForImportByField() {
-            let result = {};
-            let entity = this.model.getLinkParam('default', 'entity');
-            if (entity) {
-                let fields = this.getMetadata().get(['entityDefs', entity, 'fields']) || {};
-                result = Object.keys(fields)
-                    .filter(name => !['jsonObject', 'linkMultiple'].includes(fields[name].type) && !fields[name].disabled && !fields[name].importDisabled)
-                    .reduce((prev, curr) => {
-                        prev[curr] = this.translate(curr, 'fields', entity);
-                        return prev;
-                    }, {'id': this.translate('id', 'fields', 'Global')});
-            }
-
-            if (this.model.get('entity') === 'Product' && entity === 'Asset') {
-                result['channel'] = this.translate('channelCode', 'labels', 'ImportFeed');
-            }
-
-            return result;
         },
 
     })
