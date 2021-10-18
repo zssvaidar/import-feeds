@@ -38,7 +38,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
             let translatedOptions = this.getTranslatesForImportByField();
             let options = Object.keys(translatedOptions);
 
-            if (options.length && !this.isAttribute && ['asset', 'link', 'linkMultiple'].includes(this.model.getFieldType('default'))) {
+            if (options.length && ['asset', 'link', 'linkMultiple'].includes(this.model.getFieldType('default'))) {
                 this.params.options = options;
                 this.translatedOptions = translatedOptions;
             }
@@ -51,7 +51,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            if (this.params.options.length > 0) {
+            if (['asset', 'link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`))) {
                 this.show();
             } else {
                 this.hide();
