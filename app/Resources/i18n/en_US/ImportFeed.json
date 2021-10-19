@@ -56,12 +56,13 @@
     "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
-    "onlyCsvIsAllowed": "File invalid. Only CSV is allowed.",
+    "utf8Expected": "Uploaded file should be UTF-8 encoded.",
+    "fileEmpty": "Uploaded file cannot be empty.",
+    "csvExpected": "Uploaded file is not valid. CSV file is expected.",
     "noSuchFile": "No such file",
     "importFeedIsInactive": "Import feed is inactive",
     "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template. Maybe your file contain the column with error messages, which should be deleted.",
-    "countOfFileRowsIsLessThanOne": "Count of file rows is less than one",
-    "configuratorSettingsIncorrect": "Configurator settings incorrect"
+    "countOfFileRowsIsLessThanOne": "Count of file rows is less than one"
   },
   "tooltips": {
     "file": "This file will be used to create the configuration. It could be an example file or file to be imported."
