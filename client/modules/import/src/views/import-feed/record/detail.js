@@ -56,8 +56,8 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
         actionRunImport() {
             this.confirm(this.translate('importNow', 'messages', 'ImportFeed'), () => {
                 const data = {
-                    importFeedId: this.model.id,
-                    attachmentId: null
+                    importFeedId: this.model.get('id'),
+                    attachmentId: this.model.get('fileId')
                 };
                 this.ajaxPostRequest('ImportFeed/action/runImport', data).then(response => {
                     if (response) {

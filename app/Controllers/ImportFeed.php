@@ -57,6 +57,6 @@ class ImportFeed extends \Espo\Core\Templates\Controllers\Base
             throw new Forbidden();
         }
 
-        return $this->getRecordService()->runImport($data->importFeedId, (string)$data->attachmentId);
+        return $this->getRecordService()->runImport((string)$data->importFeedId, (string)$data->attachmentId);
     }
 }
