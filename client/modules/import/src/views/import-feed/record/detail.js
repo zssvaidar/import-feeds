@@ -20,6 +20,8 @@
 Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
     Dep => Dep.extend({
 
+        template: 'import:import-feed/record/detail',
+
         setup() {
             Dep.prototype.setup.call(this);
 
@@ -31,13 +33,7 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            const $btnGroup = this.$el.find('.detail-button-container .btn-group.pull-left');
-            $btnGroup.css('min-width', '275px');
-
-            $btnGroup.append(`<button type="button" class="btn btn-default action disabled" data-action="runImport">${this.translate('import', 'labels', 'ImportFeed')}</button>`);
-            $btnGroup.append(`<button type="button" class="btn btn-default action disabled" data-action="uploadAndRunImport">${this.translate('uploadAndImport', 'labels', 'ImportFeed')}</button>`);
-
-            setTimeout(() => this.handleButtonDisability(), 100);
+            this.handleButtonDisability();
         },
 
         handleButtonDisability() {
@@ -54,6 +50,10 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
         },
 
         actionRunImport() {
+            if ($('.action[data-action=runImport]').hasClass('disabled')) {
+                return;
+            }
+
             this.confirm(this.translate('importNow', 'messages', 'ImportFeed'), () => {
                 const data = {
                     importFeedId: this.model.get('id'),
@@ -69,6 +69,10 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
         },
 
         actionUploadAndRunImport() {
+            if ($('.action[data-action=uploadAndRunImport]').hasClass('disabled')) {
+                return;
+            }
+
             this.createView('dialog', 'import:views/import-feed/modals/run-import-options', {
                 model: this.model
             }, view => view.render());
