@@ -80,10 +80,12 @@ class ImportConfiguratorItem extends Base
             case 'asset':
                 $entity->set('defaultId', null);
                 $entity->set('defaultName', null);
+                $entity->set('defaultPathsData', null);
                 if (!empty($entity->get('default'))) {
                     $entity->set('defaultId', $entity->get('default'));
                     $relEntity = $this->getEntityManager()->getEntity('Attachment', $entity->get('defaultId'));
                     $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
+                    $entity->set('defaultPathsData', $this->getEntityManager()->getRepository('Attachment')->getAttachmentPathsData($relEntity));
                 }
                 break;
             case 'link':

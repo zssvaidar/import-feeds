@@ -89,6 +89,10 @@
       "type": "varchar",
       "notStorable": true
     },
+    "defaultPathsData": {
+      "type": "jsonObject",
+      "notStorable": true
+    },
     "defaultIds": {
       "type": "array",
       "notStorable": true
