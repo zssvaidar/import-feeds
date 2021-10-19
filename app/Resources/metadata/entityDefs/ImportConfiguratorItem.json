@@ -61,9 +61,9 @@
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
-        "Main"
+        "main"
       ],
-      "default": "Main"
+      "default": "main"
     },
     "defaultContainer": {
       "type": "text",

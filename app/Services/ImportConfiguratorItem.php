@@ -29,7 +29,7 @@ use Espo\ORM\Entity;
 
 class ImportConfiguratorItem extends Base
 {
-    protected $mandatorySelectAttributeList = ['importFeedId', 'importBy', 'createIfNotExist', 'default', 'type', 'attributeId', 'scope'];
+    protected $mandatorySelectAttributeList = ['importFeedId', 'importBy', 'createIfNotExist', 'default', 'type', 'attributeId', 'scope', 'locale'];
 
     public function prepareEntityForOutput(Entity $entity)
     {

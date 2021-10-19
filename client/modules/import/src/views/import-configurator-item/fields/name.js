@@ -41,7 +41,6 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
             let data = Dep.prototype.data.call(this);
 
             if (this.mode === 'list') {
-                data.value = this.translate(data.value, 'fields', this.model.get('entity'));
                 data.isRequired = !!this.getMetadata().get(['entityDefs', this.model.get('entity'), 'fields', this.model.get('name'), 'required']);
                 data.extraInfo = this.getExtraInfo();
             }
@@ -49,16 +48,18 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
             return data;
         },
 
-        getPreparedValue(value) {
+        getValueForDisplay() {
+            let name = this.model.get('name');
+
             if (this.model.get('type') === 'Field') {
-                return this.translate(value, 'fields', this.model.get('entity'));
+                name = this.translate(name, 'fields', this.model.get('entity'));
             }
 
-            if (this.model.get('type') === 'Attribute') {
-                return 'qwe 1';
+            if (this.model.get('type') === 'Attribute' && this.model.get('attributeIsMultilang') && this.model.get('locale') !== 'main') {
+                name += ' › ' + this.model.get('locale');
             }
 
-            return '';
+            return name;
         },
 
         getExtraInfo() {
