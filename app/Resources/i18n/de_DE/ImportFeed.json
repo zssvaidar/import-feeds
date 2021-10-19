@@ -42,12 +42,15 @@
     "singleQuote": "Anführungszeichen",
     "create": "Nur erstellen",
     "create_update": "Erstellen und aktualisieren",
-    "update": "Nur aktualisieren"
+    "update": "Nur aktualisieren",
+    "import": "Importieren",
+    "uploadAndImport": "Hochladen & Importieren"
   },
   "additionalTranslates": {
     "importName": "Importieren von Daten nach Feed '%s'"
   },
   "messages": {
+    "importNow": "Möchten Sie die Daten aus der ausgewählten Datei wirklich importieren?",
     "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
   },
   "exceptions": {

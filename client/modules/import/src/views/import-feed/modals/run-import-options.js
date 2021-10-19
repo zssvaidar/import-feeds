@@ -74,14 +74,11 @@ Espo.define('import:views/import-feed/modals/run-import-options', 'views/modal',
                 attachmentId: this.model.get('importFileId') || null
             };
             this.notify('Loading...');
-            this.ajaxPostRequest('ImportFeed/action/RunImport', data).then(response => {
+            this.ajaxPostRequest('ImportFeed/action/runImport', data).then(response => {
                 if (response) {
                     this.notify(this.translate('importRunning', 'labels', 'ImportFeed'), 'success');
                     this.dialog.close();
                     this.model.trigger('importRun');
-                    setTimeout(() => {
-                        Backbone.trigger('showQueuePanel');
-                    }, 2000);
                 }
             });
         },

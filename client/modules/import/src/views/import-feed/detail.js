@@ -39,4 +39,3 @@ Espo.define('import:views/import-feed/detail', 'views/detail',
 
         });
     });
-

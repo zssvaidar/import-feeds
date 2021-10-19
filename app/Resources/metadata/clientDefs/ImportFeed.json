@@ -7,6 +7,9 @@
   "views": {
     "detail": "import:views/import-feed/detail"
   },
+  "recordViews": {
+    "detail": "import:views/import-feed/record/detail"
+  },
   "relationshipPanels": {
     "configuratorItems": {
       "select": false,
@@ -17,49 +20,6 @@
       "select": false,
       "rowActionsView": "views/record/row-actions/view-and-remove",
       "view": "import:views/import-feed/record/panels/import-results"
-    }
-  },
-  "additionalDropdownItems": {
-    "runImport": {
-      "name": "runImport",
-      "label": "runImport",
-      "actionViewPath": "import:views/import-feed/actions/run-import",
-      "action": "runImport",
-      "optionsToPass": [
-        "model"
-      ],
-      "iconClass": "far fa-arrow-alt-circle-up",
-      "conditions": [
-        {
-          "type": "type",
-          "value": "detail"
-        }
-      ]
-    }
-  },
-  "additionalRowActions": {
-    "runImport": {
-      "name": "runImport",
-      "label": "runImport",
-      "actionViewPath": "import:views/import-feed/actions/run-import",
-      "action": "runImport",
-      "optionsToPass": [
-        "model"
-      ],
-      "iconClass": "far fa-arrow-alt-circle-up"
-    }
-  },
-  "configuratorButtons": {
-    "Product": [
-      {
-        "name": "addAttribute",
-        "action": "addAttribute"
-      }
-    ]
-  },
-  "customEntities": {
-    "productCategories": {
-      "entity": "Category"
     }
   },
   "dynamicLogic": {

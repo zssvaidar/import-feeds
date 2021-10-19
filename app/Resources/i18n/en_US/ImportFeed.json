@@ -45,12 +45,15 @@
     "singleQuote": "Single Quote",
     "create": "Create Only",
     "create_update": "Create & Update",
-    "update": "Update Only"
+    "update": "Update Only",
+    "import": "Import",
+    "uploadAndImport": "Upload & Import"
   },
   "additionalTranslates": {
     "importName": "Importing data by feed '%s'"
   },
   "messages": {
+    "importNow": "Are you sure you want to import data from the selected file?",
     "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
