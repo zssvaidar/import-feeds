@@ -1,5 +1,6 @@
 {
   "fields": {
+    "entityIdentifier": "Идентификатор",
     "name": "Поле",
     "column": "Колонка",
     "defaultContainer": "По умолчанию",

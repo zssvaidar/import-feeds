@@ -1,5 +1,6 @@
 {
   "fields": {
+    "entityIdentifier": "Identifier",
     "name": "Field",
     "column": "Column(s)",
     "defaultContainer": "Default Value",

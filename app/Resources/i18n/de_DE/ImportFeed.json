@@ -2,7 +2,6 @@
   "fields": {
     "entity": "Entität",
     "delimiter": "Feldwert Trennzeichen",
-    "idField": "ID",
     "unusedColumns": "Nicht verwendete Spalten Column",
     "file": "Datei",
     "isActive": "Aktiv",

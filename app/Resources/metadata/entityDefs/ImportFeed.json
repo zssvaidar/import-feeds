@@ -154,15 +154,6 @@
       "options": [],
       "default": "Product"
     },
-    "idField": {
-      "type": "multi-enum",
-      "notStorable": true,
-      "dataField": true,
-      "view": "import:views/import-feed/fields/id-field",
-      "required": false,
-      "prohibitedEmptyValue": true,
-      "options": []
-    },
     "delimiter": {
       "type": "varchar",
       "notStorable": true,

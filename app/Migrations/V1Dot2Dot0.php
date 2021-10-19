@@ -37,6 +37,7 @@ class V1Dot2Dot0 extends V1Dot0Dot13
         $this->execute("ALTER TABLE `import_configurator_item` ADD type VARCHAR(255) DEFAULT 'field' COLLATE utf8mb4_unicode_ci, ADD scope VARCHAR(255) DEFAULT 'Global' COLLATE utf8mb4_unicode_ci, ADD locale VARCHAR(255) DEFAULT 'main' COLLATE utf8mb4_unicode_ci, ADD attribute_id VARCHAR(24) DEFAULT NULL COLLATE utf8mb4_unicode_ci, ADD channel_id VARCHAR(24) DEFAULT NULL COLLATE utf8mb4_unicode_ci");
         $this->execute("CREATE INDEX IDX_ATTRIBUTE_ID ON `import_configurator_item` (attribute_id)");
         $this->execute("CREATE INDEX IDX_CHANNEL_ID ON `import_configurator_item` (channel_id)");
+        $this->execute("ALTER TABLE `import_configurator_item` ADD entity_identifier TINYINT(1) DEFAULT '0' NOT NULL COLLATE utf8mb4_unicode_ci");
     }
 
     public function down(): void

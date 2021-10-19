@@ -5,6 +5,9 @@
       "prohibitedEmptyValue": true,
       "view": "import:views/import-configurator-item/fields/name"
     },
+    "entityIdentifier": {
+      "type": "bool"
+    },
     "column": {
       "type": "array",
       "view": "import:views/import-configurator-item/fields/column"

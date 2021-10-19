@@ -188,36 +188,6 @@
             }
           ]
         }
-      },
-      "idField": {
-        "visible": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            },
-            {
-              "type": "notEquals",
-              "attribute": "fileDataAction",
-              "value": "create"
-            }
-          ]
-        },
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            },
-            {
-              "type": "notEquals",
-              "attribute": "fileDataAction",
-              "value": "create"
-            }
-          ]
-        }
       }
     }
   }

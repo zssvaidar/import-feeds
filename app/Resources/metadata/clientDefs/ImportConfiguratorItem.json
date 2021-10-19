@@ -25,6 +25,17 @@
           ]
         }
       },
+      "entityIdentifier": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "Field"
+            }
+          ]
+        }
+      },
       "attribute": {
         "visible": {
           "conditionGroup": [

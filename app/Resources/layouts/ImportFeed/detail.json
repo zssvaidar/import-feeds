@@ -82,16 +82,14 @@
           "name": "entity"
         },
         {
-          "name": "idField"
+          "name": "unusedColumns"
         }
       ],
       [
         {
           "name": "delimiter"
         },
-        {
-          "name": "unusedColumns"
-        }
+        false
       ]
     ]
   }
