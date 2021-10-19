@@ -4,7 +4,7 @@
     "delimiter": "Field value delimiter",
     "idField": "ID",
     "unusedColumns": "Unused Columns",
-    "file": "Example File (CSV)",
+    "file": "File",
     "isActive": "Active",
     "type": "Type",
     "fileFieldDelimiter": "Field Delimiter",
@@ -61,7 +61,7 @@
     "countOfFileRowsIsLessThanOne": "Count of file rows is less than one",
     "configuratorSettingsIncorrect": "Configurator settings incorrect"
   },
-  "types": {
-    "simple": "Import Feed type, intended for importing values into any entity from CSV file."
+  "tooltips": {
+    "file": "This file will be used to create the configuration. It could be an example file or file to be imported."
   }
 }

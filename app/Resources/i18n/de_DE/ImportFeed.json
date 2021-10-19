@@ -4,7 +4,7 @@
     "delimiter": "Feldwert Trennzeichen",
     "idField": "ID",
     "unusedColumns": "Nicht verwendete Spalten Column",
-    "file": "Beispieldatei (CSV)",
+    "file": "Datei",
     "isActive": "Aktiv",
     "type": "Typ",
     "fileFieldDelimiter": "Feld-Trennzeichen",
@@ -58,7 +58,7 @@
     "countOfFileRowsIsLessThanOne": "Die Anzahl der Dateireihen ist kleiner als eins",
     "configuratorSettingsIncorrect": "Konfigurator-Einstellungen falsch"
   },
-  "types": {
-    "simple": "Import-Feed Typ für Import der Daten in eine Entität aus CSV-Datei."
+  "tooltips": {
+    "file": "Diese Datei wird für die Konfiguration verwendet. Es kann eine Beispieldatei oder die zu importierende Datei sein."
   }
 }

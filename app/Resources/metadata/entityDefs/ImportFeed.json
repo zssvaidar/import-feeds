@@ -24,8 +24,7 @@
       "options": [
         "simple"
       ],
-      "default": "simple",
-      "view": "import:views/import-feed/fields/enum-with-custom-tooltip"
+      "default": "simple"
     },
     "data": {
       "type": "jsonObject",
@@ -48,6 +47,7 @@
       "type": "file",
       "noAsset": true,
       "required": false,
+      "tooltip": true,
       "sourceList": [],
       "view": "import:views/import-feed/fields/file"
     },
