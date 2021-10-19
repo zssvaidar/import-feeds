@@ -32,7 +32,7 @@ Espo.define('import:views/import-feed/modals/run-import-options', 'views/modal',
             this.buttonList = [
                 {
                     name: 'runImport',
-                    label: 'runImport',
+                    label: 'import',
                     style: 'primary',
                 },
                 {
@@ -42,7 +42,7 @@ Espo.define('import:views/import-feed/modals/run-import-options', 'views/modal',
             ];
 
             this.scope = this.options.scope || this.model.name || this.scope;
-            this.header = this.getLanguage().translate('runImport', 'labels', this.scope);
+            this.header = this.getLanguage().translate('import', 'labels', this.scope);
             this.setupFields();
         },
 

@@ -32,7 +32,6 @@
     "Create ImportFeed": "Create Import Feed",
     "convertFile": "Loading file, please wait...",
     "convertSuccess": "File loaded",
-    "runImport": "Run Import",
     "addEntityField": "Add entity field",
     "addProductAttribute": "Add Product attribute",
     "importRunning": "Import Running",

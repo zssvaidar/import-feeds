@@ -32,7 +32,6 @@
     "Create ImportFeed": "Создать импортный фид",
     "convertFile": "Загрузка файла, подождите...",
     "convertSuccess": "Файл загружен",
-    "runImport": "Запустить импорт",
     "addEntityField": "Добавить поле сущности",
     "addProductAttribute": "Добавить поле атрибута",
     "importRunning": "Импорт выполняется",
@@ -46,7 +45,7 @@
     "create": "Только создать",
     "create_update": "Создать и обновить",
     "update": "Только обновить",
-    "import": "Импортировать",
+    "import": "Импорт",
     "uploadAndImport": "Загрузить & Импортировать"
   },
   "additionalTranslates": {
