@@ -63,7 +63,7 @@
         "\\t",
         "|"
       ],
-      "default": ","
+      "default": ";"
     },
     "fileTextQualifier": {
       "type": "enum",
@@ -91,7 +91,8 @@
     "isFileHeaderRow": {
       "type": "bool",
       "notStorable": true,
-      "dataField": true
+      "dataField": true,
+      "default": true
     },
     "decimalMark": {
       "type": "enum",
@@ -159,7 +160,7 @@
       "notStorable": true,
       "dataField": true,
       "required": false,
-      "default": ";"
+      "default": ","
     },
     "unusedColumns": {
       "type": "multi-enum",

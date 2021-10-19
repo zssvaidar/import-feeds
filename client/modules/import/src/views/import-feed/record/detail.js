@@ -43,11 +43,11 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
         },
 
         handleButtonsDisability() {
-            const $buttons = this.$el.find('.import-actions');
+            const $buttons = $('.import-actions');
             if (this.isButtonsDisabled()) {
-                $buttons.removeClass('disabled');
-            } else {
                 $buttons.addClass('disabled');
+            } else {
+                $buttons.removeClass('disabled');
             }
         },
 
