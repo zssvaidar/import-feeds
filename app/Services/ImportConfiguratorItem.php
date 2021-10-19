@@ -24,7 +24,6 @@ namespace Import\Services;
 
 use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Services\Base;
-use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
 class ImportConfiguratorItem extends Base
@@ -73,5 +72,12 @@ class ImportConfiguratorItem extends Base
     protected function isEntityUpdated(Entity $entity, \stdClass $data): bool
     {
         return true;
+    }
+
+    protected function init()
+    {
+        parent::init();
+
+        $this->addDependency('container');
     }
 }

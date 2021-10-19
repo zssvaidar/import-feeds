@@ -10,7 +10,7 @@
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
     },
     "multiEnum": {
-      "converter": "\\Import\\Types\\Simple\\FieldConverters\\MultiEnum"
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
     },
     "linkMultiple": {
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\LinkMultiple"
