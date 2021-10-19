@@ -141,4 +141,22 @@ class LinkMultiple extends Asset
         $restore->{$item['name'] . 'Ids'} = $ids;
         $restore->{$item['name'] . 'Names'} = $names;
     }
+
+    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    {
+        $entity->set('defaultIds', null);
+        $entity->set('defaultNames', null);
+        if (!empty($entity->get('default'))) {
+            $relEntityName = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name'), 'entity']);
+            if (!empty($relEntityName)) {
+                $entity->set('defaultIds', Json::decode($entity->get('default'), true));
+                $names = [];
+                foreach ($entity->get('defaultIds') as $id) {
+                    $relEntity = $this->getEntityManager()->getEntity($relEntityName, $id);
+                    $names[$id] = empty($relEntity) ? $id : $relEntity->get('name');
+                }
+                $entity->set('defaultNames', $names);
+            }
+        }
+    }
 }

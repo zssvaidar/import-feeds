@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\FieldConverters;
 
+use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
 /**
@@ -85,6 +86,13 @@ class Unit extends FloatValue
         }
 
         parent::prepareValue($restore, $entity, $item);
+    }
+
+    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    {
+        $unitData = Json::decode($entity->get('default'), true);
+        $entity->set('default', $unitData['value']);
+        $entity->set('defaultUnit', $unitData['unit']);
     }
 
     /**

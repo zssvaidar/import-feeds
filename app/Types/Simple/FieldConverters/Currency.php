@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\FieldConverters;
 
+use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
 /**
@@ -85,5 +86,12 @@ class Currency extends FloatValue
         }
 
         parent::prepareValue($restore, $entity, $item);
+    }
+
+    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    {
+        $currencyData = Json::decode($entity->get('default'), true);
+        $entity->set('default', $currencyData['value']);
+        $entity->set('defaultCurrency', $currencyData['currency']);
     }
 }

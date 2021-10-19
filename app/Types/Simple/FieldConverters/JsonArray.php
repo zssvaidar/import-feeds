@@ -46,4 +46,9 @@ class JsonArray extends AbstractConverter
 
         $inputRow->{$config['name']} = Json::encode($value);
     }
+
+    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    {
+        $entity->set('default', !empty($entity->get('default')) ? Json::decode($entity->get('default'), true) : []);
+    }
 }

@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace Import\Types\Simple\FieldConverters;
 
+use Espo\ORM\Entity;
+
 /**
  * Class Boolean
  */
@@ -39,5 +41,10 @@ class Boolean extends AbstractConverter
         }
 
         $inputRow->{$config['name']} = (bool)$result;
+    }
+
+    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    {
+        $entity->set('default', !empty($entity->get('default')));
     }
 }

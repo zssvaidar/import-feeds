@@ -1,8 +1,5 @@
 {
   "fields": {
-    "enumMultiLang": {
-      "converter": "\\Import\\Types\\Simple\\FieldConverters\\EnumMultiLang"
-    },
     "link": {
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\Link"
     },
@@ -13,13 +10,7 @@
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
     },
     "multiEnum": {
-      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
-    },
-    "arrayMultiLang": {
-      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
-    },
-    "multiEnumMultiLang": {
-      "converter": "\\Import\\Types\\Simple\\FieldConverters\\JsonArray"
+      "converter": "\\Import\\Types\\Simple\\FieldConverters\\MultiEnum"
     },
     "linkMultiple": {
       "converter": "\\Import\\Types\\Simple\\FieldConverters\\LinkMultiple"

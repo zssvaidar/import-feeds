@@ -59,63 +59,9 @@ class ImportConfiguratorItem extends Base
 
     protected function prepareDefaultField(string $type, Entity $entity): void
     {
-        switch ($type) {
-            case 'bool':
-                $entity->set('default', !empty($entity->get('default')));
-                break;
-            case 'array':
-            case 'multiEnum':
-                $entity->set('default', !empty($entity->get('default')) ? Json::decode($entity->get('default'), true) : []);
-                break;
-            case 'currency':
-                $currencyData = Json::decode($entity->get('default'), true);
-                $entity->set('default', $currencyData['value']);
-                $entity->set('defaultCurrency', $currencyData['currency']);
-                break;
-            case 'unit':
-                $unitData = Json::decode($entity->get('default'), true);
-                $entity->set('default', $unitData['value']);
-                $entity->set('defaultUnit', $unitData['unit']);
-                break;
-            case 'asset':
-                $entity->set('defaultId', null);
-                $entity->set('defaultName', null);
-                $entity->set('defaultPathsData', null);
-                if (!empty($entity->get('default'))) {
-                    $entity->set('defaultId', $entity->get('default'));
-                    $relEntity = $this->getEntityManager()->getEntity('Attachment', $entity->get('defaultId'));
-                    $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
-                    $entity->set('defaultPathsData', $this->getEntityManager()->getRepository('Attachment')->getAttachmentPathsData($relEntity));
-                }
-                break;
-            case 'link':
-                $entity->set('defaultId', null);
-                $entity->set('defaultName', null);
-                if (!empty($entity->get('default'))) {
-                    $relEntityName = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name'), 'entity']);
-                    if (!empty($relEntityName)) {
-                        $entity->set('defaultId', $entity->get('default'));
-                        $relEntity = $this->getEntityManager()->getEntity($relEntityName, $entity->get('defaultId'));
-                        $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
-                    }
-                }
-                break;
-            case 'linkMultiple':
-                $entity->set('defaultIds', null);
-                $entity->set('defaultNames', null);
-                if (!empty($entity->get('default'))) {
-                    $relEntityName = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name'), 'entity']);
-                    if (!empty($relEntityName)) {
-                        $entity->set('defaultIds', Json::decode($entity->get('default'), true));
-                        $names = [];
-                        foreach ($entity->get('defaultIds') as $id) {
-                            $relEntity = $this->getEntityManager()->getEntity($relEntityName, $id);
-                            $names[$id] = empty($relEntity) ? $id : $relEntity->get('name');
-                        }
-                        $entity->set('defaultNames', $names);
-                    }
-                }
-                break;
+        $converter = $this->getMetadata()->get(['import', 'simple', 'fields', $type, 'converter']);
+        if (!empty($converter)) {
+            (new $converter($this->getInjection('container')))->prepareConfiguratorDefaultField($type, $entity);
         }
     }
 

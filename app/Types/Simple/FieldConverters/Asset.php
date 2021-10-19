@@ -109,6 +109,19 @@ class Asset extends AbstractConverter
         $restore->{$item['name'] . 'Id'} = $value;
     }
 
+    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    {
+        $entity->set('defaultId', null);
+        $entity->set('defaultName', null);
+        $entity->set('defaultPathsData', null);
+        if (!empty($entity->get('default'))) {
+            $entity->set('defaultId', $entity->get('default'));
+            $relEntity = $this->getEntityManager()->getEntity('Attachment', $entity->get('defaultId'));
+            $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
+            $entity->set('defaultPathsData', $this->getEntityManager()->getRepository('Attachment')->getAttachmentPathsData($relEntity));
+        }
+    }
+
     protected function createAttachment(string $url, string $relatedType, string $field): Attachment
     {
         $attachment = new \stdClass();

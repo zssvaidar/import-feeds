@@ -83,4 +83,18 @@ class Link extends AbstractConverter
 
         $restore->{$item['name'] . 'Id'} = $value;
     }
+
+    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    {
+        $entity->set('defaultId', null);
+        $entity->set('defaultName', null);
+        if (!empty($entity->get('default'))) {
+            $relEntityName = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name'), 'entity']);
+            if (!empty($relEntityName)) {
+                $entity->set('defaultId', $entity->get('default'));
+                $relEntity = $this->getEntityManager()->getEntity($relEntityName, $entity->get('defaultId'));
+                $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
+            }
+        }
+    }
 }

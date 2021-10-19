@@ -29,33 +29,29 @@ use Espo\Core\Utils\Config;
 use Espo\Core\Utils\Metadata;
 use Espo\ORM\EntityManager;
 
-/**
- * Class AbstractConverter
- */
 abstract class AbstractConverter
 {
-    /**
-     * @var Container
-     */
-    protected $container;
-
-    /**
-     * @var array
-     */
-    private $services = [];
+    protected Container $container;
+    protected array $services = [];
 
     public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
-    abstract public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void;
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    {
+    }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $field = $item['name'];
 
         $restore->{$field} = $entity->get($field);
+    }
+
+    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    {
     }
 
     protected function getConfig(): Config
