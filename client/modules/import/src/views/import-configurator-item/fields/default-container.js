@@ -128,7 +128,7 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
 
             this.prepareDefaultModel(type, options);
 
-            this.createView('default', this.getValueFieldView(type), {
+            this.createView('default', this.getFieldManager().getViewName(type), {
                 el: `${this.options.el} > .field[data-name="default"]`,
                 model: this.model,
                 name: 'default',
@@ -143,10 +143,6 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
                     view.render();
                 }
             });
-        },
-
-        getValueFieldView(type) {
-            return type === 'image' ? 'import:views/import-configurator-item/fields/default-image' : this.getFieldManager().getViewName(type);
         },
 
     })

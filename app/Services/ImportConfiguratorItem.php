@@ -35,66 +35,85 @@ class ImportConfiguratorItem extends Base
     {
         parent::prepareEntityForOutput($entity);
 
-        if (!empty($importFeed = $entity->get('importFeed'))) {
-            $entity->set('entity', $importFeed->getFeedField('entity'));
+        if (empty($importFeed = $entity->get('importFeed'))) {
+            return;
+        }
 
-            if ($entity->get('type') === 'Field') {
-                $fieldType = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
+        $entity->set('entity', $importFeed->getFeedField('entity'));
+
+        if ($entity->get('type') === 'Attribute') {
+            if (empty($attribute = $this->getEntityManager()->getEntity('Attribute', $entity->get('attributeId')))) {
+                throw new BadRequest('No such Attribute.');
             }
+            $entity->set('name', $attribute->get('name'));
+            $entity->set('attributeType', $attribute->get('type'));
+            $entity->set('attributeTypeValue', $attribute->get('typeValue'));
+            $entity->set('attributeIsMultilang', $attribute->get('isMultilang'));
+            $fieldType = $attribute->get('type');
+        } else {
+            $fieldType = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'fields', $entity->get('name'), 'type'], 'varchar');
+        }
 
-            if ($entity->get('type') === 'Attribute') {
-                if (!empty($attribute = $this->getEntityManager()->getEntity('Attribute', $entity->get('attributeId')))) {
-                    $entity->set('name', $attribute->get('name'));
-                    $entity->set('attributeType', $attribute->get('type'));
-                    $entity->set('attributeTypeValue', $attribute->get('typeValue'));
-                    $entity->set('attributeIsMultilang', $attribute->get('isMultilang'));
-                    $fieldType = $attribute->get('type');
-                } else {
-                    throw new BadRequest('No such Attribute.');
-                }
-            }
+        $this->prepareDefaultField($fieldType, $entity);
+    }
 
-            if ($fieldType === 'bool') {
+    protected function prepareDefaultField(string $type, Entity $entity): void
+    {
+        switch ($type) {
+            case 'bool':
                 $entity->set('default', !empty($entity->get('default')));
-            }
-
-            if (in_array($fieldType, ['array', 'multiEnum'])) {
+                break;
+            case 'array':
+            case 'multiEnum':
                 $entity->set('default', !empty($entity->get('default')) ? Json::decode($entity->get('default'), true) : []);
-            }
-
-            if ($fieldType === 'currency') {
+                break;
+            case 'currency':
                 $currencyData = Json::decode($entity->get('default'), true);
                 $entity->set('default', $currencyData['value']);
                 $entity->set('defaultCurrency', $currencyData['currency']);
-            }
-
-            if ($fieldType === 'unit') {
+                break;
+            case 'unit':
                 $unitData = Json::decode($entity->get('default'), true);
                 $entity->set('default', $unitData['value']);
                 $entity->set('defaultUnit', $unitData['unit']);
-            }
-
-            if (!empty($entity->get('default'))) {
-                // prepare links
-                $linkData = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name')]);
-                if (!empty($linkData['type'])) {
-                    if ($linkData['type'] === 'belongsTo') {
+                break;
+            case 'asset':
+                $entity->set('defaultId', null);
+                $entity->set('defaultName', null);
+                if (!empty($entity->get('default'))) {
+                    $entity->set('defaultId', $entity->get('default'));
+                    $relEntity = $this->getEntityManager()->getEntity('Attachment', $entity->get('defaultId'));
+                    $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
+                }
+                break;
+            case 'link':
+                $entity->set('defaultId', null);
+                $entity->set('defaultName', null);
+                if (!empty($entity->get('default'))) {
+                    $relEntityName = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name'), 'entity']);
+                    if (!empty($relEntityName)) {
                         $entity->set('defaultId', $entity->get('default'));
-                        $relEntity = $this->getEntityManager()->getEntity($linkData['entity'], $entity->get('defaultId'));
+                        $relEntity = $this->getEntityManager()->getEntity($relEntityName, $entity->get('defaultId'));
                         $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
                     }
-
-                    if ($linkData['type'] === 'hasMany') {
+                }
+                break;
+            case 'linkMultiple':
+                $entity->set('defaultIds', null);
+                $entity->set('defaultNames', null);
+                if (!empty($entity->get('default'))) {
+                    $relEntityName = $this->getMetadata()->get(['entityDefs', $entity->get('entity'), 'links', $entity->get('name'), 'entity']);
+                    if (!empty($relEntityName)) {
                         $entity->set('defaultIds', Json::decode($entity->get('default'), true));
                         $names = [];
                         foreach ($entity->get('defaultIds') as $id) {
-                            $relEntity = $this->getEntityManager()->getEntity($linkData['entity'], $id);
+                            $relEntity = $this->getEntityManager()->getEntity($relEntityName, $id);
                             $names[$id] = empty($relEntity) ? $id : $relEntity->get('name');
                         }
                         $entity->set('defaultNames', $names);
                     }
                 }
-            }
+                break;
         }
     }
 
