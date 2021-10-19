@@ -50,7 +50,11 @@ abstract class AbstractConverter
         $restore->{$field} = $entity->get($field);
     }
 
-    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
+    {
+    }
+
+    public function prepareForOutputConfiguratorDefaultField(Entity $entity): void
     {
     }
 

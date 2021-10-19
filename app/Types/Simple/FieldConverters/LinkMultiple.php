@@ -142,7 +142,14 @@ class LinkMultiple extends Asset
         $restore->{$item['name'] . 'Names'} = $names;
     }
 
-    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
+    {
+        if ($entity->has('defaultIds')) {
+            $entity->set('default', empty($entity->get('defaultIds')) ? null : Json::encode($entity->get('defaultIds')));
+        }
+    }
+
+    public function prepareForOutputConfiguratorDefaultField(Entity $entity): void
     {
         $entity->set('defaultIds', null);
         $entity->set('defaultNames', null);

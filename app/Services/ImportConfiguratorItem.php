@@ -56,11 +56,18 @@ class ImportConfiguratorItem extends Base
         $this->prepareDefaultField($fieldType, $entity);
     }
 
+    protected function init()
+    {
+        parent::init();
+
+        $this->addDependency('container');
+    }
+
     protected function prepareDefaultField(string $type, Entity $entity): void
     {
         $converter = $this->getMetadata()->get(['import', 'simple', 'fields', $type, 'converter']);
         if (!empty($converter)) {
-            (new $converter($this->getInjection('container')))->prepareConfiguratorDefaultField($type, $entity);
+            (new $converter($this->getInjection('container')))->prepareForOutputConfiguratorDefaultField($entity);
         }
     }
 
@@ -72,12 +79,5 @@ class ImportConfiguratorItem extends Base
     protected function isEntityUpdated(Entity $entity, \stdClass $data): bool
     {
         return true;
-    }
-
-    protected function init()
-    {
-        parent::init();
-
-        $this->addDependency('container');
     }
 }

@@ -88,7 +88,18 @@ class Currency extends FloatValue
         parent::prepareValue($restore, $entity, $item);
     }
 
-    public function prepareConfiguratorDefaultField(string $type, Entity $entity): void
+    public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
+    {
+        $old = !$entity->isNew() ? Json::decode($entity->getFetched('default'), true) : ['value' => 0, 'currency' => 'EUR'];
+        $currencyData = [
+            'value'    => $entity->has('default') && strpos((string)$entity->get('default'), '{') === false ? $entity->get('default') : $old['value'],
+            'currency' => $entity->has('defaultCurrency') ? $entity->get('defaultCurrency') : $old['currency']
+        ];
+
+        $entity->set('default', Json::encode($currencyData));
+    }
+
+    public function prepareForOutputConfiguratorDefaultField(Entity $entity): void
     {
         $currencyData = Json::decode($entity->get('default'), true);
         $entity->set('default', $currencyData['value']);

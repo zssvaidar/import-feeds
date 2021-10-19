@@ -44,37 +44,7 @@ class ImportConfiguratorItem extends Base
             $type = $attribute->get('type');
         }
 
-        if (in_array($type, ['link', 'asset']) && $entity->has('defaultId')) {
-            $entity->set('default', empty($entity->get('defaultId')) ? null : $entity->get('defaultId'));
-        }
-
-        if ($type === 'linkMultiple' && $entity->has('defaultIds')) {
-            $entity->set('default', empty($entity->get('defaultIds')) ? null : Json::encode($entity->get('defaultIds')));
-        }
-
-        if ($type === 'currency') {
-            $old = !$entity->isNew() ? Json::decode($entity->getFetched('default'), true) : ['value' => 0, 'currency' => 'EUR'];
-            $currencyData = [
-                'value'    => $entity->has('default') && strpos((string)$entity->get('default'), '{') === false ? $entity->get('default') : $old['value'],
-                'currency' => $entity->has('defaultCurrency') ? $entity->get('defaultCurrency') : $old['currency']
-            ];
-
-            $entity->set('default', Json::encode($currencyData));
-        }
-
-        if ($type === 'unit') {
-            $old = !$entity->isNew() ? Json::decode($entity->getFetched('default'), true) : ['value' => 0, 'unit' => ''];
-            $unitData = [
-                'value' => $entity->has('default') && strpos((string)$entity->get('default'), '{') === false ? $entity->get('default') : $old['value'],
-                'unit'  => $entity->has('defaultUnit') ? $entity->get('defaultUnit') : $old['unit']
-            ];
-
-            $entity->set('default', Json::encode($unitData));
-        }
-
-        if (in_array($type, ['array', 'multiEnum']) && $entity->isAttributeChanged('default')) {
-            $entity->set('default', Json::encode($entity->get('default')));
-        }
+        $this->prepareDefaultField($type, $entity);
 
         if (empty($entity->get('column')) && empty($entity->get('default')) && $entity->get('default') !== false) {
             throw new BadRequest($this->getInjection('language')->translate('columnOrDefaultValueIsRequired', 'exceptions', 'ImportConfiguratorItem'));
@@ -88,5 +58,14 @@ class ImportConfiguratorItem extends Base
         parent::init();
 
         $this->addDependency('language');
+        $this->addDependency('container');
+    }
+
+    protected function prepareDefaultField(string $type, Entity $entity): void
+    {
+        $converter = $this->getMetadata()->get(['import', 'simple', 'fields', $type, 'converter']);
+        if (!empty($converter)) {
+            (new $converter($this->getInjection('container')))->prepareForSaveConfiguratorDefaultField($entity);
+        }
     }
 }
