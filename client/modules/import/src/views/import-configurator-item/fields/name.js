@@ -51,6 +51,10 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
         getValueForDisplay() {
             let name = this.model.get('name');
 
+            if (this.mode !== 'list') {
+                return name;
+            }
+
             if (this.model.get('type') === 'Field') {
                 name = this.translate(name, 'fields', this.model.get('entity'));
             }

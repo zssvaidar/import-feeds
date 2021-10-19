@@ -43,6 +43,11 @@ class Boolean extends AbstractConverter
         $inputRow->{$config['name']} = (bool)$result;
     }
 
+    public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
+    {
+        $entity->set('default', !empty($entity->get('default')));
+    }
+
     public function prepareForOutputConfiguratorDefaultField(Entity $entity): void
     {
         $entity->set('default', !empty($entity->get('default')));
