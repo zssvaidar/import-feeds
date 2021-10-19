@@ -47,6 +47,7 @@ class ImportConfiguratorItem extends Base
                     $entity->set('name', $attribute->get('name'));
                     $entity->set('attributeType', $attribute->get('type'));
                     $entity->set('attributeTypeValue', $attribute->get('typeValue'));
+                    $entity->set('attributeIsMultilang', $attribute->get('isMultilang'));
                     $fieldType = $attribute->get('type');
                 } else {
                     throw new BadRequest('No such Attribute.');

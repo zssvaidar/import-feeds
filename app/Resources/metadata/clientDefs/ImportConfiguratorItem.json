@@ -94,17 +94,6 @@
             }
           ]
         }
-      },
-      "locale": {
-        "visible": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "Attribute"
-            }
-          ]
-        }
       }
     }
   }

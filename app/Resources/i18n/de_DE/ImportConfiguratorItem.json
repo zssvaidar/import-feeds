@@ -16,6 +16,9 @@
   "links": {
     "importFeed": "Import Feed"
   },
+  "labels": {
+    "main": "Hauptsächlich"
+  },
   "exceptions": {
     "columnOrDefaultValueIsRequired": "Spalte oder Standard sollte abgelegt werden."
   }

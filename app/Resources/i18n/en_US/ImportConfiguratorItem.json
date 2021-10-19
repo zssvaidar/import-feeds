@@ -17,6 +17,9 @@
     "importFeed": "Import Feed",
     "channel": "Channel"
   },
+  "labels": {
+    "main": "Main"
+  },
   "exceptions": {
     "columnOrDefaultValueIsRequired": "Column or Default should be filled."
   }

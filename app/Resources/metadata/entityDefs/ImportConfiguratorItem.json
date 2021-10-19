@@ -39,6 +39,10 @@
       "type": "array",
       "notStorable": true
     },
+    "attributeIsMultilang": {
+      "type": "bool",
+      "notStorable": true
+    },
     "scope": {
       "type": "enum",
       "prohibitedEmptyValue": true,
@@ -53,6 +57,7 @@
     },
     "locale": {
       "type": "enum",
+      "view": "import:views/import-configurator-item/fields/locale",
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
