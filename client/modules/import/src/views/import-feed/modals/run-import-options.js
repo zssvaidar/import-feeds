@@ -47,7 +47,7 @@ Espo.define('import:views/import-feed/modals/run-import-options', 'views/modal',
         },
 
         setupFields() {
-            this.createView('importFile', 'views/fields/file', {
+            this.createView('importFile', 'import:views/import-feed/fields/file', {
                 el: `${this.options.el} .field[data-name="importFile"]`,
                 model: this.model,
                 name: 'importFile',

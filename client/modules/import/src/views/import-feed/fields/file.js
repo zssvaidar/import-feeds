@@ -27,9 +27,11 @@ Espo.define('import:views/import-feed/fields/file', 'views/fields/file',
         setup() {
             Dep.prototype.setup.call(this);
 
-            this.listenTo(this.model, 'change:fileId', () => {
-                this.model.trigger('fileUpdate');
-            });
+            if (this.name === 'file') {
+                this.listenTo(this.model, 'change:fileId', () => {
+                    this.model.trigger('fileUpdate');
+                });
+            }
         }
     })
 );
