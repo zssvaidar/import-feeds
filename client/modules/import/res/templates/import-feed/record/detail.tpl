@@ -13,8 +13,8 @@
                 {{/each}}
             </ul>
             {{/if}}
-            <button type="button" class="btn btn-default action disabled" data-action="runImport">{{translate 'import' scope='ImportFeed' category='labels'}}</button>
-            <button type="button" class="btn btn-default action disabled" data-action="uploadAndRunImport">{{translate 'uploadAndImport' scope='ImportFeed' category='labels'}}</button>
+            <button type="button" class="btn btn-default action import-actions {{#if importButtonsDisabled }}disabled{{/if}}" data-action="runImport">{{translate 'import' scope='ImportFeed' category='labels'}}</button>
+            <button type="button" class="btn btn-default action import-actions {{#if importButtonsDisabled }}disabled{{/if}}" data-action="uploadAndRunImport">{{translate 'uploadAndImport' scope='ImportFeed' category='labels'}}</button>
         </div>
         <div class="panel-navigation pull-left">{{{panelnavigation}}}</div>
         {{#if navigateButtonsEnabled}}

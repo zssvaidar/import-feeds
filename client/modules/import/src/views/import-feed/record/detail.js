@@ -26,26 +26,28 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
             Dep.prototype.setup.call(this);
 
             this.listenTo(this.model, 'after:save', () => {
-                this.handleButtonDisability();
+                this.handleButtonsDisability();
             });
         },
 
-        afterRender() {
-            Dep.prototype.afterRender.call(this);
+        data() {
+            let data = Dep.prototype.data.call(this);
 
-            this.handleButtonDisability();
+            data['importButtonsDisabled'] = this.isButtonsDisabled();
+
+            return data;
         },
 
-        handleButtonDisability() {
-            const $runImport = this.$el.find('button[data-action="runImport"]');
-            const $uploadAndRunImport = this.$el.find('button[data-action="uploadAndRunImport"]');
+        isButtonsDisabled() {
+            return !this.model.get('isActive') || !this.model.get('fileId');
+        },
 
-            if (this.model.get('isActive') && this.model.get('fileId')) {
-                $runImport.removeClass('disabled');
-                $uploadAndRunImport.removeClass('disabled');
+        handleButtonsDisability() {
+            const $buttons = this.$el.find('.import-actions');
+            if (this.isButtonsDisabled()) {
+                $buttons.removeClass('disabled');
             } else {
-                $runImport.addClass('disabled');
-                $uploadAndRunImport.addClass('disabled');
+                $buttons.addClass('disabled');
             }
         },
 
