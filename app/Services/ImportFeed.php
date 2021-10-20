@@ -144,6 +144,23 @@ class ImportFeed extends Base
         $this->addDependency('queueManager');
     }
 
+    protected function duplicateConfiguratorItems(Entity $entity, Entity $duplicatingEntity): void
+    {
+        if (empty($items = $duplicatingEntity->get('configuratorItems')) || count($items) === 0) {
+            return;
+        }
+
+        foreach ($items as $item) {
+            $data = $item->toArray();
+            unset($data['id']);
+            $data['importFeedId'] = $entity->get('id');
+
+            $newItem = $this->getEntityManager()->getEntity('ImportConfiguratorItem');
+            $newItem->set($data);
+            $this->getEntityManager()->saveEntity($newItem);
+        }
+    }
+
     /**
      * @param string $key
      *
@@ -153,7 +170,6 @@ class ImportFeed extends Base
     {
         return $this->getInjection('language')->translate($key, 'labels', 'ImportFeed');
     }
-
 
     /**
      * @param string $name
