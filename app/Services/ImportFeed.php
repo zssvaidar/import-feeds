@@ -113,7 +113,7 @@ class ImportFeed extends Base
 
         // create import result
         if (!empty($service) && method_exists($service, 'getEntityType')) {
-            $data['data']->importResultId = $this->createImportResult($feed, $service->getEntityType($feed), $attachmentId)->get('id');
+            $data['data']['importResultId'] = $this->createImportResult($feed, $feed->getFeedField('entity'), $attachmentId)->get('id');
         }
 
         $this->push($this->getName($feed), $this->getImportTypeService($feed), $data);
