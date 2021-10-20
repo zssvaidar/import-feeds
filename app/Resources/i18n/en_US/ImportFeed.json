@@ -55,6 +55,7 @@
     "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
+    "configuratorEmpty": "Configurator cannot be empty.",
     "utf8Expected": "Uploaded file should be UTF-8 encoded.",
     "fileEmpty": "Uploaded file cannot be empty.",
     "csvExpected": "Uploaded file is not valid. CSV file is expected.",

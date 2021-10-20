@@ -22,21 +22,23 @@ declare(strict_types=1);
 
 namespace Import\Entities;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Entities\Base;
 use Espo\Core\Utils\Json;
 
 class ImportFeed extends Base
 {
-    /**
-     * @var string
-     */
     protected $entityType = "ImportFeed";
 
     public function getFeedField(string $name)
     {
         $data = $this->getFeedFields();
 
-        return isset($data[$name]) ? $data[$name] : null;
+        if (!isset($data[$name])) {
+            return null;
+        }
+
+        return $data[$name];
     }
 
     public function getFeedFields(): array
@@ -51,27 +53,54 @@ class ImportFeed extends Base
         return [];
     }
 
-    /**
-     * @return string
-     */
     public function getDelimiter(): string
     {
-        return (!empty($this)) ? (string)$this->get('fileFieldDelimiter') : ";";
+        return (string)$this->getFeedField('fileFieldDelimiter');
     }
 
-    /**
-     * @return string
-     */
     public function getEnclosure(): string
     {
-        return (!empty($this) && $this->get('fileTextQualifier') == 'singleQuote') ? "'" : '"';
+        return $this->getFeedField('fileTextQualifier') == 'singleQuote' ? "'" : '"';
     }
 
-    /**
-     * @return bool
-     */
     public function isFileHeaderRow(): bool
     {
-        return (!empty($this) && !empty($this->get('isFileHeaderRow'))) ? true : false;
+        return !empty($this->getFeedField('isFileHeaderRow'));
+    }
+
+    public function getConfiguratorData(): array
+    {
+        $result = [];
+
+        if (empty($configuratorItems = $this->get('configuratorItems')) || count($configuratorItems) === 0) {
+            $language = $this->getEntityManager()->getRepository('ImportFeed')->getLanguage();
+            throw new BadRequest($language->translate('configuratorEmpty', 'exceptions', 'ImportFeed'));
+        }
+
+        $result['entity'] = $this->getFeedField('entity');
+        $result['idField'] = [];
+        $result['delimiter'] = $this->getFeedField('delimiter');
+        $result['configuration'] = [];
+
+        foreach ($configuratorItems as $item) {
+            if (!empty($item->get('entityIdentifier'))) {
+                $result['idField'][] = $item->get('name');
+            }
+
+            $result['configuration'][] = [
+                'name'             => $item->get('name'),
+                'column'           => $item->get('column'),
+                'createIfNotExist' => !empty($item->get('createIfNotExist')),
+                'default'          => $item->get('default'),
+                'importBy'         => $item->get('importBy'),
+                'type'             => $item->get('type'),
+                'attributeId'      => $item->get('attributeId'),
+                'scope'            => $item->get('scope'),
+                'channelId'        => $item->get('channelId'),
+                'locale'           => $item->get('locale'),
+            ];
+        }
+
+        return $result;
     }
 }

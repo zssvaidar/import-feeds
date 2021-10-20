@@ -113,9 +113,7 @@ class ImportFeed extends Base
 
         // create import result
         if (!empty($service) && method_exists($service, 'getEntityType')) {
-            $data['data']->importResultId = $this
-                ->createImportResult($feed, $service->getEntityType($feed), $attachmentId)
-                ->get('id');
+            $data['data']->importResultId = $this->createImportResult($feed, $service->getEntityType($feed), $attachmentId)->get('id');
         }
 
         $this->push($this->getName($feed), $this->getImportTypeService($feed), $data);
@@ -319,9 +317,9 @@ class ImportFeed extends Base
             "enclosure"       => $feed->getEnclosure(),
             "isFileHeaderRow" => $feed->isFileHeaderRow(),
             "action"          => $feed->get('fileDataAction'),
-            "decimalMark"     => $feed->get('decimalMark'),
+            "decimalMark"     => $feed->getFeedField('decimalMark'),
             "attachmentId"    => $attachmentId,
-            "data"            => $feed->get('data')
+            "data"            => $feed->getConfiguratorData()
         ];
     }
 

@@ -52,6 +52,7 @@
     "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
   },
   "exceptions": {
+    "configuratorEmpty": "Konfigurator kann nicht leer sein.",
     "utf8Expected": "Die hochgeladene Datei sollte in UTF-8 Format sein.",
     "fileEmpty": "Die hochgeladene Datei kann nicht leer sein.",
     "csvExpected": "Hochgeladene Datei ist ungültig. CSV-Datei wird erwartet.",

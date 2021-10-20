@@ -25,10 +25,16 @@ namespace Import\Repositories;
 use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Repositories\Base;
 use Espo\Core\Utils\Json;
+use Espo\Core\Utils\Language;
 use Espo\ORM\Entity;
 
 class ImportFeed extends Base
 {
+    public function getLanguage(): Language
+    {
+        return $this->getInjection('language');
+    }
+
     protected function beforeSave(Entity $entity, array $options = [])
     {
         $isSimple = $entity->get('type') === 'simple';
