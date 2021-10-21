@@ -22,10 +22,11 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
-use Espo\Core\Exceptions\Error;
-use Import\Entities\ImportFeed;
-use Import\Types\Simple\Handlers\DefaultHandler;
-use Espo\Entities\Attachment;
+use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Services\Base;
+use Espo\Core\Utils\Json;
+use Espo\Core\Utils\Metadata;
+use Espo\ORM\Entity;
 use Espo\Services\QueueManagerBase;
 
 /**
@@ -33,78 +34,159 @@ use Espo\Services\QueueManagerBase;
  */
 class ImportTypeSimple extends QueueManagerBase
 {
-    /**
-     * @param ImportFeed $feed
-     *
-     * @return string
-     */
-    public function getEntityType(ImportFeed $feed): string
-    {
-        return $feed->get('data')->entity;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @throws Error
-     */
     public function run(array $data = []): bool
     {
-        // validation
-        if (empty($data['attachmentId'])
-            || empty($data['action'])
-            || !in_array($data['action'], ['create', 'update', 'create_update'])
-            || empty($attachment = $this->getAttachment($data['attachmentId']))
-            || empty($fileData = $this->getFileData($attachment, $data))) {
-            return false;
+        $importResult = $this->getEntityManager()->getEntity('ImportResult', $data['data']['importResultId']);
+        if (empty($importResult)) {
+            throw new BadRequest('No such ImportResult.');
         }
 
-        // get class name
-        $className = $this
-            ->getContainer()
-            ->get('metadata')
-            ->get(['scopes', $data['data']['entity'], 'importTypeSimple', 'handler'], DefaultHandler::class);
-
-        if (!class_exists($className)) {
-            throw new Error('No such import handler class');
+        $importFeed = $importResult->get('importFeed');
+        if (empty($importResult)) {
+            throw new BadRequest('No such ImportFeed.');
         }
 
-        try {
-            $object = new $className($this->getContainer());
-        } catch (\Throwable $e) {
-            throw new Error('Cann\'t create import handler object');
+        $attachment = $this->getEntityManager()->getEntity('Attachment', $data['attachmentId']);
+        if (empty($attachment)) {
+            throw new BadRequest('No such Attachment.');
         }
 
-        if (!method_exists($object, 'run')) {
-            throw new Error('Run method is required');
+        $fileData = $this->getService('CsvFileParser')->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
+        if (empty($fileData)) {
+            throw new BadRequest('File is empty.');
         }
 
-        return $object->run($fileData, $data);
+        $entityService = $this->getService($data['data']['entity']);
+
+        // prepare file row
+        $fileRow = (int)$data['offset'];
+
+        foreach ($fileData as $row) {
+            // increment file row number
+            $fileRow++;
+
+            $entity = null;
+            $id = null;
+
+            if ($data['action'] == 'update') {
+                $entity = $this->findExistEntity($entityService->getEntityType(), $data['data'], $row);
+                if (empty($entity)) {
+                    continue 1;
+                }
+                $id = $entity->get('id');
+            }
+
+            if ($data['action'] == 'create_update') {
+                $entity = $this->findExistEntity($entityService->getEntityType(), $data['data'], $row);
+                $id = empty($entity) ? null : $entity->get('id');
+            }
+
+            echo '<pre>';
+            print_r($entity->toArray());
+            die();
+
+            try {
+                // begin transaction
+                $this->getEntityManager()->getPDO()->beginTransaction();
+
+                // prepare row and data for restore
+                $input = new \stdClass();
+                $restore = new \stdClass();
+
+                foreach ($data['data']['configuration'] as $item) {
+
+                    $this->convertItem($input, $entityType, $item, $row, $data['data']['delimiter']);
+
+                    if (!empty($entity)) {
+                        $this->prepareValue($restore, $entity, $item);
+                    }
+                }
+
+                $updatedEntity = null;
+                if (empty($id)) {
+                    $updatedEntity = $service->createEntity($input);
+
+                    $this->saveRestoreRow('created', $entityType, $updatedEntity->get('id'));
+                } else {
+                    $updatedEntity = $service->updateEntity($id, $input);
+
+                    $this->saveRestoreRow('updated', $entityType, [$id => $restore]);
+                }
+
+                $this->getEntityManager()->getPDO()->commit();
+            } catch (\Throwable $e) {
+                // roll back transaction
+                $this->getEntityManager()->getPDO()->rollBack();
+
+                // prepare message
+                $message = $e->getMessage();
+                if (get_class($e) == Forbidden::class && empty($message)) {
+                    $message = 'Permission denied';
+                }
+
+                // push log
+                $this->log($entityType, $importResultId, 'error', (string)$fileRow, $message);
+
+                $updatedEntity = null;
+            }
+
+            if (!empty($updatedEntity)) {
+                // prepare action
+                $action = empty($id) ? 'create' : 'update';
+
+                // push log
+                $this->log($entityType, $importResultId, $action, (string)$fileRow, $updatedEntity->get('id'));
+            }
+        }
+
+        echo '<pre>';
+        print_r($fileData);
+        die();
+
+        return true;
     }
 
-    /**
-     * @param Attachment $attachment
-     * @param array      $data
-     *
-     * @return array
-     */
-    protected function getFileData(Attachment $attachment, array $data): array
+    protected function getService(string $name): Base
     {
-        return $this
-            ->getContainer()
-            ->get('serviceFactory')
-            ->create('CsvFileParser')
-            ->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
+        return $this->getContainer()->get('serviceFactory')->create($name);
     }
 
-    /**
-     * @param string $id
-     *
-     * @return Attachment
-     * @throws \Espo\Core\Exceptions\Error
-     */
-    protected function getAttachment(string $id): ?Attachment
+    protected function getMetadata(): Metadata
     {
-        return $this->getEntityManager()->getEntity('Attachment', $id);
+        return $this->getContainer()->get('metadata');
+    }
+
+    protected function findExistEntity(string $entityType, array $configuration, array $row): ?Entity
+    {
+        $service = $this->getService('ImportConfiguratorItem');
+
+        $where = [];
+        foreach ($configuration['configuration'] as $item) {
+            if (in_array($item['name'], $configuration['idField'])) {
+                $type = $this->getMetadata()->get(['entityDefs', $entityType, 'fields', $item['name'], 'type'], 'varchar');
+                if (!empty($converter = $service->getFieldConverter($type))) {
+                    $converter->prepareFindExistEntityWhere($where, $item, $row);
+                    continue 1;
+                }
+
+                $value = $item['default'];
+
+                if (isset($item['column'][0]) && isset($row[$item['column'][0]])) {
+                    $value = $row[$item['column'][0]];
+                }
+
+                $where[$item['name']] = $value;
+            }
+        }
+
+        echo '<pre>';
+        print_r($where);
+        die();
+
+        if (empty($where)) {
+            return null;
+        }
+
+        return $this->getEntityManager()->getRepository($entityType)->where($where)->findOne();
     }
 }

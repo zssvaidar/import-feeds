@@ -6,7 +6,8 @@
       "view": "import:views/import-configurator-item/fields/name"
     },
     "entityIdentifier": {
-      "type": "bool"
+      "type": "bool",
+      "view": "import:views/import-configurator-item/fields/entity-identifier"
     },
     "column": {
       "type": "array",
@@ -14,7 +15,10 @@
     },
     "importBy": {
       "type": "multiEnum",
-      "view": "import:views/import-configurator-item/fields/import-by"
+      "view": "import:views/import-configurator-item/fields/import-by",
+      "default": [
+        "id"
+      ]
     },
     "createIfNotExist": {
       "type": "bool",

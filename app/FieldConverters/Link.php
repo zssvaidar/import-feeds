@@ -20,14 +20,14 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
+namespace Import\FieldConverters;
 
 use Espo\ORM\Entity;
 
 /**
  * Class Link
  */
-class Link extends AbstractConverter
+class Link extends Varchar
 {
     /**
      * @inheritDoc

@@ -25,6 +25,7 @@ namespace Import\Services;
 use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Services\Base;
 use Espo\ORM\Entity;
+use Import\FieldConverters\Varchar;
 
 class ImportConfiguratorItem extends Base
 {
@@ -56,6 +57,12 @@ class ImportConfiguratorItem extends Base
         $this->prepareDefaultField($fieldType, $entity);
     }
 
+    public function getFieldConverter($type): Varchar
+    {
+        $class = $this->getMetadata()->get(['import', 'configurator', 'fields', $type, 'converter'], Varchar::class);
+        return new $class($this->getInjection('container'));
+    }
+
     protected function init()
     {
         parent::init();
@@ -65,9 +72,8 @@ class ImportConfiguratorItem extends Base
 
     protected function prepareDefaultField(string $type, Entity $entity): void
     {
-        $converter = $this->getMetadata()->get(['import', 'simple', 'fields', $type, 'converter']);
-        if (!empty($converter)) {
-            (new $converter($this->getInjection('container')))->prepareForOutputConfiguratorDefaultField($entity);
+        if (!empty($converter = $this->getFieldConverter($type))) {
+            $converter->prepareForOutputConfiguratorDefaultField($entity);
         }
     }
 

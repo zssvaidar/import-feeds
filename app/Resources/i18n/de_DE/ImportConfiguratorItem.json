@@ -21,6 +21,7 @@
     "main": "Hauptsächlich"
   },
   "exceptions": {
+    "importByIsRequired": "Verwandte Entitätsfelder sind erforderlich.",
     "columnOrDefaultValueIsRequired": "Spalte oder Standard sollte abgelegt werden."
   }
 }

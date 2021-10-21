@@ -20,42 +20,36 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
+namespace Import\FieldConverters;
 
-use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
 /**
- * Class JsonArray
+ * Class Boolean
  */
-class JsonArray extends AbstractConverter
+class Boolean extends Varchar
 {
     /**
      * @inheritDoc
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
-        $value = null;
+        $result = (isset($config['column'][0]) && ($row[$config['column'][0]]) != '') ? $row[$config['column'][0]] : $config['default'];
 
-        $value
-            = (isset($row[$config['column'][0]]) && !empty($row[$config['column'][0]])) ? $row[$config['column'][0]] : $config['default'];
-
-        if (is_string($value)) {
-            $value = explode($delimiter, $value);
+        if (is_null(filter_var($result, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) {
+            throw new \Exception("Incorrect value for field '{$config['name']}'");
         }
 
-        $inputRow->{$config['name']} = Json::encode($value);
+        $inputRow->{$config['name']} = (bool)$result;
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
     {
-        if ($entity->isAttributeChanged('default')) {
-            $entity->set('default', Json::encode($entity->get('default')));
-        }
+        $entity->set('default', !empty($entity->get('default')));
     }
 
     public function prepareForOutputConfiguratorDefaultField(Entity $entity): void
     {
-        $entity->set('default', !empty($entity->get('default')) ? Json::decode($entity->get('default'), true) : []);
+        $entity->set('default', !empty($entity->get('default')));
     }
 }

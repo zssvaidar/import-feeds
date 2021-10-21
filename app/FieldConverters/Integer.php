@@ -20,12 +20,12 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
+namespace Import\FieldConverters;
 
 /**
  * Class Integer
  */
-class Integer extends AbstractConverter
+class Integer extends Varchar
 {
     /**
      * @inheritDoc

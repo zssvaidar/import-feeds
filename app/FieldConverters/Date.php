@@ -20,14 +20,12 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
-
-use Import\Types\Simple\FieldConverters\AbstractConverter;
+namespace Import\FieldConverters;
 
 /**
  * Class Date
  */
-class Date extends AbstractConverter
+class Date extends Varchar
 {
     /**
      * @inheritDoc

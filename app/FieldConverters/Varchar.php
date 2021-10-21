@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
+namespace Import\FieldConverters;
 
 use Espo\Core\Services\Base;
 use Espo\ORM\Entity;
@@ -29,7 +29,7 @@ use Espo\Core\Utils\Config;
 use Espo\Core\Utils\Metadata;
 use Espo\ORM\EntityManager;
 
-abstract class AbstractConverter
+class Varchar
 {
     protected Container $container;
     protected array $services = [];
@@ -48,6 +48,10 @@ abstract class AbstractConverter
         $field = $item['name'];
 
         $restore->{$field} = $entity->get($field);
+    }
+
+    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
+    {
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void

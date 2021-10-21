@@ -20,36 +20,25 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
-
-use Espo\ORM\Entity;
+namespace Import\FieldConverters;
 
 /**
- * Class Boolean
+ * Class FloatValue
  */
-class Boolean extends AbstractConverter
+class FloatValue extends Varchar
 {
+    public static function prepareFloatValue(string $value): float
+    {
+        return (float)str_replace(',', '.', preg_replace("/[^0-9]\.,/", "", $value));
+    }
+
     /**
      * @inheritDoc
      */
     public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
     {
-        $result = (isset($config['column'][0]) && ($row[$config['column'][0]]) != '') ? $row[$config['column'][0]] : $config['default'];
+        $value = (!empty($config['column'][0]) && $row[$config['column'][0]] != '') ? $row[$config['column'][0]] : $config['default'];
 
-        if (is_null(filter_var($result, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) {
-            throw new \Exception("Incorrect value for field '{$config['name']}'");
-        }
-
-        $inputRow->{$config['name']} = (bool)$result;
-    }
-
-    public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
-    {
-        $entity->set('default', !empty($entity->get('default')));
-    }
-
-    public function prepareForOutputConfiguratorDefaultField(Entity $entity): void
-    {
-        $entity->set('default', !empty($entity->get('default')));
+        $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
     }
 }

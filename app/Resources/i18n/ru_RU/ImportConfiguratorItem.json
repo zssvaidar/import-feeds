@@ -21,6 +21,7 @@
     "main": "Основная"
   },
   "exceptions": {
+    "importByIsRequired": "Поля связанных сущностей обязательны.",
     "columnOrDefaultValueIsRequired": "Колонка или По умолчанию должны быть заполнены."
   }
 }

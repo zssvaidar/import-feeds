@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
+namespace Import\FieldConverters;
 
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;

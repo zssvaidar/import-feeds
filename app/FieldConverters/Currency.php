@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace Import\Types\Simple\FieldConverters;
+namespace Import\FieldConverters;
 
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
@@ -86,6 +86,13 @@ class Currency extends FloatValue
         }
 
         parent::prepareValue($restore, $entity, $item);
+    }
+
+    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
+    {
+        echo '<pre>';
+        print_r('123');
+        die();
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void

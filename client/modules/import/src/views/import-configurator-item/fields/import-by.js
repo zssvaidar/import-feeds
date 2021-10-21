@@ -31,6 +31,10 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
             });
         },
 
+        isRequired: function () {
+            return this.params.options.length > 0;
+        },
+
         prepareImportByOptions(callback) {
             this.params.options = [];
             this.translatedOptions = {};
@@ -43,7 +47,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
                 $.each(this.getMetadata().get(`entityDefs.${foreignEntity}.fields`) || {}, (name, data) => {
                     if (
                         data.type
-                        && !['asset', 'link', 'linkMultiple', 'jsonObject'].includes(data.type)
+                        && !['asset', 'link', 'linkMultiple'].includes(data.type)
                         && !data.disabled
                         && !data.importDisabled
                     ) {
@@ -66,7 +70,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            if (this.params.options.length > 0) {
+            if (this.isRequired()) {
                 this.show();
             } else {
                 this.hide();

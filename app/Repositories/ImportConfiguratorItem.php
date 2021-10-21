@@ -46,6 +46,10 @@ class ImportConfiguratorItem extends Base
 
         $this->prepareDefaultField($type, $entity);
 
+        if (in_array($type, ['asset', 'link', 'linkMultiple']) && empty($entity->get('importBy'))) {
+            throw new BadRequest($this->getInjection('language')->translate('importByIsRequired', 'exceptions', 'ImportConfiguratorItem'));
+        }
+
         if (empty($entity->get('column')) && empty($entity->get('default')) && $entity->get('default') !== false) {
             throw new BadRequest($this->getInjection('language')->translate('columnOrDefaultValueIsRequired', 'exceptions', 'ImportConfiguratorItem'));
         }
