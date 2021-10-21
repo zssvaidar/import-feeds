@@ -91,7 +91,7 @@ class Currency extends FloatValue
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
         echo '<pre>';
-        print_r('123');
+        print_r($configuration);
         die();
     }
 

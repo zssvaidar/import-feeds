@@ -84,6 +84,34 @@ class Link extends Varchar
         $restore->{$item['name'] . 'Id'} = $value;
     }
 
+    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
+    {
+        $value = $configuration['default'];
+        if (isset($configuration['column'][0]) && isset($row[$configuration['column'][0]])) {
+            $relEntityType = $this->getMetadata()->get(['entityDefs', $configuration['entity'], 'links', $configuration['name'], 'entity']);
+            if (!empty($relEntityType)) {
+                $parts = explode($configuration['delimiter'], $row[$configuration['column'][0]]);
+
+                $relWhere = [];
+                foreach ($configuration['importBy'] as $k => $v) {
+                    $relWhere[$v] = isset($parts[$k]) ? $parts[$k] : null;
+                }
+
+                $relEntity = $this
+                    ->getEntityManager()
+                    ->getRepository($relEntityType)
+                    ->select(['id'])
+                    ->where($relWhere)
+                    ->findOne();
+
+                if (!empty($relEntity)) {
+                    $value = $relEntity->get('id');
+                }
+            }
+        }
+        $where["{$configuration['name']}Id"] = $value;
+    }
+
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
     {
         if ($entity->has('defaultId')) {

@@ -163,19 +163,11 @@ class ImportTypeSimple extends QueueManagerBase
         $where = [];
         foreach ($configuration['configuration'] as $item) {
             if (in_array($item['name'], $configuration['idField'])) {
-                $type = $this->getMetadata()->get(['entityDefs', $entityType, 'fields', $item['name'], 'type'], 'varchar');
-                if (!empty($converter = $service->getFieldConverter($type))) {
-                    $converter->prepareFindExistEntityWhere($where, $item, $row);
-                    continue 1;
-                }
-
-                $value = $item['default'];
-
-                if (isset($item['column'][0]) && isset($row[$item['column'][0]])) {
-                    $value = $row[$item['column'][0]];
-                }
-
-                $where[$item['name']] = $value;
+                $item['entity'] = $configuration['entity'];
+                $item['delimiter'] = $configuration['delimiter'];
+                $service
+                    ->getFieldConverter($this->getMetadata()->get(['entityDefs', $entityType, 'fields', $item['name'], 'type'], 'varchar'))
+                    ->prepareFindExistEntityWhere($where, $item, $row);
             }
         }
 

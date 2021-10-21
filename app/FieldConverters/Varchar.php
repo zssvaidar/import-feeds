@@ -52,6 +52,13 @@ class Varchar
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
+        $value = $configuration['default'];
+
+        if (isset($configuration['column'][0]) && isset($row[$configuration['column'][0]])) {
+            $value = $row[$configuration['column'][0]];
+        }
+
+        $where[$configuration['name']] = $value;
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
