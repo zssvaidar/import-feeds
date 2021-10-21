@@ -90,9 +90,27 @@ class Currency extends FloatValue
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
-        echo '<pre>';
-        print_r($configuration);
-        die();
+        if (!empty($configuration['default'])) {
+            $default = Json::decode($configuration['default'], true);
+            if ((!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) && !empty($default['currency'])) {
+                $value = (float)$default['value'];
+                $currency = (string)$default['currency'];
+            }
+        }
+
+        if (isset($configuration['column'][1])) {
+            $value = (float)$row[$configuration['column'][0]];
+            $currency = (string)$row[$configuration['column'][1]];
+        } elseif (isset($configuration['column'][0])) {
+            $parts = explode(' ', $row[$configuration['column'][0]]);
+            $value = (float)array_shift($parts);
+            $currency = (string)array_shift($parts);
+        }
+
+        if (isset($value) && isset($currency)) {
+            $where[$configuration['name']] = $value;
+            $where["{$configuration['name']}Currency"] = $currency;
+        }
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
