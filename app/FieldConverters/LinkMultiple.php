@@ -34,13 +34,16 @@ class LinkMultiple extends Asset
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        // prepare ids
-        $ids = explode(',', $config['default']);
+        $entityType = $config['entity'];
+        $delimiter = $config['delimiter'];
 
-        // prepare names
-        $names = isset($config['defaultNames']) ? array_values($config['defaultNames']) : [];
+        $ids = [];
+        if (!empty($config['default'])) {
+            $ids = Json::decode($config['default'], true);
+        }
+        $names = [];
 
         if (!empty($config['column'])) {
             $entityName = $this->container->get('metadata')->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);

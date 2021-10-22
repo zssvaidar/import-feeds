@@ -33,15 +33,12 @@ class JsonArray extends Varchar
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $value = null;
-
-        $value
-            = (isset($row[$config['column'][0]]) && !empty($row[$config['column'][0]])) ? $row[$config['column'][0]] : $config['default'];
+        $value = (isset($row[$config['column'][0]]) && !empty($row[$config['column'][0]])) ? $row[$config['column'][0]] : $config['default'];
 
         if (is_string($value)) {
-            $value = explode($delimiter, $value);
+            $value = explode($config['delimiter'], $value);
         }
 
         $inputRow->{$config['name']} = Json::encode($value);

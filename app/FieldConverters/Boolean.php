@@ -32,7 +32,7 @@ class Boolean extends Varchar
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         $result = (isset($config['column'][0]) && ($row[$config['column'][0]]) != '') ? $row[$config['column'][0]] : $config['default'];
 

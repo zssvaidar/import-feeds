@@ -33,10 +33,14 @@ class Unit extends FloatValue
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $value = $config['default'];
-        $unit = $config['defaultUnit'];
+        $entityType = $config['entity'];
+
+        $parsedDefault = $this->parseDefault($config);
+
+        $value = $parsedDefault[0];
+        $unit = $parsedDefault[1];
 
         $isSingleColumn = !isset($config['column'][1]);
 
@@ -90,13 +94,10 @@ class Unit extends FloatValue
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
-        if (!empty($configuration['default'])) {
-            $default = Json::decode($configuration['default'], true);
-            if ((!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) && !empty($default['unit'])) {
-                $value = (float)$default['value'];
-                $unit = (string)$default['unit'];
-            }
-        }
+        $parsedDefault = $this->parseDefault($configuration);
+
+        $value = $parsedDefault[0];
+        $unit = $parsedDefault[1];
 
         if (isset($configuration['column'][1])) {
             $value = (float)$row[$configuration['column'][0]];
@@ -172,5 +173,21 @@ class Unit extends FloatValue
         } else {
             return $config['attribute']->get('typeValue')[0];
         }
+    }
+
+    protected function parseDefault(array $configuration): array
+    {
+        $value = null;
+        $unit = null;
+
+        if (!empty($configuration['default'])) {
+            $default = Json::decode($configuration['default'], true);
+            if ((!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) && !empty($default['unit'])) {
+                $value = (float)$default['value'];
+                $unit = (string)$default['unit'];
+            }
+        }
+
+        return [$value, $unit];
     }
 }

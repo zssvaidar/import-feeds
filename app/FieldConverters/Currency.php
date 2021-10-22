@@ -33,10 +33,12 @@ class Currency extends FloatValue
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $value = $config['default'];
-        $currency = $config['defaultCurrency'];
+        $parsedDefault = $this->parseDefault($config);
+
+        $value = $parsedDefault[0];
+        $currency = $parsedDefault[1];
 
         $isSingleColumn = !isset($config['column'][1]);
 
@@ -90,13 +92,10 @@ class Currency extends FloatValue
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
-        if (!empty($configuration['default'])) {
-            $default = Json::decode($configuration['default'], true);
-            if ((!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) && !empty($default['currency'])) {
-                $value = (float)$default['value'];
-                $currency = (string)$default['currency'];
-            }
-        }
+        $parsedDefault = $this->parseDefault($configuration);
+
+        $value = $parsedDefault[0];
+        $currency = $parsedDefault[1];
 
         if (isset($configuration['column'][1])) {
             $value = (float)$row[$configuration['column'][0]];
@@ -129,5 +128,21 @@ class Currency extends FloatValue
         $currencyData = Json::decode($entity->get('default'), true);
         $entity->set('default', $currencyData['value']);
         $entity->set('defaultCurrency', $currencyData['currency']);
+    }
+
+    protected function parseDefault(array $configuration): array
+    {
+        $value = null;
+        $currency = null;
+
+        if (!empty($configuration['default'])) {
+            $default = Json::decode($configuration['default'], true);
+            if ((!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) && !empty($default['currency'])) {
+                $value = (float)$default['value'];
+                $currency = (string)$default['currency'];
+            }
+        }
+
+        return [$value, $currency];
     }
 }

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace Import\FieldConverters;
 
 use Espo\Core\Services\Base;
+use Espo\Core\Utils\Util;
 use Espo\ORM\Entity;
 use Espo\Core\Container;
 use Espo\Core\Utils\Config;
@@ -39,8 +40,18 @@ class Varchar
         $this->container = $container;
     }
 
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    public function convert(\stdClass $inputRow, array $config, array $row): void
     {
+        if (is_null($config['column'][0]) || $row[$config['column'][0]] == '') {
+            $value = $config['default'];
+            if (!empty($value) && is_string($value)) {
+                $value = str_replace("{{hash}}", Util::generateId(), $value);
+            }
+        } else {
+            $value = $row[$config['column'][0]];
+        }
+
+        $inputRow->{$config['name']} = $value;
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void

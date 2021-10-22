@@ -34,17 +34,14 @@ class Link extends Varchar
      *
      * @throws \Exception
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter): void
+    public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        // prepare default entity id
         $value = $config['default'];
-
-        // prepare default entity name
-        $name = isset($config['defaultName']) ? $config['defaultName'] : null;
+        $name = null;
 
         if (!empty($row[$config['column'][0]])) {
             // get entity name
-            $entityName = $this->getMetadata()->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
+            $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
 
             $values = explode('|', $row[$config['column'][0]]);
             $where = [];
