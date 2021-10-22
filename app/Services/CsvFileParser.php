@@ -136,9 +136,16 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
         if (file_exists($path) && ($handle = fopen($path, "r")) !== false) {
             $row = 0;
             $count = 0;
-            while (($data = fgetcsv($handle, 0, $delimiter, $enclosure)) !== false
-                && (is_null($limit) || $count < $limit)) {
+            while (($data = fgetcsv($handle, 0, $delimiter, $enclosure)) !== false && (is_null($limit) || $count < $limit)) {
                 if ($row >= $offset) {
+                    foreach ($data as &$row) {
+                        preg_match_all('/' . $enclosure . '(.*)' . $enclosure . '$/', $row, $matches);
+                        if (isset($matches[1][0])) {
+                            $row = $matches[1][0];
+                        }
+                    }
+                    unset($row);
+
                     // push
                     $result[] = $data;
 
@@ -178,17 +185,17 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
     }
 
     /**
-     * @param int $column
+     * @param int    $column
      * @param string $name
-     * @param $value
+     * @param        $value
      *
      * @return array
      */
     protected function prepareFileColumn(int $column, string $name, $value): array
     {
         $result = [
-            'column' => $column,
-            'name' => $name,
+            'column'     => $column,
+            'name'       => $name,
             'firstValue' => $value
         ];
 
