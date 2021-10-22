@@ -102,19 +102,8 @@ class ImportFeed extends Base
 
         $this->validateFile($attachmentId, $feed);
 
-        // prepare data
         $data = $this->getPrepareData($feed, $attachmentId);
-
-        // create service
-        try {
-            $service = $this->getServiceFactory()->create($this->getImportTypeService($feed));
-        } catch (\Throwable $e) {
-        }
-
-        // create import result
-        if (!empty($service) && method_exists($service, 'getEntityType')) {
-            $data['data']['importResultId'] = $this->createImportResult($feed, $feed->getFeedField('entity'), $attachmentId)->get('id');
-        }
+        $data['data']['importResultId'] = $this->createImportResult($feed, $feed->getFeedField('entity'), $attachmentId)->get('id');
 
         $this->push($this->getName($feed), $this->getImportTypeService($feed), $data);
 

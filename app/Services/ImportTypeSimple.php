@@ -36,9 +36,7 @@ class ImportTypeSimple extends QueueManagerBase
 
     public function run(array $data = []): bool
     {
-        $importResultId = $data['data']['importResultId'];
-
-        $importResult = $this->getEntityManager()->getEntity('ImportResult', $importResultId);
+        $importResult = $this->getEntityManager()->getEntity('ImportResult', $data['data']['importResultId']);
         if (empty($importResult)) {
             throw new BadRequest('No such ImportResult.');
         }
@@ -53,10 +51,6 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest('File is empty.');
         }
 
-        $entityType = $data['data']['entity'];
-
-        $service = $this->getService($entityType);
-
         // prepare file row
         $fileRow = (int)$data['offset'];
 
@@ -68,7 +62,7 @@ class ImportTypeSimple extends QueueManagerBase
             $id = null;
 
             if ($data['action'] == 'update') {
-                $entity = $this->findExistEntity($service->getEntityType(), $data['data'], $row);
+                $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
                 if (empty($entity)) {
                     continue 1;
                 }
@@ -76,7 +70,7 @@ class ImportTypeSimple extends QueueManagerBase
             }
 
             if ($data['action'] == 'create_update') {
-                $entity = $this->findExistEntity($service->getEntityType(), $data['data'], $row);
+                $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
                 $id = empty($entity) ? null : $entity->get('id');
             }
 
@@ -97,11 +91,11 @@ class ImportTypeSimple extends QueueManagerBase
 
                 $updatedEntity = null;
                 if (empty($id)) {
-                    $updatedEntity = $service->createEntity($input);
-                    $this->saveRestoreRow('created', $entityType, $updatedEntity->get('id'));
+                    $updatedEntity = $this->getService($data['data']['entity'])->createEntity($input);
+                    $this->saveRestoreRow('created', $data['data']['entity'], $updatedEntity->get('id'));
                 } else {
-                    $updatedEntity = $service->updateEntity($id, $input);
-                    $this->saveRestoreRow('updated', $entityType, [$id => $restore]);
+                    $updatedEntity = $this->getService($data['data']['entity'])->updateEntity($id, $input);
+                    $this->saveRestoreRow('updated', $data['data']['entity'], [$id => $restore]);
                 }
 
                 if ($this->getEntityManager()->getPDO()->inTransaction()) {
@@ -113,14 +107,10 @@ class ImportTypeSimple extends QueueManagerBase
                     $this->getEntityManager()->getPDO()->rollBack();
                 }
 
-                // prepare message
-                $message = $e->getMessage();
-                if (get_class($e) == Forbidden::class && empty($message)) {
-                    $message = 'Permission denied';
-                }
+                $message = empty($e->getMessage()) ? $this->getCodeMessage($e->getCode()) : $e->getMessage();
 
                 // push log
-                $this->log($entityType, $importResultId, 'error', (string)$fileRow, $message);
+                $this->log($data['data']['entity'], $data['data']['importResultId'], 'error', (string)$fileRow, $message);
 
                 $updatedEntity = null;
             }
@@ -130,7 +120,7 @@ class ImportTypeSimple extends QueueManagerBase
                 $action = empty($id) ? 'create' : 'update';
 
                 // push log
-                $this->log($entityType, $importResultId, $action, (string)$fileRow, $updatedEntity->get('id'));
+                $this->log($data['data']['entity'], $data['data']['importResultId'], $action, (string)$fileRow, $updatedEntity->get('id'));
             }
         }
 
@@ -210,6 +200,19 @@ class ImportTypeSimple extends QueueManagerBase
             'entity' => $entityType,
             'data'   => $data
         ];
+    }
+
+    protected function getCodeMessage(int $code): string
+    {
+        if ($code == 304) {
+            return 'Nothing to update';
+        }
+
+        if ($code == 403) {
+            return 'Permissions denied';
+        }
+
+        return 'HTTP Code: ' . $code;
     }
 
     protected function getService(string $name): Base
