@@ -1,10 +1,8 @@
 {
   "labels": {
-    "importFeed": "Import Feed",
-    "importCronJob": "Import Cronjob"
+    "importFeed": "Import Feed"
   },
   "descriptions": {
-    "importFeed": "Import Feed konfigurieren, um Daten zu importieren.",
-    "importCronJob": "Cronjob für Datenimport konfigurieren."
+    "importFeed": "Import Feed konfigurieren, um Daten zu importieren."
   }
 }

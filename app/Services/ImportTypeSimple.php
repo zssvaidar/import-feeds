@@ -22,89 +22,266 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
-use Espo\Core\Exceptions\Error;
-use Import\Entities\ImportFeed;
-use Import\Types\Simple\Handlers\DefaultHandler;
-use Espo\Entities\Attachment;
+use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Exceptions\Forbidden;
+use Espo\Core\Services\Base;
+use Espo\Core\Utils\Metadata;
+use Espo\Core\Utils\Util;
+use Espo\ORM\Entity;
 use Espo\Services\QueueManagerBase;
+use Treo\Core\Exceptions\NotModified;
 
-/**
- * Class ImportTypeSimple
- */
 class ImportTypeSimple extends QueueManagerBase
 {
-    /**
-     * @param ImportFeed $feed
-     *
-     * @return string
-     */
-    public function getEntityType(ImportFeed $feed): string
-    {
-        return $feed->get('data')->entity;
-    }
+    private array $services = [];
+    private array $restore = [];
 
-    /**
-     * @inheritdoc
-     *
-     * @throws Error
-     */
     public function run(array $data = []): bool
     {
-        // validation
-        if (empty($data['attachmentId'])
-            || empty($data['action'])
-            || !in_array($data['action'], ['create', 'update', 'create_update'])
-            || empty($attachment = $this->getAttachment($data['attachmentId']))
-            || empty($fileData = $this->getFileData($attachment, $data))) {
-            return false;
+        $importResult = $this->getEntityManager()->getEntity('ImportResult', $data['data']['importResultId']);
+        if (empty($importResult)) {
+            throw new BadRequest('No such ImportResult.');
         }
 
-        // get class name
-        $className = $this
-            ->getContainer()
-            ->get('metadata')
-            ->get(['scopes', $data['data']['entity'], 'importTypeSimple', 'handler'], DefaultHandler::class);
-
-        if (!class_exists($className)) {
-            throw new Error('No such import handler class');
+        $attachment = $this->getEntityManager()->getEntity('Attachment', $data['attachmentId']);
+        if (empty($attachment)) {
+            throw new BadRequest('No such Attachment.');
         }
 
-        try {
-            $object = new $className($this->getContainer());
-        } catch (\Throwable $e) {
-            throw new Error('Cann\'t create import handler object');
+        $fileData = $this->getService('CsvFileParser')->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
+        if (empty($fileData)) {
+            throw new BadRequest('File is empty.');
         }
 
-        if (!method_exists($object, 'run')) {
-            throw new Error('Run method is required');
+        // prepare file row
+        $fileRow = (int)$data['offset'];
+
+        foreach ($fileData as $row) {
+            // increment file row number
+            $fileRow++;
+
+            $entity = null;
+            $id = null;
+
+            if ($data['action'] == 'update') {
+                $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
+                if (empty($entity)) {
+                    continue 1;
+                }
+                $id = $entity->get('id');
+            }
+
+            if ($data['action'] == 'create_update') {
+                $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
+                $id = empty($entity) ? null : $entity->get('id');
+            }
+
+            if (!$this->getEntityManager()->getPDO()->inTransaction()) {
+                $this->getEntityManager()->getPDO()->beginTransaction();
+            }
+
+            try {
+                $input = new \stdClass();
+                $restore = new \stdClass();
+
+                $attributes = [];
+                foreach ($data['data']['configuration'] as $item) {
+                    if ($item['type'] == 'Attribute') {
+                        $attributes[] = ['item' => $item, 'row' => $row];
+                        continue 1;
+                    }
+
+                    $type = $this->getMetadata()->get(['entityDefs', $item['entity'], 'fields', $item['name'], 'type'], 'varchar');
+                    $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->convert($input, $item, $row);
+                    if (!empty($entity)) {
+                        $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->prepareValue($restore, $entity, $item);
+                    }
+                }
+
+                $updatedEntity = null;
+                if (empty($id)) {
+                    $updatedEntity = $this->getService($data['data']['entity'])->createEntity($input);
+                    $this->saveRestoreRow('created', $data['data']['entity'], $updatedEntity->get('id'));
+                } else {
+                    $updatedEntity = $this->getService($data['data']['entity'])->updateEntity($id, $input);
+                    $this->saveRestoreRow('updated', $data['data']['entity'], [$id => $restore]);
+                }
+
+                foreach ($attributes as $attribute) {
+                    $this->importAttribute($updatedEntity, $attribute);
+                }
+
+                if ($this->getEntityManager()->getPDO()->inTransaction()) {
+                    $this->getEntityManager()->getPDO()->commit();
+                }
+
+            } catch (\Throwable $e) {
+                if ($this->getEntityManager()->getPDO()->inTransaction()) {
+                    $this->getEntityManager()->getPDO()->rollBack();
+                }
+
+                $message = empty($e->getMessage()) ? $this->getCodeMessage($e->getCode()) : $e->getMessage();
+
+                // push log
+                $this->log($data['data']['entity'], $data['data']['importResultId'], 'error', (string)$fileRow, $message);
+
+                $updatedEntity = null;
+            }
+
+            if (!empty($updatedEntity)) {
+                // prepare action
+                $action = empty($id) ? 'create' : 'update';
+
+                // push log
+                $this->log($data['data']['entity'], $data['data']['importResultId'], $action, (string)$fileRow, $updatedEntity->get('id'));
+            }
         }
 
-        return $object->run($fileData, $data);
+        return true;
     }
 
-    /**
-     * @param Attachment $attachment
-     * @param array      $data
-     *
-     * @return array
-     */
-    protected function getFileData(Attachment $attachment, array $data): array
+    public function log(string $entityName, string $importResultId, string $type, string $row, string $data): Entity
     {
-        return $this
-            ->getContainer()
-            ->get('serviceFactory')
-            ->create('CsvFileParser')
-            ->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
+        // create log
+        $log = $this->getEntityManager()->getEntity('ImportResultLog');
+        $log->set('name', $row);
+        $log->set('rowNumber', $row);
+        $log->set('entityName', $entityName);
+        $log->set('importResultId', $importResultId);
+        $log->set('type', $type);
+        if ($type == 'error') {
+            $log->set('message', $data);
+        } else {
+            $log->set('entityId', $data);
+            $log->set('restoreData', $this->restore);
+        }
+
+        $this->getEntityManager()->saveEntity($log);
+
+        $this->restore = [];
+
+        return $log;
     }
 
-    /**
-     * @param string $id
-     *
-     * @return Attachment
-     * @throws \Espo\Core\Exceptions\Error
-     */
-    protected function getAttachment(string $id): ?Attachment
+    protected function findExistEntity(string $entityType, array $configuration, array $row): ?Entity
     {
-        return $this->getEntityManager()->getEntity('Attachment', $id);
+        $where = [];
+        foreach ($configuration['configuration'] as $item) {
+            if (in_array($item['name'], $configuration['idField'])) {
+                $this
+                    ->getService('ImportConfiguratorItem')
+                    ->getFieldConverter($this->getMetadata()->get(['entityDefs', $entityType, 'fields', $item['name'], 'type'], 'varchar'))
+                    ->prepareFindExistEntityWhere($where, $item, $row);
+            }
+        }
+
+        if (empty($where)) {
+            return null;
+        }
+
+        return $this->getEntityManager()->getRepository($entityType)->where($where)->findOne();
+    }
+
+    protected function saveRestoreRow(string $action, string $entityType, $data): void
+    {
+        $this->restore[] = [
+            'action' => $action,
+            'entity' => $entityType,
+            'data'   => $data
+        ];
+    }
+
+    protected function getCodeMessage(int $code): string
+    {
+        if ($code == 304) {
+            return $this->translate('nothingToUpdate', 'exceptions', 'ImportFeed');
+        }
+
+        if ($code == 403) {
+            return $this->translate('permissionDenied', 'exceptions', 'ImportFeed');
+        }
+
+        return 'HTTP Code: ' . $code;
+    }
+
+    protected function importAttribute(Entity $product, array $data)
+    {
+        $entityType = 'ProductAttributeValue';
+        $service = $this->getService($entityType);
+
+        $inputRow = new \stdClass();
+        $restoreRow = new \stdClass();
+
+        $conf = $data['item'];
+        $row = $data['row'];
+
+        $attribute = $this->getEntityManager()->getEntity('Attribute', $conf['attributeId']);
+        if (empty($attribute)) {
+            throw new BadRequest("No such Attribute '{$conf['attributeId']}'.");
+        }
+        $conf['attribute'] = $attribute;
+
+        $conf['name'] = 'value';
+        if ($conf['locale'] !== 'main') {
+            $conf['name'] .= Util::toCamelCase(strtolower($conf['locale']), '_', true);
+        }
+
+        $pavWhere = [
+            'productId'   => $product->get('id'),
+            'attributeId' => $conf['attributeId'],
+            'scope'       => $conf['scope'],
+        ];
+
+        if ($conf['scope'] === 'Channel') {
+            $pavWhere['channelId'] = $conf['channelId'];
+        }
+
+        $converter = $this->getService('ImportConfiguratorItem')->getFieldConverter($attribute->get('type'));
+
+        $pav = $this->getEntityManager()->getRepository($entityType)->where($pavWhere)->findOne();
+        if (!empty($pav)) {
+            $inputRow->id = $pav->get('id');
+            $converter->prepareValue($restoreRow, $pav, $conf);
+        }
+
+        // convert attribute value
+        $converter->convert($inputRow, $conf, $row);
+
+        if (!isset($inputRow->id)) {
+            $inputRow->productId = $product->get('id');
+            $inputRow->attributeId = $conf['attributeId'];
+            $inputRow->scope = $conf['scope'];
+            if ($conf['scope'] === 'Channel') {
+                $inputRow->channelId = $conf['channelId'];
+                $inputRow->channelName = $conf['channelId'];
+            }
+
+            $pavEntity = $service->createEntity($inputRow);
+            $this->saveRestoreRow('created', $entityType, $pavEntity->get('id'));
+        } else {
+            $id = $inputRow->id;
+            unset($inputRow->id);
+
+            try {
+                $service->updateEntity($id, $inputRow);
+                $this->saveRestoreRow('updated', $entityType, [$id => $restoreRow]);
+            } catch (NotModified $e) {
+                // ignore
+            }
+        }
+    }
+
+    protected function getService(string $name): Base
+    {
+        if (!isset($this->services[$name])) {
+            $this->services[$name] = $this->getContainer()->get('serviceFactory')->create($name);
+        }
+
+        return $this->services[$name];
+    }
+
+    protected function getMetadata(): Metadata
+    {
+        return $this->getContainer()->get('metadata');
     }
 }

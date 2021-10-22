@@ -1,7 +1,9 @@
 {
   "fields": {
+    "entity": "Сущность",
+    "delimiter": "Разделитель значений поля",
     "unusedColumns": "Неиспользуемые столбцы",
-    "file": "Файл-пример (CSV)",
+    "file": "Файл",
     "isActive": "Активный",
     "type": "Тип",
     "fileFieldDelimiter": "Разделитель полей",
@@ -13,35 +15,25 @@
     "fileDataAction": "Действие",
     "decimalMark": "Десятичный разделитель",
     "importFile": "Файл данных",
-    "column": "Колонка файла",
-    "default": "Значение, установленное по умолчанию",
     "importResults": "Результаты импорта",
-    "locale": "Locale"
+    "configuratorItems": "Конфигуратор"
   },
   "links": {
-    "importJobs": "Задания на импорт",
-    "importCronJobs": "Кронджобы для импорта",
-    "importFeedTypeSimples": "Тип импортного фида простой",
-    "importResults": "Результаты импорта"
+    "importResults": "Результаты импорта",
+    "configuratorItems": "Конфигуратор"
   },
   "labels": {
     "channelCode": "Канал (код)",
     "currency": "Валюта",
     "unit": "Единица",
     "File properties": "Свойства файла",
-    "Simple Type Settings": "Настройки",
+    "Settings": "Настройки",
     "Create ImportFeed": "Создать импортный фид",
-    "entity": "Сущность",
-    "configurator": "Конфигуратор",
     "convertFile": "Загрузка файла, подождите...",
     "convertSuccess": "Файл загружен",
-    "runImport": "Запустить импорт",
     "addEntityField": "Добавить поле сущности",
     "addProductAttribute": "Добавить поле атрибута",
     "importRunning": "Импорт выполняется",
-    "delimiter": "Разделитель значений поля",
-    "importBy": "Поля связанных сущностей",
-    "main": "Main locale",
     "simple": "CSV Файл",
     ",": ",",
     ";": ";",
@@ -51,24 +43,30 @@
     "singleQuote": "Одинарные кавычки",
     "create": "Только создать",
     "create_update": "Создать и обновить",
-    "update": "Только обновить"
+    "update": "Только обновить",
+    "import": "Импорт",
+    "uploadAndImport": "Загрузить & Импортировать"
   },
   "additionalTranslates": {
+    "importNow": "Вы уверены, что хотите импортировать данные с выбранного файла?",
     "importName": "Импорт данных по фиду '%s'"
   },
   "messages": {
-    "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными.",
-    "columnOrDefaultValueIsRequired": "{column} или {default} обязательны."
+    "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными."
   },
   "exceptions": {
-    "onlyCsvIsAllowed": "Файл недействителен. Разрешен только CSV.",
+    "permissionDenied": "Доступ запрещен",
+    "nothingToUpdate": "Нечего обновлять",
+    "configuratorEmpty": "Конфигуратор не может быть пустым.",
+    "utf8Expected": "Загружаемый фал должен быть в кодировки UTF-8.",
+    "fileEmpty": "Загружаемый файл не может быть пустым.",
+    "csvExpected": "Ошибка валидации. Поддерживается только CSV файл.",
     "noSuchFile": "Такого файла не существует",
     "importFeedIsInactive": "Импортный фид неактивный",
     "theFileDoesNotMatchTheTemplate": "Файл не соответствует шаблону. Возможно в вашем файле есть колонка с ошибками. Ее нужно удалить.",
-    "countOfFileRowsIsLessThanOne": "Количество строк в файле меньше единицы",
-    "configuratorSettingsIncorrect": "Неправильные настройки конфигуратора"
+    "countOfFileRowsIsLessThanOne": "Количество строк в файле меньше единицы"
   },
-  "types": {
-    "simple": "Тип, импортного фида, предназначенный для импорта значений в любую сущность с CSV файла."
+  "tooltips": {
+    "file": "Этот файл будет использован для настройки конфигуратора. Это может быть файл-пример или файл для импорта."
   }
 }

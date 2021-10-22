@@ -24,22 +24,14 @@ Espo.define('import:views/import-feed/record/panels/import-results', 'views/reco
 
         refreshInterval: null,
 
-        pauseRefreshInterval: false,
-
         setup() {
             Dep.prototype.setup.call(this);
 
             this.listenToOnce(this, 'after:render', () => {
                 if (this.collection) {
                     this.refreshInterval = window.setInterval(() => {
-                        if (!this.pauseRefreshInterval) {
-                            this.actionRefresh();
-                        }
+                        this.actionRefresh();
                     }, this.refreshIntervalGap);
-
-                    this.listenTo(this.collection, 'pauseRefreshInterval', value => {
-                        this.pauseRefreshInterval = value;
-                    });
                 }
             });
 
@@ -52,7 +44,13 @@ Espo.define('import:views/import-feed/record/panels/import-results', 'views/reco
             this.listenTo(this.model, 'importRun', () => {
                 this.actionRefresh();
             });
-        }
+        },
+
+        actionRefresh() {
+            if ($('.panel-body[data-name="importResults"] .list-row-buttons.open').length === 0) {
+                Dep.prototype.actionRefresh.call(this);
+            }
+        },
 
     })
 );

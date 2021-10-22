@@ -8,8 +8,7 @@
     "updatedCount": "Обновлен",
     "errorsCount": "Ошибка",
     "attachment": "Проимпортированный файл",
-    "errorsAttachment": "Файл ошибок",
-    "isRestored": "Восстановлен"
+    "errorsAttachment": "Файл ошибок"
   },
   "links": {
     "importFeed": "Импортный фид",
@@ -17,18 +16,11 @@
   },
   "labels": {
     "Create ImportResult": "Сгенерировать результаты импорта",
-    "Restore": "Восстановить",
     "Pending": "В очереди",
     "Running": "Выполняется",
     "Done": "Выполнено"
   },
-  "messages": {
-    "doYouReallyWantToRestoreData": "Вы действительно хотите восстановить данные? Старые значения будут удалены."
-  },
   "tooltips": {
     "errorsAttachment": "Строчки с 'Imported file' которые не были проимпортированы."
-  },
-  "exceptions": {
-    "currentImportResultHasBeenAlreadyRestored": "Текущие результаты импорта уже восстановлены."
   }
 }

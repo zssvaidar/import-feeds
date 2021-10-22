@@ -8,8 +8,7 @@
     "updatedCount": "Updated",
     "errorsCount": "Errors",
     "attachment": "Imported file",
-    "errorsAttachment": "Error file",
-    "isRestored": "Restored"
+    "errorsAttachment": "Error file"
   },
   "links": {
     "importFeed": "Import Feed",
@@ -17,18 +16,11 @@
   },
   "labels": {
     "Create ImportResult": "Create Import Result",
-    "Restore": "Restore",
     "Pending": "Pending",
     "Running": "Running",
     "Done": "Done"
   },
-  "messages": {
-    "doYouReallyWantToRestoreData": "Do you really want to restore data? Old values will be delete."
-  },
   "tooltips": {
     "errorsAttachment": "Rows from 'Imported file' that have not been imported."
-  },
-  "exceptions": {
-    "currentImportResultHasBeenAlreadyRestored": "Current Import Result has been already restored."
   }
 }

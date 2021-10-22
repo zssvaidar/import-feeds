@@ -22,9 +22,79 @@ declare(strict_types=1);
 
 namespace Import\Repositories;
 
-/**
- * Class ImportFeed
- */
-class ImportFeed extends \Espo\Core\Templates\Repositories\Base
+use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Templates\Repositories\Base;
+use Espo\Core\Utils\Json;
+use Espo\Core\Utils\Language;
+use Espo\ORM\Entity;
+
+class ImportFeed extends Base
 {
+    public function getLanguage(): Language
+    {
+        return $this->getInjection('language');
+    }
+
+    protected function beforeSave(Entity $entity, array $options = [])
+    {
+        $isSimple = $entity->get('type') === 'simple';
+
+        $removeConfigurator = $isSimple && $entity->has('entity') && !$entity->isNew() && $entity->getFeedField('entity') !== $entity->get('entity');
+
+        $this->setFeedFieldsToDataJson($entity);
+
+        if ($isSimple) {
+            $this->validateSimpleType($entity);
+        }
+
+        parent::beforeSave($entity, $options);
+
+        if ($removeConfigurator) {
+            $this
+                ->getEntityManager()
+                ->getRepository('ImportConfiguratorItem')
+                ->where(['importFeedId' => $entity->get('id')])
+                ->removeCollection();
+        }
+    }
+
+    protected function validateSimpleType(Entity $entity): void
+    {
+        if ($entity->getFeedField('delimiter') === $entity->getFeedField('fileFieldDelimiter')) {
+            throw new BadRequest($this->getInjection('language')->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
+        }
+    }
+
+    protected function setFeedFieldsToDataJson(Entity $entity): void
+    {
+        $data = !empty($data = $entity->get('data')) ? Json::decode(Json::encode($data), true) : [];
+
+        foreach ($this->getMetadata()->get(['entityDefs', 'ImportFeed', 'fields'], []) as $field => $row) {
+            if (empty($row['notStorable']) || empty($row['dataField'])) {
+                continue 1;
+            }
+
+            if ($entity->has($field)) {
+                $data['feedFields'][$field] = $entity->get($field);
+
+                switch ($row['type']) {
+                    case 'int':
+                        $data['feedFields'][$field] = (int)$data['feedFields'][$field];
+                        break;
+                    case 'bool':
+                        $data['feedFields'][$field] = !empty($data['feedFields'][$field]);
+                        break;
+                }
+            }
+        }
+
+        $entity->set('data', $data);
+    }
+
+    protected function init()
+    {
+        parent::init();
+
+        $this->addDependency('language');
+    }
 }

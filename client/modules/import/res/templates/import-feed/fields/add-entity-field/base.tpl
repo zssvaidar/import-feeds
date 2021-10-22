@@ -1,1 +1,0 @@
-<button class="btn btn-default col-xs-12" type="button" data-name="{{name}}" data-action="actionAddEntityField">{{label}}</button>

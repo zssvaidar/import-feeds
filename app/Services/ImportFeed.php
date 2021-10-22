@@ -27,6 +27,7 @@ use Espo\Core\Exceptions\Error;
 use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Templates\Services\Base;
+use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 use Import\Entities\ImportFeed as ImportFeedEntity;
 use Import\Entities\ImportResult;
@@ -46,6 +47,15 @@ class ImportFeed extends Base
      * @var array
      */
     protected $validFileTypes = ['text/csv', 'application/vnd.ms-excel', 'text/plain'];
+
+    public function prepareEntityForOutput(Entity $entity)
+    {
+        parent::prepareEntityForOutput($entity);
+
+        foreach ($entity->getFeedFields() as $name => $value) {
+            $entity->set($name, $value);
+        }
+    }
 
     /**
      * @param string $attachmentId
@@ -92,21 +102,8 @@ class ImportFeed extends Base
 
         $this->validateFile($attachmentId, $feed);
 
-        // prepare data
         $data = $this->getPrepareData($feed, $attachmentId);
-
-        // create service
-        try {
-            $service = $this->getServiceFactory()->create($this->getImportTypeService($feed));
-        } catch (\Throwable $e) {
-        }
-
-        // create import result
-        if (!empty($service) && method_exists($service, 'getEntityType')) {
-            $data['data']->importResultId = $this
-                ->createImportResult($feed, $service->getEntityType($feed), $attachmentId)
-                ->get('id');
-        }
+        $data['data']['importResultId'] = $this->createImportResult($feed, $feed->getFeedField('entity'), $attachmentId)->get('id');
 
         $this->push($this->getName($feed), $this->getImportTypeService($feed), $data);
 
@@ -134,6 +131,23 @@ class ImportFeed extends Base
         $this->addDependency('queueManager');
     }
 
+    protected function duplicateConfiguratorItems(Entity $entity, Entity $duplicatingEntity): void
+    {
+        if (empty($items = $duplicatingEntity->get('configuratorItems')) || count($items) === 0) {
+            return;
+        }
+
+        foreach ($items as $item) {
+            $data = $item->toArray();
+            unset($data['id']);
+            $data['importFeedId'] = $entity->get('id');
+
+            $newItem = $this->getEntityManager()->getEntity('ImportConfiguratorItem');
+            $newItem->set($data);
+            $this->getEntityManager()->saveEntity($newItem);
+        }
+    }
+
     /**
      * @param string $key
      *
@@ -143,7 +157,6 @@ class ImportFeed extends Base
     {
         return $this->getInjection('language')->translate($key, 'labels', 'ImportFeed');
     }
-
 
     /**
      * @param string $name
@@ -293,9 +306,9 @@ class ImportFeed extends Base
             "enclosure"       => $feed->getEnclosure(),
             "isFileHeaderRow" => $feed->isFileHeaderRow(),
             "action"          => $feed->get('fileDataAction'),
-            "decimalMark"     => $feed->get('decimalMark'),
+            "decimalMark"     => $feed->getFeedField('decimalMark'),
             "attachmentId"    => $attachmentId,
-            "data"            => $feed->get('data')
+            "data"            => $feed->getConfiguratorData()
         ];
     }
 

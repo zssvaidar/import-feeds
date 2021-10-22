@@ -1,0 +1,28 @@
+{
+  "fields": {
+    "entityIdentifier": "Identifier",
+    "name": "Field",
+    "column": "Column(s)",
+    "defaultContainer": "Default Value",
+    "default": "Default Value",
+    "importFeed": "Import Feed",
+    "importBy": "Related Entity Fields",
+    "createIfNotExist": "Create if not exist",
+    "locale": "Language",
+    "attribute": "Attribute",
+    "channel": "Channel",
+    "scope": "Scope",
+    "type": "Type"
+  },
+  "links": {
+    "importFeed": "Import Feed",
+    "channel": "Channel"
+  },
+  "labels": {
+    "main": "Main"
+  },
+  "exceptions": {
+    "importByIsRequired": "Related Entity Fields are required.",
+    "columnOrDefaultValueIsRequired": "Column or Default should be filled."
+  }
+}

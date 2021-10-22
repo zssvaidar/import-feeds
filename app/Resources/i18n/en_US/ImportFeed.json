@@ -1,7 +1,9 @@
 {
   "fields": {
+    "entity": "Entity",
+    "delimiter": "Field value delimiter",
     "unusedColumns": "Unused Columns",
-    "file": "Example File (CSV)",
+    "file": "File",
     "isActive": "Active",
     "type": "Type",
     "fileFieldDelimiter": "Field Delimiter",
@@ -13,36 +15,25 @@
     "fileDataAction": "Action",
     "decimalMark": "Decimal Mark",
     "importFile": "Data File",
-    "column": "File Column(s)",
-    "default": "Default Value",
     "importResults": "Import Results",
-    "locale": "Locale",
-    "createIfNotExist": "Create if not exist"
+    "configuratorItems": "Configurator"
   },
   "links": {
-    "importJobs": "Import Jobs",
-    "importCronJobs": "Import Cron Jobs",
-    "importFeedTypeSimples": "Import Feed Type Simple",
-    "importResults": "Import Results"
+    "importResults": "Import Results",
+    "configuratorItems": "Configurator"
   },
   "labels": {
     "channelCode": "Channel (code)",
     "currency": "Currency",
     "unit": "Unit",
     "File properties": "File properties",
-    "Simple Type Settings": "Settings",
+    "Settings": "Settings",
     "Create ImportFeed": "Create Import Feed",
-    "entity": "Entity",
-    "configurator": "Configurator",
     "convertFile": "Loading file, please wait...",
     "convertSuccess": "File loaded",
-    "runImport": "Run Import",
     "addEntityField": "Add entity field",
     "addProductAttribute": "Add Product attribute",
     "importRunning": "Import Running",
-    "delimiter": "Field value delimiter",
-    "importBy": "Related Entity Fields",
-    "main": "Main locale",
     "simple": "CSV File",
     ",": ",",
     ";": ";",
@@ -52,24 +43,30 @@
     "singleQuote": "Single Quote",
     "create": "Create Only",
     "create_update": "Create & Update",
-    "update": "Update Only"
+    "update": "Update Only",
+    "import": "Import",
+    "uploadAndImport": "Upload & Import"
   },
   "additionalTranslates": {
     "importName": "Importing data by feed '%s'"
   },
   "messages": {
-    "delimitersMustBeDifferent": "Delimiters for fields and field values must be different.",
-    "columnOrDefaultValueIsRequired": "{column} or {default} is required."
+    "importNow": "Are you sure you want to import data from the selected file?",
+    "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
-    "onlyCsvIsAllowed": "File invalid. Only CSV is allowed.",
+    "permissionDenied": "Permission denied",
+    "nothingToUpdate": "Nothing to update",
+    "configuratorEmpty": "Configurator cannot be empty.",
+    "utf8Expected": "Uploaded file should be UTF-8 encoded.",
+    "fileEmpty": "Uploaded file cannot be empty.",
+    "csvExpected": "Uploaded file is not valid. CSV file is expected.",
     "noSuchFile": "No such file",
     "importFeedIsInactive": "Import feed is inactive",
     "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template. Maybe your file contain the column with error messages, which should be deleted.",
-    "countOfFileRowsIsLessThanOne": "Count of file rows is less than one",
-    "configuratorSettingsIncorrect": "Configurator settings incorrect"
+    "countOfFileRowsIsLessThanOne": "Count of file rows is less than one"
   },
-  "types": {
-    "simple": "Import Feed type, intended for importing values into any entity from CSV file."
+  "tooltips": {
+    "file": "This file will be used to create the configuration. It could be an example file or file to be imported."
   }
 }

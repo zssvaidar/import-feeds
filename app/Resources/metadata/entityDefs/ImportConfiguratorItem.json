@@ -1,0 +1,157 @@
+{
+  "fields": {
+    "name": {
+      "type": "varchar",
+      "prohibitedEmptyValue": true,
+      "view": "import:views/import-configurator-item/fields/name"
+    },
+    "entityIdentifier": {
+      "type": "bool",
+      "view": "import:views/import-configurator-item/fields/entity-identifier"
+    },
+    "column": {
+      "type": "array",
+      "view": "import:views/import-configurator-item/fields/column"
+    },
+    "importBy": {
+      "type": "multiEnum",
+      "view": "import:views/import-configurator-item/fields/import-by",
+      "default": [
+        "id"
+      ]
+    },
+    "createIfNotExist": {
+      "type": "bool",
+      "view": "import:views/import-configurator-item/fields/create-if-not-exist"
+    },
+    "type": {
+      "type": "enum",
+      "required": false,
+      "prohibitedEmptyValue": true,
+      "options": [
+        "Field",
+        "Attribute"
+      ],
+      "default": "Field",
+      "view": "import:views/import-configurator-item/fields/type"
+    },
+    "attribute": {
+      "type": "link"
+    },
+    "attributeType": {
+      "type": "varchar",
+      "notStorable": true
+    },
+    "attributeTypeValue": {
+      "type": "array",
+      "notStorable": true
+    },
+    "attributeIsMultilang": {
+      "type": "bool",
+      "notStorable": true
+    },
+    "scope": {
+      "type": "enum",
+      "prohibitedEmptyValue": true,
+      "options": [
+        "Global",
+        "Channel"
+      ],
+      "default": "Global"
+    },
+    "channel": {
+      "type": "link"
+    },
+    "locale": {
+      "type": "enum",
+      "view": "import:views/import-configurator-item/fields/locale",
+      "required": false,
+      "prohibitedEmptyValue": true,
+      "options": [
+        "main"
+      ],
+      "default": "main"
+    },
+    "defaultContainer": {
+      "type": "text",
+      "notStorable": true,
+      "view": "import:views/import-configurator-item/fields/default-container"
+    },
+    "default": {
+      "type": "text"
+    },
+    "defaultCurrency": {
+      "type": "varchar",
+      "notStorable": true
+    },
+    "defaultUnit": {
+      "type": "varchar",
+      "notStorable": true
+    },
+    "defaultId": {
+      "type": "varchar",
+      "notStorable": true
+    },
+    "defaultName": {
+      "type": "varchar",
+      "notStorable": true
+    },
+    "defaultPathsData": {
+      "type": "jsonObject",
+      "notStorable": true
+    },
+    "defaultIds": {
+      "type": "array",
+      "notStorable": true
+    },
+    "defaultNames": {
+      "type": "jsonObject",
+      "notStorable": true
+    },
+    "entity": {
+      "type": "varchar",
+      "notStorable": true
+    },
+    "allColumns": {
+      "type": "array",
+      "notStorable": true
+    },
+    "createdAt": {
+      "type": "datetime",
+      "readOnly": true
+    },
+    "importFeed": {
+      "type": "link"
+    }
+  },
+  "links": {
+    "importFeed": {
+      "type": "belongsTo",
+      "foreign": "configuratorItems",
+      "entity": "ImportFeed",
+      "audited": false
+    },
+    "attribute": {
+      "type": "belongsTo",
+      "entity": "Attribute",
+      "audited": false
+    },
+    "channel": {
+      "type": "belongsTo",
+      "entity": "Channel",
+      "audited": false
+    }
+  },
+  "collection": {
+    "sortBy": "createdAt",
+    "asc": true
+  },
+  "indexes": {
+    "name": {
+      "columns": [
+        "name",
+        "deleted"
+      ]
+    }
+  }
+}

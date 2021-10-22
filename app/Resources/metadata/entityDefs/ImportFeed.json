@@ -8,6 +8,12 @@
     "description": {
       "type": "text"
     },
+    "configuratorItems": {
+      "type": "linkMultiple",
+      "layoutDetailDisabled": true,
+      "layoutMassUpdateDisabled": true,
+      "noLoad": true
+    },
     "isActive": {
       "type": "bool"
     },
@@ -18,8 +24,7 @@
       "options": [
         "simple"
       ],
-      "default": "simple",
-      "view": "import:views/import-feed/fields/enum-with-custom-tooltip"
+      "default": "simple"
     },
     "data": {
       "type": "jsonObject",
@@ -42,11 +47,14 @@
       "type": "file",
       "noAsset": true,
       "required": false,
+      "tooltip": true,
       "sourceList": [],
       "view": "import:views/import-feed/fields/file"
     },
     "fileFieldDelimiter": {
       "type": "enum",
+      "notStorable": true,
+      "dataField": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
@@ -55,17 +63,19 @@
         "\\t",
         "|"
       ],
-      "default": ","
+      "default": ";"
     },
     "fileTextQualifier": {
       "type": "enum",
+      "notStorable": true,
+      "dataField": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
         "doubleQuote",
         "singleQuote"
       ],
-      "default": "Double Quote"
+      "default": "doubleQuote"
     },
     "fileDataAction": {
       "type": "enum",
@@ -79,10 +89,15 @@
       "default": "create"
     },
     "isFileHeaderRow": {
-      "type": "bool"
+      "type": "bool",
+      "notStorable": true,
+      "dataField": true,
+      "default": true
     },
     "decimalMark": {
       "type": "enum",
+      "notStorable": true,
+      "dataField": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
@@ -129,9 +144,38 @@
       "layoutMassUpdateDisabled": true,
       "noLoad": true,
       "importDisabled": true
+    },
+    "entity": {
+      "type": "enum",
+      "notStorable": true,
+      "dataField": true,
+      "view": "import:views/import-feed/fields/entity",
+      "required": false,
+      "prohibitedEmptyValue": true,
+      "options": [],
+      "default": "Product"
+    },
+    "delimiter": {
+      "type": "varchar",
+      "notStorable": true,
+      "dataField": true,
+      "required": false,
+      "default": ","
+    },
+    "unusedColumns": {
+      "type": "multi-enum",
+      "notStorable": true,
+      "view": "import:views/import-feed/fields/unused-columns",
+      "readOnly": true
     }
   },
   "links": {
+    "configuratorItems": {
+      "type": "hasMany",
+      "foreign": "importFeed",
+      "entity": "ImportConfiguratorItem",
+      "audited": false
+    },
     "file": {
       "type": "belongsTo",
       "entity": "Attachment"

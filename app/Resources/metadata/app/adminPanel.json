@@ -6,11 +6,6 @@
         "url": "#ImportFeed",
         "label": "importFeed",
         "description": "importFeed"
-      },
-      {
-        "url": "#ImportCronJob",
-        "label": "importCronJob",
-        "description": "importCronJob"
       }
     ]
   }

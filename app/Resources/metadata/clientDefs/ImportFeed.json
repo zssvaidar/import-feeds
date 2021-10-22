@@ -4,81 +4,22 @@
     "onlyMy"
   ],
   "iconClass": "fas fa-cloud-download-alt",
+  "views": {
+    "detail": "import:views/import-feed/detail"
+  },
   "recordViews": {
     "detail": "import:views/import-feed/record/detail"
   },
   "relationshipPanels": {
+    "configuratorItems": {
+      "select": false,
+      "rowActionsView": "views/record/row-actions/edit-and-remove"
+    },
     "importResults": {
       "create": false,
       "select": false,
-      "rowActionsView": "import:views/import-feed/record/row-actions/view-remove-restore",
-      "view": "import:views/import-feed/record/panels/import-results",
-      "filters": {
-        "isRestored": {
-          "type": "isFalse",
-          "attribute": "isRestored"
-        }
-      }
-    }
-  },
-  "bottomPanels": {
-    "detail": [
-      {
-        "name": "simpleTypeSettings",
-        "label": "Simple Type Settings",
-        "view": "import:views/import-feed/record/panels/simple-type-settings"
-      }
-    ]
-  },
-  "optionalBottomPanels": {
-    "simpleTypeSettings": [
-      {
-        "field": "type",
-        "value": "simple"
-      }
-    ]
-  },
-  "additionalDropdownItems": {
-    "runImport": {
-      "name": "runImport",
-      "label": "runImport",
-      "actionViewPath": "import:views/import-feed/actions/run-import",
-      "action": "runImport",
-      "optionsToPass": [
-        "model"
-      ],
-      "iconClass": "far fa-arrow-alt-circle-up",
-      "conditions": [
-        {
-          "type": "type",
-          "value": "detail"
-        }
-      ]
-    }
-  },
-  "additionalRowActions": {
-    "runImport": {
-      "name": "runImport",
-      "label": "runImport",
-      "actionViewPath": "import:views/import-feed/actions/run-import",
-      "action": "runImport",
-      "optionsToPass": [
-        "model"
-      ],
-      "iconClass": "far fa-arrow-alt-circle-up"
-    }
-  },
-  "configuratorButtons": {
-    "Product": [
-      {
-        "name": "addAttribute",
-        "action": "addAttribute"
-      }
-    ]
-  },
-  "customEntities": {
-    "productCategories": {
-      "entity": "Category"
+      "rowActionsView": "views/record/row-actions/view-and-remove",
+      "view": "import:views/import-feed/record/panels/import-results"
     }
   },
   "dynamicLogic": {
@@ -189,6 +130,46 @@
         }
       },
       "fileDataAction": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        }
+      },
+      "entity": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        }
+      },
+      "delimiter": {
         "visible": {
           "conditionGroup": [
             {

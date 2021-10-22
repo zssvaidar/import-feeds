@@ -32,7 +32,7 @@ Espo.define('import:views/import-feed/modals/run-import-options', 'views/modal',
             this.buttonList = [
                 {
                     name: 'runImport',
-                    label: 'runImport',
+                    label: 'import',
                     style: 'primary',
                 },
                 {
@@ -42,12 +42,12 @@ Espo.define('import:views/import-feed/modals/run-import-options', 'views/modal',
             ];
 
             this.scope = this.options.scope || this.model.name || this.scope;
-            this.header = this.getLanguage().translate('runImport', 'labels', this.scope);
+            this.header = this.getLanguage().translate('import', 'labels', this.scope);
             this.setupFields();
         },
 
         setupFields() {
-            this.createView('importFile', 'views/fields/file', {
+            this.createView('importFile', 'import:views/import-feed/fields/file', {
                 el: `${this.options.el} .field[data-name="importFile"]`,
                 model: this.model,
                 name: 'importFile',
@@ -74,14 +74,11 @@ Espo.define('import:views/import-feed/modals/run-import-options', 'views/modal',
                 attachmentId: this.model.get('importFileId') || null
             };
             this.notify('Loading...');
-            this.ajaxPostRequest('ImportFeed/action/RunImport', data).then(response => {
+            this.ajaxPostRequest('ImportFeed/action/runImport', data).then(response => {
                 if (response) {
                     this.notify(this.translate('importRunning', 'labels', 'ImportFeed'), 'success');
                     this.dialog.close();
                     this.model.trigger('importRun');
-                    setTimeout(() => {
-                        Backbone.trigger('showQueuePanel');
-                    }, 2000);
                 }
             });
         },

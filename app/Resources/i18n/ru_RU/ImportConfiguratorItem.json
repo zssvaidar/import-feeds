@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "entityIdentifier": "Идентификатор",
+    "name": "Поле",
+    "column": "Колонка",
+    "defaultContainer": "По умолчанию",
+    "default": "По умолчанию",
+    "importFeed": "Импортный фид",
+    "importBy": "Поля связанных сущностей",
+    "createIfNotExist": "Создать если не существует",
+    "locale": "Язык",
+    "attribute": "Атрибут",
+    "channel": "Канал",
+    "scope": "Область действия",
+    "type": "Тип"
+  },
+  "links": {
+    "importFeed": "Импортный фид"
+  },
+  "labels": {
+    "main": "Основная"
+  },
+  "exceptions": {
+    "importByIsRequired": "Поля связанных сущностей обязательны.",
+    "columnOrDefaultValueIsRequired": "Колонка или По умолчанию должны быть заполнены."
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "fields": {
+    "varchar": {
+      "converter": "\\Import\\FieldConverters\\Varchar"
+    },
+    "link": {
+      "converter": "\\Import\\FieldConverters\\Link"
+    },
+    "jsonArray": {
+      "converter": "\\Import\\FieldConverters\\JsonArray"
+    },
+    "array": {
+      "converter": "\\Import\\FieldConverters\\JsonArray"
+    },
+    "multiEnum": {
+      "converter": "\\Import\\FieldConverters\\JsonArray"
+    },
+    "linkMultiple": {
+      "converter": "\\Import\\FieldConverters\\LinkMultiple"
+    },
+    "image": {
+      "converter": "\\Import\\FieldConverters\\Asset"
+    },
+    "asset": {
+      "converter": "\\Import\\FieldConverters\\Asset"
+    },
+    "bool": {
+      "converter": "\\Import\\FieldConverters\\Boolean"
+    },
+    "int": {
+      "converter": "\\Import\\FieldConverters\\Integer"
+    },
+    "float": {
+      "converter": "\\Import\\FieldConverters\\FloatValue"
+    },
+    "currency": {
+      "converter": "\\Import\\FieldConverters\\Currency"
+    },
+    "unit": {
+      "converter": "\\Import\\FieldConverters\\Unit"
+    },
+    "date": {
+      "converter": "\\Import\\FieldConverters\\Date"
+    }
+  }
+}

@@ -5,7 +5,7 @@
             <span class="btn btn-default btn-icon"><span class="fas fa-paperclip"></span></span>
             <input type="file" class="file pull-right" {{#if acceptAttribue}}accept="{{acceptAttribue}}"{{/if}}>
         </label>
-        <div class="text-muted small">{{translate 'utf8' category='messages' scope='Import'}}</div>
+        <div class="text-muted small">UTF-8</div>
         </div>
         {{#unless id}}
         {{#if sourceList.length}}

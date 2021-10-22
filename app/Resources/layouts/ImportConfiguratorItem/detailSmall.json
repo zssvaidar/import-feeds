@@ -1,0 +1,58 @@
+[
+  {
+    "label": "Overview",
+    "style": "default",
+    "rows": [
+      [
+        {
+          "name": "type"
+        },
+        false
+      ],
+      [
+        {
+          "name": "name"
+        },
+        {
+          "name": "entityIdentifier"
+        }
+      ],
+      [
+        {
+          "name": "attribute"
+        },
+        false
+      ],
+      [
+        {
+          "name": "column"
+        },
+        {
+          "name": "defaultContainer"
+        }
+      ],
+      [
+        {
+          "name": "importBy"
+        },
+        {
+          "name": "createIfNotExist"
+        }
+      ],
+      [
+        {
+          "name": "scope"
+        },
+        {
+          "name": "channel"
+        }
+      ],
+      [
+        {
+          "name": "locale"
+        },
+        false
+      ]
+    ]
+  }
+]

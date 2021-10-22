@@ -1,7 +1,9 @@
 {
   "fields": {
+    "entity": "Entität",
+    "delimiter": "Feldwert Trennzeichen",
     "unusedColumns": "Nicht verwendete Spalten Column",
-    "file": "Beispieldatei (CSV)",
+    "file": "Datei",
     "isActive": "Aktiv",
     "type": "Typ",
     "fileFieldDelimiter": "Feld-Trennzeichen",
@@ -9,31 +11,26 @@
     "isFileHeaderRow": "Header Zeile",
     "fileDataAction": "Aktion",
     "decimalMark": "Dezimaltrennzeichen",
-    "column": "Spalte(n)",
-    "defaultValue": "Default-Wert",
-    "locale": "Gebietsschema",
-    "createIfNotExist": "Erstellen, falls nicht vorhanden"
+    "importResults": "Ergebnisse importieren",
+    "configuratorItems": "Konfigurator"
   },
-  "links": [],
+  "links": {
+    "importResults": "Ergebnisse importieren",
+    "configuratorItems": "Konfigurator"
+  },
   "labels": {
     "channelCode": "Kanal (Code)",
     "currency": "Währung",
     "unit": "Einheit",
     "File properties": "Dateieigenschaften",
-    "Simple Type Settings": "Einstellungen",
+    "Settings": "Einstellungen",
     "Create ImportFeed": "Import Feed erstellen",
-    "entity": "Entität",
-    "configurator": "Konfigurator",
     "convertFile": "Datei wird geladen, bitte warten ...",
     "convertSuccess": "Datei hochgeladen",
-    "runImport": "Import durchführen",
     "importFile": "Daten Datei",
     "addEntityField": "Entitätsfeld hinzufügen",
     "addProductAttribute": "Produktattribut hinzufügen",
     "importRunning": "Import läuft",
-    "delimiter": "Feldwert Trennzeichen",
-    "importBy": "Verwandte Entitätsfelder",
-    "main": "Hauptgebietsschema",
     "simple": "CSV-Datei",
     ",": ",",
     ";": ";",
@@ -43,24 +40,30 @@
     "singleQuote": "Anführungszeichen",
     "create": "Nur erstellen",
     "create_update": "Erstellen und aktualisieren",
-    "update": "Nur aktualisieren"
+    "update": "Nur aktualisieren",
+    "import": "Importieren",
+    "uploadAndImport": "Hochladen & Importieren"
   },
   "additionalTranslates": {
     "importName": "Importieren von Daten nach Feed '%s'"
   },
   "messages": {
-    "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein.",
-    "columnOrDefaultValueIsRequired": "{column} oder {default} ist erforderlich"
+    "importNow": "Möchten Sie die Daten aus der ausgewählten Datei wirklich importieren?",
+    "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
   },
   "exceptions": {
-    "onlyCsvIsAllowed": "Datei ist ungültig. Nur CSV ist erlaubt.",
+    "permissionDenied": "Zugriff verweigert",
+    "nothingToUpdate": "Nichts zu aktualisieren",
+    "configuratorEmpty": "Konfigurator kann nicht leer sein.",
+    "utf8Expected": "Die hochgeladene Datei sollte in UTF-8 Format sein.",
+    "fileEmpty": "Die hochgeladene Datei kann nicht leer sein.",
+    "csvExpected": "Hochgeladene Datei ist ungültig. CSV-Datei wird erwartet.",
     "noSuchFile": "Keine solche Datei",
     "importFeedIsInactive": "Import Feed ist inaktiv",
     "theFileDoesNotMatchTheTemplate": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein. Möglicherweise enthält Ihre Datei die Spalte mit Fehlermeldungen, diese soll gelöscht werden.",
-    "countOfFileRowsIsLessThanOne": "Die Anzahl der Dateireihen ist kleiner als eins",
-    "configuratorSettingsIncorrect": "Konfigurator-Einstellungen falsch"
+    "countOfFileRowsIsLessThanOne": "Die Anzahl der Dateireihen ist kleiner als eins"
   },
-  "types": {
-    "simple": "Import-Feed Typ für Import der Daten in eine Entität aus CSV-Datei."
+  "tooltips": {
+    "file": "Diese Datei wird für die Konfiguration verwendet. Es kann eine Beispieldatei oder die zu importierende Datei sein."
   }
 }

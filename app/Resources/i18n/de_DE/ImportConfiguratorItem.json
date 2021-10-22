@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "entityIdentifier": "Kennung",
+    "name": "Gebiet",
+    "column": "Spalte(n)",
+    "defaultContainer": "Default-Wert",
+    "default": "Default-Wert",
+    "importFeed": "Import Feed",
+    "createIfNotExist": "Erstellen, falls nicht vorhanden",
+    "importBy": "Verwandte Entitätsfelder",
+    "locale": "Sprache",
+    "attribute": "Attribut",
+    "channel": "Kanal",
+    "scope": "Scope",
+    "type": "Typ"
+  },
+  "links": {
+    "importFeed": "Import Feed"
+  },
+  "labels": {
+    "main": "Hauptsächlich"
+  },
+  "exceptions": {
+    "importByIsRequired": "Verwandte Entitätsfelder sind erforderlich.",
+    "columnOrDefaultValueIsRequired": "Spalte oder Standard sollte abgelegt werden."
+  }
+}
