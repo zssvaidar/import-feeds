@@ -98,6 +98,8 @@ class ImportFeed extends Base
                 'scope'            => $item->get('scope'),
                 'channelId'        => $item->get('channelId'),
                 'locale'           => $item->get('locale'),
+                'entity'           => $result['entity'],
+                'delimiter'        => $result['delimiter'],
             ];
         }
 

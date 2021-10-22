@@ -23,27 +23,24 @@ declare(strict_types=1);
 namespace Import\Services;
 
 use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\Services\Base;
-use Espo\Core\Utils\Json;
 use Espo\Core\Utils\Metadata;
 use Espo\ORM\Entity;
 use Espo\Services\QueueManagerBase;
 
-/**
- * Class ImportTypeSimple
- */
 class ImportTypeSimple extends QueueManagerBase
 {
+    private array $services = [];
+    private array $restore = [];
+
     public function run(array $data = []): bool
     {
-        $importResult = $this->getEntityManager()->getEntity('ImportResult', $data['data']['importResultId']);
+        $importResultId = $data['data']['importResultId'];
+
+        $importResult = $this->getEntityManager()->getEntity('ImportResult', $importResultId);
         if (empty($importResult)) {
             throw new BadRequest('No such ImportResult.');
-        }
-
-        $importFeed = $importResult->get('importFeed');
-        if (empty($importResult)) {
-            throw new BadRequest('No such ImportFeed.');
         }
 
         $attachment = $this->getEntityManager()->getEntity('Attachment', $data['attachmentId']);
@@ -56,7 +53,9 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest('File is empty.');
         }
 
-        $entityService = $this->getService($data['data']['entity']);
+        $entityType = $data['data']['entity'];
+
+        $service = $this->getService($entityType);
 
         // prepare file row
         $fileRow = (int)$data['offset'];
@@ -69,7 +68,7 @@ class ImportTypeSimple extends QueueManagerBase
             $id = null;
 
             if ($data['action'] == 'update') {
-                $entity = $this->findExistEntity($entityService->getEntityType(), $data['data'], $row);
+                $entity = $this->findExistEntity($service->getEntityType(), $data['data'], $row);
                 if (empty($entity)) {
                     continue 1;
                 }
@@ -77,26 +76,20 @@ class ImportTypeSimple extends QueueManagerBase
             }
 
             if ($data['action'] == 'create_update') {
-                $entity = $this->findExistEntity($entityService->getEntityType(), $data['data'], $row);
+                $entity = $this->findExistEntity($service->getEntityType(), $data['data'], $row);
                 $id = empty($entity) ? null : $entity->get('id');
             }
 
-            echo '<pre>';
-            print_r($entity->toArray());
-            die();
+            if (!$this->getEntityManager()->getPDO()->inTransaction()) {
+                $this->getEntityManager()->getPDO()->beginTransaction();
+            }
 
             try {
-                // begin transaction
-                $this->getEntityManager()->getPDO()->beginTransaction();
-
-                // prepare row and data for restore
                 $input = new \stdClass();
                 $restore = new \stdClass();
 
                 foreach ($data['data']['configuration'] as $item) {
-
-                    $this->convertItem($input, $entityType, $item, $row, $data['data']['delimiter']);
-
+                    $this->convertItem($input, $item, $row);
                     if (!empty($entity)) {
                         $this->prepareValue($restore, $entity, $item);
                     }
@@ -105,18 +98,20 @@ class ImportTypeSimple extends QueueManagerBase
                 $updatedEntity = null;
                 if (empty($id)) {
                     $updatedEntity = $service->createEntity($input);
-
                     $this->saveRestoreRow('created', $entityType, $updatedEntity->get('id'));
                 } else {
                     $updatedEntity = $service->updateEntity($id, $input);
-
                     $this->saveRestoreRow('updated', $entityType, [$id => $restore]);
                 }
 
-                $this->getEntityManager()->getPDO()->commit();
+                if ($this->getEntityManager()->getPDO()->inTransaction()) {
+                    $this->getEntityManager()->getPDO()->commit();
+                }
+
             } catch (\Throwable $e) {
-                // roll back transaction
-                $this->getEntityManager()->getPDO()->rollBack();
+                if ($this->getEntityManager()->getPDO()->inTransaction()) {
+                    $this->getEntityManager()->getPDO()->rollBack();
+                }
 
                 // prepare message
                 $message = $e->getMessage();
@@ -139,46 +134,95 @@ class ImportTypeSimple extends QueueManagerBase
             }
         }
 
-        echo '<pre>';
-        print_r($fileData);
-        die();
-
         return true;
     }
 
-    protected function getService(string $name): Base
+    public function log(string $entityName, string $importResultId, string $type, string $row, string $data): Entity
     {
-        return $this->getContainer()->get('serviceFactory')->create($name);
-    }
+        // create log
+        $log = $this->getEntityManager()->getEntity('ImportResultLog');
+        $log->set('name', $row);
+        $log->set('rowNumber', $row);
+        $log->set('entityName', $entityName);
+        $log->set('importResultId', $importResultId);
+        $log->set('type', $type);
+        if ($type == 'error') {
+            $log->set('message', $data);
+        } else {
+            $log->set('entityId', $data);
+            $log->set('restoreData', $this->restore);
+        }
 
-    protected function getMetadata(): Metadata
-    {
-        return $this->getContainer()->get('metadata');
+        $this->getEntityManager()->saveEntity($log);
+
+        $this->restore = [];
+
+        return $log;
     }
 
     protected function findExistEntity(string $entityType, array $configuration, array $row): ?Entity
     {
-        $service = $this->getService('ImportConfiguratorItem');
-
         $where = [];
         foreach ($configuration['configuration'] as $item) {
             if (in_array($item['name'], $configuration['idField'])) {
-                $item['entity'] = $configuration['entity'];
-                $item['delimiter'] = $configuration['delimiter'];
-                $service
+                $this
+                    ->getService('ImportConfiguratorItem')
                     ->getFieldConverter($this->getMetadata()->get(['entityDefs', $entityType, 'fields', $item['name'], 'type'], 'varchar'))
                     ->prepareFindExistEntityWhere($where, $item, $row);
             }
         }
-
-        echo '<pre>';
-        print_r($where);
-        die();
 
         if (empty($where)) {
             return null;
         }
 
         return $this->getEntityManager()->getRepository($entityType)->where($where)->findOne();
+    }
+
+    protected function convertItem(\stdClass $inputRow, array $item, array $row): void
+    {
+        if ($item['type'] == 'Attribute') {
+            // @todo attributes
+            return;
+        }
+
+        $type = $this->getMetadata()->get(['entityDefs', $item['entity'], 'fields', $item['name'], 'type'], 'varchar');
+
+        $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->convert($inputRow, $item, $row);
+    }
+
+    protected function prepareValue(\stdClass $restore, Entity $entity, array $item): void
+    {
+        if ($item['type'] == 'Attribute') {
+            // @todo attributes
+            return;
+        }
+
+        $type = $this->getMetadata()->get(['entityDefs', $item['entity'], 'fields', $item['name'], 'type'], 'varchar');
+
+        $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->prepareValue($restore, $entity, $item);
+    }
+
+    protected function saveRestoreRow(string $action, string $entityType, $data): void
+    {
+        $this->restore[] = [
+            'action' => $action,
+            'entity' => $entityType,
+            'data'   => $data
+        ];
+    }
+
+    protected function getService(string $name): Base
+    {
+        if (!isset($this->services[$name])) {
+            $this->services[$name] = $this->getContainer()->get('serviceFactory')->create($name);
+        }
+
+        return $this->services[$name];
+    }
+
+    protected function getMetadata(): Metadata
+    {
+        return $this->getContainer()->get('metadata');
     }
 }

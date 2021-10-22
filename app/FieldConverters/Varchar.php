@@ -56,9 +56,7 @@ class Varchar
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
-        $field = $item['name'];
-
-        $restore->{$field} = $entity->get($field);
+        $restore->{$item['name']} = $entity->get($item['name']);
     }
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
