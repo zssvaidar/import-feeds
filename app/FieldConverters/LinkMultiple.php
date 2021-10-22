@@ -51,20 +51,10 @@ class LinkMultiple extends Asset
 
                 foreach ($items as $item) {
                     $values = explode('|', $item);
+
                     $where = [];
-                    if ($config['foreign'] === 'Asset') {
-                        foreach ($config['field'] as $k => $field) {
-                            if ($field === 'id') {
-                                $where[$field] = $values[$k];
-                            }
-                            if ($field === 'url') {
-                                $url = $values[$k];
-                            }
-                        }
-                    } else {
-                        foreach ($config['field'] as $k => $field) {
-                            $where[$field] = $values[$k];
-                        }
+                    foreach ($config['field'] as $k => $field) {
+                        $where[$field] = $values[$k];
                     }
 
                     $entity = null;
@@ -77,34 +67,10 @@ class LinkMultiple extends Asset
                     }
 
                     if (empty($entity)) {
-                        if (empty($config['createIfNotExist'])) {
-                            throw new BadRequest("No related entity found.");
-                        }
-
-                        $post = [];
-                        if ($config['foreign'] === 'Asset') {
-                            if (!empty($url)) {
-                                foreach ($config['field'] as $k => $field) {
-                                    $post[$field] = $values[$k];
-                                }
-                                $attachment = $this->createAttachment((string)$url, $entityName, (string)$config['name']);
-                                $post['name'] = basename($url);
-                                $post['fileId'] = $attachment->get('id');
-                                $post['private'] = !empty($post['private']);
-                            }
-                        } else {
-                            foreach ($config['field'] as $k => $field) {
-                                $post[$field] = $values[$k];
-                            }
-                        }
-
-                        if (!empty($post)) {
-                            $entity = $this->getService($config['foreign'])->createEntity(Json::decode(Json::encode($post)));
-                            if ($entityType === 'Product') {
-                                $inputData = empty($inputRow->data) ? [] : Json::decode($inputRow->data, true);
-                                $inputData['productAssets'][] = ["assetId" => $entity->get('id'), "channelId" => $post['channel']];
-                                $inputRow->data = Json::encode($inputData);
-                            }
+                        if (!empty($config['createIfNotExist'])) {
+                            $entity = $this->getEntityManager()->getRepository($entityName)->get();
+                            $entity->set($where);
+                            $this->getEntityManager()->saveEntity($entity);
                         }
                     }
 

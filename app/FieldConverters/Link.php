@@ -54,6 +54,13 @@ class Link extends Varchar
 
             if (!empty($entity)) {
                 $value = $entity->get('id');
+            } else {
+                if (!empty($config['createIfNotExist'])) {
+                    $entity = $this->getEntityManager()->getRepository($entityName)->get();
+                    $entity->set($where);
+                    $this->getEntityManager()->saveEntity($entity);
+                    $value = $entity->get('id');
+                }
             }
         }
 

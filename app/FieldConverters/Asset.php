@@ -47,9 +47,6 @@ class Asset extends Varchar
      */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $value = $config['default'];
-        $name = null;
-
         if (!empty($row[$config['column'][0]])) {
             // get entity name
             $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
@@ -74,22 +71,29 @@ class Asset extends Varchar
 
             if (!empty($entity)) {
                 $value = $entity->get('id');
-                $name = $entity->get('name');
             } else {
-                if (empty($config['createIfNotExist'])) {
-                    throw new BadRequest("No related entity found.");
-                }
-
                 if (!empty($url)) {
                     $attachment = $this->createAttachment((string)$url, $entityName, (string)$config['name']);
                     $value = $attachment->get('id');
-                    $name = $attachment->get('name');
+                } else {
+                    if (!empty($config['createIfNotExist'])) {
+                        $entity = $this->getEntityManager()->getRepository($entityName)->get();
+                        $entity->set($where);
+                        $this->getEntityManager()->saveEntity($entity);
+                        $value = $entity->get('id');
+                    }
                 }
             }
         }
 
-        $inputRow->{$config['name'] . 'Id'} = $value;
-        $inputRow->{$config['name'] . 'Name'} = $name;
+        if (empty($value) && !empty($config['default'])) {
+            $value = $config['default'];
+        }
+
+        if (!empty($value)) {
+            $inputRow->{$config['name'] . 'Id'} = $value;
+            $inputRow->{$config['name'] . 'Name'} = $value;
+        }
     }
 
     /**
