@@ -29,6 +29,7 @@ use Espo\Core\Utils\Metadata;
 use Espo\Core\Utils\Util;
 use Espo\ORM\Entity;
 use Espo\Services\QueueManagerBase;
+use Treo\Core\Exceptions\NotModified;
 
 class ImportTypeSimple extends QueueManagerBase
 {
@@ -251,22 +252,24 @@ class ImportTypeSimple extends QueueManagerBase
             $inputRow->attributeId = $conf['attributeId'];
             $inputRow->scope = $conf['scope'];
             if ($conf['scope'] === 'Channel') {
-                $inputRow->channelId = $conf['channelId'];
+                if (empty($channel = $this->getEntityManager()->getEntity('Channel', $conf['channelId']))) {
+                    throw new BadRequest("No such Channel '{$conf['channelId']}'.");
+                }
+                $inputRow->channelId = $channel->get('id');
+                $inputRow->channelName = $channel->get('name');
             }
 
             $pavEntity = $service->createEntity($inputRow);
-
-            if ($pavEntity->isSaved()) {
-                $this->saveRestoreRow('created', $entityType, $pavEntity->get('id'));
-            }
+            $this->saveRestoreRow('created', $entityType, $pavEntity->get('id'));
         } else {
             $id = $inputRow->id;
             unset($inputRow->id);
 
-            $pavEntity = $service->updateEntity($id, $inputRow);
-
-            if ($pavEntity->isSaved()) {
+            try {
+                $service->updateEntity($id, $inputRow);
                 $this->saveRestoreRow('updated', $entityType, [$id => $restoreRow]);
+            } catch (NotModified $e) {
+                // ignore
             }
         }
     }
