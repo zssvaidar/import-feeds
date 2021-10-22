@@ -39,12 +39,6 @@ class LinkMultiple extends Asset
         $entityType = $config['entity'];
         $delimiter = $config['delimiter'];
 
-        $ids = [];
-        if (!empty($config['default'])) {
-            $ids = Json::decode($config['default'], true);
-        }
-        $names = [];
-
         if (!empty($config['column'])) {
             $entityName = $this->container->get('metadata')->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
             $ids = [];
@@ -123,8 +117,15 @@ class LinkMultiple extends Asset
             }
         }
 
-        $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
-        $inputRow->{$config['name'] . 'Names'} = array_values($names);
+        if (empty($ids) && !empty($config['default'])) {
+            $ids = Json::decode($config['default'], true);
+            $names = [];
+        }
+
+        if (!empty($ids)) {
+            $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
+            $inputRow->{$config['name'] . 'Names'} = array_values($names);
+        }
     }
 
     /**
