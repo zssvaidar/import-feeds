@@ -26,6 +26,7 @@ use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\Services\Base;
 use Espo\Core\Utils\Metadata;
+use Espo\Core\Utils\Util;
 use Espo\ORM\Entity;
 use Espo\Services\QueueManagerBase;
 
@@ -82,10 +83,17 @@ class ImportTypeSimple extends QueueManagerBase
                 $input = new \stdClass();
                 $restore = new \stdClass();
 
+                $attributes = [];
                 foreach ($data['data']['configuration'] as $item) {
-                    $this->convertItem($input, $item, $row);
+                    if ($item['type'] == 'Attribute') {
+                        $attributes[] = ['item' => $item, 'row' => $row];
+                        continue 1;
+                    }
+
+                    $type = $this->getMetadata()->get(['entityDefs', $item['entity'], 'fields', $item['name'], 'type'], 'varchar');
+                    $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->convert($input, $item, $row);
                     if (!empty($entity)) {
-                        $this->prepareValue($restore, $entity, $item);
+                        $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->prepareValue($restore, $entity, $item);
                     }
                 }
 
@@ -96,6 +104,10 @@ class ImportTypeSimple extends QueueManagerBase
                 } else {
                     $updatedEntity = $this->getService($data['data']['entity'])->updateEntity($id, $input);
                     $this->saveRestoreRow('updated', $data['data']['entity'], [$id => $restore]);
+                }
+
+                foreach ($attributes as $attribute) {
+                    $this->importAttribute($updatedEntity, $attribute);
                 }
 
                 if ($this->getEntityManager()->getPDO()->inTransaction()) {
@@ -169,30 +181,6 @@ class ImportTypeSimple extends QueueManagerBase
         return $this->getEntityManager()->getRepository($entityType)->where($where)->findOne();
     }
 
-    protected function convertItem(\stdClass $inputRow, array $item, array $row): void
-    {
-        if ($item['type'] == 'Attribute') {
-            // @todo attributes
-            return;
-        }
-
-        $type = $this->getMetadata()->get(['entityDefs', $item['entity'], 'fields', $item['name'], 'type'], 'varchar');
-
-        $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->convert($inputRow, $item, $row);
-    }
-
-    protected function prepareValue(\stdClass $restore, Entity $entity, array $item): void
-    {
-        if ($item['type'] == 'Attribute') {
-            // @todo attributes
-            return;
-        }
-
-        $type = $this->getMetadata()->get(['entityDefs', $item['entity'], 'fields', $item['name'], 'type'], 'varchar');
-
-        $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->prepareValue($restore, $entity, $item);
-    }
-
     protected function saveRestoreRow(string $action, string $entityType, $data): void
     {
         $this->restore[] = [
@@ -213,6 +201,74 @@ class ImportTypeSimple extends QueueManagerBase
         }
 
         return 'HTTP Code: ' . $code;
+    }
+
+    protected function importAttribute(Entity $product, array $data)
+    {
+        $entityType = 'ProductAttributeValue';
+        $service = $this->getService($entityType);
+
+        $inputRow = new \stdClass();
+        $restoreRow = new \stdClass();
+
+        $conf = $data['item'];
+        $row = $data['row'];
+
+        $attribute = $this->getEntityManager()->getEntity('Attribute', $conf['attributeId']);
+        if (empty($attribute)) {
+            throw new BadRequest("No such Attribute '{$conf['attributeId']}'.");
+        }
+        $conf['attribute'] = $attribute;
+
+        $conf['name'] = 'value';
+        if ($conf['locale'] !== 'main') {
+            $conf['name'] .= Util::toCamelCase(strtolower($conf['locale']), '_', true);
+        }
+
+        $pavWhere = [
+            'productId'   => $product->get('id'),
+            'attributeId' => $conf['attributeId'],
+            'scope'       => $conf['scope'],
+        ];
+
+        if ($conf['scope'] === 'Channel') {
+            $pavWhere['channelId'] = $conf['channelId'];
+        }
+
+        $converter = $this->getService('ImportConfiguratorItem')->getFieldConverter($attribute->get('type'));
+
+        $pav = $this->getEntityManager()->getRepository($entityType)->where($pavWhere)->findOne();
+        if (!empty($pav)) {
+            $inputRow->id = $pav->get('id');
+            $converter->prepareValue($restoreRow, $pav, $conf);
+        }
+
+        // convert attribute value
+        $converter->convert($inputRow, $conf, $row);
+
+        if (!isset($inputRow->id)) {
+            $inputRow->productId = $product->get('id');
+            $inputRow->attributeId = $conf['attributeId'];
+            $inputRow->scope = $conf['scope'];
+            if ($conf['scope'] === 'Channel') {
+                $inputRow->channelId = $conf['channelId'];
+            }
+
+            $pavEntity = $service->createEntity($inputRow);
+
+            if ($pavEntity->isSaved()) {
+                $this->saveRestoreRow('created', $entityType, $pavEntity->get('id'));
+            }
+        } else {
+            $id = $inputRow->id;
+            unset($inputRow->id);
+
+            $pavEntity = $service->updateEntity($id, $inputRow);
+
+            if ($pavEntity->isSaved()) {
+                $this->saveRestoreRow('updated', $entityType, [$id => $restoreRow]);
+            }
+        }
     }
 
     protected function getService(string $name): Base
