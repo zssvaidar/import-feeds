@@ -31,18 +31,20 @@ Espo.define('import:views/import-configurator-item/fields/entity-identifier', 'v
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            let show = false;
-            if (this.model.get('type') === 'Field') {
-                let type = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`) || 'varchar';
-                if (!['asset', 'linkMultiple', 'jsonObject'].includes(type)) {
-                    show = true;
+            if (this.mode !== 'list') {
+                let show = false;
+                if (this.model.get('type') === 'Field') {
+                    let type = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`) || 'varchar';
+                    if (!['asset', 'linkMultiple', 'jsonObject'].includes(type)) {
+                        show = true;
+                    }
                 }
-            }
 
-            if (show) {
-                this.show();
-            } else {
-                this.hide();
+                if (show) {
+                    this.show();
+                } else {
+                    this.hide();
+                }
             }
         },
 

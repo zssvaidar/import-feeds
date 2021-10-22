@@ -39,7 +39,7 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
         },
 
         isButtonsDisabled() {
-            return !this.model.get('isActive') || !this.model.get('fileId');
+            return !this.model.get('isActive');
         },
 
         handleButtonsDisability() {
