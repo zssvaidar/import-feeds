@@ -36,16 +36,13 @@ class Link extends Varchar
      */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $value = $config['default'];
-        $name = null;
-
         if (!empty($row[$config['column'][0]])) {
             // get entity name
             $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
 
             $values = explode('|', $row[$config['column'][0]]);
             $where = [];
-            foreach ($config['field'] as $k => $field) {
+            foreach ($config['importBy'] as $k => $field) {
                 $where[$field] = $values[$k];
             }
 
@@ -57,14 +54,17 @@ class Link extends Varchar
 
             if (!empty($entity)) {
                 $value = $entity->get('id');
-                $name = $entity->get('name');
-            } else {
-                throw new \Exception("Not found any entities for field '{$config['name']}'");
             }
         }
 
-        $inputRow->{$config['name'] . 'Id'} = $value;
-        $inputRow->{$config['name'] . 'Name'} = $name;
+        if (empty($value) && !empty($config['default'])) {
+            $value = $config['default'];
+        }
+
+        if (!empty($value)) {
+            $inputRow->{$config['name'] . 'Id'} = $value;
+            $inputRow->{$config['name'] . 'Name'} = $value;
+        }
     }
 
     /**

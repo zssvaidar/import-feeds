@@ -252,11 +252,8 @@ class ImportTypeSimple extends QueueManagerBase
             $inputRow->attributeId = $conf['attributeId'];
             $inputRow->scope = $conf['scope'];
             if ($conf['scope'] === 'Channel') {
-                if (empty($channel = $this->getEntityManager()->getEntity('Channel', $conf['channelId']))) {
-                    throw new BadRequest("No such Channel '{$conf['channelId']}'.");
-                }
-                $inputRow->channelId = $channel->get('id');
-                $inputRow->channelName = $channel->get('name');
+                $inputRow->channelId = $conf['channelId'];
+                $inputRow->channelName = $conf['channelId'];
             }
 
             $pavEntity = $service->createEntity($inputRow);
