@@ -55,6 +55,8 @@
     "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
+    "permissionDenied": "Permission denied",
+    "nothingToUpdate": "Nothing to update",
     "configuratorEmpty": "Configurator cannot be empty.",
     "utf8Expected": "Uploaded file should be UTF-8 encoded.",
     "fileEmpty": "Uploaded file cannot be empty.",

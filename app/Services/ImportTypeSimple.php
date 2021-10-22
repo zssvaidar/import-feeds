@@ -205,11 +205,11 @@ class ImportTypeSimple extends QueueManagerBase
     protected function getCodeMessage(int $code): string
     {
         if ($code == 304) {
-            return 'Nothing to update';
+            return $this->translate('nothingToUpdate', 'exceptions', 'ImportFeed');
         }
 
         if ($code == 403) {
-            return 'Permissions denied';
+            return $this->translate('permissionDenied', 'exceptions', 'ImportFeed');
         }
 
         return 'HTTP Code: ' . $code;

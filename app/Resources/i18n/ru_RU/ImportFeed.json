@@ -55,6 +55,8 @@
     "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными."
   },
   "exceptions": {
+    "permissionDenied": "Доступ запрещен",
+    "nothingToUpdate": "Нечего обновлять",
     "configuratorEmpty": "Конфигуратор не может быть пустым.",
     "utf8Expected": "Загружаемый фал должен быть в кодировки UTF-8.",
     "fileEmpty": "Загружаемый файл не может быть пустым.",
