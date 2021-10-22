@@ -142,6 +142,10 @@ class LinkMultiple extends Asset
         $restore->{$item['name'] . 'Names'} = $names;
     }
 
+    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
+    {
+    }
+
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
     {
         if ($entity->has('defaultIds')) {

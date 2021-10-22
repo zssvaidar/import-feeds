@@ -43,6 +43,17 @@ class Boolean extends Varchar
         $inputRow->{$config['name']} = (bool)$result;
     }
 
+    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
+    {
+        $value = !empty($configuration['default']);
+
+        if (isset($configuration['column'][0]) && isset($row[$configuration['column'][0]])) {
+            $value = !empty($row[$configuration['column'][0]]);
+        }
+
+        $where[$configuration['name']] = $value;
+    }
+
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
     {
         $entity->set('default', !empty($entity->get('default')));

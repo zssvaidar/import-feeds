@@ -109,6 +109,10 @@ class Asset extends Varchar
         $restore->{$item['name'] . 'Id'} = $value;
     }
 
+    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
+    {
+    }
+
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
     {
         if ($entity->has('defaultId')) {

@@ -47,6 +47,10 @@ class JsonArray extends Varchar
         $inputRow->{$config['name']} = Json::encode($value);
     }
 
+    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
+    {
+    }
+
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
     {
         if ($entity->isAttributeChanged('default')) {

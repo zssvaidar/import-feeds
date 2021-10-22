@@ -88,6 +88,31 @@ class Unit extends FloatValue
         parent::prepareValue($restore, $entity, $item);
     }
 
+    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
+    {
+        if (!empty($configuration['default'])) {
+            $default = Json::decode($configuration['default'], true);
+            if ((!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) && !empty($default['unit'])) {
+                $value = (float)$default['value'];
+                $unit = (string)$default['unit'];
+            }
+        }
+
+        if (isset($configuration['column'][1])) {
+            $value = (float)$row[$configuration['column'][0]];
+            $unit = (string)$row[$configuration['column'][1]];
+        } elseif (isset($configuration['column'][0])) {
+            $parts = explode(' ', $row[$configuration['column'][0]]);
+            $value = (float)array_shift($parts);
+            $unit = (string)array_shift($parts);
+        }
+
+        if (isset($value) && isset($unit)) {
+            $where[$configuration['name']] = $value;
+            $where["{$configuration['name']}Unit"] = $unit;
+        }
+    }
+
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
     {
         $old = !$entity->isNew() ? Json::decode($entity->getFetched('default'), true) : ['value' => 0, 'unit' => ''];
