@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
-use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
