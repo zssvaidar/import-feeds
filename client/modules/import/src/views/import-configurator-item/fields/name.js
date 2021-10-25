@@ -69,16 +69,18 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
         getExtraInfo() {
             let extraInfo = null;
 
-            if (this.model.get('importBy').length > 0) {
-                const entityName = this.model.getLinkParam('default', 'entity');
-                let translated = [];
-                this.model.get('importBy').forEach(field => {
-                    translated.push(this.translate(field, 'fields', entityName));
-                });
-
-                extraInfo = `<span class="text-muted small">${this.translate('importBy', 'fields', 'ImportConfiguratorItem')}: ${translated.join(', ')}</span>`;
-                if (this.model.get('createIfNotExist')) {
-                    extraInfo += `<br><span class="text-muted small">${this.translate('createIfNotExist', 'fields', 'ImportConfiguratorItem')}</span>`;
+            if (this.model.get('type') === 'Field') {
+                let type = this.getMetadata().get(['entityDefs', this.model.get('entity'), 'fields', this.model.get('name'), 'type']);
+                if (type === 'link' || type === 'linkMultiple') {
+                    const entityName = this.model.getLinkParam('default', 'entity');
+                    let translated = [];
+                    this.model.get('importBy').forEach(field => {
+                        translated.push(this.translate(field, 'fields', entityName));
+                    });
+                    extraInfo = `<span class="text-muted small">${this.translate('importBy', 'fields', 'ImportConfiguratorItem')}: ${translated.join(', ')}</span>`;
+                    if (this.model.get('createIfNotExist')) {
+                        extraInfo += `<br><span class="text-muted small">${this.translate('createIfNotExist', 'fields', 'ImportConfiguratorItem')}</span>`;
+                    }
                 }
             }
 
