@@ -24,7 +24,11 @@ Espo.define('import:views/import-feed/record/panels/configurator-items', 'views/
             Dep.prototype.setup.call(this);
 
             this.listenTo(this.collection, 'model-removing', () => {
-                this.model.trigger('configurator-item-removed');
+                this.model.trigger('updateUnusedColumns');
+            });
+
+            this.listenTo(this.collection, 'sync', () => {
+                this.model.trigger('updateUnusedColumns');
             });
 
         },

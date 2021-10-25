@@ -29,7 +29,7 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
                 this.loadFileColumns();
             });
 
-            this.listenTo(this.model, 'configurator-item-removed', () => {
+            this.listenTo(this.model, 'updateUnusedColumns', () => {
                 setTimeout(() => this.loadFileColumns(), 1000);
             });
         },
