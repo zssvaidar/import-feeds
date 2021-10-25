@@ -32,6 +32,12 @@ Espo.define('import:views/import-configurator-item/fields/create-if-not-exist', 
             Dep.prototype.afterRender.call(this);
 
             if (['asset', 'link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`))) {
+                const $input = this.$el.find('input');
+                if (this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`) === 'Asset') {
+                    $input.attr('disabled', 'disabled');
+                } else {
+                    $input.removeAttr('disabled');
+                }
                 this.show();
             } else {
                 this.hide();

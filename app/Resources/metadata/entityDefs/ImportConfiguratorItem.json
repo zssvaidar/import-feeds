@@ -22,7 +22,8 @@
     },
     "createIfNotExist": {
       "type": "bool",
-      "view": "import:views/import-configurator-item/fields/create-if-not-exist"
+      "view": "import:views/import-configurator-item/fields/create-if-not-exist",
+      "default": true
     },
     "type": {
       "type": "enum",

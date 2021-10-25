@@ -47,7 +47,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
                 $.each(this.getMetadata().get(`entityDefs.${foreignEntity}.fields`) || {}, (name, data) => {
                     if (
                         data.type
-                        && !['asset', 'link', 'linkMultiple', 'array', 'multiEnum', 'jsonArray'].includes(data.type)
+                        && !['asset', 'link', 'linkMultiple', 'array', 'multiEnum', 'jsonArray', 'currency', 'unit'].includes(data.type)
                         && !data.disabled
                         && !data.importDisabled
                     ) {
