@@ -51,7 +51,7 @@ class AttachmentController extends AbstractListener
             throw new BadRequest($this->getLanguage()->translate('fileEmpty', 'exceptions', 'ImportFeed'));
         }
 
-        if (mb_detect_encoding($content) !== 'UTF-8') {
+        if (!preg_match('//u', $content)) {
             throw new BadRequest($this->getLanguage()->translate('utf8Expected', 'exceptions', 'ImportFeed'));
         }
     }
