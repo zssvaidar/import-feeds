@@ -52,7 +52,7 @@ class LinkMultiple extends Asset
                     $values = explode('|', $item);
 
                     $where = [];
-                    foreach ($config['field'] as $k => $field) {
+                    foreach ($config['importBy'] as $k => $field) {
                         $where[$field] = $values[$k];
                     }
 
