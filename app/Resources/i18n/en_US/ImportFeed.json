@@ -1,7 +1,7 @@
 {
   "fields": {
     "entity": "Entity",
-    "delimiter": "Field value delimiter",
+    "delimiter": "Data record delimiter",
     "unusedColumns": "Unused Columns",
     "file": "File",
     "isActive": "Active",

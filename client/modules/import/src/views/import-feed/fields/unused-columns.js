@@ -25,11 +25,14 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
 
             this.loadFileColumns();
 
-            this.listenTo(this.model, 'fileUpdate change:fileFieldDelimiter change:fileTextQualifier change:isFileHeaderRow', () => {
+            this.listenTo(this.model, 'fileUpdate change:fileFieldDelimiter change:fileTextQualifier change:isFileHeaderRow after:relate', () => {
                 this.loadFileColumns();
             });
-        },
 
+            this.listenTo(this.model, 'configurator-item-removed', () => {
+                setTimeout(() => this.loadFileColumns(), 1000);
+            });
+        },
 
         loadFileColumns() {
             let fileId = this.model.get('fileId');
@@ -45,24 +48,16 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
             };
 
             this.ajaxGetRequest(`ImportFeed/${fileId}/fileColumns`, data).success(response => {
-                const configData = this.model.get('data');
-                let usedColumns = {};
-                if (configData && configData.configuration) {
-                    configData.configuration.forEach(item => {
-                        (item.column || []).forEach(column => {
-                            usedColumns[column] = true;
-                        });
-                    });
-                }
-
                 let columns = [];
                 response.forEach(row => {
-                    if (!usedColumns[row.column]) {
+                    if (!row.isUsed) {
                         columns.push(row.name);
                     }
                 });
 
-                localStorage.setItem('importAllColumns', response.map(row => {return row.name}).join(','))
+                localStorage.setItem('importAllColumns', response.map(row => {
+                    return row.name
+                }).join(','))
                 this.model.set('unusedColumns', columns);
                 this.reRender();
             });

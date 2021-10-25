@@ -1,7 +1,7 @@
 {
   "fields": {
     "entity": "Entität",
-    "delimiter": "Feldwert Trennzeichen",
+    "delimiter": "Datensatztrennzeichen",
     "unusedColumns": "Nicht verwendete Spalten Column",
     "file": "Datei",
     "isActive": "Aktiv",

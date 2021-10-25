@@ -81,9 +81,33 @@ class ImportFeed extends Base
         $enclosure = ($request->get('enclosure') == 'singleQuote') ? "'" : '"';
         $isFileHeaderRow = (is_null($request->get('isHeaderRow'))) ? true : !empty($request->get('isHeaderRow'));
 
-        return $this
-            ->getCsvFileParser()
-            ->getFileColumns($attachment, $delimiter, $enclosure, $isFileHeaderRow);
+        $columns = $this->getCsvFileParser()->getFileColumns($attachment, $delimiter, $enclosure, $isFileHeaderRow);
+
+        if (!empty($columns)) {
+            $items = $this
+                ->getEntityManager()
+                ->getRepository('ImportConfiguratorItem')
+                ->select(['column'])
+                ->where(
+                    [
+                        'importFeedId' => $request->get('importFeedId'),
+                        'column!='     => null
+                    ]
+                )
+                ->find()
+                ->toArray();
+
+            $usedColumns = [];
+            foreach (array_column($items, 'column') as $v) {
+                $usedColumns = array_merge($usedColumns, $v);
+            }
+
+            foreach ($columns as $k => $v) {
+                $columns[$k]['isUsed'] = in_array($v['column'], $usedColumns);
+            }
+        }
+
+        return $columns;
     }
 
     /**
