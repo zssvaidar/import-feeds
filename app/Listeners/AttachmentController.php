@@ -42,7 +42,20 @@ class AttachmentController extends AbstractListener
             return;
         }
 
-        if ($data->type !== "text/csv") {
+        $csvTypes = [
+            "text/csv",
+            "text/plain",
+            "text/x-csv",
+            "application/vnd.ms-excel",
+            "text/x-csv",
+            "application/csv",
+            "application/x-csv",
+            "text/comma-separated-values",
+            "text/x-comma-separated-values",
+            "text/tab-separated-values"
+        ];
+
+        if (!in_array($data->type, $csvTypes)) {
             throw new BadRequest($this->getLanguage()->translate('csvExpected', 'exceptions', 'ImportFeed'));
         }
 
