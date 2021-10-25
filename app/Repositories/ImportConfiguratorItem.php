@@ -67,9 +67,11 @@ class ImportConfiguratorItem extends Base
 
     protected function prepareDefaultField(string $type, Entity $entity): void
     {
-        $converter = $this->getMetadata()->get(['import', 'simple', 'fields', $type, 'converter']);
-        if (!empty($converter)) {
-            (new $converter($this->getInjection('container')))->prepareForSaveConfiguratorDefaultField($entity);
-        }
+        $this
+            ->getInjection('container')
+            ->get('serviceFactory')
+            ->create('ImportConfiguratorItem')
+            ->getFieldConverter($type)
+            ->prepareForSaveConfiguratorDefaultField($entity);
     }
 }
