@@ -28,19 +28,22 @@ class Link extends Varchar
 {
     const ALLOWED_TYPES = ['bool', 'enum', 'varchar', 'float', 'int', 'text', 'wysiwyg'];
 
-    /**
-     * @inheritDoc
-     *
-     * @throws \Exception
-     */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         if (!empty($row[$config['column'][0]])) {
             $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
 
+            $user = $this->container->get('user');
+            $userId = empty($user) ? null : $user->get('id');
+
             $values = explode('|', $row[$config['column'][0]]);
 
             $input = new \stdClass();
+
+            $input->ownerUserId = $userId;
+            $input->ownerUserName = $userId;
+            $input->assignedUserId = $userId;
+            $input->assignedUserName = $userId;
 
             $where = [];
 
@@ -86,9 +89,6 @@ class Link extends Varchar
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $value = null;

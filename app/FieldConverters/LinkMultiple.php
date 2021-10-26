@@ -33,8 +33,11 @@ class LinkMultiple extends Varchar
         $delimiter = $config['delimiter'];
 
         if (!empty($config['column'])) {
-            $entityName = $this->container->get('metadata')->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
+            $entityName = $this->getMetadata()->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
             $ids = [];
+
+            $user = $this->container->get('user');
+            $userId = empty($user) ? null : $user->get('id');
 
             foreach ($config['column'] as $column) {
                 $items = explode($delimiter, $row[$column]);
@@ -46,6 +49,11 @@ class LinkMultiple extends Varchar
                     $values = explode('|', $item);
 
                     $input = new \stdClass();
+
+                    $input->ownerUserId = $userId;
+                    $input->ownerUserName = $userId;
+                    $input->assignedUserId = $userId;
+                    $input->assignedUserName = $userId;
 
                     $where = [];
 
