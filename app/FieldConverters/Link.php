@@ -75,6 +75,11 @@ class Link extends Varchar
                 $input->assignedUserId = $userId;
                 $input->assignedUserName = $userId;
                 $entity = $this->getService($entityName)->createEntity($input);
+
+                // for attribute
+                if (!empty($config['relEntityName']) && !empty($entity)) {
+                    $entity = $entity->get('file');
+                }
             }
 
             if (!empty($entity)) {
