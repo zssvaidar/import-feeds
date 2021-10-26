@@ -26,6 +26,16 @@ use Espo\ORM\Entity;
 
 class Asset extends Link
 {
+    public function convert(\stdClass $inputRow, array $config, array $row): void
+    {
+        if ($config['type'] === 'Attribute') {
+            $config['importBy'] = ['url'];
+            $config['relEntityName'] = 'Asset';
+        }
+
+        parent::convert($inputRow, $config, $row);
+    }
+
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $value = null;

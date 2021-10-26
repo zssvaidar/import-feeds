@@ -31,7 +31,11 @@ class Link extends Varchar
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         if (!empty($row[$config['column'][0]])) {
-            $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
+            if (isset($config['relEntityName'])) {
+                $entityName = $config['relEntityName'];
+            } else {
+                $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
+            }
 
             $user = $this->container->get('user');
             $userId = empty($user) ? null : $user->get('id');
