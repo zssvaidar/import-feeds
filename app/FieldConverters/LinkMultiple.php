@@ -43,8 +43,8 @@ class LinkMultiple extends Varchar
                         ->getFieldConverter('link')
                         ->convert($input, array_merge($config, ['column' => [0], 'default' => null]), [$item]);
 
-                    if (!empty($input)) {
-                        $key = $config['name'] . 'Id';
+                    $key = $config['name'] . 'Id';
+                    if (property_exists($input, $key)) {
                         $ids[$input->$key] = $input->$key;
                     }
                 }
