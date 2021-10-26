@@ -22,83 +22,10 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
-use Espo\Core\Exceptions\BadRequest;
-use Espo\Core\Exceptions\Error;
-use Espo\Entities\Attachment;
 use Espo\ORM\Entity;
-use Espo\Repositories\Attachment as AttachmentRepository;
-use Espo\Services\Attachment as AttachmentService;
-use Treo\Core\FilePathBuilder;
 
-/**
- * Class Asset
- */
-class Asset extends Varchar
+class Asset extends Link
 {
-    /**
-     * @var null|AttachmentService
-     */
-    private $attachmentService = null;
-
-    /**
-     * @inheritDoc
-     *
-     * @throws Error
-     */
-    public function convert(\stdClass $inputRow, array $config, array $row): void
-    {
-        if (!empty($row[$config['column'][0]])) {
-            // get entity name
-            $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
-
-            $values = explode('|', $row[$config['column'][0]]);
-            $where = [];
-            foreach ($config['field'] as $k => $field) {
-                if ($field != 'url') {
-                    $where[$field] = $values[$k];
-                } else {
-                    $url = $values[$k];
-                }
-            }
-
-            if (!empty($where)) {
-                $entity = $this->getEntityManager()
-                    ->getRepository($entityName)
-                    ->select(['id', 'name'])
-                    ->where($where)
-                    ->findOne();
-            }
-
-            if (!empty($entity)) {
-                $value = $entity->get('id');
-            } else {
-                if (!empty($url)) {
-                    $attachment = $this->createAttachment((string)$url, $entityName, (string)$config['name']);
-                    $value = $attachment->get('id');
-                } else {
-                    if (!empty($config['createIfNotExist'])) {
-                        $entity = $this->getEntityManager()->getRepository($entityName)->get();
-                        $entity->set($where);
-                        $this->getEntityManager()->saveEntity($entity);
-                        $value = $entity->get('id');
-                    }
-                }
-            }
-        }
-
-        if (empty($value) && !empty($config['default'])) {
-            $value = $config['default'];
-        }
-
-        if (!empty($value)) {
-            $inputRow->{$config['name'] . 'Id'} = $value;
-            $inputRow->{$config['name'] . 'Name'} = $value;
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $value = null;
@@ -132,47 +59,5 @@ class Asset extends Varchar
             $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
             $entity->set('defaultPathsData', $this->getEntityManager()->getRepository('Attachment')->getAttachmentPathsData($relEntity));
         }
-    }
-
-    protected function createAttachment(string $url, string $relatedType, string $field): Attachment
-    {
-        $attachment = new \stdClass();
-        $attachment->name = basename($url);
-        $attachment->relatedType = $relatedType;
-        $attachment->field = $field;
-        $attachment->storageFilePath = $this->getAttachmentRepository()->getDestPath(FilePathBuilder::UPLOAD);
-        $attachment->storageThumbPath = $this->getAttachmentRepository()->getDestPath(FilePathBuilder::UPLOAD);
-
-        $fullPath = $this->getConfig()->get('filesPath', 'upload/files/') . $attachment->storageFilePath;
-        if (!file_exists($fullPath)) {
-            mkdir($fullPath, 0777, true);
-        }
-
-        $attachment->fileName = $fullPath . '/' . $attachment->name;
-
-        $file = fopen($url, 'r');
-        if ($file) {
-            file_put_contents($attachment->fileName, $file);
-        }
-
-        if (!file_exists($attachment->fileName)) {
-            throw new Error("File '$url' download failed.");
-        }
-
-        return $this->getAttachmentService()->createEntity($attachment);
-    }
-
-    protected function getAttachmentRepository(): AttachmentRepository
-    {
-        return $this->container->get('entityManager')->getRepository('Attachment');
-    }
-
-    protected function getAttachmentService(): AttachmentService
-    {
-        if (is_null($this->attachmentService)) {
-            $this->attachmentService = $this->container->get('serviceFactory')->create('Attachment');
-        }
-
-        return $this->attachmentService;
     }
 }
