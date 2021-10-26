@@ -40,11 +40,6 @@ class Link extends Varchar
 
             $input = new \stdClass();
 
-            $input->ownerUserId = $userId;
-            $input->ownerUserName = $userId;
-            $input->assignedUserId = $userId;
-            $input->assignedUserName = $userId;
-
             $where = [];
 
             foreach ($config['importBy'] as $k => $field) {
@@ -71,6 +66,10 @@ class Link extends Varchar
             }
 
             if (empty($entity) && !empty($input) && !empty($config['createIfNotExist'])) {
+                $input->ownerUserId = $userId;
+                $input->ownerUserName = $userId;
+                $input->assignedUserId = $userId;
+                $input->assignedUserName = $userId;
                 $entity = $this->getService($entityName)->createEntity($input);
             }
 
