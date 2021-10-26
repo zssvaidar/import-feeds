@@ -68,14 +68,13 @@ class LinkMultiple extends Varchar
                     }
 
                     $entity = null;
-                    if (!empty($post)) {
+
+                    if (!empty($where)) {
                         $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
                     }
 
-                    if (empty($entity) && !empty($input)) {
-                        if (!empty($config['createIfNotExist']) || $entityName === 'Asset') {
-                            $entity = $this->getService($entityName)->createEntity($input);
-                        }
+                    if (empty($entity) && !empty($input) && !empty($config['createIfNotExist'])) {
+                        $entity = $this->getService($entityName)->createEntity($input);
                     }
 
                     if (!empty($entity)) {
