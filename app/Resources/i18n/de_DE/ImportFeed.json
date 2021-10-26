@@ -51,6 +51,7 @@
     "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
   },
   "exceptions": {
+    "pipelineIsNotAllowed": "Symbol \"|\" kann nicht als Trennzeichen verwendet werden.",
     "permissionDenied": "Zugriff verweigert",
     "nothingToUpdate": "Nichts zu aktualisieren",
     "configuratorEmpty": "Konfigurator kann nicht leer sein.",

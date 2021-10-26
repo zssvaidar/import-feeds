@@ -37,14 +37,16 @@ class ImportFeed extends Base
 
     protected function beforeSave(Entity $entity, array $options = [])
     {
-        $isSimple = $entity->get('type') === 'simple';
-
-        $removeConfigurator = $isSimple && $entity->has('entity') && !$entity->isNew() && $entity->getFeedField('entity') !== $entity->get('entity');
-
         $this->setFeedFieldsToDataJson($entity);
 
-        if ($isSimple) {
+        $removeConfigurator = false;
+
+        if ($entity->get('type') === 'simple') {
             $this->validateSimpleType($entity);
+            $removeConfigurator = $entity->has('entity') && !$entity->isNew() && $entity->getFeedField('entity') !== $entity->get('entity');
+            if (!$removeConfigurator && $entity->isAttributeChanged('fileId')) {
+                $removeConfigurator = true;
+            }
         }
 
         parent::beforeSave($entity, $options);
@@ -61,7 +63,11 @@ class ImportFeed extends Base
     protected function validateSimpleType(Entity $entity): void
     {
         if ($entity->getFeedField('delimiter') === $entity->getFeedField('fileFieldDelimiter')) {
-            throw new BadRequest($this->getInjection('language')->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
+            throw new BadRequest($this->getLanguage()->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
+        }
+
+        if ($entity->get('fileFieldDelimiter') === '|' || $entity->get('delimiter') === '|') {
+            throw new BadRequest($this->getLanguage()->translate("pipelineIsNotAllowed", "exceptions", "ImportFeed"));
         }
     }
 

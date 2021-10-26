@@ -54,6 +54,7 @@
     "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
+    "pipelineIsNotAllowed": "Symbol \"|\" cannot be used as delimiter.",
     "permissionDenied": "Permission denied",
     "nothingToUpdate": "Nothing to update",
     "configuratorEmpty": "Configurator cannot be empty.",

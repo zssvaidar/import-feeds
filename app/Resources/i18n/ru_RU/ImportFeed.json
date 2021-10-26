@@ -54,6 +54,7 @@
     "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными."
   },
   "exceptions": {
+    "pipelineIsNotAllowed": "Символ \"|\" не можем быть использован как разделитель.",
     "permissionDenied": "Доступ запрещен",
     "nothingToUpdate": "Нечего обновлять",
     "configuratorEmpty": "Конфигуратор не может быть пустым.",
