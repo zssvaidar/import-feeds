@@ -29,62 +29,23 @@ class LinkMultiple extends Varchar
 {
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $entityType = $config['entity'];
-        $delimiter = $config['delimiter'];
-
         if (!empty($config['column'])) {
-            $entityName = $this->getMetadata()->get(['entityDefs', $entityType, 'links', $config['name'], 'entity']);
             $ids = [];
-
-            $user = $this->container->get('user');
-            $userId = empty($user) ? null : $user->get('id');
-
             foreach ($config['column'] as $column) {
-                $items = explode($delimiter, $row[$column]);
+                $items = explode($config['delimiter'], $row[$column]);
                 if (empty($items)) {
                     continue 1;
                 }
-
                 foreach ($items as $item) {
-                    $values = explode('|', $item);
-
                     $input = new \stdClass();
+                    $this
+                        ->getService('ImportConfiguratorItem')
+                        ->getFieldConverter('link')
+                        ->convert($input, array_merge($config, ['column' => [0], 'default' => null]), [$item]);
 
-                    $where = [];
-
-                    foreach ($config['importBy'] as $k => $field) {
-                        $fieldData = $this->getMetadata()->get(['entityDefs', $entityName, 'fields', $field]);
-
-                        if (empty($fieldData['type']) || !in_array($fieldData['type'], Link::ALLOWED_TYPES)) {
-                            continue 1;
-                        }
-
-                        $this
-                            ->getService('ImportConfiguratorItem')
-                            ->getFieldConverter($fieldData['type'])
-                            ->convert($input, ['name' => $field, 'column' => [0], 'default' => null], [$values[$k]]);
-
-                        if (empty($fieldData['notStorable'])) {
-                            $where[$field] = $values[$k];
-                        }
-                    }
-
-                    $entity = null;
-
-                    if (!empty($where)) {
-                        $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
-                    }
-
-                    if (empty($entity) && !empty($input) && !empty($config['createIfNotExist'])) {
-                        $input->ownerUserId = $userId;
-                        $input->ownerUserName = $userId;
-                        $input->assignedUserId = $userId;
-                        $input->assignedUserName = $userId;
-                        $entity = $this->getService($entityName)->createEntity($input);
-                    }
-
-                    if (!empty($entity)) {
-                        $ids[$entity->get('id')] = $entity->get('id');
+                    if (!empty($input)) {
+                        $key = $config['name'] . 'Id';
+                        $ids[$input->$key] = $input->$key;
                     }
                 }
             }
