@@ -54,6 +54,10 @@
     "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными."
   },
   "exceptions": {
+    "incorrectCurrency": "Валюта '%s' для поля '%s' не поддерживается.",
+    "incorrectAttributeCurrency": "Валюта '%s' для значения атрибута '%s' не поддерживается.",
+    "incorrectUnit": "Единица измерения '%s' для поля '%s' не поддерживается.",
+    "incorrectAttributeUnit": "единица измерения '%s' для значения аттрибута '%s' не поддерживается.",
     "pipelineIsNotAllowed": "Символ \"|\" не можем быть использован как разделитель.",
     "permissionDenied": "Доступ запрещен",
     "nothingToUpdate": "Нечего обновлять",

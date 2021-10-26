@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
@@ -64,7 +65,15 @@ class Unit extends FloatValue
 
         // validate measuring unit
         if (!$this->validateUnit($unit, $entityType, $config)) {
-            throw new \Exception("Incorrect measuring unit for field '{$config['name']}'");
+            $language = $this->container->get('language');
+            if (isset($config['attributeId'])) {
+                $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
+                $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
+                $message = sprintf($language->translate('incorrectAttributeUnit', 'exceptions', 'ImportFeed'), $unit, $fieldValue);
+            } else {
+                $message = sprintf($language->translate('incorrectUnit', 'exceptions', 'ImportFeed'), $unit, $config['name']);
+            }
+            throw new BadRequest($message);
         }
 
         if (isset($config['attributeId'])) {

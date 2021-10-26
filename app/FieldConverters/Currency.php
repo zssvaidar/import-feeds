@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
@@ -62,7 +63,15 @@ class Currency extends FloatValue
 
         // validate currency
         if (!in_array($currency, $this->getConfig()->get('currencyList', []))) {
-            throw new \Exception("Incorrect currency for field '{$config['name']}'");
+            $language = $this->container->get('language');
+            if (isset($config['attributeId'])) {
+                $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
+                $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
+                $message = sprintf($language->translate('incorrectAttributeCurrency', 'exceptions', 'ImportFeed'), $currency, $fieldValue);
+            } else {
+                $message = sprintf($language->translate('incorrectCurrency', 'exceptions', 'ImportFeed'), $currency, $config['name']);
+            }
+            throw new BadRequest($message);
         }
 
         if (isset($config['attributeId'])) {
