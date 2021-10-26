@@ -25,14 +25,8 @@ namespace Import\FieldConverters;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
-/**
- * Class LinkMultiple
- */
-class LinkMultiple extends Asset
+class LinkMultiple extends Varchar
 {
-    /**
-     * @inheritDoc
-     */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         $entityType = $config['entity'];
@@ -51,25 +45,36 @@ class LinkMultiple extends Asset
                 foreach ($items as $item) {
                     $values = explode('|', $item);
 
+                    $input = new \stdClass();
+
                     $where = [];
+
                     foreach ($config['importBy'] as $k => $field) {
+                        $fieldData = $this->container->get('metadata')->get(['entityDefs', $entityName, 'fields', $field]);
+                        if (empty($fieldData['type']) || !in_array($fieldData['type'], ['bool', 'enum', 'varchar', 'float', 'int', 'text', 'wysiwyg'])) {
+                            continue 1;
+                        }
+
+                        $this
+                            ->getService('ImportConfiguratorItem')
+                            ->getFieldConverter($fieldData['type'])
+                            ->convert($input, ['name' => $field, 'column' => [0], 'default' => null], [$values[$k]]);
+
+                        if (!empty($fieldData['notStorable'])) {
+                            continue 1;
+                        }
+
                         $where[$field] = $values[$k];
                     }
 
                     $entity = null;
-                    if (!empty($where)) {
-                        $entity = $this->getEntityManager()
-                            ->getRepository($entityName)
-                            ->select(['id', 'name'])
-                            ->where($where)
-                            ->findOne();
+                    if (!empty($post)) {
+                        $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
                     }
 
-                    if (empty($entity)) {
-                        if (!empty($config['createIfNotExist'])) {
-                            $entity = $this->getEntityManager()->getRepository($entityName)->get();
-                            $entity->set($where);
-                            $this->getEntityManager()->saveEntity($entity);
+                    if (empty($entity) && !empty($input)) {
+                        if (!empty($config['createIfNotExist']) || $entityName === 'Asset') {
+                            $entity = $this->getService($entityName)->createEntity($input);
                         }
                     }
 
@@ -90,9 +95,6 @@ class LinkMultiple extends Asset
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
     {
         $ids = null;
