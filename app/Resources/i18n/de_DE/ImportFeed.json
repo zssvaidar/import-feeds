@@ -19,7 +19,6 @@
     "configuratorItems": "Konfigurator"
   },
   "labels": {
-    "channelCode": "Kanal (Code)",
     "currency": "Währung",
     "unit": "Einheit",
     "File properties": "Dateieigenschaften",

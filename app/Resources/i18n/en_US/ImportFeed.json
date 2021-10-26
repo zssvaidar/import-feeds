@@ -23,7 +23,6 @@
     "configuratorItems": "Configurator"
   },
   "labels": {
-    "channelCode": "Channel (code)",
     "currency": "Currency",
     "unit": "Unit",
     "File properties": "File properties",

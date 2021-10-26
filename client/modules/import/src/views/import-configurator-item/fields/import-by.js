@@ -55,11 +55,6 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
                         this.translatedOptions[name] = this.translate(name, 'fields', foreignEntity);
                     }
                 });
-
-                if (this.model.get('entity') === 'Product' && foreignEntity === 'Asset') {
-                    this.params.options.push('channel');
-                    this.translatedOptions['channel'] = this.translate('channelCode', 'labels', 'ImportFeed');
-                }
             }
 
             if (callback) {

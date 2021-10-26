@@ -23,7 +23,6 @@
     "configuratorItems": "Конфигуратор"
   },
   "labels": {
-    "channelCode": "Канал (код)",
     "currency": "Валюта",
     "unit": "Единица",
     "File properties": "Свойства файла",
