@@ -60,20 +60,15 @@ class ImportTypeSimple extends QueueManagerBase
             // increment file row number
             $fileRow++;
 
-            $entity = null;
-            $id = null;
+            $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
+            $id = !empty($entity) ? $entity->get('id') : null;
 
-            if ($data['action'] == 'update') {
-                $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
-                if (empty($entity)) {
-                    continue 1;
-                }
-                $id = $entity->get('id');
+            if ($data['action'] == 'create' && !empty($entity)) {
+                continue 1;
             }
 
-            if ($data['action'] == 'create_update') {
-                $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
-                $id = empty($entity) ? null : $entity->get('id');
+            if ($data['action'] == 'update' && empty($entity)) {
+                continue 1;
             }
 
             if (!$this->getEntityManager()->getPDO()->inTransaction()) {
@@ -156,7 +151,11 @@ class ImportTypeSimple extends QueueManagerBase
             $log->set('restoreData', $this->restore);
         }
 
-        $this->getEntityManager()->saveEntity($log);
+        try {
+            $this->getEntityManager()->saveEntity($log);
+        } catch (\Throwable $e) {
+            // ignore
+        }
 
         $this->restore = [];
 

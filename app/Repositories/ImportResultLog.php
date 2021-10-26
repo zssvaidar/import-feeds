@@ -22,11 +22,24 @@ declare(strict_types=1);
 
 namespace Import\Repositories;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Repositories\Base;
+use Espo\ORM\Entity;
 
-/**
- * Class ImportResultLog
- */
 class ImportResultLog extends Base
 {
+    protected function beforeSave(Entity $entity, array $options = [])
+    {
+        if ($entity->isNew()) {
+            $exist = $this
+                ->select(['id'])
+                ->where(['importResultId' => $entity->get('importResultId'), 'rowNumber' => $entity->get('rowNumber')])
+                ->findOne();
+            if (!empty($exist)) {
+                throw new BadRequest('Such log record already exists.');
+            }
+        }
+
+        parent::beforeSave($entity, $options);
+    }
 }
