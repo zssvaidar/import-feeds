@@ -50,8 +50,9 @@ class LinkMultiple extends Varchar
                     $where = [];
 
                     foreach ($config['importBy'] as $k => $field) {
-                        $fieldData = $this->container->get('metadata')->get(['entityDefs', $entityName, 'fields', $field]);
-                        if (empty($fieldData['type']) || !in_array($fieldData['type'], ['bool', 'enum', 'varchar', 'float', 'int', 'text', 'wysiwyg'])) {
+                        $fieldData = $this->getMetadata()->get(['entityDefs', $entityName, 'fields', $field]);
+
+                        if (empty($fieldData['type']) || !in_array($fieldData['type'], Link::ALLOWED_TYPES)) {
                             continue 1;
                         }
 
@@ -60,11 +61,9 @@ class LinkMultiple extends Varchar
                             ->getFieldConverter($fieldData['type'])
                             ->convert($input, ['name' => $field, 'column' => [0], 'default' => null], [$values[$k]]);
 
-                        if (!empty($fieldData['notStorable'])) {
-                            continue 1;
+                        if (empty($fieldData['notStorable'])) {
+                            $where[$field] = $values[$k];
                         }
-
-                        $where[$field] = $values[$k];
                     }
 
                     $entity = null;

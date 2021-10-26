@@ -24,11 +24,10 @@ namespace Import\FieldConverters;
 
 use Espo\ORM\Entity;
 
-/**
- * Class Link
- */
 class Link extends Varchar
 {
+    const ALLOWED_TYPES = ['bool', 'enum', 'varchar', 'float', 'int', 'text', 'wysiwyg'];
+
     /**
      * @inheritDoc
      *
@@ -37,30 +36,43 @@ class Link extends Varchar
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         if (!empty($row[$config['column'][0]])) {
-            // get entity name
             $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
 
             $values = explode('|', $row[$config['column'][0]]);
+
+            $input = new \stdClass();
+
             $where = [];
+
             foreach ($config['importBy'] as $k => $field) {
-                $where[$field] = $values[$k];
+                $fieldData = $this->getMetadata()->get(['entityDefs', $entityName, 'fields', $field]);
+
+                if (empty($fieldData['type']) || !in_array($fieldData['type'], self::ALLOWED_TYPES)) {
+                    continue 1;
+                }
+
+                $this
+                    ->getService('ImportConfiguratorItem')
+                    ->getFieldConverter($fieldData['type'])
+                    ->convert($input, ['name' => $field, 'column' => [0], 'default' => null], [$values[$k]]);
+
+                if (empty($fieldData['notStorable'])) {
+                    $where[$field] = $values[$k];
+                }
             }
 
-            $entity = $this->getEntityManager()
-                ->getRepository($entityName)
-                ->select(['id', 'name'])
-                ->where($where)
-                ->findOne();
+            $entity = null;
+
+            if (!empty($where)) {
+                $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
+            }
+
+            if (empty($entity) && !empty($input) && !empty($config['createIfNotExist'])) {
+                $entity = $this->getService($entityName)->createEntity($input);
+            }
 
             if (!empty($entity)) {
                 $value = $entity->get('id');
-            } else {
-                if (!empty($config['createIfNotExist'])) {
-                    $entity = $this->getEntityManager()->getRepository($entityName)->get();
-                    $entity->set($where);
-                    $this->getEntityManager()->saveEntity($entity);
-                    $value = $entity->get('id');
-                }
             }
         }
 
