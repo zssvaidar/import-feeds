@@ -51,8 +51,10 @@
     "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
   },
   "exceptions": {
+    "incorrectCurrencyValue": "Das Währungswertformat ist ungültig. Wert wie \"12 EUR\" wird erwartet.",
     "incorrectCurrency": "Die Währung '%s' für das Feld '%s' ist falsch.",
     "incorrectAttributeCurrency": "Die Währung '%s' für den Attributwert '%s' ist falsch.",
+    "incorrectUnitValue": "Messwertformat ist ungültig. Wert wie \"10 mm\" wird erwartet.",
     "incorrectUnit": "Die Maßeinheit '%s' für das Feld '%s' ist falsch.",
     "incorrectAttributeUnit": "Die Maßeinheit '%s' für den Attributwert '%s' ist falsch.",
     "pipelineIsNotAllowed": "Symbol \"|\" kann nicht als Trennzeichen verwendet werden.",

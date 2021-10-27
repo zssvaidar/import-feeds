@@ -93,6 +93,11 @@ class Varchar
         return $this->container->get('entityManager');
     }
 
+    protected function translate(string $label, string $category = 'labels', string $scope = 'Global'): string
+    {
+        return $this->container->get('language')->translate($label, $category, $scope);
+    }
+
     protected function getService(string $name): Base
     {
         if (!isset($this->services[$name])) {

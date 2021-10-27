@@ -47,7 +47,12 @@ class Unit extends FloatValue
 
         if ($isSingleColumn) {
             if (!empty(!empty($config['column'][0]) && $row[$config['column'][0]] != '')) {
-                $parts = explode(' ', $row[$config['column'][0]]);
+                $parts = explode(' ', preg_replace('!\s+!', ' ', trim($row[$config['column'][0]])));
+
+                if (count($parts) > 2) {
+                    throw new BadRequest($this->translate('incorrectUnitValue', 'exceptions', 'ImportFeed'));
+                }
+
                 $value = $parts[0];
                 if (isset($parts[1])) {
                     $unit = $parts[1];
@@ -55,17 +60,16 @@ class Unit extends FloatValue
             }
         } else {
             if (!empty($config['column'][0]) && $row[$config['column'][0]] != '') {
-                $value = $row[$config['column'][0]];
+                $value = trim($row[$config['column'][0]]);
             }
 
             if (!empty($config['column'][1]) && $row[$config['column'][1]] != '') {
-                $unit = $row[$config['column'][1]];
+                $unit = trim($row[$config['column'][1]]);
             }
         }
 
         // validate measuring unit
         if (!$this->validateUnit($unit, $entityType, $config)) {
-            $language = $this->container->get('language');
             if (isset($config['attributeId'])) {
                 $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
                 $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
@@ -76,14 +80,14 @@ class Unit extends FloatValue
             throw new BadRequest($message);
         }
 
-        if (isset($config['attributeId'])) {
-            // prepare input row for attribute
-            $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
-            $inputRow->data = (object)['unit' => $unit];
-        } else {
-            // set values to input row
-            $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
-            $inputRow->{$config['name'] . 'Unit'} = $unit;
+        if ($value !== null) {
+            if (isset($config['attributeId'])) {
+                $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
+                $inputRow->data = (object)['unit' => $unit];
+            } else {
+                $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
+                $inputRow->{$config['name'] . 'Unit'} = $unit;
+            }
         }
     }
 

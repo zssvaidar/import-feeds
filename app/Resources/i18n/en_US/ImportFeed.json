@@ -54,8 +54,10 @@
     "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
+    "incorrectCurrencyValue": "Currency value format is invalid. Value like \"12 EUR\" is expected.",
     "incorrectCurrency": "Currency '%s' for the field '%s' is incorrect.",
     "incorrectAttributeCurrency": "Currency '%s' for the attribute value '%s' is incorrect.",
+    "incorrectUnitValue": "Measure value format is invalid. Value like \"10 mm\" is expected.",
     "incorrectUnit": "Measure unit '%s' for the field '%s' is incorrect.",
     "incorrectAttributeUnit": "Measure unit '%s' for the attribute value '%s' is incorrect.",
     "pipelineIsNotAllowed": "Symbol \"|\" cannot be used as delimiter.",
