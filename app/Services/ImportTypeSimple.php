@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace Import\Services;
 
 use Espo\Core\Exceptions\BadRequest;
-use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\Services\Base;
 use Espo\Core\Utils\Metadata;
 use Espo\Core\Utils\Util;
