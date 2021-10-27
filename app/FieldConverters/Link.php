@@ -47,7 +47,7 @@ class Link extends Varchar
             $where = [];
 
             foreach ($config['importBy'] as $k => $field) {
-                $fieldData = $this->getMetadata()->get(['entityDefs', $entityName, 'fields', $field]);
+                $fieldData = $this->getMetadata()->get(['entityDefs', $entityName, 'fields', $field], ['type' => 'varchar']);
 
                 if (empty($fieldData['type']) || !in_array($fieldData['type'], self::ALLOWED_TYPES)) {
                     continue 1;
