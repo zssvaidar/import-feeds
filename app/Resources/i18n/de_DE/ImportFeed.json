@@ -53,6 +53,7 @@
     "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
   },
   "exceptions": {
+    "nullNoneSame": "Keiner und Nullwert dürfen nicht identisch sein.",
     "unexpectedFieldType": "Der Wert is ungültig als '%s'.",
     "incorrectCurrencyValue": "Das Währungswertformat ist ungültig. Wert wie \"12 EUR\" wird erwartet.",
     "incorrectCurrency": "Die Währung '%s' für das Feld '%s' ist falsch.",
