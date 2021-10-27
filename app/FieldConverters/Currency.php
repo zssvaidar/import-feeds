@@ -71,9 +71,9 @@ class Currency extends FloatValue
             if (isset($config['attributeId'])) {
                 $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
                 $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
-                $message = sprintf($language->translate('incorrectAttributeCurrency', 'exceptions', 'ImportFeed'), $currency, $fieldValue);
+                $message = sprintf($this->translate('incorrectAttributeCurrency', 'exceptions', 'ImportFeed'), $currency, $fieldValue);
             } else {
-                $message = sprintf($language->translate('incorrectCurrency', 'exceptions', 'ImportFeed'), $currency, $config['name']);
+                $message = sprintf($this->translate('incorrectCurrency', 'exceptions', 'ImportFeed'), $currency, $config['name']);
             }
             throw new BadRequest($message);
         }

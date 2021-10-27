@@ -73,9 +73,9 @@ class Unit extends FloatValue
             if (isset($config['attributeId'])) {
                 $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
                 $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
-                $message = sprintf($language->translate('incorrectAttributeUnit', 'exceptions', 'ImportFeed'), $unit, $fieldValue);
+                $message = sprintf($this->translate('incorrectAttributeUnit', 'exceptions', 'ImportFeed'), $unit, $fieldValue);
             } else {
-                $message = sprintf($language->translate('incorrectUnit', 'exceptions', 'ImportFeed'), $unit, $config['name']);
+                $message = sprintf($this->translate('incorrectUnit', 'exceptions', 'ImportFeed'), $unit, $config['name']);
             }
             throw new BadRequest($message);
         }
