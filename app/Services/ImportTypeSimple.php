@@ -117,8 +117,9 @@ class ImportTypeSimple extends QueueManagerBase
 
                 $message = empty($e->getMessage()) ? $this->getCodeMessage($e->getCode()) : $e->getMessage();
 
-                // push log
-                $this->log($data['data']['entity'], $data['data']['importResultId'], 'error', (string)$fileRow, $message);
+                if (!$e instanceof NotModified) {
+                    $this->log($data['data']['entity'], $data['data']['importResultId'], 'error', (string)$fileRow, $message);
+                }
 
                 $updatedEntity = null;
             }
