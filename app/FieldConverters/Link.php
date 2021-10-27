@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\ORM\Entity;
 
 class Link extends Varchar
@@ -64,6 +65,10 @@ class Link extends Varchar
 
                     if (empty($fieldData['type']) || !in_array($fieldData['type'], self::ALLOWED_TYPES)) {
                         continue 1;
+                    }
+
+                    if (!isset($values[$k])) {
+                        throw new BadRequest(sprintf($this->translate('wrongImportByValuesCount', 'exceptions', 'ImportFeed'), $entityName));
                     }
 
                     $this
