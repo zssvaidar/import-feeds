@@ -26,18 +26,10 @@ use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
-/**
- * Class Unit
- */
 class Unit extends FloatValue
 {
-    /**
-     * @inheritDoc
-     */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $entityType = $config['entity'];
-
         $parsedDefault = $this->parseDefault($config);
 
         $value = $parsedDefault[0];
@@ -46,30 +38,44 @@ class Unit extends FloatValue
         $isSingleColumn = !isset($config['column'][1]);
 
         if ($isSingleColumn) {
-            if (!empty(!empty($config['column'][0]) && $row[$config['column'][0]] != '')) {
-                $parts = explode(' ', preg_replace('!\s+!', ' ', trim($row[$config['column'][0]])));
-
-                if (count($parts) > 2) {
-                    throw new BadRequest($this->translate('incorrectUnitValue', 'exceptions', 'ImportFeed'));
-                }
-
-                $value = $parts[0];
-                if (isset($parts[1])) {
-                    $unit = $parts[1];
+            if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
+                $cell = $row[$config['column'][0]];
+                if ($cell === $config['nullValue']) {
+                    $value = null;
+                    $unit = null;
+                } elseif ($cell !== $config['emptyValue'] && $cell !== '') {
+                    $parts = explode(' ', preg_replace('!\s+!', ' ', trim($cell)));
+                    if (count($parts) > 2) {
+                        throw new BadRequest($this->translate('incorrectUnitValue', 'exceptions', 'ImportFeed'));
+                    }
+                    $value = self::prepareFloatValue((string)$parts[0]);
+                    if (isset($parts[1])) {
+                        $unit = $parts[1];
+                    }
                 }
             }
         } else {
-            if (!empty($config['column'][0]) && $row[$config['column'][0]] != '') {
-                $value = trim($row[$config['column'][0]]);
+            if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
+                $cellValue = trim($row[$config['column'][0]]);
+                if ($cellValue !== $config['emptyValue'] && $cellValue !== '' && $cellValue !== $config['nullValue']) {
+                    $value = self::prepareFloatValue((string)$cellValue);
+                }
             }
 
-            if (!empty($config['column'][1]) && $row[$config['column'][1]] != '') {
-                $unit = trim($row[$config['column'][1]]);
+            if (!empty($config['column'][1]) && isset($row[$config['column'][1]])) {
+                $cellUnit = trim($row[$config['column'][1]]);
+                if ($cellUnit !== $config['emptyValue'] && $cellUnit !== '' && $cellUnit !== $config['nullValue']) {
+                    $unit = $cellUnit;
+                }
             }
         }
 
-        // validate measuring unit
-        if (!$this->validateUnit($unit, $entityType, $config)) {
+        if (($unit !== null && $value === null) || ($unit === null || $value !== null)) {
+            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'unit'));
+        }
+
+        if (empty($unit) || !$this->validateUnit($unit, $config['entity'], $config)) {
+            $unit = empty($unit) ? '-' : $unit;
             if (isset($config['attributeId'])) {
                 $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
                 $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
@@ -80,14 +86,11 @@ class Unit extends FloatValue
             throw new BadRequest($message);
         }
 
-        if ($value !== null) {
-            if (isset($config['attributeId'])) {
-                $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
-                $inputRow->data = (object)['unit' => $unit];
-            } else {
-                $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
-                $inputRow->{$config['name'] . 'Unit'} = $unit;
-            }
+        $inputRow->{$config['name']} = $value;
+        if (isset($config['attributeId'])) {
+            $inputRow->data = (object)['unit' => $unit];
+        } else {
+            $inputRow->{$config['name'] . 'Unit'} = $unit;
         }
     }
 
