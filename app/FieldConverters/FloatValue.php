@@ -34,7 +34,7 @@ class FloatValue extends Varchar
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
-                $value = null;
+                $value = empty($config['default']) ? null : $config['default'];
             }
             if ($value === $config['nullValue']) {
                 $value = null;

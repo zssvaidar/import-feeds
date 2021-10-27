@@ -32,7 +32,7 @@ class JsonArray extends Varchar
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
-                $value = '';
+                $value = empty($config['default']) ? '' : $config['default'];
             }
             if ($value === $config['nullValue']) {
                 $value = null;
