@@ -161,6 +161,20 @@
       "required": false,
       "default": ","
     },
+    "emptyValue": {
+      "type": "varchar",
+      "notStorable": true,
+      "dataField": true,
+      "required": false,
+      "default": "None"
+    },
+    "nullValue": {
+      "type": "varchar",
+      "notStorable": true,
+      "dataField": true,
+      "required": false,
+      "default": "Null"
+    },
     "unusedColumns": {
       "type": "multi-enum",
       "notStorable": true,

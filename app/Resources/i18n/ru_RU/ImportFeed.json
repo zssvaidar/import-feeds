@@ -16,7 +16,9 @@
     "decimalMark": "Десятичный разделитель",
     "importFile": "Файл данных",
     "importResults": "Результаты импорта",
-    "configuratorItems": "Конфигуратор"
+    "configuratorItems": "Конфигуратор",
+    "emptyValue": "Пустое значение",
+    "nullValue": "Нулевое значение"
   },
   "links": {
     "importResults": "Результаты импорта",

@@ -12,7 +12,9 @@
     "fileDataAction": "Aktion",
     "decimalMark": "Dezimaltrennzeichen",
     "importResults": "Ergebnisse importieren",
-    "configuratorItems": "Konfigurator"
+    "configuratorItems": "Konfigurator",
+    "emptyValue": "Leerer Wert",
+    "nullValue": "Nullwert"
   },
   "links": {
     "importResults": "Ergebnisse importieren",

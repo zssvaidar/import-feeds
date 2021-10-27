@@ -16,7 +16,9 @@
     "decimalMark": "Decimal Mark",
     "importFile": "Data File",
     "importResults": "Import Results",
-    "configuratorItems": "Configurator"
+    "configuratorItems": "Configurator",
+    "emptyValue": "Empty Value",
+    "nullValue": "Null Value"
   },
   "links": {
     "importResults": "Import Results",

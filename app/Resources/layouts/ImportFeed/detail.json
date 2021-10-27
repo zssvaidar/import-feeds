@@ -90,6 +90,14 @@
           "name": "delimiter"
         },
         false
+      ],
+      [
+        {
+          "name": "emptyValue"
+        },
+        {
+          "name": "nullValue"
+        }
       ]
     ]
   }
