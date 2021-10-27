@@ -78,7 +78,7 @@ class ImportResult extends Base
         $feed = $importResult->get('importFeed');
 
         // add header row if it needs
-        if (!empty($feed->get('isFileHeaderRow'))) {
+        if (!empty($feed->getFeedField('isFileHeaderRow'))) {
             $errorsRowsNumbers[1] = self::IMPORT_ERRORS_COLUMN;
         }
 
