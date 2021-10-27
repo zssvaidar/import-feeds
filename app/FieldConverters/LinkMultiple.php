@@ -69,7 +69,6 @@ class LinkMultiple extends Varchar
         }
 
         $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
-        $inputRow->{$config['name'] . 'Names'} = array_values($ids);
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
