@@ -31,7 +31,7 @@ class Boolean extends Varchar
     {
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
-            if ($value === $config['emptyValue']) {
+            if ($value === $config['emptyValue'] || $value === '') {
                 $value = null;
             }
             if ($value === $config['nullValue']) {

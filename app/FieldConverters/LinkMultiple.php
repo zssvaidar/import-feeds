@@ -29,23 +29,36 @@ class LinkMultiple extends Varchar
 {
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        if (!empty($config['column'])) {
-            $ids = [];
-            foreach ($config['column'] as $column) {
-                $items = explode($config['delimiter'], $row[$column]);
-                if (empty($items)) {
-                    continue 1;
-                }
-                foreach ($items as $item) {
-                    $input = new \stdClass();
-                    $this
-                        ->getService('ImportConfiguratorItem')
-                        ->getFieldConverter('link')
-                        ->convert($input, array_merge($config, ['column' => [0], 'default' => null]), [$item]);
+        $ids = [];
 
-                    $key = $config['name'] . 'Id';
-                    if (property_exists($input, $key)) {
-                        $ids[$input->$key] = $input->$key;
+        if (!empty($config['column'])) {
+            foreach ($config['column'] as $column) {
+                $value = $row[$column];
+
+                if ($value === $config['emptyValue'] || $value === '') {
+                    $value = null;
+                }
+
+                if ($value === $config['nullValue']) {
+                    $value = null;
+                }
+
+                if ($value !== null) {
+                    $items = explode($config['delimiter'], $value);
+                    if (empty($items)) {
+                        continue 1;
+                    }
+                    foreach ($items as $item) {
+                        $input = new \stdClass();
+                        $this
+                            ->getService('ImportConfiguratorItem')
+                            ->getFieldConverter('link')
+                            ->convert($input, array_merge($config, ['column' => [0], 'default' => null]), [$item]);
+
+                        $key = $config['name'] . 'Id';
+                        if (property_exists($input, $key) && $input->$key !== null) {
+                            $ids[$input->$key] = $input->$key;
+                        }
                     }
                 }
             }
@@ -55,10 +68,8 @@ class LinkMultiple extends Varchar
             $ids = Json::decode($config['default'], true);
         }
 
-        if (!empty($ids)) {
-            $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
-            $inputRow->{$config['name'] . 'Names'} = array_values($ids);
-        }
+        $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
+        $inputRow->{$config['name'] . 'Names'} = array_values($ids);
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void

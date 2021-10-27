@@ -30,71 +30,83 @@ class Link extends Varchar
 
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        if (!empty($row[$config['column'][0]])) {
-            if (isset($config['relEntityName'])) {
-                $entityName = $config['relEntityName'];
-            } else {
-                $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
-            }
-
-            $user = $this->container->get('user');
-            $userId = empty($user) ? null : $user->get('id');
-
-            $values = explode('|', $row[$config['column'][0]]);
-
-            $input = new \stdClass();
-
-            $where = [];
-
-            foreach ($config['importBy'] as $k => $field) {
-                $fieldData = $this->getMetadata()->get(['entityDefs', $entityName, 'fields', $field], ['type' => 'varchar']);
-
-                if (empty($fieldData['type']) || !in_array($fieldData['type'], self::ALLOWED_TYPES)) {
-                    continue 1;
-                }
-
-                $this
-                    ->getService('ImportConfiguratorItem')
-                    ->getFieldConverter($fieldData['type'])
-                    ->convert($input, ['name' => $field, 'column' => [0], 'default' => null], [$values[$k]]);
-
-                if (empty($fieldData['notStorable'])) {
-                    $where[$field] = $values[$k];
-                }
-            }
-
-            $entity = null;
-
-            if (!empty($where)) {
-                $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
-            }
-
-            if (empty($entity) && !empty($input) && !empty($config['createIfNotExist'])) {
-                $input->ownerUserId = $userId;
-                $input->ownerUserName = $userId;
-                $input->assignedUserId = $userId;
-                $input->assignedUserName = $userId;
-                $entity = $this->getService($entityName)->createEntity($input);
-
-                // for attribute
-                if (!empty($config['relEntityName']) && !empty($entity)) {
-                    $entity = $entity->get('file');
-                }
-            }
-
-            if (!empty($entity)) {
-                $value = $entity->get('id');
-            }
+        if (empty($config['default'])) {
+            $config['default'] = null;
         }
 
-        if (empty($value) && !empty($config['default'])) {
+        if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
+            $value = $row[$config['column'][0]];
+            if ($value === $config['emptyValue'] || $value === '') {
+                $value = $config['default'];
+            }
+            if ($value === $config['nullValue']) {
+                $value = null;
+            }
+
+            if ($value !== null) {
+                if (isset($config['relEntityName'])) {
+                    $entityName = $config['relEntityName'];
+                } else {
+                    $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
+                }
+
+                $user = $this->container->get('user');
+                $userId = empty($user) ? null : $user->get('id');
+
+                $values = explode('|', $value);
+
+                $input = new \stdClass();
+
+                $where = [];
+
+                foreach ($config['importBy'] as $k => $field) {
+                    $fieldData = $this->getMetadata()->get(['entityDefs', $entityName, 'fields', $field], ['type' => 'varchar']);
+
+                    if (empty($fieldData['type']) || !in_array($fieldData['type'], self::ALLOWED_TYPES)) {
+                        continue 1;
+                    }
+
+                    $this
+                        ->getService('ImportConfiguratorItem')
+                        ->getFieldConverter($fieldData['type'])
+                        ->convert($input, ['name' => $field, 'column' => [0], 'default' => null], [$values[$k]]);
+
+                    if (empty($fieldData['notStorable'])) {
+                        $where[$field] = $values[$k];
+                    }
+                }
+
+                $entity = null;
+
+                if (!empty($where)) {
+                    $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
+                }
+
+                if (empty($entity) && !empty($input) && !empty($config['createIfNotExist'])) {
+                    $input->ownerUserId = $userId;
+                    $input->ownerUserName = $userId;
+                    $input->assignedUserId = $userId;
+                    $input->assignedUserName = $userId;
+                    $entity = $this->getService($entityName)->createEntity($input);
+
+                    // for attribute
+                    if (!empty($config['relEntityName']) && !empty($entity)) {
+                        $entity = $entity->get('file');
+                    }
+                }
+
+                if (!empty($entity)) {
+                    $value = $entity->get('id');
+                } else {
+                    $value = $config['default'];
+                }
+            }
+        } else {
             $value = $config['default'];
         }
 
-        if (!empty($value)) {
-            $inputRow->{$config['name'] . 'Id'} = $value;
-            $inputRow->{$config['name'] . 'Name'} = $value;
-        }
+        $inputRow->{$config['name'] . 'Id'} = $value;
+        $inputRow->{$config['name'] . 'Name'} = $value;
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
