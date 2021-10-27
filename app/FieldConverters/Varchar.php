@@ -42,13 +42,16 @@ class Varchar
 
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        if (is_null($config['column'][0]) || $row[$config['column'][0]] == '') {
-            $value = $config['default'];
-            if (!empty($value) && is_string($value)) {
-                $value = str_replace("{{hash}}", Util::generateId(), $value);
+        if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
+            $value = $row[$config['column'][0]];
+            if ($value === $config['emptyValue']) {
+                $value = '';
+            }
+            if ($value === $config['nullValue']) {
+                $value = null;
             }
         } else {
-            $value = $row[$config['column'][0]];
+            $value = $config['default'];
         }
 
         $inputRow->{$config['name']} = $value;

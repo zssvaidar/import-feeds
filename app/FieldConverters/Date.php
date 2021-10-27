@@ -22,23 +22,33 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
-/**
- * Class Date
- */
+use Espo\Core\Exceptions\BadRequest;
+
 class Date extends Varchar
 {
-    /**
-     * @inheritDoc
-     */
+    protected string $name = 'date';
+    protected string $format = 'Y-m-d';
+
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        // prepare values
-        $value = (!empty($config['column'][0]) && $row[$config['column'][0]] != '') ? $row[$config['column'][0]] : $config['default'];
+        if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
+            $value = $row[$config['column'][0]];
+            if ($value === $config['emptyValue']) {
+                $value = null;
+            }
+            if ($value === $config['nullValue']) {
+                $value = null;
+            }
+        } else {
+            $value = $config['default'];
+        }
 
-        try {
-            $value = (new \DateTime($value))->format('Y-m-d');
-        } catch (\Throwable $e) {
-            throw new \Exception("Incorrect date for field '{$config['name']}'");
+        if ($value !== null) {
+            try {
+                $value = (new \DateTime($value))->format($this->format);
+            } catch (\Throwable $e) {
+                throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $this->name));
+            }
         }
 
         $inputRow->{$config['name']} = $value;

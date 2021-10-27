@@ -22,9 +22,8 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
-/**
- * Class Integer
- */
+use Espo\Core\Exceptions\BadRequest;
+
 class Integer extends Varchar
 {
     /**
@@ -34,10 +33,20 @@ class Integer extends Varchar
      */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $value = (!empty($config['column'][0]) && $row[$config['column'][0]] != '') ? $row[$config['column'][0]] : $config['default'];
+        if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
+            $value = $row[$config['column'][0]];
+            if ($value === $config['emptyValue']) {
+                $value = null;
+            }
+            if ($value === $config['nullValue']) {
+                $value = null;
+            }
+        } else {
+            $value = $config['default'];
+        }
 
         if (!is_null($value) && filter_var($value, FILTER_VALIDATE_INT) === false) {
-            throw new \Exception("Incorrect value for field '{$config['name']}'");
+            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'integer'));
         }
 
         $inputRow->{$config['name']} = $value;

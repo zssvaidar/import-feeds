@@ -100,6 +100,8 @@ class ImportFeed extends Base
                 'locale'           => $item->get('locale'),
                 'entity'           => $result['entity'],
                 'delimiter'        => $result['delimiter'],
+                'emptyValue'       => $this->getFeedField('emptyValue'),
+                'nullValue'        => $this->getFeedField('nullValue'),
             ];
         }
 

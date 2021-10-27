@@ -28,7 +28,7 @@
       "readOnly": true
     },
     "message": {
-      "type": "text",
+      "type": "wysiwyg",
       "rows": 30,
       "lengthOfCut": 400,
       "readOnly": true

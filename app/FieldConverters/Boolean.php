@@ -22,25 +22,34 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\ORM\Entity;
 
-/**
- * Class Boolean
- */
 class Boolean extends Varchar
 {
-    /**
-     * @inheritDoc
-     */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $result = (isset($config['column'][0]) && ($row[$config['column'][0]]) != '') ? $row[$config['column'][0]] : $config['default'];
-
-        if (is_null(filter_var($result, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) {
-            throw new \Exception("Incorrect value for field '{$config['name']}'");
+        if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
+            $value = $row[$config['column'][0]];
+            if ($value === $config['emptyValue']) {
+                $value = null;
+            }
+            if ($value === $config['nullValue']) {
+                $value = null;
+            }
+        } else {
+            $value = $config['default'];
         }
 
-        $inputRow->{$config['name']} = (bool)$result;
+        if (is_null(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) {
+            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'boolean'));
+        }
+
+        if ($value !== null) {
+            $value = (bool)$value;
+        }
+
+        $inputRow->{$config['name']} = $value;
     }
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void

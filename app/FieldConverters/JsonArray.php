@@ -25,23 +25,31 @@ namespace Import\FieldConverters;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
-/**
- * Class JsonArray
- */
 class JsonArray extends Varchar
 {
-    /**
-     * @inheritDoc
-     */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $value = (isset($row[$config['column'][0]]) && !empty($row[$config['column'][0]])) ? $row[$config['column'][0]] : $config['default'];
+        if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
+            $value = $row[$config['column'][0]];
+            if ($value === $config['emptyValue']) {
+                $value = '';
+            }
+            if ($value === $config['nullValue']) {
+                $value = null;
+            }
+        } else {
+            $value = $config['default'];
+        }
 
         if (is_string($value)) {
             $value = explode($config['delimiter'], $value);
         }
 
-        $inputRow->{$config['name']} = Json::encode($value);
+        if ($value !== null) {
+            $value = Json::encode($value);
+        }
+
+        $inputRow->{$config['name']} = $value;
     }
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void

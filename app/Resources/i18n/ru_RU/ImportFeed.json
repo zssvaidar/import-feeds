@@ -56,6 +56,7 @@
     "delimitersMustBeDifferent": "Разделители для полей и значений полей должны быть разными."
   },
   "exceptions": {
+    "unexpectedFieldType": "Значение не соответствует типу '%s'.",
     "incorrectCurrencyValue": "Значение валюты указано неправильно. Ожидается следующий формат \"12 EUR\".",
     "incorrectCurrency": "Валюта '%s' для поля '%s' не поддерживается.",
     "incorrectAttributeCurrency": "Валюта '%s' для значения атрибута '%s' не поддерживается.",

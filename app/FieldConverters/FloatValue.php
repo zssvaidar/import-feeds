@@ -22,9 +22,6 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
-/**
- * Class FloatValue
- */
 class FloatValue extends Varchar
 {
     public static function prepareFloatValue(string $value): float
@@ -32,13 +29,24 @@ class FloatValue extends Varchar
         return (float)str_replace(',', '.', preg_replace("/[^0-9]\.,/", "", $value));
     }
 
-    /**
-     * @inheritDoc
-     */
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $value = (!empty($config['column'][0]) && $row[$config['column'][0]] != '') ? $row[$config['column'][0]] : $config['default'];
+        if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
+            $value = $row[$config['column'][0]];
+            if ($value === $config['emptyValue']) {
+                $value = null;
+            }
+            if ($value === $config['nullValue']) {
+                $value = null;
+            }
+        } else {
+            $value = $config['default'];
+        }
 
-        $inputRow->{$config['name']} = self::prepareFloatValue((string)$value);
+        if ($value !== null) {
+            $value = self::prepareFloatValue((string)$value);
+        }
+
+        $inputRow->{$config['name']} = $value;
     }
 }
