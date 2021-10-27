@@ -166,7 +166,7 @@
       "notStorable": true,
       "dataField": true,
       "required": false,
-      "default": "None"
+      "default": ""
     },
     "nullValue": {
       "type": "varchar",
