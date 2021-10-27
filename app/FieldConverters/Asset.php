@@ -41,7 +41,7 @@ class Asset extends Link
         $value = null;
 
         if (!empty($foreign = $entity->get($item['name']))) {
-            $value = $foreign->get('id');
+            $value = is_string($foreign) ? $foreign : $foreign->get('id');
         }
 
         $restore->{$item['name'] . 'Id'} = $value;
