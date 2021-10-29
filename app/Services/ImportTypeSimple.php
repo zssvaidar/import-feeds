@@ -59,22 +59,22 @@ class ImportTypeSimple extends QueueManagerBase
             // increment file row number
             $fileRow++;
 
-            $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
-            $id = !empty($entity) ? $entity->get('id') : null;
-
-            if ($data['action'] == 'create' && !empty($entity)) {
-                continue 1;
-            }
-
-            if ($data['action'] == 'update' && empty($entity)) {
-                continue 1;
-            }
-
             if (!$this->getEntityManager()->getPDO()->inTransaction()) {
                 $this->getEntityManager()->getPDO()->beginTransaction();
             }
 
             try {
+                $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
+                $id = !empty($entity) ? $entity->get('id') : null;
+
+                if ($data['action'] == 'create' && !empty($entity)) {
+                    continue 1;
+                }
+
+                if ($data['action'] == 'update' && empty($entity)) {
+                    continue 1;
+                }
+
                 $input = new \stdClass();
                 $restore = new \stdClass();
 
@@ -167,6 +167,7 @@ class ImportTypeSimple extends QueueManagerBase
         $where = [];
         foreach ($configuration['configuration'] as $item) {
             if (in_array($item['name'], $configuration['idField'])) {
+                $fields[] = $this->translate($item['name'], 'fields', $entityType);
                 $this
                     ->getService('ImportConfiguratorItem')
                     ->getFieldConverter($this->getMetadata()->get(['entityDefs', $entityType, 'fields', $item['name'], 'type'], 'varchar'))
@@ -176,6 +177,10 @@ class ImportTypeSimple extends QueueManagerBase
 
         if (empty($where)) {
             return null;
+        }
+
+        if ($this->getEntityManager()->getRepository($entityType)->where($where)->count() > 1) {
+            throw new BadRequest(sprintf($this->translate('moreThanOneFound', 'exceptions', 'ImportFeed'), implode(', ', $fields)));
         }
 
         return $this->getEntityManager()->getRepository($entityType)->where($where)->findOne();

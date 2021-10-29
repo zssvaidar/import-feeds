@@ -55,6 +55,10 @@ class Varchar
             $value = $default;
         }
 
+        if ($value !== null) {
+            $value = (string)$value;
+        }
+
         $inputRow->{$config['name']} = $value;
     }
 

@@ -50,6 +50,10 @@ class Integer extends Varchar
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'integer'));
         }
 
+        if ($value !== null) {
+            $value = (int)$value;
+        }
+
         $inputRow->{$config['name']} = $value;
     }
 }

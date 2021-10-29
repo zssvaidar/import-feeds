@@ -46,10 +46,6 @@ class JsonArray extends Varchar
             $value = explode($config['delimiter'], $value);
         }
 
-        if ($value !== null) {
-            $value = Json::encode($value);
-        }
-
         $inputRow->{$config['name']} = $value;
     }
 
