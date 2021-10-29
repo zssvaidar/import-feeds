@@ -32,7 +32,7 @@ class JsonArray extends Varchar
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
-                $value = empty($config['default']) ? '' : $config['default'];
+                $value = empty($config['default']) ? [] : $config['default'];
             }
             if ($value === $config['nullValue']) {
                 $value = null;
@@ -59,7 +59,7 @@ class JsonArray extends Varchar
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
     {
         if ($entity->isAttributeChanged('default')) {
-            $entity->set('default', Json::encode($entity->get('default')));
+            $entity->set('default', empty($entity->get('default')) ? null : Json::encode($entity->get('default')));
         }
     }
 
