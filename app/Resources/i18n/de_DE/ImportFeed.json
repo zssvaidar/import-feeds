@@ -53,6 +53,7 @@
     "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
   },
   "exceptions": {
+    "relatedEntityCreatingFailed": "Die Erstellung des neuen Datensatzes in der Entität '%s' ist fehlgeschlagen:",
     "moreThanOneFound": "Mehr als ein Datensatz mit der Kennung '%s' gefunden.",
     "wrongImportByValuesCount": "Die Anzahl der empfangenen Werte für die zugehörige Entität '%s' sollte nicht kleiner als die Anzahl der zugehörigen Entitätsfelder sein.",
     "nullNoneSame": "Keiner und Nullwert dürfen nicht identisch sein.",

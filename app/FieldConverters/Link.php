@@ -90,7 +90,17 @@ class Link extends Varchar
                     $input->ownerUserName = $userId;
                     $input->assignedUserId = $userId;
                     $input->assignedUserName = $userId;
-                    $entity = $this->getService($entityName)->createEntity($input);
+
+                    try {
+                        $entity = $this->getService($entityName)->createEntity($input);
+                    } catch (\Throwable $e) {
+                        $className = get_class($e);
+
+                        $message = sprintf($this->translate('relatedEntityCreatingFailed', 'exceptions', 'ImportFeed'), $this->translate($entityName, 'scopeNames', 'Global'));
+                        $message .= ' ' . $e->getMessage();
+
+                        throw new $className($message);
+                    }
 
                     // for attribute
                     if (!empty($config['relEntityName']) && !empty($entity)) {
