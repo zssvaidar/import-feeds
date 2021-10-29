@@ -76,7 +76,7 @@ class Currency extends FloatValue
             }
         }
 
-        if (($currency !== null && $value === null) || ($currency === null || $value !== null)) {
+        if (!($currency !== null && $value !== null)) {
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'currency'));
         }
 
@@ -116,24 +116,11 @@ class Currency extends FloatValue
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
-        $parsedDefault = $this->parseDefault($configuration);
+        $inputRow = new \stdClass();
+        $this->convert($inputRow, $configuration, $row);
 
-        $value = $parsedDefault[0];
-        $currency = $parsedDefault[1];
-
-        if (isset($configuration['column'][1])) {
-            $value = (float)$row[$configuration['column'][0]];
-            $currency = (string)$row[$configuration['column'][1]];
-        } elseif (isset($configuration['column'][0])) {
-            $parts = explode(' ', $row[$configuration['column'][0]]);
-            $value = (float)array_shift($parts);
-            $currency = (string)array_shift($parts);
-        }
-
-        if (isset($value) && isset($currency)) {
-            $where[$configuration['name']] = $value;
-            $where["{$configuration['name']}Currency"] = $currency;
-        }
+        $where[$configuration['name']] = $inputRow->{$configuration['name']};
+        $where["{$configuration['name']}Currency"] = $inputRow->{"{$configuration['name']}Currency"};
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void

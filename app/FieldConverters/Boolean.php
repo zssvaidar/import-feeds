@@ -29,16 +29,18 @@ class Boolean extends Varchar
 {
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
+        $default = empty($config['default']) ? null : $config['default'];
+
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
-                $value = empty($config['default']) ? null : $config['default'];
+                $value = $default;
             }
             if ($value === $config['nullValue']) {
                 $value = null;
             }
         } else {
-            $value = $config['default'];
+            $value = $default;
         }
 
         if (is_null(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) {
@@ -50,17 +52,6 @@ class Boolean extends Varchar
         }
 
         $inputRow->{$config['name']} = $value;
-    }
-
-    public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
-    {
-        $value = !empty($configuration['default']);
-
-        if (isset($configuration['column'][0]) && isset($row[$configuration['column'][0]])) {
-            $value = !empty($row[$configuration['column'][0]]);
-        }
-
-        $where[$configuration['name']] = $value;
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void

@@ -42,16 +42,17 @@ class Varchar
 
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
+        $default = empty($config['default']) ? '' : $config['default'];
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
-                $value = empty($config['default']) ? '' : $config['default'];
+                $value = $default;
             }
             if ($value === $config['nullValue']) {
                 $value = null;
             }
         } else {
-            $value = $config['default'];
+            $value = $default;
         }
 
         $inputRow->{$config['name']} = $value;
@@ -64,13 +65,10 @@ class Varchar
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
-        $value = $configuration['default'];
+        $inputRow = new \stdClass();
+        $this->convert($inputRow, $configuration, $row);
 
-        if (isset($configuration['column'][0]) && isset($row[$configuration['column'][0]])) {
-            $value = $row[$configuration['column'][0]];
-        }
-
-        $where[$configuration['name']] = $value;
+        $where[$configuration['name']] = $inputRow->{$configuration['name']};
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void

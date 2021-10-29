@@ -31,14 +31,12 @@ class Link extends Varchar
 
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        if (empty($config['default'])) {
-            $config['default'] = null;
-        }
+        $default = empty($config['default']) ? null : $config['default'];
 
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
-                $value = $config['default'];
+                $value = $default;
             }
             if ($value === $config['nullValue']) {
                 $value = null;
@@ -103,11 +101,11 @@ class Link extends Varchar
                 if (!empty($entity)) {
                     $value = $entity->get('id');
                 } else {
-                    $value = $config['default'];
+                    $value = $default;
                 }
             }
         } else {
-            $value = $config['default'];
+            $value = $default;
         }
 
         $inputRow->{$config['name'] . 'Id'} = $value;
@@ -127,30 +125,10 @@ class Link extends Varchar
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
-        $value = $configuration['default'];
-        if (isset($configuration['column'][0]) && isset($row[$configuration['column'][0]])) {
-            $relEntityType = $this->getMetadata()->get(['entityDefs', $configuration['entity'], 'links', $configuration['name'], 'entity']);
-            if (!empty($relEntityType)) {
-                $parts = explode($configuration['delimiter'], $row[$configuration['column'][0]]);
+        $inputRow = new \stdClass();
+        $this->convert($inputRow, $configuration, $row);
 
-                $relWhere = [];
-                foreach ($configuration['importBy'] as $k => $v) {
-                    $relWhere[$v] = isset($parts[$k]) ? $parts[$k] : null;
-                }
-
-                $relEntity = $this
-                    ->getEntityManager()
-                    ->getRepository($relEntityType)
-                    ->select(['id'])
-                    ->where($relWhere)
-                    ->findOne();
-
-                if (!empty($relEntity)) {
-                    $value = $relEntity->get('id');
-                }
-            }
-        }
-        $where["{$configuration['name']}Id"] = $value;
+        $where["{$configuration['name']}Id"] = $inputRow->{"{$configuration['name']}Id"};
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void

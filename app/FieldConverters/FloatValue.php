@@ -31,16 +31,17 @@ class FloatValue extends Varchar
 
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
+        $default = empty($config['default']) ? null : $config['default'];
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
-                $value = empty($config['default']) ? null : $config['default'];
+                $value = $default;
             }
             if ($value === $config['nullValue']) {
                 $value = null;
             }
         } else {
-            $value = $config['default'];
+            $value = $default;
         }
 
         if ($value !== null) {

@@ -70,7 +70,7 @@ class Unit extends FloatValue
             }
         }
 
-        if (($unit !== null && $value === null) || ($unit === null || $value !== null)) {
+        if (!($unit !== null && $value !== null)) {
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'unit'));
         }
 
@@ -110,24 +110,11 @@ class Unit extends FloatValue
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
     {
-        $parsedDefault = $this->parseDefault($configuration);
+        $inputRow = new \stdClass();
+        $this->convert($inputRow, $configuration, $row);
 
-        $value = $parsedDefault[0];
-        $unit = $parsedDefault[1];
-
-        if (isset($configuration['column'][1])) {
-            $value = (float)$row[$configuration['column'][0]];
-            $unit = (string)$row[$configuration['column'][1]];
-        } elseif (isset($configuration['column'][0])) {
-            $parts = explode(' ', $row[$configuration['column'][0]]);
-            $value = (float)array_shift($parts);
-            $unit = (string)array_shift($parts);
-        }
-
-        if (isset($value) && isset($unit)) {
-            $where[$configuration['name']] = $value;
-            $where["{$configuration['name']}Unit"] = $unit;
-        }
+        $where[$configuration['name']] = $inputRow->{$configuration['name']};
+        $where["{$configuration['name']}Unit"] = $inputRow->{"{$configuration['name']}Unit"};
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
