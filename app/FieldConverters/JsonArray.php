@@ -29,16 +29,17 @@ class JsonArray extends Varchar
 {
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
+        $default = empty($config['default']) || $config['default'] === 'null' ? null : $config['default'];
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
-                $value = empty($config['default']) ? [] : $config['default'];
+                $value = empty($default) ? [] : $default;
             }
             if ($value === $config['nullValue']) {
                 $value = null;
             }
         } else {
-            $value = $config['default'];
+            $value = $default;
         }
 
         if (is_string($value)) {
