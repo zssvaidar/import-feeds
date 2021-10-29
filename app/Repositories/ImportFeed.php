@@ -66,11 +66,11 @@ class ImportFeed extends Base
             throw new BadRequest($this->getLanguage()->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
         }
 
-        if ($entity->get('fileFieldDelimiter') === '|' || $entity->get('delimiter') === '|') {
+        if ($entity->getFeedField('fileFieldDelimiter') === '|' || $entity->getFeedField('delimiter') === '|') {
             throw new BadRequest($this->getLanguage()->translate("pipelineIsNotAllowed", "exceptions", "ImportFeed"));
         }
 
-        if ($entity->get('emptyValue') === $entity->get('nullValue')) {
+        if ($entity->getFeedField('emptyValue') === $entity->getFeedField('nullValue')) {
             throw new BadRequest($this->getLanguage()->translate("nullNoneSame", "exceptions", "ImportFeed"));
         }
     }
