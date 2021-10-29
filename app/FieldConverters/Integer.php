@@ -34,6 +34,10 @@ class Integer extends Varchar
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         $default = empty($config['default']) ? null : $config['default'];
+        if ($config['default'] === '0' || $config['default'] === 0) {
+            $default = 0;
+        }
+
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             if ($value === $config['emptyValue'] || $value === '') {
