@@ -52,6 +52,8 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest('File is empty.');
         }
 
+        $updatedIds = [];
+
         // prepare file row
         $fileRow = (int)$data['offset'];
 
@@ -65,7 +67,14 @@ class ImportTypeSimple extends QueueManagerBase
 
             try {
                 $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
-                $id = !empty($entity) ? $entity->get('id') : null;
+                $id = null;
+
+                if (!empty($entity)) {
+                    $id = $entity->get('id');
+                    if (in_array($id, $updatedIds)) {
+                        throw new BadRequest($this->translate('alreadyProceeded', 'exceptions', 'ImportFeed'));
+                    }
+                }
 
                 if ($data['action'] == 'create' && !empty($entity)) {
                     continue 1;
@@ -92,7 +101,6 @@ class ImportTypeSimple extends QueueManagerBase
                     }
                 }
 
-                $updatedEntity = null;
                 if (empty($id)) {
                     $updatedEntity = $this->getService($data['data']['entity'])->createEntity($input);
                     $this->saveRestoreRow('created', $data['data']['entity'], $updatedEntity->get('id'));
@@ -107,8 +115,8 @@ class ImportTypeSimple extends QueueManagerBase
 
                 if ($this->getEntityManager()->getPDO()->inTransaction()) {
                     $this->getEntityManager()->getPDO()->commit();
+                    $updatedIds[] = $updatedEntity->get('id');
                 }
-
             } catch (\Throwable $e) {
                 if ($this->getEntityManager()->getPDO()->inTransaction()) {
                     $this->getEntityManager()->getPDO()->rollBack();
