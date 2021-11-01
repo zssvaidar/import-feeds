@@ -28,9 +28,10 @@ class Asset extends Link
 {
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
+        $config['relEntityName'] = 'Asset';
+
         if ($config['type'] === 'Attribute') {
             $config['importBy'] = ['url'];
-            $config['relEntityName'] = 'Asset';
         }
 
         parent::convert($inputRow, $config, $row);
