@@ -40,6 +40,7 @@ class Integer extends Varchar
 
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
+            $this->ignoreAttribute($value, $config);
             if ($value === $config['emptyValue'] || $value === '') {
                 $value = $default;
             }

@@ -40,6 +40,7 @@ class Unit extends FloatValue
         if ($isSingleColumn) {
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
                 $cell = $row[$config['column'][0]];
+                $this->ignoreAttribute($cell, $config);
                 if ($cell === $config['nullValue']) {
                     $value = null;
                     $unit = null;
@@ -57,6 +58,7 @@ class Unit extends FloatValue
         } else {
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
                 $cellValue = trim($row[$config['column'][0]]);
+                $this->ignoreAttribute($cellValue, $config);
                 if ($cellValue !== $config['emptyValue'] && $cellValue !== '' && $cellValue !== $config['nullValue']) {
                     $value = self::prepareFloatValue((string)$cellValue);
                 }
@@ -64,6 +66,7 @@ class Unit extends FloatValue
 
             if (!empty($config['column'][1]) && isset($row[$config['column'][1]])) {
                 $cellUnit = trim($row[$config['column'][1]]);
+                $this->ignoreAttribute($cellUnit, $config);
                 if ($cellUnit !== $config['emptyValue'] && $cellUnit !== '' && $cellUnit !== $config['nullValue']) {
                     $unit = $cellUnit;
                 }

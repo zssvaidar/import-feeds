@@ -175,6 +175,13 @@
       "required": false,
       "default": "Null"
     },
+    "markForNotLinkedAttribute": {
+      "type": "varchar",
+      "notStorable": true,
+      "dataField": true,
+      "required": false,
+      "default": "--"
+    },
     "unusedColumns": {
       "type": "multi-enum",
       "notStorable": true,

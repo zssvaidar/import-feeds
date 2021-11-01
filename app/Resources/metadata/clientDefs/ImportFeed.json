@@ -189,6 +189,36 @@
             }
           ]
         }
+      },
+      "markForNotLinkedAttribute": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            },
+            {
+              "type": "equals",
+              "attribute": "entity",
+              "value": "Product"
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            },
+            {
+              "type": "equals",
+              "attribute": "entity",
+              "value": "Product"
+            }
+          ]
+        }
       }
     }
   }

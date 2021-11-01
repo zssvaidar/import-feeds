@@ -28,6 +28,7 @@ use Espo\Core\Utils\Metadata;
 use Espo\Core\Utils\Util;
 use Espo\ORM\Entity;
 use Espo\Services\QueueManagerBase;
+use Import\Exceptions\IgnoreAttribute;
 use Treo\Core\Exceptions\NotModified;
 
 class ImportTypeSimple extends QueueManagerBase
@@ -256,8 +257,11 @@ class ImportTypeSimple extends QueueManagerBase
             $converter->prepareValue($restoreRow, $pav, $conf);
         }
 
-        // convert attribute value
-        $converter->convert($inputRow, $conf, $row);
+        try {
+            $converter->convert($inputRow, $conf, $row);
+        } catch (IgnoreAttribute $e) {
+            return;
+        }
 
         if (!isset($inputRow->id)) {
             $inputRow->productId = $product->get('id');

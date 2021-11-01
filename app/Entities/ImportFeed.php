@@ -88,20 +88,21 @@ class ImportFeed extends Base
             }
 
             $result['configuration'][] = [
-                'name'             => $item->get('name'),
-                'column'           => $item->get('column'),
-                'createIfNotExist' => !empty($item->get('createIfNotExist')),
-                'default'          => $item->get('default'),
-                'importBy'         => $item->get('importBy'),
-                'type'             => $item->get('type'),
-                'attributeId'      => $item->get('attributeId'),
-                'scope'            => $item->get('scope'),
-                'channelId'        => $item->get('channelId'),
-                'locale'           => $item->get('locale'),
-                'entity'           => $result['entity'],
-                'delimiter'        => $result['delimiter'],
-                'emptyValue'       => $this->getFeedField('emptyValue'),
-                'nullValue'        => $this->getFeedField('nullValue'),
+                'name'                      => $item->get('name'),
+                'column'                    => $item->get('column'),
+                'createIfNotExist'          => !empty($item->get('createIfNotExist')),
+                'default'                   => $item->get('default'),
+                'importBy'                  => $item->get('importBy'),
+                'type'                      => $item->get('type'),
+                'attributeId'               => $item->get('attributeId'),
+                'scope'                     => $item->get('scope'),
+                'channelId'                 => $item->get('channelId'),
+                'locale'                    => $item->get('locale'),
+                'entity'                    => $result['entity'],
+                'delimiter'                 => $result['delimiter'],
+                'emptyValue'                => $this->getFeedField('emptyValue'),
+                'nullValue'                 => $this->getFeedField('nullValue'),
+                'markForNotLinkedAttribute' => $this->getFeedField('markForNotLinkedAttribute'),
             ];
         }
 

@@ -46,6 +46,7 @@ class Currency extends FloatValue
         if ($isSingleColumn) {
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
                 $cell = $row[$config['column'][0]];
+                $this->ignoreAttribute($cell, $config);
                 if ($cell === $config['nullValue']) {
                     $value = null;
                     $currency = null;
@@ -63,6 +64,7 @@ class Currency extends FloatValue
         } else {
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
                 $cellValue = trim($row[$config['column'][0]]);
+                $this->ignoreAttribute($cellValue, $config);
                 if ($cellValue !== $config['emptyValue'] && $cellValue !== '' && $cellValue !== $config['nullValue']) {
                     $value = self::prepareFloatValue((string)$cellValue);
                 }
@@ -70,6 +72,7 @@ class Currency extends FloatValue
 
             if (!empty($config['column'][1]) && isset($row[$config['column'][1]])) {
                 $cellCurrency = trim($row[$config['column'][1]]);
+                $this->ignoreAttribute($cellCurrency, $config);
                 if ($cellCurrency !== $config['emptyValue'] && $cellCurrency !== '' && $cellCurrency !== $config['nullValue']) {
                     $currency = $cellCurrency;
                 }

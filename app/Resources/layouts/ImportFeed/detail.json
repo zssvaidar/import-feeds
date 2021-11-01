@@ -89,7 +89,9 @@
         {
           "name": "delimiter"
         },
-        false
+        {
+          "name": "markForNotLinkedAttribute"
+        }
       ],
       [
         {

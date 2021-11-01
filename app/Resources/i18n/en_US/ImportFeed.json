@@ -18,7 +18,8 @@
     "importResults": "Import Results",
     "configuratorItems": "Configurator",
     "emptyValue": "Empty Value",
-    "nullValue": "Null Value"
+    "nullValue": "Null Value",
+    "markForNotLinkedAttribute": "Mark for a not linked attribute"
   },
   "links": {
     "importResults": "Import Results",

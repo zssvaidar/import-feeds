@@ -14,7 +14,8 @@
     "importResults": "Ergebnisse importieren",
     "configuratorItems": "Konfigurator",
     "emptyValue": "Leerer Wert",
-    "nullValue": "Nullwert"
+    "nullValue": "Nullwert",
+    "markForNotLinkedAttribute": "Markierung für ein nicht verknüpftes Attribut"
   },
   "links": {
     "importResults": "Ergebnisse importieren",

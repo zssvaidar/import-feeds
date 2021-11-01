@@ -29,6 +29,7 @@ use Espo\Core\Container;
 use Espo\Core\Utils\Config;
 use Espo\Core\Utils\Metadata;
 use Espo\ORM\EntityManager;
+use Import\Exceptions\IgnoreAttribute;
 
 class Varchar
 {
@@ -45,6 +46,7 @@ class Varchar
         $default = empty($config['default']) ? '' : $config['default'];
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
+            $this->ignoreAttribute($value, $config);
             if ($value === $config['emptyValue'] || $value === '') {
                 $value = $default;
             }
@@ -110,5 +112,12 @@ class Varchar
         }
 
         return $this->services[$name];
+    }
+
+    protected function ignoreAttribute($value, array $config): void
+    {
+        if (isset($config['attributeId']) && $value === $config['markForNotLinkedAttribute']) {
+            throw new IgnoreAttribute();
+        }
     }
 }

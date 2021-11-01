@@ -18,7 +18,8 @@
     "importResults": "Результаты импорта",
     "configuratorItems": "Конфигуратор",
     "emptyValue": "Пустое значение",
-    "nullValue": "Нулевое значение"
+    "nullValue": "Нулевое значение",
+    "markForNotLinkedAttribute": "Пометка непривязанного атрибута"
   },
   "links": {
     "importResults": "Результаты импорта",
