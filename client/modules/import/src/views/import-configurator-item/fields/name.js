@@ -103,7 +103,9 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
                 'file',
                 'linkParent',
                 'personName',
-                'phone'
+                'phone',
+                'autoincrement',
+                'number'
             ];
             let notAvailableFieldsList = [
                 'createdAt',
