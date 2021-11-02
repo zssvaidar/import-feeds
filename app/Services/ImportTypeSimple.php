@@ -292,7 +292,7 @@ class ImportTypeSimple extends QueueManagerBase
             return false;
         }
 
-        if (!isset($inputRow->id)) {
+        if (!property_exists($inputRow, 'id')) {
             $inputRow->productId = $product->get('id');
             $inputRow->attributeId = $conf['attributeId'];
             $inputRow->scope = $conf['scope'];
