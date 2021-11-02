@@ -53,6 +53,8 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest('File is empty.');
         }
 
+        $scope = $data['data']['entity'];
+
         $updatedIds = [];
 
         // prepare file row
@@ -63,7 +65,7 @@ class ImportTypeSimple extends QueueManagerBase
             $fileRow++;
 
             try {
-                $entity = $this->findExistEntity($this->getService($data['data']['entity'])->getEntityType(), $data['data'], $row);
+                $entity = $this->findExistEntity($this->getService($scope)->getEntityType(), $data['data'], $row);
                 $id = null;
 
                 if (!empty($entity)) {
@@ -73,7 +75,7 @@ class ImportTypeSimple extends QueueManagerBase
                     }
                 }
             } catch (\Throwable $e) {
-                $this->log($data['data']['entity'], $data['data']['importResultId'], 'error', (string)$fileRow, $e->getMessage());
+                $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $e->getMessage());
             }
 
             if ($data['action'] == 'create' && !empty($entity)) {
@@ -106,21 +108,29 @@ class ImportTypeSimple extends QueueManagerBase
                     }
                 }
 
+                $updatedEntity = null;
                 if (empty($id)) {
-                    $updatedEntity = $this->getService($data['data']['entity'])->createEntity($input);
-                    $this->saveRestoreRow('created', $data['data']['entity'], $updatedEntity->get('id'));
+                    $updatedEntity = $this->getService($scope)->createEntity($input);
+                    $this->importAttributes($attributes, $updatedEntity);
+                    $this->saveRestoreRow('created', $scope, $updatedEntity->get('id'));
                 } else {
-                    $updatedEntity = $this->getService($data['data']['entity'])->updateEntity($id, $input);
-                    $this->saveRestoreRow('updated', $data['data']['entity'], [$id => $restore]);
-                }
+                    try {
+                        $updatedEntity = $this->getService($scope)->updateEntity($id, $input);
+                        $this->saveRestoreRow('updated', $scope, [$id => $restore]);
+                    } catch (NotModified $e) {
+                        // ignore
+                    }
 
-                foreach ($attributes as $attribute) {
-                    $this->importAttribute($updatedEntity, $attribute);
+                    if ($this->importAttributes($attributes, $entity)) {
+                        $updatedEntity = $entity;
+                    }
                 }
 
                 if ($this->getEntityManager()->getPDO()->inTransaction()) {
                     $this->getEntityManager()->getPDO()->commit();
-                    $updatedIds[] = $updatedEntity->get('id');
+                    if (!empty($updatedEntity)) {
+                        $updatedIds[] = $updatedEntity->get('id');
+                    }
                 }
             } catch (\Throwable $e) {
                 if ($this->getEntityManager()->getPDO()->inTransaction()) {
@@ -130,7 +140,7 @@ class ImportTypeSimple extends QueueManagerBase
                 $message = empty($e->getMessage()) ? $this->getCodeMessage($e->getCode()) : $e->getMessage();
 
                 if (!$e instanceof NotModified) {
-                    $this->log($data['data']['entity'], $data['data']['importResultId'], 'error', (string)$fileRow, $message);
+                    $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $message);
                 }
 
                 $updatedEntity = null;
@@ -141,7 +151,7 @@ class ImportTypeSimple extends QueueManagerBase
                 $action = empty($id) ? 'create' : 'update';
 
                 // push log
-                $this->log($data['data']['entity'], $data['data']['importResultId'], $action, (string)$fileRow, $updatedEntity->get('id'));
+                $this->log($data['data']['entity'], $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
             }
         }
 
@@ -150,6 +160,13 @@ class ImportTypeSimple extends QueueManagerBase
 
     public function log(string $entityName, string $importResultId, string $type, string $row, string $data): Entity
     {
+        // remove old log
+        $this
+            ->getEntityManager()
+            ->getRepository('ImportResultLog')
+            ->where(['importResultId' => $importResultId, 'rowNumber' => $row])
+            ->removeCollection();
+
         // create log
         $log = $this->getEntityManager()->getEntity('ImportResultLog');
         $log->set('name', $row);
@@ -221,7 +238,19 @@ class ImportTypeSimple extends QueueManagerBase
         return 'HTTP Code: ' . $code;
     }
 
-    protected function importAttribute(Entity $product, array $data)
+    protected function importAttributes(array $attributes, Entity $product): bool
+    {
+        $result = false;
+        foreach ($attributes as $attribute) {
+            if ($this->importAttribute($product, $attribute)) {
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
+
+    protected function importAttribute(Entity $product, array $data): bool
     {
         $entityType = 'ProductAttributeValue';
         $service = $this->getService($entityType);
@@ -264,7 +293,7 @@ class ImportTypeSimple extends QueueManagerBase
         try {
             $converter->convert($inputRow, $conf, $row);
         } catch (IgnoreAttribute $e) {
-            return;
+            return false;
         }
 
         if (!isset($inputRow->id)) {
@@ -286,9 +315,11 @@ class ImportTypeSimple extends QueueManagerBase
                 $service->updateEntity($id, $inputRow);
                 $this->saveRestoreRow('updated', $entityType, [$id => $restoreRow]);
             } catch (NotModified $e) {
-                // ignore
+                return false;
             }
         }
+
+        return true;
     }
 
     protected function getService(string $name): Base
