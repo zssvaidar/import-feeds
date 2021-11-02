@@ -71,7 +71,7 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
 
             if (this.model.get('type') === 'Field') {
                 let type = this.getMetadata().get(['entityDefs', this.model.get('entity'), 'fields', this.model.get('name'), 'type']);
-                if (type === 'link' || type === 'linkMultiple') {
+                if (type === 'asset' || type === 'link' || type === 'linkMultiple') {
                     const entityName = this.model.getLinkParam('default', 'entity');
                     let translated = [];
                     this.model.get('importBy').forEach(field => {
