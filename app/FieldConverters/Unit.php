@@ -73,12 +73,7 @@ class Unit extends FloatValue
             }
         }
 
-        if (!($unit !== null && $value !== null)) {
-            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'unit'));
-        }
-
-        if (empty($unit) || !$this->validateUnit($unit, $config['entity'], $config)) {
-            $unit = empty($unit) ? '-' : $unit;
+        if ($value !== null && !$this->validateUnit($unit, $config['entity'], $config)) {
             if (isset($config['attributeId'])) {
                 $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
                 $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
@@ -87,6 +82,10 @@ class Unit extends FloatValue
                 $message = sprintf($this->translate('incorrectUnit', 'exceptions', 'ImportFeed'), $unit, $config['name']);
             }
             throw new BadRequest($message);
+        }
+
+        if ($value === null) {
+            $unit = null;
         }
 
         $inputRow->{$config['name']} = $value;

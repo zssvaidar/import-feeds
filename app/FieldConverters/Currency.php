@@ -79,12 +79,7 @@ class Currency extends FloatValue
             }
         }
 
-        if (!($currency !== null && $value !== null)) {
-            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'currency'));
-        }
-
-        if (empty($currency) || !in_array($currency, $this->getConfig()->get('currencyList', []))) {
-            $currency = empty($currency) ? '-' : $currency;
+        if ($value !== null && !in_array($currency, $this->getConfig()->get('currencyList', []))) {
             if (isset($config['attributeId'])) {
                 $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
                 $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
@@ -93,6 +88,10 @@ class Currency extends FloatValue
                 $message = sprintf($this->translate('incorrectCurrency', 'exceptions', 'ImportFeed'), $currency, $config['name']);
             }
             throw new BadRequest($message);
+        }
+
+        if ($value === null) {
+            $currency = null;
         }
 
         $inputRow->{$config['name']} = $value;
