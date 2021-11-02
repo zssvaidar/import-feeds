@@ -108,29 +108,32 @@ class ImportTypeSimple extends QueueManagerBase
                     }
                 }
 
-                $updatedEntity = null;
                 if (empty($id)) {
                     $updatedEntity = $this->getService($scope)->createEntity($input);
                     $this->importAttributes($attributes, $updatedEntity);
                     $this->saveRestoreRow('created', $scope, $updatedEntity->get('id'));
                 } else {
+                    $notModified = true;
                     try {
                         $updatedEntity = $this->getService($scope)->updateEntity($id, $input);
                         $this->saveRestoreRow('updated', $scope, [$id => $restore]);
+                        $notModified = false;
                     } catch (NotModified $e) {
-                        // ignore
                     }
 
                     if ($this->importAttributes($attributes, $entity)) {
+                        $notModified = false;
                         $updatedEntity = $entity;
+                    }
+
+                    if ($notModified) {
+                        throw new NotModified();
                     }
                 }
 
                 if ($this->getEntityManager()->getPDO()->inTransaction()) {
                     $this->getEntityManager()->getPDO()->commit();
-                    if (!empty($updatedEntity)) {
-                        $updatedIds[] = $updatedEntity->get('id');
-                    }
+                    $updatedIds[] = $updatedEntity->get('id');
                 }
             } catch (\Throwable $e) {
                 if ($this->getEntityManager()->getPDO()->inTransaction()) {
@@ -160,13 +163,6 @@ class ImportTypeSimple extends QueueManagerBase
 
     public function log(string $entityName, string $importResultId, string $type, string $row, string $data): Entity
     {
-        // remove old log
-        $this
-            ->getEntityManager()
-            ->getRepository('ImportResultLog')
-            ->where(['importResultId' => $importResultId, 'rowNumber' => $row])
-            ->removeCollection();
-
         // create log
         $log = $this->getEntityManager()->getEntity('ImportResultLog');
         $log->set('name', $row);
