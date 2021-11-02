@@ -120,7 +120,6 @@ class Link extends Varchar
         }
 
         $inputRow->{$config['name'] . 'Id'} = $value;
-        $inputRow->{$config['name'] . 'Name'} = $value;
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
