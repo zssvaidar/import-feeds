@@ -36,10 +36,10 @@ class Link extends Varchar
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             $this->ignoreAttribute($value, $config);
-            if (strtolower($value) === strtolower($config['emptyValue']) || $value === '') {
+            if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
                 $value = $default;
             }
-            if (strtolower($value) === strtolower($config['nullValue'])) {
+            if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
                 $value = null;
             }
 
