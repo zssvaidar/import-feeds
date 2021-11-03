@@ -51,14 +51,25 @@ class Integer extends Varchar
             $value = $default;
         }
 
-        if (!is_null($value) && filter_var($value, FILTER_VALIDATE_INT) === false) {
-            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'integer'));
-        }
-
         if ($value !== null) {
-            $value = (int)$value;
+            $value = $this->prepareIntValue($value, $config);
         }
 
         $inputRow->{$config['name']} = $value;
+    }
+
+    public function prepareIntValue(string $value, array $config): float
+    {
+        $thousandSeparator = $config['thousandSeparator'];
+        $decimalMark = $config['decimalMark'];
+
+        $intValue = (int)str_replace($thousandSeparator, '', $value);
+        $checkValue = number_format((float)$intValue, 0, $decimalMark, $thousandSeparator);
+
+        if ($checkValue !== $value) {
+            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'integer'));
+        }
+
+        return $intValue;
     }
 }

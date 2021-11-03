@@ -22,11 +22,23 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
+
 class FloatValue extends Varchar
 {
     public function prepareFloatValue(string $value, array $config): float
     {
-        return (float)str_replace(',', '.', preg_replace("/[^0-9]\.,/", "", $value));
+        $thousandSeparator = $config['thousandSeparator'];
+        $decimalMark = $config['decimalMark'];
+
+        $floatValue = (float)str_replace($decimalMark, '.', str_replace($thousandSeparator, '', $value));
+        $checkValue = trim(trim(number_format($floatValue, 10, $decimalMark, $thousandSeparator), '0'), $decimalMark);
+
+        if ($checkValue !== $value) {
+            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'float'));
+        }
+
+        return $floatValue;
     }
 
     public function convert(\stdClass $inputRow, array $config, array $row): void
