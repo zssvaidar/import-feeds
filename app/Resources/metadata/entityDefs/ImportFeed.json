@@ -94,16 +94,17 @@
       "default": true
     },
     "decimalMark": {
-      "type": "enum",
+      "type": "varchar",
       "notStorable": true,
       "dataField": true,
       "required": false,
-      "prohibitedEmptyValue": true,
-      "options": [
-        ".",
-        ","
-      ],
-      "default": "."
+      "default": ","
+    },
+    "thousandSeparator": {
+      "type": "varchar",
+      "notStorable": true,
+      "dataField": true,
+      "required": false
     },
     "createdAt": {
       "type": "datetime",
@@ -159,7 +160,7 @@
       "notStorable": true,
       "dataField": true,
       "required": false,
-      "default": ","
+      "default": "_"
     },
     "emptyValue": {
       "type": "varchar",

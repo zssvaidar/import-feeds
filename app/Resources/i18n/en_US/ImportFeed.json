@@ -13,6 +13,7 @@
     "importCronJobs": "Import Cron Jobs",
     "importFeedTypeSimples": "Import Feed Type Simple",
     "fileDataAction": "Action",
+    "thousandSeparator": "Thousand Separator",
     "decimalMark": "Decimal Mark",
     "importFile": "Data File",
     "importResults": "Import Results",
@@ -53,10 +54,10 @@
     "importName": "Importing data by feed '%s'"
   },
   "messages": {
-    "importNow": "Are you sure you want to import data from the selected file?",
-    "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
+    "importNow": "Are you sure you want to import data from the selected file?"
   },
   "exceptions": {
+    "delimitersMustBeDifferent": "Thousand separator, decimal mark, field delimiter, data record delimiter (and mark for a not linked attribute) should have unique values.",
     "unlinkAndLinkInOneRow": "Multilingual attribute should be marked as a not linked attribute for all languages to unlink it.",
     "alreadyProceeded": "Data record with such identifier(s) was already proceeded.",
     "relatedEntityCreatingFailed": "Creation of a new record in the entity '%s' failed:",

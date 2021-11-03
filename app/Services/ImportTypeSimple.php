@@ -148,16 +148,11 @@ class ImportTypeSimple extends QueueManagerBase
                     $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $message);
                 }
 
-                $updatedEntity = null;
+                continue 1;
             }
 
-            if (!empty($updatedEntity)) {
-                // prepare action
-                $action = empty($id) ? 'create' : 'update';
-
-                // push log
-                $this->log($data['data']['entity'], $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
-            }
+            $action = empty($id) ? 'create' : 'update';
+            $this->log($data['data']['entity'], $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
         }
 
         return true;

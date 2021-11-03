@@ -50,6 +50,12 @@
         {
           "name": "isFileHeaderRow"
         },
+        false
+      ],
+      [
+        {
+          "name": "thousandSeparator"
+        },
         {
           "name": "decimalMark"
         }

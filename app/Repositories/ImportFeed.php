@@ -62,12 +62,25 @@ class ImportFeed extends Base
 
     protected function validateSimpleType(Entity $entity): void
     {
-        if ($entity->getFeedField('delimiter') === $entity->getFeedField('fileFieldDelimiter')) {
-            throw new BadRequest($this->getLanguage()->translate('delimitersMustBeDifferent', 'messages', 'ImportFeed'));
+        $delimiters = [
+            $entity->getFeedField('delimiter'),
+            $entity->getFeedField('fileFieldDelimiter'),
+            $entity->getFeedField('decimalMark'),
+            $entity->getFeedField('thousandSeparator')
+        ];
+
+        if ($entity->getFeedField('entity') === 'Product') {
+            $delimiters[] = $entity->getFeedField('markForNotLinkedAttribute');
         }
 
-        if ($entity->getFeedField('fileFieldDelimiter') === '|' || $entity->getFeedField('delimiter') === '|') {
-            throw new BadRequest($this->getLanguage()->translate("pipelineIsNotAllowed", "exceptions", "ImportFeed"));
+        foreach ($delimiters as $delimiter) {
+            if ($delimiter === '|') {
+                throw new BadRequest($this->getLanguage()->translate("pipelineIsNotAllowed", "exceptions", "ImportFeed"));
+            }
+        }
+
+        if (count(array_unique($delimiters)) !== count($delimiters)) {
+            throw new BadRequest($this->getLanguage()->translate('delimitersMustBeDifferent', 'exceptions', 'ImportFeed'));
         }
 
         if ($entity->getFeedField('emptyValue') === $entity->getFeedField('nullValue')) {

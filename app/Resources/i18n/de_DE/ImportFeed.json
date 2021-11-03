@@ -10,6 +10,7 @@
     "fileTextQualifier": "Textqualifier",
     "isFileHeaderRow": "Header Zeile",
     "fileDataAction": "Aktion",
+    "thousandSeparator": "Tausendertrennzeichen",
     "decimalMark": "Dezimaltrennzeichen",
     "importResults": "Ergebnisse importieren",
     "configuratorItems": "Konfigurator",
@@ -50,10 +51,10 @@
     "importName": "Importieren von Daten nach Feed '%s'"
   },
   "messages": {
-    "importNow": "Möchten Sie die Daten aus der ausgewählten Datei wirklich importieren?",
-    "delimitersMustBeDifferent": "Trennzeichen für Felder und Feldwerte müssen unterschiedlich sein."
+    "importNow": "Möchten Sie die Daten aus der ausgewählten Datei wirklich importieren?"
   },
   "exceptions": {
+    "delimitersMustBeDifferent": "Tausendertrennzeichen, Dezimalzeichen, Feldtrennzeichen, Datensatztrennzeichen (und Zeichen für ein nicht verknüpftes Attribut) sollten eindeutige Werte haben.",
     "unlinkAndLinkInOneRow": "Das mehrsprachige Attribut sollte für alle Sprachen als nicht verknüpftes Attribut markiert werden, um die Verknüpfung aufzuheben.",
     "alreadyProceeded": "Datensatz mit dieser(n) Kennung(en) wurde bereits bearbeitet.",
     "relatedEntityCreatingFailed": "Die Erstellung des neuen Datensatzes in der Entität '%s' ist fehlgeschlagen:",
