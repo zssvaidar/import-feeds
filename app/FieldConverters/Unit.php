@@ -50,7 +50,13 @@ class Unit extends FloatValue
                     if (count($parts) > 2) {
                         throw new BadRequest($this->translate('incorrectUnitValue', 'exceptions', 'ImportFeed'));
                     }
-                    $value = $this->prepareFloatValue((string)$parts[0], $config);
+
+                    try {
+                        $value = $this->prepareFloatValue((string)$parts[0], $config);
+                    } catch (BadRequest $e) {
+                        throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'unit'));
+                    }
+
                     if (isset($parts[1])) {
                         $unit = $parts[1];
                     }
@@ -65,7 +71,11 @@ class Unit extends FloatValue
                     $value = null;
                     $unit = null;
                 } else {
-                    $value = $this->prepareFloatValue((string)$cellValue, $config);
+                    try {
+                        $value = $this->prepareFloatValue((string)$cellValue, $config);
+                    } catch (BadRequest $e) {
+                        throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'unit'));
+                    }
                 }
             }
 
@@ -194,7 +204,11 @@ class Unit extends FloatValue
             $default = Json::decode($configuration['default'], true);
 
             if (!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) {
-                $value = $this->prepareFloatValue((string)$default['value'], $configuration);
+                try {
+                    $value = $this->prepareFloatValue((string)$default['value'], $configuration);
+                } catch (BadRequest $e) {
+                    throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'unit'));
+                }
             }
 
             if (!empty($default['unit'])) {

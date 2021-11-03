@@ -56,7 +56,13 @@ class Currency extends FloatValue
                     if (count($parts) > 2) {
                         throw new BadRequest($this->translate('incorrectCurrencyValue', 'exceptions', 'ImportFeed'));
                     }
-                    $value = $this->prepareFloatValue((string)$parts[0], $config);
+
+                    try {
+                        $value = $this->prepareFloatValue((string)$parts[0], $config);
+                    } catch (BadRequest $e) {
+                        throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'currency'));
+                    }
+
                     if (isset($parts[1])) {
                         $currency = $parts[1];
                     }
@@ -71,7 +77,11 @@ class Currency extends FloatValue
                     $value = null;
                     $currency = null;
                 } else {
-                    $value = $this->prepareFloatValue((string)$cellValue, $config);
+                    try {
+                        $value = $this->prepareFloatValue((string)$cellValue, $config);
+                    } catch (BadRequest $e) {
+                        throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'currency'));
+                    }
                 }
             }
 
@@ -156,7 +166,11 @@ class Currency extends FloatValue
             $default = Json::decode($configuration['default'], true);
 
             if (!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) {
-                $value = $this->prepareFloatValue((string)$default['value'], $configuration);
+                try {
+                    $value = $this->prepareFloatValue((string)$default['value'], $configuration);
+                } catch (BadRequest $e) {
+                    throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'currency'));
+                }
             }
 
             if (!empty($default['currency'])) {
