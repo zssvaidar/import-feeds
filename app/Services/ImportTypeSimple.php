@@ -35,6 +35,8 @@ class ImportTypeSimple extends QueueManagerBase
 {
     private array $services = [];
     private array $restore = [];
+    private array $updatedPav = [];
+    private array $deletedPav = [];
 
     public function run(array $data = []): bool
     {
@@ -291,9 +293,13 @@ class ImportTypeSimple extends QueueManagerBase
         try {
             $converter->convert($inputRow, $conf, $row);
         } catch (IgnoreAttribute $e) {
-            if ($conf['locale'] !== 'main') {
-                $inputRow->{$conf['name']} = null;
-            } elseif (property_exists($inputRow, 'id')) {
+            if (in_array(implode('_', $pavWhere), $this->updatedPav)) {
+                throw new BadRequest($this->translate('unlinkAndLinkInOneRow', 'exceptions', 'ImportFeed'));
+            }
+
+            $this->deletedPav[] = implode('_', $pavWhere);
+
+            if (property_exists($inputRow, 'id')) {
                 $this->saveRestoreRow('deleted', $entityType, $pav->toArray());
                 $service->deleteEntity($inputRow->id);
                 return true;
@@ -302,12 +308,15 @@ class ImportTypeSimple extends QueueManagerBase
             }
         }
 
+        if (in_array(implode('_', $pavWhere), $this->deletedPav)) {
+            throw new BadRequest($this->translate('unlinkAndLinkInOneRow', 'exceptions', 'ImportFeed'));
+        }
+
         if (!property_exists($inputRow, 'id')) {
-            foreach ($pavWhere as $name => $value){
+            foreach ($pavWhere as $name => $value) {
                 $inputRow->$name = $value;
             }
             $pavEntity = $service->createEntity($inputRow);
-
             $this->saveRestoreRow('created', $entityType, $pavEntity->get('id'));
         } else {
             $id = $inputRow->id;
@@ -320,6 +329,8 @@ class ImportTypeSimple extends QueueManagerBase
                 return false;
             }
         }
+
+        $this->updatedPav[] = implode('_', $pavWhere);
 
         return true;
     }

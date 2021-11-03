@@ -57,6 +57,7 @@
     "delimitersMustBeDifferent": "Delimiters for fields and field values must be different."
   },
   "exceptions": {
+    "unlinkAndLinkInOneRow": "Multilingual attribute should be marked as a not linked attribute for all languages to unlink it.",
     "alreadyProceeded": "Data record with such identifier(s) was already proceeded.",
     "relatedEntityCreatingFailed": "Creation of a new record in the entity '%s' failed:",
     "moreThanOneFound": "More than one data record with identifier '%s' found.",
