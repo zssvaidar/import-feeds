@@ -50,7 +50,7 @@ class Unit extends FloatValue
                     if (count($parts) > 2) {
                         throw new BadRequest($this->translate('incorrectUnitValue', 'exceptions', 'ImportFeed'));
                     }
-                    $value = self::prepareFloatValue((string)$parts[0]);
+                    $value = $this->prepareFloatValue((string)$parts[0], $config);
                     if (isset($parts[1])) {
                         $unit = $parts[1];
                     }
@@ -65,7 +65,7 @@ class Unit extends FloatValue
                     $value = null;
                     $unit = null;
                 } else {
-                    $value = self::prepareFloatValue((string)$cellValue);
+                    $value = $this->prepareFloatValue((string)$cellValue, $config);
                 }
             }
 
@@ -194,7 +194,7 @@ class Unit extends FloatValue
             $default = Json::decode($configuration['default'], true);
 
             if (!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) {
-                $value = self::prepareFloatValue((string)$default['value']);
+                $value = $this->prepareFloatValue((string)$default['value'], $configuration);
             }
 
             if (!empty($default['unit'])) {

@@ -24,7 +24,7 @@ namespace Import\FieldConverters;
 
 class FloatValue extends Varchar
 {
-    public static function prepareFloatValue(string $value): float
+    public function prepareFloatValue(string $value, array $config): float
     {
         return (float)str_replace(',', '.', preg_replace("/[^0-9]\.,/", "", $value));
     }
@@ -50,7 +50,7 @@ class FloatValue extends Varchar
         }
 
         if ($value !== null) {
-            $value = self::prepareFloatValue((string)$value);
+            $value = $this->prepareFloatValue((string)$value, $config);
         }
 
         $inputRow->{$config['name']} = $value;
