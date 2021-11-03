@@ -34,10 +34,10 @@ class Boolean extends Varchar
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             $this->ignoreAttribute($value, $config);
-            if ($value === $config['emptyValue'] || $value === '') {
+            if (strtolower($value) === strtolower($config['emptyValue']) || $value === '') {
                 $value = $default;
             }
-            if ($value === $config['nullValue']) {
+            if (strtolower($value) === strtolower($config['nullValue'])) {
                 $value = null;
             }
         } else {

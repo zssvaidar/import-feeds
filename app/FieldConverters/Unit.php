@@ -42,7 +42,7 @@ class Unit extends FloatValue
                 $cell = $row[$config['column'][0]];
                 $this->ignoreAttribute($cell, $config);
 
-                if ($cell === $config['emptyValue'] || $cell === '' || $cell === $config['nullValue']) {
+                if (strtolower($cell) === strtolower($config['emptyValue']) || $cell === '' || strtolower($cell) === strtolower($config['nullValue'])) {
                     $value = null;
                     $unit = null;
                 } else {
@@ -61,7 +61,7 @@ class Unit extends FloatValue
                 $cellValue = trim($row[$config['column'][0]]);
                 $this->ignoreAttribute($cellValue, $config);
 
-                if ($cellValue === $config['emptyValue'] || $cellValue === '' || $cellValue === $config['nullValue']) {
+                if (strtolower($cellValue) === strtolower($config['emptyValue']) || $cellValue === '' || strtolower($cellValue) === strtolower($config['nullValue'])) {
                     $value = null;
                     $unit = null;
                 } else {
@@ -73,7 +73,7 @@ class Unit extends FloatValue
                 $cellUnit = trim($row[$config['column'][1]]);
                 $this->ignoreAttribute($cellUnit, $config);
 
-                if ($cellUnit === $config['emptyValue'] || $cellUnit === '' || $cellUnit === $config['nullValue']) {
+                if (strtolower($cellUnit) === strtolower($config['emptyValue']) || $cellUnit === '' || strtolower($cellUnit) === strtolower($config['nullValue'])) {
                     $value = null;
                     $unit = null;
                 } else {

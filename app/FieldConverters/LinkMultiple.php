@@ -35,11 +35,11 @@ class LinkMultiple extends Varchar
             foreach ($config['column'] as $column) {
                 $value = $row[$column];
 
-                if ($value === $config['emptyValue'] || $value === '') {
+                if (strtolower($value) === strtolower($config['emptyValue']) || $value === '') {
                     $value = null;
                 }
 
-                if ($value === $config['nullValue']) {
+                if (strtolower($value) === strtolower($config['nullValue'])) {
                     $value = null;
                 }
 
