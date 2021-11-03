@@ -249,6 +249,8 @@ class ImportTypeSimple extends QueueManagerBase
     protected function importAttribute(Entity $product, array $data): bool
     {
         $entityType = 'ProductAttributeValue';
+
+        /** @var \Pim\Services\ProductAttributeValue $service */
         $service = $this->getService($entityType);
 
         $inputRow = new \stdClass();
@@ -289,19 +291,23 @@ class ImportTypeSimple extends QueueManagerBase
         try {
             $converter->convert($inputRow, $conf, $row);
         } catch (IgnoreAttribute $e) {
-            return false;
+            if ($conf['locale'] !== 'main') {
+                $inputRow->{$conf['name']} = null;
+            } elseif (property_exists($inputRow, 'id')) {
+                $this->saveRestoreRow('deleted', $entityType, $pav->toArray());
+                $service->deleteEntity($inputRow->id);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         if (!property_exists($inputRow, 'id')) {
-            $inputRow->productId = $product->get('id');
-            $inputRow->attributeId = $conf['attributeId'];
-            $inputRow->scope = $conf['scope'];
-            if ($conf['scope'] === 'Channel') {
-                $inputRow->channelId = $conf['channelId'];
-                $inputRow->channelName = $conf['channelId'];
+            foreach ($pavWhere as $name => $value){
+                $inputRow->$name = $value;
             }
-
             $pavEntity = $service->createEntity($inputRow);
+
             $this->saveRestoreRow('created', $entityType, $pavEntity->get('id'));
         } else {
             $id = $inputRow->id;
