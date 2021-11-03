@@ -47,10 +47,11 @@ class Currency extends FloatValue
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
                 $cell = $row[$config['column'][0]];
                 $this->ignoreAttribute($cell, $config);
-                if ($cell === $config['nullValue']) {
+
+                if ($cell === $config['emptyValue'] || $cell === '' || $cell === $config['nullValue']) {
                     $value = null;
                     $currency = null;
-                } elseif ($cell !== $config['emptyValue'] && $cell !== '') {
+                } else {
                     $parts = explode(' ', preg_replace('!\s+!', ' ', trim($cell)));
                     if (count($parts) > 2) {
                         throw new BadRequest($this->translate('incorrectCurrencyValue', 'exceptions', 'ImportFeed'));
@@ -65,7 +66,11 @@ class Currency extends FloatValue
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
                 $cellValue = trim($row[$config['column'][0]]);
                 $this->ignoreAttribute($cellValue, $config);
-                if ($cellValue !== $config['emptyValue'] && $cellValue !== '' && $cellValue !== $config['nullValue']) {
+
+                if ($cellValue === $config['emptyValue'] || $cellValue === '' || $cellValue === $config['nullValue']) {
+                    $value = null;
+                    $currency = null;
+                } else {
                     $value = self::prepareFloatValue((string)$cellValue);
                 }
             }
@@ -73,7 +78,10 @@ class Currency extends FloatValue
             if (!empty($config['column'][1]) && isset($row[$config['column'][1]])) {
                 $cellCurrency = trim($row[$config['column'][1]]);
                 $this->ignoreAttribute($cellCurrency, $config);
-                if ($cellCurrency !== $config['emptyValue'] && $cellCurrency !== '' && $cellCurrency !== $config['nullValue']) {
+                if ($cellCurrency === $config['emptyValue'] || $cellCurrency === '' || $cellCurrency === $config['nullValue']) {
+                    $value = null;
+                    $currency = null;
+                } else {
                     $currency = $cellCurrency;
                 }
             }
@@ -88,10 +96,6 @@ class Currency extends FloatValue
                 $message = sprintf($this->translate('incorrectCurrency', 'exceptions', 'ImportFeed'), $currency, $config['name']);
             }
             throw new BadRequest($message);
-        }
-
-        if ($value === null) {
-            $currency = null;
         }
 
         $inputRow->{$config['name']} = $value;
@@ -150,8 +154,12 @@ class Currency extends FloatValue
 
         if (!empty($configuration['default'])) {
             $default = Json::decode($configuration['default'], true);
-            if ((!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) && !empty($default['currency'])) {
-                $value = (float)$default['value'];
+
+            if (!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) {
+                $value = self::prepareFloatValue((string)$default['value']);
+            }
+
+            if (!empty($default['currency'])) {
                 $currency = (string)$default['currency'];
             }
         }

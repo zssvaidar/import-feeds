@@ -41,10 +41,11 @@ class Unit extends FloatValue
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
                 $cell = $row[$config['column'][0]];
                 $this->ignoreAttribute($cell, $config);
-                if ($cell === $config['nullValue']) {
+
+                if ($cell === $config['emptyValue'] || $cell === '' || $cell === $config['nullValue']) {
                     $value = null;
                     $unit = null;
-                } elseif ($cell !== $config['emptyValue'] && $cell !== '') {
+                } else {
                     $parts = explode(' ', preg_replace('!\s+!', ' ', trim($cell)));
                     if (count($parts) > 2) {
                         throw new BadRequest($this->translate('incorrectUnitValue', 'exceptions', 'ImportFeed'));
@@ -59,7 +60,11 @@ class Unit extends FloatValue
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
                 $cellValue = trim($row[$config['column'][0]]);
                 $this->ignoreAttribute($cellValue, $config);
-                if ($cellValue !== $config['emptyValue'] && $cellValue !== '' && $cellValue !== $config['nullValue']) {
+
+                if ($cellValue === $config['emptyValue'] || $cellValue === '' || $cellValue === $config['nullValue']) {
+                    $value = null;
+                    $unit = null;
+                } else {
                     $value = self::prepareFloatValue((string)$cellValue);
                 }
             }
@@ -67,7 +72,11 @@ class Unit extends FloatValue
             if (!empty($config['column'][1]) && isset($row[$config['column'][1]])) {
                 $cellUnit = trim($row[$config['column'][1]]);
                 $this->ignoreAttribute($cellUnit, $config);
-                if ($cellUnit !== $config['emptyValue'] && $cellUnit !== '' && $cellUnit !== $config['nullValue']) {
+
+                if ($cellUnit === $config['emptyValue'] || $cellUnit === '' || $cellUnit === $config['nullValue']) {
+                    $value = null;
+                    $unit = null;
+                } else {
                     $unit = $cellUnit;
                 }
             }
@@ -82,10 +91,6 @@ class Unit extends FloatValue
                 $message = sprintf($this->translate('incorrectUnit', 'exceptions', 'ImportFeed'), $unit, $config['name']);
             }
             throw new BadRequest($message);
-        }
-
-        if ($value === null) {
-            $unit = null;
         }
 
         $inputRow->{$config['name']} = $value;
@@ -187,8 +192,12 @@ class Unit extends FloatValue
 
         if (!empty($configuration['default'])) {
             $default = Json::decode($configuration['default'], true);
-            if ((!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) && !empty($default['unit'])) {
-                $value = (float)$default['value'];
+
+            if (!empty($default['value']) || $default['value'] === '0' || $default['value'] === 0) {
+                $value = self::prepareFloatValue((string)$default['value']);
+            }
+
+            if (!empty($default['unit'])) {
                 $unit = (string)$default['unit'];
             }
         }

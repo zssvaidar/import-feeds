@@ -98,9 +98,13 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
             }
 
             if (type === 'unit') {
-                this.model.defs.fields["default"] = {
-                    measure: this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.measure`)
-                };
+                if (this.model.get('type') === 'Attribute') {
+                    this.ajaxGetRequest(`Attribute/${this.model.get('attributeId')}`, null, {async: false}).then(attribute => {
+                        this.model.defs.fields["default"] = {measure: attribute.typeValue[0]};
+                    });
+                } else {
+                    this.model.defs.fields["default"] = {measure: this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.measure`)};
+                }
             }
         },
 
