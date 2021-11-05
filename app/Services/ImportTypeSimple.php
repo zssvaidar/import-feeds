@@ -307,6 +307,8 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest($this->translate('unlinkAndLinkInOneRow', 'exceptions', 'ImportFeed'));
         }
 
+        $this->updatedPav[] = implode('_', $pavWhere);
+
         if (!property_exists($inputRow, 'id')) {
             foreach ($pavWhere as $name => $value) {
                 $inputRow->$name = $value;
@@ -324,8 +326,6 @@ class ImportTypeSimple extends QueueManagerBase
                 return false;
             }
         }
-
-        $this->updatedPav[] = implode('_', $pavWhere);
 
         return true;
     }
