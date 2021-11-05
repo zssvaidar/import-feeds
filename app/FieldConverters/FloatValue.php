@@ -32,8 +32,8 @@ class FloatValue extends Varchar
         $decimalMark = $config['decimalMark'];
 
         $floatValue = (float)str_replace($decimalMark, '.', str_replace($thousandSeparator, '', $value));
-        $checkValueStrict = trim(trim(number_format($floatValue, 10, $decimalMark, $thousandSeparator), '0'), $decimalMark);
-        $checkValueUnStrict = trim(trim(number_format($floatValue, 10, $decimalMark, ''), '0'), $decimalMark);
+        $checkValueStrict = rtrim(rtrim(number_format($floatValue, 10, $decimalMark, $thousandSeparator), '0'), $decimalMark);
+        $checkValueUnStrict = rtrim(rtrim(number_format($floatValue, 10, $decimalMark, ''), '0'), $decimalMark);
 
         if (!in_array($value, [$checkValueStrict, $checkValueUnStrict])) {
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'float'));
