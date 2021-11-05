@@ -64,9 +64,10 @@ class Integer extends Varchar
         $decimalMark = $config['decimalMark'];
 
         $intValue = (int)str_replace($thousandSeparator, '', $value);
-        $checkValue = number_format((float)$intValue, 0, $decimalMark, $thousandSeparator);
+        $checkValueStrict = number_format((float)$intValue, 0, $decimalMark, $thousandSeparator);
+        $checkValueUnStrict = number_format((float)$intValue, 0, $decimalMark, '');
 
-        if ($checkValue !== $value) {
+        if (!in_array($value, [$checkValueStrict, $checkValueUnStrict])) {
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'integer'));
         }
 
