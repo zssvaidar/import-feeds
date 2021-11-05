@@ -31,9 +31,15 @@ class FloatValue extends Varchar
         $thousandSeparator = $config['thousandSeparator'];
         $decimalMark = $config['decimalMark'];
 
+        $decimals = 0;
+        $parts = explode($decimalMark, $value);
+        if (count($parts) > 1) {
+            $decimals = strlen(array_pop($parts));
+        }
+
         $floatValue = (float)str_replace($decimalMark, '.', str_replace($thousandSeparator, '', $value));
-        $checkValueStrict = rtrim(rtrim(number_format($floatValue, 10, $decimalMark, $thousandSeparator), '0'), $decimalMark);
-        $checkValueUnStrict = rtrim(rtrim(number_format($floatValue, 10, $decimalMark, ''), '0'), $decimalMark);
+        $checkValueStrict = number_format($floatValue, $decimals, $decimalMark, $thousandSeparator);
+        $checkValueUnStrict = number_format($floatValue, $decimals, $decimalMark, '');
 
         if (!in_array($value, [$checkValueStrict, $checkValueUnStrict])) {
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'float'));
