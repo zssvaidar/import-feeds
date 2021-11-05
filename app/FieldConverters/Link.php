@@ -120,6 +120,10 @@ class Link extends Varchar
         }
 
         $inputRow->{$config['name'] . 'Id'} = $value;
+
+        if ($config['type'] === 'Attribute') {
+            $inputRow->{$config['name']} = $inputRow->{$config['name'] . 'Id'};
+        }
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void

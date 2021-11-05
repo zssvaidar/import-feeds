@@ -69,6 +69,10 @@ class LinkMultiple extends Varchar
         }
 
         $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
+
+        if ($config['type'] === 'Attribute') {
+            $inputRow->{$config['name']} = $inputRow->{$config['name'] . 'Ids'};
+        }
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
