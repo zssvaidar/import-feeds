@@ -115,7 +115,7 @@ Click on "Save" button to save the mapping rule.
 
 > Please note, a certain column can be used multiple times in different rules.
 
-To modify the mapping rule displayed on the `Configurator` panel, use the `Edit` option from the single record actions menu and make the desired changes in the editing pop-up that appears for the given entity field. Here you can also delete the selected rule.
+To modify the mapping rule displayed on the `Configurator` panel, use the `Edit` option from the single record actions menu. Here you can also delete the selected rule.
 
 ![Configurator panel](_assets/import-feeds-configurator-menu.png)
 
