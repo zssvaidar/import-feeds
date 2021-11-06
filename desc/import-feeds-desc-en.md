@@ -1,12 +1,20 @@
-The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system and its direct relations. You can create, configure and use many inport feeds.
+The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system and its direct relations, eg it is possible to import the product data together with the corresponding categories. You can create, configure and use many inport feeds.
 
 With the help of the "Import Feeds" module, data import may be performed in two ways:
-- **manually** – by using some import feed directly;
+
+- **manually** – by using some configured import feed directly
 - **automatically** – by scheduled job.
 
-You will be able to create a scheduled job for your import task only if appropriate import feed type is available in your system. Such import feed types enable the system to download some file via URL, execute REST API call, make a query directly to the database and so on (premium modules are needed for this feature).
+You will be able to create a scheduled job for your import tasks only if the appropriate import feed type is available in your system. Such import feed types enable the system to download the data via URL, execute REST API call, make a query directly to the database and so on (premium modules are needed for this feature). With this free module you can manually import the data via CSV files. You can also code your own import feed types.
 
-With this free module you can manually import the data only via CSV files. Additional import feed types can be added with the help of premium modules or you can code your own import feed types.
+## The following modules extend the functionality of the import feeds
+
+- Import Feeds: Rollback – allows to rollback the last import with the full data recovery
+- Import Feeds: Databases – allows to import data from MSSQL, MySQL, Oracle, HANA databases
+- Import Feeds: JSON and XML – allows to import data from JSON and XML files
+- Import Feeds: URL – allows to import data via URL from CSV, JSON and XML files
+- Import Feeds: REST API – allows to import data via REST API
+- Connector – orchestrates multiple import and export feeds to automate the complex data exchange
 
 ## Administrator Functions
 
