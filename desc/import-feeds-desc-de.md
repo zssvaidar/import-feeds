@@ -10,7 +10,7 @@ Sie können nur dann einen geplanten Job für Ihre Importaufgaben erstellen, wen
 ## Die folgenden Module erweitern die Funktionalität der Import-Feeds
 
 - Import Feeds: Rollback – ermöglicht das Rollback des letzten Imports mit der vollständigen Datenwiederherstellung
-- Import Feeds: Datenbanken – ermöglicht den Import von Daten aus MSSQL-, MySQL-, Oracle-, HANA-Datenbanken
+- Import Feeds: Datenbanken – ermöglicht den Import von Daten aus MSSQL-, MySQL-, PostgreSQL-, Oracle-, HANA-Datenbanken
 - Import Feeds: JSON und XML – ermöglicht den Import von Daten aus JSON- und XML-Dateien
 - Import Feeds: URL – ermöglicht den Import von Daten per URL aus CSV-, JSON- und XML-Dateien
 - Import Feeds: REST API – ermöglicht den Datenimport über die REST API
@@ -70,19 +70,23 @@ Die Parameter der Importdatei werden im Panel `FILE PROPERTIES` konfiguriert:
 - **Textqualifizierer** – Wählen Sie das Trennzeichen der Werte innerhalb einer Zelle: Es können einfache oder doppelte Anführungszeichen ausgewählt werden.
 
 
+### Einstellungen
+Das nächste Panel ist das Einstellungspanel:
 
+![Einfache Typeinstellungen](_assets/import-feeds-create-settings.png)
 
+- **Entität** – wählen Sie die gewünschte Entität für die zu importierenden Daten aus der Dropdown-Liste aller im System verfügbaren Entitäten aus.
+- **Unbenutzte Spalten** – dieses Feld ist zunächst leer. Nach dem Speichern sehen Sie hier die Liste der verfügbaren nicht zugeordneten Spalten.
+- **Datensatz-Trennzeichen** – ist das Trennzeichen zum Aufteilen mehrerer Werte (zB für Multienum- oder Array-Felder und -Attribute) oder mehrerer zusammengehöriger Datensätze.
+- **Markierung für ein nicht verknüpftes Attribut** – diese Markierung ist nur für die Produktentität verfügbar. Dieses Symbol kennzeichnet Attribute, die nicht mit dem jeweiligen Produkt verknüpft werden sollen.
+- **Leerer Wert** – Dieses Symbol wird zusätzlich zur leeren Zelle als "leerer" Wert interpretiert, zB "" und "kein" wird als "" interpretiert, wenn Sie "kein" als leeren Wert definieren.
+- **Nullwert** – dieser Wert wird als "NULL"-Wert interpretiert.
 
-### Einfache Typ-Einstellungen
-Um die Bearbeitung der Parameter im Panel `EINFACHE TYP-EINSTELLUNGEN` zu ermöglichen, klicken Sie auf den `Bearbeiten`-Button auf der Detail-Ansichtsseite des aktuellen Import Feeds und konfigurieren Sie folgende Einstellungen:
+Wenn Sie Produktdaten importieren, können einige Produkte bestimmte Attribute haben, andere nicht. Wenn der Wert für ein Attribut leer ist, ist nicht klar, ob dieses Attribut einen leeren Wert hat oder ob dieses Produkt dieses Attribut gar nicht hat. Aus diesem Grund sollte die **Markierung für ein nicht verlinktes Attribut** verwendet werden, um eindeutig zu kennzeichnen, welches Attribut nicht mit einem bestimmten Produkt verknüpft werden soll.
 
-![Simple type settings](_assets/simple-type-settings.jpg)
+Wenn das Feld `Unbenutzte Spalten` nach dem Speichern Ihres Feeds leer ist, sollten Sie Ihr Feldtrennzeichen auf Richtigkeit überprüfen. Wenn einige Spaltennamen einfache oder doppelte Anführungszeichen enthalten, haben Sie möglicherweise den falschen Textqualifizierer eingestellt.
 
-- **Entität** – wählen Sie aus der Drop-down-Liste der im System verfügbaren Entitäten den gewünschten Entitätstyp aus, für den dieser Import Feed verwendet werden soll.
-- **Feldwert Begrenzer** – geben Sie das bevorzugte Trennzeichen der Werte im Feld ein. Das Standardsymbol ist `;` (Semikolon).
-- **ID** – wählen Sie den Namen des Datenfeldes aus, das als Identifikator für die Aktualisierung im angegebenen Import Feed verwendet wird. Der `ID`-Parameter wird hier angezeigt, wenn entweder die Aktion `Nur aktualisieren` oder `Aktualisieren und erstellen` im Panel [`ÜBERBLICK`](#überblick)  definiert ist. Außerdem ist das das Pflichtfeld für die Aktion `Nur aktualisieren`.  
-
-Bitte beachten Sie, dass `Feld-Trennzeichen` und `Feldwert-Begrenzer` verschieden sein sollen. 
+> Bitte beachten Sie, dass die definierten Symbole `Feldbegrenzer`, `Datensatzbegrenzer`, `Nullwert`, `Nullwert`, `Tausender-Trennzeichen`, `Dezimalzeichen`, `Textqualifizierer`  und `Markierung für ein nicht verknüpftes Attribut` unterschiedlich sein müssen.
 
 ### Konfigurator
 
