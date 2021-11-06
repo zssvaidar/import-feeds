@@ -103,18 +103,21 @@ To create a new entry click on the `+` icon in the upper right corner. A popup w
 ![Configurator panel](_assets/import-feeds-configurator-new.png)
 
 - **Type** – choose the type of your mapping rule by selection "Field" of "Attribute" in the field `Type`. The option "Attribute" is available only for product entity.
+
+![Configurator panel](_assets/import-feeds-configurator-new-type.png)
+
 - **Field** – choose the field for your selected entity field for data to be imported from the selected column(s).
 - **Identifier** – set this checkbox, if the value in the selected column should be interpreted as an identifier. You can select multiple columns as identifier.
 - **Column(s)** – depending on the type of the selected entity field you can select one, two or multiple columns here.
+- **Default Value** – you can specify the default value to be set, if the cell value is "", "empty" or "null".
 
 Click on "Safe" button to safe the mapping rule.
 
-> One column can be used multiple times in different rules.
+> Please note, a certain column can be used multiple times in different rules.
 
 To modify the mapping rule displayed on the `Configurator` panel, use the `Edit` option from the single record actions menu and make the desired changes in the editing pop-up that appears for the given entity field. Here you can also delete the selected rule.
 
 ![Configurator panel](_assets/import-feeds-configurator-menu.png)
-
 
 #### Adding Entity Fields
 
