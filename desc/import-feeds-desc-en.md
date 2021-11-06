@@ -18,12 +18,12 @@ You will be able to create a scheduled job for your import tasks only if the app
 
 ## Administrator Functions
 
-After the module installation two new entities will be created in your system - `Import Feeds` and `Import Results`. Via `Administration > System > User Interface`you can add these items to the navigation of your system.
+After the module installation two new entities will be created in your system - `Import Feeds` and `Import Results`. Via `Administration > System > User Interface`you can add these items to the navigation of your system, if it did not happen automatically.
 ![Import feeds adding](_assets/import-feeds-add.jpg)
 
 ### Access Rights
 
-To enable import feed creation, editing, usage and deletion by other users, configure the corresponding access rights to the `Import feeds` and `Import results` entities for the desired user / team / portal user role on the `Administration > Roles > *Role name*` page: 
+To enable import feed creation, editing, usage and deletion by other users, configure the corresponding access rights to the `Import feeds` and `Import results` entities for the desired user/team/portal user role on the `Administration > Roles > *Role name*` page: 
 
 ![Import role cfg](_assets/import-role-cfg.jpg)
 
