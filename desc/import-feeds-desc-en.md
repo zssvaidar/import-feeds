@@ -45,9 +45,9 @@ The standard form for the import feed creating appears:
 Here fill in the required fields and select the import feed type from the corresponding drop-down list. This module adds only **CSV File** type.
 Сlick the `Save` button. The new record will be added to the import feeds list. You can configure it right away on the detail view page that opens or return to it later.
 
-### Overview Section
+### Overview panel
 
-Overview section enables you to define the main feed parameters (name, action, activity etc):
+Overview panel enables you to define the main feed parameters (name, action, activity etc):
 ![Import feed cfg](_assets/import-feeds-create-overview.png)
 
 The following settings are available here:
@@ -65,13 +65,14 @@ The following settings are available here:
 
 The import file parameters are configured on the `FILE PROPERTIES` panel:
 
-![Import feed cfg file](_assets/import-feed-cfg-file.jpg)
+![Import feed cfg file](_assets/import-feeds-create-file-properties.png)
 
-- **Example file (CSV)** – load the template in the CSV format that will be used as an example file for data import. You can use either a full or shortened import file, or file with column headers as an example file. All the data in the example file should be UTF-8 encoded. 
-- **Header row** – activate the checkbox to include the column names in the import file or leave it deselected to skip column names from importing.
-- **Field delimiter** – select the preferred field delimiter to be used in the import file: `,`, `;`,`\t`, `|`.
-- **Decimal mark** – select the preferred decimal mark to be used in the import file: `.` or `,`.
-- **Text qualifier** – select the preferred separator of the values within a cell: single or double quotes.
+- **File** – here you can upload the file which is to be imported or its shortened version, which will be used for the configuration. The file should be UTF-8 encoded. 
+- **Header row** – activate the checkbox if the column names are included in the import file or leave it empty if the file to be imported has no header row with column names.
+- **Thousand separator** –  define the symbol, which is used as thousand separator. This parameter is optional. The numerical values without thousand separator will be also imported (eg both values 1234,34 and 1.234,34 will be imported, if "." is defined as a thousand separator).
+- **Decimal mark** – select the used decimal mark, usually `.` or `,` should be defined here.
+- **Field delimiter** – select the preferred field delimiter to be used in the CSV import file, possible values are `,`, `;`,`\t`, `|`.
+- **Text qualifier** – select the preferred separator of the values within a cell: single or double quotes can be selected.
 
 ### Simple Type Settings
 
