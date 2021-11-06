@@ -39,29 +39,22 @@ Das Standardformular für die Importfeederstellung erscheint:
 Füllen Sie hier die Pflichtfelder aus und wählen den Import-Feed-Typ aus der entsprechenden Drop-down-Liste aus. Dieses Modul fügt den Import-Feed-Typ **CSV Datei** hinzu. 
 Klicken Sie auf den Button `Speichern`. Der neue Datensatz wird zu der Import-Feeds-Liste hinzugefügt. Sie können es sofort auf Detailansichtsseite konfigurieren oder es später machen.
 
-## Konfiguration von Import Feeds 
-Um den Import Feed zu konfigurieren, klicken Sie auf den gewünschten Datensatz in der Liste von Import Feeds. Die folgende Detail-Ansichtsseite wird geöffnet:
+### Abschnitt Übersicht
 
-![Import feed cfg](_assets/import-feed-cfg.jpg)
+Im Abschnitt Übersicht können Sie die wichtigsten Feedparameter (Name, Aktion, Aktivität usw.) definieren:
+![Feed-cfg importieren](_assets/import-feeds-create-overview.png)
 
-Inline-Bearbeitung wird hier unterstützt. Bevor Sie Änderungen vornehmen, müssen Sie auf das Stiftsymbol rechts neben jedem bearbeitbaren Feld klicken.
+Folgende Einstellungen stehen hier zur Verfügung:
 
-*Ausführliche Informationen zur Inline-Bearbeitung und zu anderen Funktionen des AtroPIM-Systems finden Sie im Abschnitt **Entity Records** des Artikels [**Views and Panels**](https://atropim.com/help/views-and-panels) in unserem User Guide.*
+- **Aktiv** – Aktivität des Import-Feeds, Import ist nicht möglich, wenn dieses Kontrollkästchen nicht aktiviert ist
+- **Name** – Importfeedname
+- **Beschreibung** – Beschreibung des Import-Feeds, kann als Erinnerung für die Zukunft oder als Hinweis für andere Benutzer des angegebenen Import-Feeds verwendet werden
+- **Typ** – der Import-Feed-Typ, kann später nicht geändert werden
+- **Aktion** – Definieren Sie die Aktion, die beim Datenimport im System ausgeführt werden soll:
+     - *Nur erstellen* – es werden nur neue Datensätze angelegt, bestehende Datensätze werden nicht aktualisiert
+     - *Nur Update* – bestehende Datensätze werden aktualisiert, neue Datensätze werden nicht erstellt
+     - *Create & Update* – neue Datensätze werden erstellt und die bestehenden Datensätze werden aktualisiert.
 
-Folgende Einstellungen sind im Panel `ÜBERBLICK` verfügbar:
-
-- **Aktiv** – Aktivieren Sie diese Checkbox, um den Import Feed zu aktivieren. Wenn der Import Feed nicht aktiviert ist, wird die Importfunktion für diesen deaktiviert. 
-- **Name** – Ändern Sie bei Bedarf den Namen des Import Feeds. 
-- **Beschreibung** – Geben Sie eine Beschreibung der Verwendung des Import Feeds ein, die als Erinnerung für die Zukunft oder als Hinweis für die anderen Nutzer des bestimmten Import Feeds dienen wird. Dieses Feld ist kein Pflichtfeld. 
-- **Aktion** – Definieren Sie die Aktion, die während des Datenimports im System ausgeführt werden soll:  
-- *Nur erstellen* – die neuen Datensätze werden erstellt;     
-
-- *Nur aktualisieren* – die Daten in den schon vorhandenen Datensätzen werden aktualisiert;     
-- *Erstellen und aktualisieren* – die neuen Datensätze werden erstellt und die schon vorhandenen Datensätze werden aktualisiert. 
-- **Typ** – Der Import-Feed-Typ, der nur bei der Erstellung definiert wurde. Er kann nicht geändert werden.
-- **Grenze** – die maximale Anzahl der Datensätze, die pro Import Job über einen Import Feed importiert werden sollen. Abhängig vom angegebenen Grenzwert wird die Importvorlage entsprechend in separate Teile aufgeteilt, der Datenimport wird jedoch gemäß einer Import-Feed-Konfiguration durchgeführt. Das standardmäßige Limit der Datensätze ist 1000.
-
-Standardmäßig  ist der Import Feed nicht aktiv und die Aktion `Nur erstellen` ist zugewiesen. Bitte beachten Sie, dass die Auswahl der Aktion den Inhalt des Panels `EINFACHE TYP-ENEINSTELLUNGEN` beeinflusst, das [unten](#einfache-typ-einstellungen) beschrieben ist. 
 
 ### Dateieigenschaften 
 
