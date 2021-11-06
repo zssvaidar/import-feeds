@@ -93,17 +93,24 @@ If the `Unused Columns` field is empty after saving your feed you should check y
 
 > Please, note that the defined `field delimiter`, `data record delimiter`, `empty value`, `null value`, `thousand separator`, `decimal mark`, `text qualifier` and `mark for a non linked attribute` symbols must be different.
 
-### Configurator
+## Configurator
+Configurator can be used after the import feed is created. Initially this panel is empty. This panel displays mapping rules for your data import.
 
-The configuration of the entity fields is performed on the `CONFIGURATOR` panel on either the detail or edit view page of the import feed. By default, the required fields of the entity type defined on the `SIMPLE TYPE SETTINGS` panel are displayed there, and depending on this choice, the `CONFIGURATOR` panel contains different fields. For [products](https://atropim.com/help/products), this panel looks as follows: 
+![Configurator panel](_assets/import-feeds-configurator.png)
 
-![Configurator panel](_assets/configurator-panel.jpg)
+To create a new entry click on the `+` icon in the upper right corner. A popup window appears.
 
-To modify the entity field displayed on the `CONFIGURATOR` panel, use the `Edit` option from the single record actions menu and make the desired changes in the editing pop-up that appears for the given entity field:
+![Configurator panel](_assets/import-feeds-configurator-new.png)
 
-![Field editing](_assets/field-editing.jpg) 
+- **Type** – choose the type of your mapping rule by selection "Field" of "Attribute" in the field `Type`. The option "Attribute" is available only for product entity.
+- **Field** – choose the field for your selected entity which should get 
+- **Identifier** – set this checkbox, if the value in the selected column should be interpreted as an identifier. You can select multiple columns as identifier.
+- **Column(s)** – depending on the type of the selected entity field you can select one, two or multiple columns here.
 
-Please, note that import by ID and code is a recommended setting for the entity field to be used in the import feed.
+To modify the mapping rule displayed on the `Configurator` panel, use the `Edit` option from the single record actions menu and make the desired changes in the editing pop-up that appears for the given entity field.
+
+![Configurator panel](_assets/import-feeds-configurator-menu.png)
+
 
 #### Adding Entity Fields
 
