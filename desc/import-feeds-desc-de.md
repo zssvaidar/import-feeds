@@ -16,25 +16,18 @@ Sie können nur dann einen geplanten Job für Ihre Importaufgaben erstellen, wen
 - Import Feeds: REST API – ermöglicht den Datenimport über die REST API
 - Connector – orchestriert mehrere Import- und Export-Feeds, um einen komplexen Datenaustausch zu automatisieren
 
-## Installation 
-Um das Modul „Import Feeds“ in Ihrem System zu installieren, gehen Sie zur `Administration > Modulmanager`. Finden Sie dieses Modul in der Liste „Shop“ und klicken Sie auf `Installieren`:
-![Import install](_assets/import-install.jpg)
-Wählen Sie im angezeigten Installations-Pop-up die gewünschte Version aus und klicken Sie auf den Button `Installieren`. Der Modulhintergrund wird grün und das Modul wird in den Modulmanager-Bereich „Installiert“ verschoben. Klicken Sie auf `Update starten`, um die Installation zu bestätigen.
-
-> ​Bitte beachten Sie, dass nach dem Systemupdate alle Nutzer abgemeldet werden.
-
-Um das Modul „Import Feeds“ zu aktualisieren / zu entfernen, nutzen Sie entsprechende Optionen aus seinem Menü für einzelne Datensatzaktionen im `Administration > Modulmanager`. 
-
 ## Funktionen für den Administrator
-Das Modul „Import Feeds“ erweitert die Funktionalität des [AtroPIM](https://atropim.com/help/what-is-atropim)-Systems erheblich, so ist die weitere Modulbeschreibung im Kontext von AtroPIM gegeben.
-Nach der Modulinstallation wird eine neue `Import-Feeds`-Konfigurationsgruppe zum AtroPIM-Adminbereich hinzugefügt. Es ist auch möglich, `Import-Cron-Jobs`, `Import Feeds` und `Import-Ergebnisse` als separate Navigationsmenüpunkte auf der Seite `Administration > Benutzeroberfläche` hinzuzufügen:
-![Import feeds adding](_assets/import-feeds-add.jpg)
+Nach der Modulinstallation werden in Ihrem System zwei neue Entitäten erstellt - `Import Feeds` und `Import-Ergenisse`. Über `Administration > System > User Interface` können Sie diese Elemente zur Navigation Ihres Systems hinzufügen, falls es nicht automatisch geschehen ist.
+![Feeds importieren hinzufügen](_assets/import-feeds-add.jpg)
+
 ### Zugangsrechte
-Um die Erstellung, Bearbeitung, Nutzung und Entfernung des Import Feeds für andere Nutzer zu ermöglichen, konfigurieren Sie die entsprechenden Zugangsrechte zu den Entitäten `Import-Cron-Jobs`, `Import Feeds` und `Import-Ergebnisse` für die gewünschte Benutzer- / Team- / Portalbenutzerrolle auf der Seite `Administration > Rollen > 'Rollenname'`:
+Um die Erstellung, Bearbeitung, Nutzung und Entfernung des Import Feeds für andere Nutzer zu ermöglichen, konfigurieren Sie die entsprechenden Zugangsrechte zu den Entitäten `Import Feeds` und `Import-Ergebnisse` für die gewünschte Benutzer-/Team-/Portalbenutzerrolle auf der Seite `Administration > Rollen > 'Rollenname'`:
 ![Import role cfg](_assets/import-role-cfg.jpg)
-Bitte beachten Sie, dass für den Nutzer mindestens die Gewährung des  `Import-Feeds`-Leserechts erforderlich ist, damit er die Möglichkeit hat, die Import Feeds auszuführen.   
+Bitte beachten Sie, dass für einen Nutzer mindestens die Gewährung des Leserechts auf `Import-Feeds` erforderlich ist, damit er die Import Feeds auszuführen kann.   
+
 ## Funktionen für den Nutzer
 Nachdem das Modul „Import Feeds“ vom Administrator installiert und konfiguriert wurde, kann der Nutzer mit Import Feeds entsprechend seiner Rollenrechte arbeiten, die vom Administrator vordefiniert wurden.
+
 ## Erstellung von Import Feeds
 Um einen neuen Import Feed zu erstellen, klicken Sie im Navigationsmenü auf `Import Feeds` und dann auf den Button `Import Feed erstellen`. 
 
