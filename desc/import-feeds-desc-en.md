@@ -45,29 +45,21 @@ The standard form for the import feed creating appears:
 Here fill in the required fields and select the import feed type from the corresponding drop-down list. This module adds only **CSV File** type.
 Сlick the `Save` button. The new record will be added to the import feeds list. You can configure it right away on the detail view page that opens or return to it later.
 
-## Import Feed Configuration
+### Overview Section
 
-To configure the import feed, click the desired record in the import feeds list; the following detail view page will open:
+Overview section enables you to define the main feed parameters (name, action, activity etc):
+![Import feed cfg](_assets/import-feeds-create-overview.png)
 
-![Import feed cfg](_assets/import-feed-cfg.jpg)
+The following settings are available here:
 
-In-line editing is supported here. So prior to making any changes, you have to click the pencil icon located on the right of each editable field.
-
-*For details on in-line editing and other features of the AtroPIM system, refer to the **Entity Records** section of the [**Views and Panels**](https://atropim.com/help/views-and-panels) article of our user guide.*
-
-The following settings are available on the `OVERVIEW` panel:
-
-- **Active** – select this checkbox to activate the import feed. If the import feed is not activated, the importing feature will be disabled for it.
-- **Name** – modify the import feed name, if needed.
-- **Description** – enter the description of the import feed usage, as a reminder for the future or as a hint for other users of the given import feed. This field is not required.
+- **Active** – activity of the import feed, import is imposible unless this checkbox is activated
+- **Name** – import feed name
+- **Description** – description of the import feed usage, can be used as a reminder for the future or as a hint for other users of the given import feed
+- **Type** – the import feed type, cannot be modified later
 - **Action** – define the action to be performed in the system during the data import:
-	- *Create Only* – new data records will be created;
-    - *Update Only* – data in the already existing records will be updated;
+    - *Create Only* – only new data records will be created, existing data records will not be updated
+    - *Update Only* – existing records will be updated, new data records will not be created
     - *Create & Update* – new data records will be created and the existing records will be updated.
-- **Type** – the import feed type defined on its creation only; it cannot be modified.
-- **Limit** – maximum number of records to be imported per import job via one import feed. Depending on the limit value entered, the import template will be split into separate parts accordingly, but data import will be performed in accordance with one import feed configuration. The default records limit is 1000. 
-
-By default, the import feed is not active and the `Create Only` action is assigned. Please, note that the choice of the action influences the content of the `SIMPLE TYPE SETTINGS` panel, described [below](#simple-type-settings).
 
 ### File Properties
 
