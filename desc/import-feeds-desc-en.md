@@ -39,13 +39,11 @@ To create a new import feed, click `Import Feeds` in the navigation menu and the
 
 > If there is no `Import Feeds` option in the navigation menu, please, contact your administrator.
 
-The common creation pop-up will appear:
+The standard form for the import feed creating appears:
+![Import feed creation](_assets/import-feeds-create.png)
 
-![Import feed creation](_assets/import-feed-new.jpg)
-
-Here fill in the required fields and select the import feed type from the corresponding drop-down list. Currently the only import feed type supported is **simple** – designed for importing the data into any entity existing in your system with the ability to configure the list of fields to be imported, their order and names. 
-
-Сlick the `Save` button to complete the operation; the new record will be added to the import feeds list. You can configure it right away on the detail view page that opens or return to it later.
+Here fill in the required fields and select the import feed type from the corresponding drop-down list. This module adds only **CSV File** type.
+Сlick the `Save` button. The new record will be added to the import feeds list. You can configure it right away on the detail view page that opens or return to it later.
 
 ## Import Feed Configuration
 
