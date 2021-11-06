@@ -33,13 +33,11 @@ Um einen neuen Import Feed zu erstellen, klicken Sie im Navigationsmenü auf `Im
 
 > Wenn es im Navigationsmenü keine `Import-Feeds`-Option gibt, wenden Sie sich bitte an Ihren Administrator.
 
-Es wird ein gewöhnliches Pop-up für die Erstellung angezeigt:
+Das Standardformular für die Importfeederstellung erscheint:
+![Import feed creation](_assets/import-feeds-create.png)
 
-![Import feed creation](_assets/import-feed-new.jpg)
-
-Füllen Sie hier die Pflichtfelder aus und wählen den Import-Feed-Typ aus der entsprechenden Drop-down-Liste aus. Aktuell wird nur der Import-Feed-Typ **Einfach** unterstützt. Er wurde für den Import der Daten in die beliebige Entität Ihres Systems entwickelt und bietet die Möglichkeit, die Liste der zu importierenden Felder sowie deren Reihenfolge und Namen zu konfigurieren.
-
-Klicken Sie auf den Button `Speichern`, um den Vorgang abzuschließen. Der neue Datensatz wird zu der Import-Feeds-Liste hinzugefügt. Sie können ihn sofort auf der Detail-Ansichtsseite konfigurieren, welche angezeigt wird, oder später darauf zurückkommen.
+Füllen Sie hier die Pflichtfelder aus und wählen den Import-Feed-Typ aus der entsprechenden Drop-down-Liste aus. Dieses Modul fügt den Import-Feed-Typ **CSV Datei** hinzu. 
+Klicken Sie auf den Button `Speichern`. Der neue Datensatz wird zu der Import-Feeds-Liste hinzugefügt. Sie können es sofort auf Detailansichtsseite konfigurieren oder es später machen.
 
 ## Konfiguration von Import Feeds 
 Um den Import Feed zu konfigurieren, klicken Sie auf den gewünschten Datensatz in der Liste von Import Feeds. Die folgende Detail-Ansichtsseite wird geöffnet:
