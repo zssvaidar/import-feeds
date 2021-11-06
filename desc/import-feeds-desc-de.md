@@ -90,15 +90,31 @@ Wenn das Feld `Unbenutzte Spalten` nach dem Speichern Ihres Feeds leer ist, soll
 
 ### Konfigurator
 
-Die Konfiguration der Entitätsfelder wird im Panel `KONFIGURATOR` entweder auf der Detail-Ansichtsseite  oder auf der Seite der Bearbeitungsansicht des Import Feeds durchgeführt. Standardmäßig werden dort die Pflichtfelder des Entitätstyps angezeigt, der im Panel `EINFACHE TYP-EINSTELLUNGEN` definiert ist. Abhängig von dieser Auswahl enthält das Panel `KONFIGURATOR` verschiedene Felder. Für [Produkte](https://atropim.com/help/products) sieht dieses Panel wie folgt aus:
+Der Konfigurator kann verwendet werden, nachdem der Import-Feed erstellt wurde. Anfänglich ist dieses Panel leer. Hier werden Zuordnungsregeln für Ihren Datenimport angezeigt.
 
-![Configurator panel](_assets/configurator-panel.jpg)
+![Konfigurator-Panel](_assets/import-feeds-configurator.png)
 
-Um das im Panel `KONFIGURATOR` angezeigte Entitätsfeld zu ändern, verwenden Sie die Option `Bearbeiten` aus dem Menü für einzelne Datensatzaktionen und nehmen Sie die gewünschten Änderungen im Bearbeitungs-Pop-up vor, das für das entsprechende Entitätsfeld angezeigt wird:
+Um einen neuen Eintrag zu erstellen, klicken Sie auf das `+`-Symbol in der oberen rechten Ecke. Ein Popup-Fenster wird angezeigt.
 
-![Field editing](_assets/field-editing.jpg) 
+![Konfigurator-Panel](_assets/import-feeds-configurator-new.png)
 
-Bitte beachten Sie, dass der Import nach ID und Code eine empfohlene Einstellung für das Entitätsfeld ist, das im Import Feed verwendet werden soll.
+- **Typ** – wählen Sie den Typ Ihrer Mapping-Regel aus, indem Sie im Feld "Typ" "Feld" von "Attribut" auswählen. Die Option "Attribut" ist nur für die Produktentität verfügbar.
+
+![Konfigurator-Panel](_assets/import-feeds-configurator-new-type.png)
+
+- **Feld** – Wählen Sie das Feld für Ihre ausgewählte Entität aus, in das die Daten aus der/den ausgewählten Spalte(n) zu importieren sind.
+- **Kennung** – setzen Sie die Checkbox, wenn der Wert in der ausgewählten Spalte als Identifier interpretiert werden soll. Sie können mehrere Spalten als Kennung auswählen.
+- **Spalte(n)** – je nach Typ des ausgewählten Entitätsfeldes können Sie hier eine, zwei oder mehrere Spalten auswählen.
+- **Standardwert** – Sie können den zu setzenden Standardwert angeben, wenn der Zellenwert "", "leer" oder "null" ist.
+
+Klicken Sie auf den Button "Speichern", um die Zuordnungsregel abzuspeichern.
+
+> Bitte beachten Sie, dass eine bestimmte Spalte in verschiedenen Regeln mehrfach verwendet werden kann.
+
+Um die im 'Konfigurator' angezeigte Zuordnungsregel zu ändern, verwenden Sie die Option 'Bearbeiten' aus dem Aktionsmenü für einzelne Mapping-Datensätze. Hier können Sie auch die ausgewählte Regel löschen.
+
+![Konfigurator-Panel](_assets/import-feeds-configurator-menu.png)
+
 
 #### Hinzufügen von Entitätsfeldern 
 Es ist möglich, weitere *Entitätsfelder* für den Import hinzuzufügen. Wählen Sie dazu die Option `Entitätsfeld hinzufügen` aus dem Drop-down-Menü zum Hinzufügen. Folgendes Erstellungs-Pop-up wird angezeigt:
