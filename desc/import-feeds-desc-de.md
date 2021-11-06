@@ -39,7 +39,7 @@ Das Standardformular für die Importfeederstellung erscheint:
 Füllen Sie hier die Pflichtfelder aus und wählen den Import-Feed-Typ aus der entsprechenden Drop-down-Liste aus. Dieses Modul fügt den Import-Feed-Typ **CSV Datei** hinzu. 
 Klicken Sie auf den Button `Speichern`. Der neue Datensatz wird zu der Import-Feeds-Liste hinzugefügt. Sie können es sofort auf Detailansichtsseite konfigurieren oder es später machen.
 
-### Abschnitt Übersicht
+### Übersicht
 
 Im Abschnitt Übersicht können Sie die wichtigsten Feedparameter (Name, Aktion, Aktivität usw.) definieren:
 ![Feed-cfg importieren](_assets/import-feeds-create-overview.png)
@@ -58,15 +58,21 @@ Folgende Einstellungen stehen hier zur Verfügung:
 
 ### Dateieigenschaften 
 
-Die Parameter der Importdatei werden im Panel `DATEIEIGENSCHAFTEN` konfiguriert:
+Die Parameter der Importdatei werden im Panel `FILE PROPERTIES` konfiguriert:
 
-![Import feed cfg file](_assets/import-feed-cfg-file.jpg)
+![Feed-CFG-Datei importieren](_assets/import-feeds-create-file-properties.png)
 
-- **Beispieldatei (CSV)** – Laden Sie die Vorlage im CSV-Format, die als Beispieldatei für den Datenimport verwendet wird. Sie können entweder eine vollständige oder eine verkürzte Importdatei oder eine Datei mit Spaltenüberschriften als Beispieldatei benutzen. Alle Daten in der Beispieldatei sollten UTF-8-codiert sein.
-- **Header Zeile** – aktivieren Sie die Checkbox, um die Spaltennamen in die Importdatei aufzunehmen oder lassen Sie sie deaktiviert, um die Spaltennamen aus dem Import auszuschließen.
-- **Feld-Trennzeichen** – wählen Sie das bevorzugte Feld-Trennzeichen aus, das in der Importdatei verwendet werden soll: `,` (Komma), `;` (Semikolon),`\t`, `|`.
-- **Dezimaltrennzeichen** – wählen Sie das bevorzugte Dezimaltrennzeichen aus, das in der Importdatei verwendet werden soll: `.` (Punkt) or `,` (Komma).
-- **Texttrenner** – wählen Sie das bevorzugte Trennzeichen der Werte in einer Zelle aus: einfache oder Doppel-Anführungszeichen. 
+- **Datei** – hier können Sie die zu importierende Datei oder deren gekürzte Version hochladen, die für die Konfiguration verwendet wird. Die Datei sollte UTF-8-kodiert sein.
+- **Kopfzeile** – Aktivieren Sie die Checkbox, wenn die Importdatei Spaltennamen hat oder lassen Sie diese leer, wenn die zu importierende Datei keine Kopfzeile mit Spaltennamen hat.
+- **Tausender-Trennzeichen** – Definieren Sie das Symbol, das als Tausender-Trennzeichen verwendet wird. Dieser Parameter ist optional. Es werden auch die Zahlenwerte ohne Tausendertrennzeichen importiert (zB beide Werte 1234,34 und 1.234,34 werden importiert, wenn "." als Tausendertrennzeichen definiert ist).
+- **Dezimalzeichen** – Wählen Sie das verwendete Dezimalzeichen aus, normalerweise sollte hier `.` oder `,` gesetzt werden.
+- **Feldtrennzeichen** – Wählen Sie das bevorzugte Feldtrennzeichen, das in der CSV-Importdatei verwendet werden soll, mögliche Werte sind `,`, `;`,`\t`, `|`.
+- **Textqualifizierer** – Wählen Sie das Trennzeichen der Werte innerhalb einer Zelle: Es können einfache oder doppelte Anführungszeichen ausgewählt werden.
+
+
+
+
+
 ### Einfache Typ-Einstellungen
 Um die Bearbeitung der Parameter im Panel `EINFACHE TYP-EINSTELLUNGEN` zu ermöglichen, klicken Sie auf den `Bearbeiten`-Button auf der Detail-Ansichtsseite des aktuellen Import Feeds und konfigurieren Sie folgende Einstellungen:
 
