@@ -1,13 +1,20 @@
-Das Modul „Import Feeds“ ermöglicht die benutzerfreundliche Anwendung von Import Feeds. Im Allgemeinen ist *Import Feed* eine Vorlage für den Datenimport, die von den Nutzeranforderungen und den in Ihr System zu importierenden Entitätsdaten abhängt. 
-Dank des Moduls "Import Feeds" kann der Datenimport über Import Feeds auf zwei Weisen durchgeführt werden:
-- **manuell** – über die vorkonfigurierten Importvorlagen, d. h. über Import Feeds selbst;  
-- **automatisch** – über den vorkonfigurierten Import-Cron-Job. 
+Mit dem Modul "Import Feeds" können Sie die Daten für eine beliebige Entität im AtroCore-System und direkte Relationen zu diesen Daten importieren, zB es ist möglich die Produktdaten zusammen mit den dazugehörigen Kategorien zu importieren. Sie können mehrere Importfeeds erstellen, konfigurieren und verwenden.
 
-Sie können über Import Feeds jedes in Ihrem System verfügbare Datenfeld importieren, einschließlich [mehrsprachiger Felder und Attribute](https://atropim.com/de/shop/multi-languages), Entitätsfelder der Typen `Currency`, `Unit`, und auch andere Typen. Außerdem, wenn das Modul ["Product Variants"](https://atropim.com/de/shop/product-variants) in Ihrem [PIM-System](https://atropim.com/de) installiert ist, besteht auch die Möglichkeit, [Produktvarianten](#Produktvarianten) zu importieren.
+Mit Hilfe des Moduls "Feeds importieren" kann der Datenimport auf zwei Arten erfolgen:
 
-Import Feeds können weiter konfiguriert und angepasst sowie in unterschiedlichen Zeitabständen wieder benutzt werden. Import Feeds können auch verwendet werden, um den Datenimport-Prozess über [Import-Cron-Jobs](#konfiguration-des-cron-jobs) zu automatisieren.
+- **manuell** – durch direkte Verwendung eines konfigurierten Import-Feeds
+- **automatisch** – nach geplantem Job.
 
-Standardmäßig kommt der Import Feed vom Typ `Einfach` mit der Installation des Moduls "Import Feeds". Zusammen mit der Installation anderer [Module](https://atropim.com/de/shop) kann jedoch die Liste der Import-Feed-Typen erweitert werden, und diese zusätzlichen Import Feeds können entsprechend  Ihren Anforderungen weiter angepasst werden. Gleichzeitig werden zusätzliche Import Feeds mit Hilfe der Logik des Moduls "Import Feeds" funktionieren.
+Sie können nur dann einen geplanten Job für Ihre Importaufgaben erstellen, wenn ein entsprechender Importfeedtyp in Ihrem System verfügbar ist. Solche Import-Feed-Typen ermöglichen, die Daten per URL herunterzuladen, einen REST-API-Aufruf auszuführen, eine Abfrage direkt aus der Datenbank auszuführen (dafür werden Premium-Module benötigt). Mit diesem kostenlosen Modul können Sie die Daten manuell aus CSV-Dateien importieren. Sie können auch Ihre eigenen Import-Feed-Typen programmieren lassen.
+
+## Die folgenden Module erweitern die Funktionalität der Import-Feeds
+
+- Import Feeds: Rollback – ermöglicht das Rollback des letzten Imports mit der vollständigen Datenwiederherstellung
+- Import Feeds: Datenbanken – ermöglicht den Import von Daten aus MSSQL-, MySQL-, Oracle-, HANA-Datenbanken
+- Import Feeds: JSON und XML – ermöglicht den Import von Daten aus JSON- und XML-Dateien
+- Import Feeds: URL – ermöglicht den Import von Daten per URL aus CSV-, JSON- und XML-Dateien
+- Import Feeds: REST API – ermöglicht den Datenimport über die REST API
+- Connector – orchestriert mehrere Import- und Export-Feeds, um einen komplexen Datenaustausch zu automatisieren
 
 ## Installation 
 Um das Modul „Import Feeds“ in Ihrem System zu installieren, gehen Sie zur `Administration > Modulmanager`. Finden Sie dieses Modul in der Liste „Shop“ und klicken Sie auf `Installieren`:
