@@ -111,7 +111,7 @@ To create a new entry click on the `+` icon in the upper right corner. A popup w
 - **Column(s)** – depending on the type of the selected entity field you can select one, two or multiple columns here.
 - **Default Value** – you can specify the default value to be set, if the cell value is "", "empty" or "null".
 
-Click on "Safe" button to safe the mapping rule.
+Click on "Save" button to save the mapping rule.
 
 > Please note, a certain column can be used multiple times in different rules.
 
