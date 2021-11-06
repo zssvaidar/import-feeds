@@ -10,7 +10,7 @@ You will be able to create a scheduled job for your import tasks only if the app
 ## The following modules extend the functionality of the import feeds
 
 - Import Feeds: Rollback – allows to rollback the last import with the full data recovery
-- Import Feeds: Databases – allows to import data from MSSQL, MySQL, Oracle, HANA databases
+- Import Feeds: Databases – allows to import data from MSSQL, MySQL, PostgreSQL, Oracle, HANA databases
 - Import Feeds: JSON and XML – allows to import data from JSON and XML files
 - Import Feeds: URL – allows to import data via URL from CSV, JSON and XML files
 - Import Feeds: REST API – allows to import data via REST API
@@ -74,17 +74,24 @@ The import file parameters are configured on the `FILE PROPERTIES` panel:
 - **Field delimiter** – select the preferred field delimiter to be used in the CSV import file, possible values are `,`, `;`,`\t`, `|`.
 - **Text qualifier** – select the preferred separator of the values within a cell: single or double quotes can be selected.
 
-### Simple Type Settings
+### Settings
 
-To enable editing of the parameters on the `SIMPLE TYPE SETTINGS` panel, click the `Edit` button on the detail view page of the current import feed and configure the following settings:
+The next panel is the settings panel:
 
-![Simple type settings](_assets/simple-type-settings.jpg)
+![Simple type settings](_assets/import-feeds-create-settings.png)
 
-- **Entity** – from the drop-down list of entities available in the system select the desired entity type, for which this import feed will be used.
-- **Field value delimiter** – enter the preferred separator of the values within a field. The default symbol is `;`.
-- **ID** – select the name of the data field that will be used as the identifier for update in the given import feed. The `ID` parameter is displayed here when either the `Update only` or `Update & Create` action is defined on the [`OVERVIEW`](#overview) panel. Moreover, it is a required field for the `Update only` action. 
+- **Entity** – select the desired entity for the imported data from the drop-down list of all entities available in the system.
+- **Unused Columns** – this field is initially empty. After save you will see here the list of available unmapped columns.
+- **Data record delimiter** – is the delimiter to split multiple values (eg for multienum or array fields and attributes) or multiple related records.
+- **Mark for a non linked attribute** – this mark is only available for the product entity. This symbol marks attribute which should not be linked to the respective product.
+- **Empty Value** – This symbol will be interpreted as "empty" value aditionally to the empty cell, eg "" and "none" will be interpreted as "", if you define "none" as an empty value.
+- **Null value** – this value will be interpreted as "NULL" value.
 
-Please, note that the defined `Field delimiter` and `Field value delimiter` symbols must be different.
+If you import product data, some products may have certain attributes, other not. If the value for some attribute is empty it is not clear, whether this attribute have an empty value, or this product does not have this attribute at all. That is why the **mark for a non linked attribute** should be used, to mark clearly, which attribute should not be linked to a certain product.
+
+If the `Unused Columns` field is empty after saving your feed you should check your field delimiter for correctness. If some column names has single or double quotes you may have set the wrong text qualifier.
+
+> Please, note that the defined `field delimiter`, `data record delimiter`, `empty value`, `null value`, `thousand separator`, `decimal mark`, `text qualifier` and `mark for a non linked attribute` symbols must be different.
 
 ### Configurator
 
