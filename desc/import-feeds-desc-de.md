@@ -18,11 +18,11 @@ Sie können nur dann einen geplanten Job für Ihre Importaufgaben erstellen, wen
 
 ## Funktionen für den Administrator
 Nach der Modulinstallation werden in Ihrem System zwei neue Entitäten erstellt - `Import Feeds` und `Import-Ergenisse`. Über `Administration > System > User Interface` können Sie diese Elemente zur Navigation Ihres Systems hinzufügen, falls es nicht automatisch geschehen ist.
-![Feeds importieren hinzufügen](_assets/import-feeds-add.jpg)
+![Feeds importieren hinzufügen](_assets/import-feeds-admin-layout-manager.png)
 
 ### Zugangsrechte
 Um die Erstellung, Bearbeitung, Nutzung und Entfernung des Import Feeds für andere Nutzer zu ermöglichen, konfigurieren Sie die entsprechenden Zugangsrechte zu den Entitäten `Import Feeds` und `Import-Ergebnisse` für die gewünschte Benutzer-/Team-/Portalbenutzerrolle auf der Seite `Administration > Rollen > 'Rollenname'`:
-![Import role cfg](_assets/import-role-cfg.jpg)
+![Import role cfg](_assets/import-feeds-admin-roles.png)
 Bitte beachten Sie, dass für einen Nutzer mindestens die Gewährung des Leserechts auf `Import-Feeds` erforderlich ist, damit er die Import Feeds auszuführen kann.   
 
 ## Funktionen für den Nutzer
