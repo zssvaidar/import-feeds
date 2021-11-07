@@ -150,6 +150,16 @@ You can import multienum values for fields and attributes by separating its valu
 
 Only predefined values can be accepted, if your multienum field or attribute have predefined options. If one of the multienum values, provided in the file to be imported, is not valid, the whole row will not be imported. If your multienum field or attribute have no predified options any value will be accepted.
 
+### Currency and unit field and attribute types
+Fields and attributes of currency and unit types have values which consist of two parts – the first one is of a float type and the second one is of enum type, which are separated by space symbol. Thus, examples of valid values are "9 cm", "110,50 EUR", "100.000 USD", "3000 EUR" etc. 
+
+Data for currency and unit fields and attributes can be provided in one or in two columns. If you specify two columns in the "Column(s)" field the numeric value will always be expected in the first column and the currency or unit name in the second column. 
+
+If only one column is specified the whole currency or unit value is expected to be in this single column.
+
+Also the default value consists of two parts. It is possible to save only currency or unit name as default, without storing any value. In this case this value will be applied, if no currency or unit name is found in the columns set in the "Column(s)" field. So if for example only "123" is provided and "EUR" is set as default currency. The value to be stored will be "123 EUR".
+
+
 ### Relations
 Each entity may have one-to-many, many-to-one or many-to-many relations to other entities. Import feeds module enables to import data with direct relations of all types. Data record from the related entity can can be found and linked or new data record for the related entity can be created and linked. Each relation is available for configuration as a field. To create a mapping rule for a relation you need to set the "Type" of your mapping rule to "Field" and choose your relation name as a "Field". Let's configure a "Brand" relation. So we choose "Brand" in the "Field" field and "Brand" in the "Column(s)" field. For a relation we also need to select the related entity fields, we choose ID, Name, Name in German, Active and Code.
 
