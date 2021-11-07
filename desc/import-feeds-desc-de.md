@@ -123,7 +123,10 @@ Für jedes Feld können Sie festlegen, ob dieses als Kennung (Identifier) gilt o
 ### Standardwert
 Für jede Zuordnungsregel sollten die Spalte(n) oder der Standardwert oder beide ausgefüllt werden. Somit ist es möglich, den Standardwert festzulegen, ohne die Spalte(n) auszuwählen. In diesem Fall wird dieser Wert auf alle Datensätze angewendet. Sie können beispielsweise einen Wert für den "Katalog" festlegen. Wenn Sie Produktdaten importieren würden, werden alle Produkte automatisch dem ausgewählten Katalog zugeordnet, auch wenn Ihre Importdatei keine Spalte für "Katalog" enthält. Wird "Standardwert" leer gelassen oder kein Wert gesetzt, wird kein Standardwert als Wert übernommen.
 
+### Attribute
+Nur die Produktentität kann Attribute haben. Alle Produkte haben die gleichen Felder, können aber unterschiedliche Attribute haben (Attribut kann also als ein dynamisches Feld angesehen werden). Nur Attribute können kanalspezifische Werte haben. Um eine Zuordnungsregel für ein Attribut zu erstellen, sollen Sie beim "Typ" "Attribut" als Wert auswählen. Setzen Sie den Scope (Geltungsbereich) auf "Global", wenn der zu importierende Wert als globaler Attributwert festgelegt werden soll. Wenn dieser Wert für das Attribut als kanalspezifischer Wert gesetzt werden sollte, setzen Sie den "Scope" auf "Channel" und wählen Sie im nächsten Feld den entsprechenden Kanal aus.
 
+![Konfiguratorattribute](_assets/import-feeds-configurator-new-attribute.png)
 
 
 
