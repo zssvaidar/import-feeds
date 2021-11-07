@@ -146,6 +146,15 @@ Sie können Multienum-Werte für Felder und Attribute importieren, indem Sie ihr
 
 Es können nur vordefinierte Werte akzeptiert werden, wenn Ihr Multienum-Feld oder -Attribut vordefinierte Optionen hat. Wenn einer der in der zu importierenden Datei angegebenen Multienum-Werte nicht gültig ist, wird die gesamte Zeile nicht importiert. Wenn Ihr Multienum-Feld oder -Attribut keine vordefinierten Optionen hat, wird jeder Wert akzeptiert.
 
+### Feld- und Attributtypen für Währung und Einheit
+Felder und Attribute von Währungs- und Einheittypen haben Werte, die aus zwei Teilen bestehen – der erste ist vom Typ Float und der zweite vom Typ Enum, diese sind durch ein Leerzeichen getrennt. Beispiele für gültige Werte sind also "9 cm", "110,50 EUR", "100.000 USD", "3000 EUR" usw.
+
+Daten für Währungs- und Einheitfelder und Attribute können in einer oder in zwei Spalten bereitgestellt werden. Wenn Sie im Feld "Spalte(n)" zwei Spalten angeben, wird in der ersten Spalte immer der Zahlenwert und in der zweiten Spalte der Währungs- oder Einheitsname erwartet.
+
+Wenn nur eine Spalte angegeben wird, wird erwartet, dass sich der gesamte Währungs- oder Einheitswert in dieser einzelnen Spalte befindet.
+
+Auch der Standardwert besteht aus zwei Teilen. Es ist möglich, standardmäßig nur den Währungs- oder Einheitsnamen zu speichern, ohne einen numerischen Wert zu speichern. In diesem Fall wird dieser Wert angewendet, wenn in den im Feld "Spalte(n)" eingestellten Spalten kein Währungs- oder Einheitsname gefunden wird. Wenn also zum Beispiel nur "123" angegeben wird und "EUR" als Standardwährung eingestellt ist, wird "123 EUR" als Wert abgespeichert.
+
 ### Beziehungen
 Jede Entität kann Eins-zu-Viele-, Viele-zu-Eins- oder Viele-zu-Viele-Beziehungen zu anderen Entitäten haben. Das Modul Import Feeds ermöglicht den Import von Daten mit direkten Beziehungen aller Art durchzuführen. Ein Datensatz der zugehörigen Entität kann gefunden und verknüpft werden oder ein neuer Datensatz für die zugehörige Entität wird erstellt und verknüpft. Jede Relation steht zur Konfiguration als Feld zur Verfügung. Um eine Zuordnungsregel für eine Relation zu erstellen, müssen Sie den "Typ" Ihrer Zuordnungsregel auf "Feld" setzen und Ihren Relationsnamen im "Feld" Feld wählen. Lassen Sie uns "Marke" als Beziehung konfigurieren. Wir wählen also "Marke" im Feld "Feld" und "Marke" im Feld "Spalte(n)". Für eine Relation müssen wir auch die zugehörigen Entitätsfelder auswählen – wir wählen ID, Name, Name auf Deutsch, Aktiv und Code.
 
