@@ -140,7 +140,7 @@ In diesem Beispiel werden dem Produkt "alle Attribute 4" die Attribute "\_asset"
 Durch den Import von booleschen Feldern oder Attributen werden "0" und "False" unabhängig von Groß- und Kleinschreibung als FALSE-Wert interpretiert. "1" und "True" werden als WAHR-Wert interpretiert. Wenn NULL-Wert für boolesches Feld oder Attribut nicht zulässig ist, werden "" und "leerer" Wert auch als FALSE-Wert interpretiert.
 
 ### Multienum-Felder und -Attribute
-Sie können Multienum-Werte für Felder und Attribute importieren, indem Sie ihre Werte mit Hilfe von `Feldtrennzeichen für Beziehung` trennen. In unserem Beispiel verwenden wir dafür das Symbol ",".
+Sie können Multienum-Werte für Felder und Attribute importieren, indem Sie ihre Werte mit Hilfe von `Datensatz-Trennzeichen` trennen. In unserem Beispiel verwenden wir dafür das Symbol ",".
 
 ![Konfigurator multienum](_assets/import-feeds-example-multienum.png).
 
