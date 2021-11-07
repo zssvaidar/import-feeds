@@ -151,9 +151,9 @@ All field values should be separated by the "Field delimiter for relation". Per 
 
 If "Brand1" exists it will be found and linked. If "Brand2" doesn't exist it will be created and linked with appropriate product record.
 
-> ID is here not required. You can use only ID, if all the brands already exist in your system. You can select only Name, Name in German, Active and Code, if the brands are not available in your system and should be created by the import. In this case ID will be created automatically. Please note, records for brands will be created only in the case, if Name, Name in German, Active and Code are the only required fields for the brand entity.
+> ID is here not required. You can use only "ID", if all the brands already exist in your system. You can select only "Name", "Name in German", "Active" and "Code", if the brands are not available in your system and should be created by the import. In this case "ID" will be created automatically. Please note, records for brands will be created only in the case, if "Name", "Name in German", "Active" and "Code" are the only required fields for the brand entity.
 
-The system uses all related entity fields to seach for the relation. If no relation is found and the checkbox "create if not exists" is not set the relation will be ignored – no link to the relation will be created.
+The system uses all related entity fields to seach for the relation. If no relation is found and the checkbox "create if not exists" is not set the relation will be ignored – no relation will be created.
 
 
 ### Multiple Relations
