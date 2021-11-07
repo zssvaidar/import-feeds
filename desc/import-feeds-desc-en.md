@@ -196,11 +196,11 @@ The second and the third product will be linked with "Category2" and "Category3"
 If any of the multiple relations cannot be found and the data record cannot be created (assuming the checkbox `create if not exists` is set) the whole row is not imported. If the option `create if not exists` is not set, all not found relations are ignored.
 
 ### Related Assets, Asset Fields and Attributes
-Images, videos and other types of files are assets. Asset can be configured for import the same way as a relation. If you want to import assets from provided URLs you need to choose URL as related entity field. If you have images in multiple columns create a mapping rule for each column separately. If you use DAM module and assets will be created directly in DAM and will be linked with appropriate products.
+Images, videos and other types of files are assets. Asset can be configured for import the same way as a relation. If you want to import assets from provided URLs you need to choose URL as related entity field. If you have images in multiple columns create a mapping rule for each column separately. If you use DAM module assets for your files will be created directly in DAM and will be linked with appropriate products.
 
 ![Configurator assets](_assets/import-feeds-configurator-assets.png)
 
-Configuration for the fields and attributes of type "Asset" is the same. Your assets will be stored as assets in the DAM only if the DAM module is installed.
+Configuration for the fields and attributes of type "Asset" is the same. Your files will be stored as assets in the DAM only if the DAM module is installed.
 
 Import of assets via local server path is currently not supported.
 
