@@ -139,14 +139,14 @@ In diesem Beispiel werden dem Produkt "alle Attribute 4" die Attribute "\_asset"
 ### Boolesche Felder und Attribute
 Durch den Import von booleschen Feldern oder Attributen werden "0" und "False" unabhängig von Groß- und Kleinschreibung als FALSE-Wert interpretiert. "1" und "True" werden als WAHR-Wert interpretiert. Wenn NULL-Wert für boolesches Feld oder Attribut nicht zulässig ist, werden "" und "leerer" Wert auch als FALSE-Wert interpretiert.
 
-### Multienum-Felder und -Attribute
+### Multienum-Felder und Attribute
 Sie können Multienum-Werte für Felder und Attribute importieren, indem Sie ihre Werte mit Hilfe von `Datensatz-Trennzeichen` trennen. In unserem Beispiel verwenden wir dafür das Symbol ",".
 
 ![Konfigurator multienum](_assets/import-feeds-example-multienum.png).
 
 Es können nur vordefinierte Werte akzeptiert werden, wenn Ihr Multienum-Feld oder -Attribut vordefinierte Optionen hat. Wenn einer der in der zu importierenden Datei angegebenen Multienum-Werte nicht gültig ist, wird die gesamte Zeile nicht importiert. Wenn Ihr Multienum-Feld oder -Attribut keine vordefinierten Optionen hat, wird jeder Wert akzeptiert.
 
-### Feld- und Attributtypen für Währung und Einheit
+### Currency- und Unit-Felder und Attribute
 Felder und Attribute von Währungs- und Einheittypen haben Werte, die aus zwei Teilen bestehen – der erste ist vom Typ Float und der zweite vom Typ Enum, diese sind durch ein Leerzeichen getrennt. Beispiele für gültige Werte sind also "9 cm", "110,50 EUR", "100.000 USD", "3000 EUR" usw.
 
 Daten für Währungs- und Einheitfelder und Attribute können in einer oder in zwei Spalten bereitgestellt werden. Wenn Sie im Feld "Spalte(n)" zwei Spalten angeben, wird in der ersten Spalte immer der Zahlenwert und in der zweiten Spalte der Währungs- oder Einheitsname erwartet.
