@@ -128,6 +128,23 @@ Nur die Produktentität kann Attribute haben. Alle Produkte haben die gleichen F
 
 ![Konfiguratorattribute](_assets/import-feeds-configurator-new-attribute.png)
 
+### Boolean
+Durch den Import von booleschen Feldern oder Attributen werden "0" und "False" unabhängig von Groß- und Kleinschreibung als FALSE-Wert interpretiert. "1" und "True" werden als WAHR-Wert interpretiert. Wenn NULL-Wert für boolesches Feld oder Attribut nicht zulässig ist, werden "" und "leerer" Wert auch als FALSE-Wert interpretiert.
+
+### Beziehungen
+Jede Entität kann Eins-zu-Viele-, Viele-zu-Eins- oder Viele-zu-Viele-Beziehungen zu anderen Entitäten haben. Das Modul Import Feeds ermöglicht den Import von Daten mit direkten Beziehungen aller Art durchzuführen. Bestehende Relationen können gefunden und verknüpft oder neue Datensätze für Relationen angelegt und verknüpft werden. Jede Relation steht zur Konfiguration als Feld zur Verfügung. Um eine Zuordnungsregel für eine Relation zu erstellen, müssen Sie den "Typ" Ihrer Zuordnungsregel auf "Feld" setzen und Ihren Relationsnamen im "Feld" Feld wählen. Lassen Sie uns "Marke" als Beziehung konfigurieren. Wir wählen also "Marke" im Feld "Feld" und "Marke" im Feld "Spalte(n)". Für eine Relation müssen wir auch die zugehörigen Entitätsfelder auswählen – wir wählen ID, Name, Name auf Deutsch, Aktiv und Code.
+
+![Konfiguratorbeziehungen](_assets/import-feeds-configurator-relations.png)
+
+Wir möchten, dass die Marke erstellt wird, wenn sie in unserem System nicht gefunden wird. Deshalb setzen wir die Checkbox für die Option „Erstellen, falls nicht vorhanden“.
+
+Die Zelle "Marke" in Ihrer CSV-Datei sollte wie folgt aussehen:
+
+![Konfigurator-Beziehungen](_assets/import-feeds-example-relation.png)
+
+Alle Feldwerte sollten durch das "Feldtrennzeichen für Relation" getrennt werden. Standardmäßig ist Pipeline-Symbol "|" als Feldtrennzeichen für Relation eingestellt. 
+
+Wenn "Brand1" existiert, wird es gefunden und verlinkt. Wenn "Brand2" nicht existiert, wird es erstellt und mit dem entsprechenden Produktdatensatz verknüpft.
 
 
 
