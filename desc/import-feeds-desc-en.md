@@ -84,15 +84,15 @@ The next panel is the settings panel:
 - **Unused Columns** – this field is initially empty. After save you will see here the list of available unmapped columns.
 - **Field delimiter for relation** – field delimiter, which is used to separate fields in the relation, default value is "|".
 - **Data record delimiter** – is the delimiter to split multiple values (eg for multienum or array fields and attributes) or multiple related records.
-- **Mark for a non linked attribute** – this mark is only available for the product entity. This symbol marks attribute which should not be linked to the respective product.
+- **Mark for a non-linked attribute** – this mark is only available for the product entity. This symbol marks attribute which should not be linked to the respective product.
 - **Empty Value** – This symbol will be interpreted as "empty" value aditionally to the empty cell, eg "" and "none" will be interpreted as "", if you define "none" as an empty value.
 - **Null value** – this value will be interpreted as "NULL" value.
 
-If you import product data, some products may have certain attributes, other not. If the value for some attribute is empty it is not clear, whether this attribute have an empty value, or this product does not have this attribute at all. That is why the **mark for a non linked attribute** should be used, to mark clearly, which attribute should not be linked to a certain product.
+If you import product data, some products may have certain attributes, other not. If the value for some attribute is empty it is not clear, whether this attribute have an empty value, or this product does not have this attribute at all. That is why the **mark for a non-linked attribute** should be used, to mark clearly, which attribute should not be linked to a certain product.
 
 If the `Unused Columns` field is empty after saving your feed you should check your field delimiter for correctness. If some column names has single or double quotes you may have set the wrong text qualifier.
 
-> Please, note that the defined `field delimiter`, `data record delimiter`, `empty value`, `null value`, `thousand separator`, `decimal mark`, `text qualifier` and `mark for a non linked attribute` symbols must be different.
+> Please, note that the defined `field delimiter`, `data record delimiter`, `empty value`, `null value`, `thousand separator`, `decimal mark`, `text qualifier` and `mark for a non-linked attribute` symbols must be different.
 
 ## Configurator
 Configurator can be used after the import feed is created. Initially this panel is empty. This panel displays mapping rules for your data import.
@@ -134,7 +134,7 @@ Only product entity has attributes. All products have the same fields, but may h
 ![Configurator attributes](_assets/import-feeds-configurator-new-attribute.png)
 
 ### Marking attributes as not linked
-You can import product data for product fields and product attributes simultaneously. In this case product fields and product attributes will be columns in your file to be imported. If you would use "", "empty" or "null" value for an attribute, it is imposible to identify, whether this product have this attribute with no value, or doesn't have this attribute at all. You can use the `mark for a non linked attribute` to mark explicitly the attributes which should not be linked to a certain product. Per default "--" is used. Let's check the example.
+You can import product data for product fields and product attributes simultaneously. In this case product fields and product attributes will be columns in your file to be imported. If you would use "", "empty" or "null" value for an attribute, it is imposible to identify, whether this product have this attribute with no value, or doesn't have this attribute at all. You can use the `mark for a non-linked attribute` to mark explicitly the attributes which should not be linked to a certain product. Per default "--" is used. Let's check the example.
 
 ![Configurator attributes](_assets/import-feeds-example-unlink-attributes.png)
 
