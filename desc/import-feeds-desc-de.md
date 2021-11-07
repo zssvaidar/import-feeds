@@ -151,6 +151,8 @@ Wenn "Brand1" existiert, wird es gefunden und verlinkt. Wenn "Brand2" nicht exis
 
 Das System verwendet alle zugehörigen Entitätsfelder, um nach der Beziehung zu suchen. Wird keine Relation gefunden und ist die Checkbox „Erstellen falls nicht vorhanden“ nicht gesetzt, wird die Relation ignoriert – keine Relation wird erstellt.
 
+Die Anzahl der konfigurierten zugehörigen Entitätsfelder sollte kleiner oder gleich der Anzahl der Werte für die Beziehung in der Zelle sein. Wenn Sie beispielsweise nur "ID" und "Name" als zugehörige Entitätsfelder auswählen, werden die Daten trotzdem importiert und nur diese beiden Werte werden verwendet, um nach einer Kategorie zu suchen.
+
 Kann der neue Datensatz für die Relation nicht angelegt werden, generiert das System einen Fehler und das System importiert nichts aus der entsprechenden Zeile.
 
 ### Mehrere Beziehungen
