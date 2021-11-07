@@ -188,6 +188,15 @@ Das zweite und das dritte Produkt werden mit "Kategorie2" bzw. "Kategorie3" verk
 
 Wenn eine der mehreren Relationen nicht gefunden und der Datensatz nicht erstellt werden kann (vorausgesetzt, die Checkbox `Erstellen, wenn nicht vorhanden` ist gesetzt), wird die ganze Zeile nicht importiert. Wenn die Option `Erstellen, wenn nicht existiert` nicht gesetzt ist, werden alle nicht gefundenen Beziehungen ignoriert.
 
+### Zugehörige Assets, Asset-Felder und Attribute
+Bilder, Videos und andere Dateien sind Assets. Assets können für den Import genauso konfiguriert werden wie eine Relation. Wenn Sie Assets von bereitgestellten URLs importieren möchten, sollen Sie URL als zugehöriges Entitätsfeld auswählen. Wenn Sie Bilder in mehreren Spalten haben, erstellen Sie eine Zuordnungsregel für jede Spalte separat. Wenn Sie DAM Modul verwenden, werden für alle Ihre Dateien Assets direkt in DAM erstellt und mit entsprechenden Produkten verknüpft.
+
+![Konfigurator-Assets](_assets/import-feeds-configurator-assets.png)
+
+Die Konfiguration für die Felder und Attribute vom Typ "Asset" ist dieselbe. Ihre Dateien werden nur dann als Assets im DAM gespeichert, wenn das DAM-Modul installiert ist.
+
+Der Import von Assets über den lokalen Serverpfad wird derzeit nicht unterstützt.
+
 ## Import-Feed-Ausführung  
 Um den Import der Daten über den aktiven Import Feed zu starten, wählen Sie die Option `Import durchführen` im Menü "Aktionen" auf der Detail-Ansichtsseite des Import Feeds oder im Menü für einzelne Datensatzaktionen auf der Seite der Listenansicht von "Import Feeds":
 
