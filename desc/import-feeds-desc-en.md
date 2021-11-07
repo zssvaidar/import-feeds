@@ -150,7 +150,7 @@ You can import multienum values for fields and attributes by separating its valu
 
 Only predefined values can be accepted, if your multienum field or attribute have predefined options. If one of the multienum values, provided in the file to be imported, is not valid, the whole row will not be imported. If your multienum field or attribute have no predified options any value will be accepted.
 
-### Currency and unit field and attribute types
+### Currency and unit fields and attributes
 Fields and attributes of currency and unit types have values which consist of two parts – the first one is of a float type and the second one is of enum type, which are separated by space symbol. Thus, examples of valid values are "9 cm", "110,50 EUR", "100.000 USD", "3000 EUR" etc. 
 
 Data for currency and unit fields and attributes can be provided in one or in two columns. If you specify two columns in the "Column(s)" field the numeric value will always be expected in the first column and the currency or unit name in the second column. 
