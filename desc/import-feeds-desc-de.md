@@ -148,7 +148,7 @@ Wenn "Brand1" existiert, wird es gefunden und verlinkt. Wenn "Brand2" nicht exis
 
 > ID ist hier nicht erforderlich. Sie können nur "ID" verwenden, wenn alle Marken in Ihrem System bereits vorhanden sind. Sie können nur "Name", "Name auf Deutsch", "Aktiv" und "Code" auswählen, wenn die Marken in Ihrem System nicht vorhanden sind und durch den Import erstellt werden sollen. In diesem Fall wird die "ID" automatisch erstellt. Bitte beachten Sie, dass Datensätze für Marken nur dann erstellt werden, wenn "Name", "Name auf Deutsch", "Aktiv" und "Code" die einzigen Pflichtfelder für die Markenentität sind.
 
-Das System verwendet alle zugehörigen Entitätsfelder, um nach der Beziehung zu suchen. Wird keine Relation gefunden und ist die Checkbox „Erstellen falls nicht vorhanden“ nicht gesetzt, wird die Relation ignoriert – es wird kein Link zur Relation erstellt.
+Das System verwendet alle zugehörigen Entitätsfelder, um nach der Beziehung zu suchen. Wird keine Relation gefunden und ist die Checkbox „Erstellen falls nicht vorhanden“ nicht gesetzt, wird die Relation ignoriert – keine Relation wird erstellt.
 
 
 
