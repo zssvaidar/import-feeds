@@ -144,7 +144,7 @@ According to this example the product "all attributes 4" will not have the attri
 By importing boolean fields or attributes "0" and "False" regardsless case (uppercase, lowercase) are interpreted as FALSE value. "1" and "True" relardless case are interpreted as TRUE value. If NULL value for boolean field or attribute is not allowed "" and "empty" value are also interpreted as FALSE value.
 
 ### Multienum fields and attributes
-You can import multienum values for fields and attributes by separating its values with help of `field delimiter for relation`. In our example we use "," symbol for it.
+You can import multienum values for fields and attributes by separating its values with help of `data record delimiter`. In our example we use "," symbol for it.
 
 ![Configurator multienum](_assets/import-feeds-example-multienum.png).
 
