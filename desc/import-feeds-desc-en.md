@@ -137,7 +137,7 @@ Only product entity has attributes. All products have the same fields, but may h
 By importing boolean fields or attributes "0" and "False" regardsless case (uppercase, lowercase) are interpreted as FALSE value. "1" and "True" relardless case are interpreted as TRUE value. If NULL value for boolean field or attribute is not allowed "" and "empty" value are also interpreted as FALSE value.
 
 ### Relations
-Each entity may have one-to-many, many-to-one or many-to-many relations to other entities. Import feeds module enables to import data with direct relations of all types. Existing relations can be found and linked or new data records for relations can be created and linked. Each relation is available for configuration as a field. To create a mapping rule for a relation you need to set the "Type" of your mapping rule to "Field" and choose your relation name as a "Field". Let's configure a "Brand" relation. So we choose "Brand" in the "Field" field and "Brand" in the "Column(s)" field. For a relation we also need to select the related entity fields, we choose ID, Name, Name in German, Active and Code.
+Each entity may have one-to-many, many-to-one or many-to-many relations to other entities. Import feeds module enables to import data with direct relations of all types. Data record from the related entity can can be found and linked or new data record for the related entity can be created and linked. Each relation is available for configuration as a field. To create a mapping rule for a relation you need to set the "Type" of your mapping rule to "Field" and choose your relation name as a "Field". Let's configure a "Brand" relation. So we choose "Brand" in the "Field" field and "Brand" in the "Column(s)" field. For a relation we also need to select the related entity fields, we choose ID, Name, Name in German, Active and Code.
 
 ![Configurator relations](_assets/import-feeds-configurator-relations.png)
 
@@ -155,13 +155,17 @@ If "Brand1" exists it will be found and linked. If "Brand2" doesn't exist it wil
 
 The system uses all related entity fields to seach for the relation. If no relation is found and the checkbox "create if not exists" is not set the relation will be ignored – no relation will be created.
 
+If the new data record for the relation cannot be created, the system will generate an error and the system will import nothing from the respective row.
 
 ### Multiple Relations
-For example products are linked with categories via many-to-many relation, which means that some product can be assigned to different categories and some category may have many products assigned to it. For example you want to import product data with categories. You can import following 
+Multiple relations works like simple relations. The only difference is, that you can create multiple relations at once. Multiple data records for the related entities should be separated by using `data record delimiter`. For example products are linked with categories via many-to-many relation, which means that some product can be assigned to different categories and some category may have many products assigned to it. For example we can import product data together with categories as follows:
 
+![Configurator multiple_relations](_assets/import-feeds-example-multiple-relation.png)
 
+According to this example the product from the first data row will be linked with "Category1" and "Category2", here the "," symbol is used as `data record delimiter`.
+The second and the third product will be linked with "Category2" and "Category3" respectively. Data record for "Category2" will be created only once (if it does not exist in the system), during creating/updating the first product, and linked with the first and the secord product.
 
-![Configurator attributes](_assets/import-feeds-configurator-relations.png)
+If any of the multiple relations cannot be found and the data record cannot be created (assuming the checkbox `create if not exists` is set) the whole row is not imported. If the option `create if not exists` is not set, all not found relations are ignored.
 
 ## Running Import Feed
 
