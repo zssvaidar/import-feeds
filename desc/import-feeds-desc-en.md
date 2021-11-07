@@ -1,4 +1,4 @@
-The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system, link related entities or even create them, eg it is possible to import the product data together with the corresponding categories, brands etc. You can create, configure and use many inport feeds.
+The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system, link related entities or even create data records for them, eg it is possible to import the product data together with the corresponding categories, brands etc. You can create, configure and use many inport feeds.
 
 With the help of the "Import Feeds" module, data import may be performed in two ways:
 
