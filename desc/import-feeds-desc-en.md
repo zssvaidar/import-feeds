@@ -82,6 +82,7 @@ The next panel is the settings panel:
 
 - **Entity** – select the desired entity for the imported data from the drop-down list of all entities available in the system.
 - **Unused Columns** – this field is initially empty. After save you will see here the list of available unmapped columns.
+- **Field delimiter for relation** – field delimiter, which is used to separate fields in the relation, default value is "|".
 - **Data record delimiter** – is the delimiter to split multiple values (eg for multienum or array fields and attributes) or multiple related records.
 - **Mark for a non linked attribute** – this mark is only available for the product entity. This symbol marks attribute which should not be linked to the respective product.
 - **Empty Value** – This symbol will be interpreted as "empty" value aditionally to the empty cell, eg "" and "none" will be interpreted as "", if you define "none" as an empty value.
@@ -132,10 +133,23 @@ Only product entity has attributes. All products have the same fields, but may h
 
 ![Configurator attributes](_assets/import-feeds-configurator-new-attribute.png)
 
+### Boolean
+By importing boolean fields or attributes "0" and "False" regardsless case (uppercase, lowercase) are interpreted as FALSE value. "1" and "True" relardless case are interpreted as TRUE value. If NULL value for boolean field or attribute is not allowed "" and "empty" value are also interpreted as FALSE value.
+
 ### Relations
-Each entity may have one-to-many, many-to-one or many-to-many relations to other entities. Import feeds module enables to import data with direct relations of all types. Existing relations can be found and linked or new data records for relations can be created and linked. Each relation is available for configuration as a field. To create a mapping rule for a relation you need to set the "Type" of your mapping rule to "Field" and choose your relation name as a "Field".
+Each entity may have one-to-many, many-to-one or many-to-many relations to other entities. Import feeds module enables to import data with direct relations of all types. Existing relations can be found and linked or new data records for relations can be created and linked. Each relation is available for configuration as a field. To create a mapping rule for a relation you need to set the "Type" of your mapping rule to "Field" and choose your relation name as a "Field". Let's configure a "Brand" relation. So we choose "Brand" in the "Field" field and "Brand" in the "Column(s)" field. For a relation we also need to select the related entity fields, we choose ID, Name, Name in German, Active and Code.
 
 ![Configurator relations](_assets/import-feeds-configurator-relations.png)
+
+We also want the brand to be created, if it is not found in our system. That is why we set the checkbox for the option "Create if not exists".
+
+The cell "Brand" in your CSV file should look as follows:
+
+![Configurator relations](_assets/import-feeds-example-relation.png)
+
+All field values should be separated by the "Field delimiter for relation". Per default pipeline symbol "|" should be set. "1" means true.
+
+If "Brand1" exists it will be found and linked. If "Brand2" doesn't exist it will be created and linked with appropriate product record.
 
 
 ### Multiple Relations
