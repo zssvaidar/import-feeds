@@ -116,7 +116,7 @@ Um die im 'Konfigurator' angezeigte Zuordnungsregel zu ändern, verwenden Sie di
 ![Konfigurator-Panel](_assets/import-feeds-configurator-menu.png)
 
 ### Kennung (Identifier)
-Für jedes Feld können Sie festlegen, ob dieses als Kennung (Identifier) gilt oder nicht. Alle Kennungen werden gemeinsam bei der Suche nach einem Datensatz in der Datenbank verwendet. Wenn ein Datensatz gefunden wird, wird dieser mit den Werten aus der Importdatei aktualisiert. Wenn mehr als ein Datensatz gefunden wird, erhalten Sie eine Fehlermeldung und der Import wird nicht ausgeführt.
+Für jedes Feld können Sie festlegen, ob dieses als Kennung (Identifier) gilt oder nicht. Alle Kennungen werden gemeinsam bei der Suche nach einem Datensatz in der Datenbank verwendet. Wenn Sie zB "Name" und "Marke" als Kennung beim Import in die Produktentität auswählen, versucht das System, ein solches Produkt anhand der Zellenwerte für diese beiden Felder zu finden. Wenn ein Datensatz gefunden wird, wird dieser mit den Werten aus der Importdatei aktualisiert. Wenn mehr als ein Datensatz gefunden wird, erhalten Sie eine Fehlermeldung und der Import wird nicht ausgeführt.
 
 ![Konfigurator-ID](_assets/import-feeds-configurator-identifiers.png)
 
