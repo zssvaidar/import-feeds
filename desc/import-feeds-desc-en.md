@@ -119,65 +119,17 @@ To modify the mapping rule displayed on the `Configurator` panel, use the `Edit`
 
 ![Configurator panel](_assets/import-feeds-configurator-menu.png)
 
-#### Adding Entity Fields
+### Identifier
+For each field you can define whether it is the identifier or not. All identifiers are used together in search for a data record in the database. If some data record is found, it will be updated with the values which come from the import file. If more then one data record is found you will get an error and import will not be executed.
 
-It is possible to add more *entity fields* for import. For this select the `Add entity field` option from the adding drop-down menu; the following creation pop-up will appear:
+![Configurator identifier](_assets/import-feeds-configurator-identifiers.png)
 
-![Entity field adding](_assets/add-field.jpg)
+### Default Value
+For any mapping rule the column(s) or default value or both should be filled. Thus, it is possible to set the default value without choosing the column(s). In this case this value will be applied to all data records. For example you can set a value for a "Catalog". If you would import product data, all the products will be automatically assigned to the selected catalog, even if you import file have no column for a "Catalog". If "default value" is left emply or no value is set, no default value will be applied as default value.
 
-Here select the field from the drop-down list of all fields available in the system for the given entity, define its default value and/or select its file column. Also define whether data import should be made by ID, name or code (for those fields, where this option is available). 
-
-Please, note that either the `File column` or `Default value` field must be filled in. Otherwise, the current entity field cannot be created:
-
-![Field creation error](_assets/field-creation-error.jpg)
-
-Entity fields of the `Currency`, and `Unit` types, as well as [multilingual fields](https://atropim.com/store/multi-languages) can also be added to import feeds:
-
-![Field creation unit](_assets/field-creation-unit.jpg)
-
-For the `Product categories` field there is also the ability to choose its scope level:
-
-![Product category scope](_assets/product-category-scope.jpg)
-
-If the `Channel` scope level is defined, also select the required channel to be used for product categories in the corresponding field. 
-
-Please, note that entity fields can be added to the import feed record only once, except for the `Product categories` field, which may be added as many times as needed, but with different scope levels and different channels:
-
-![Product categories](_assets/product-categories.jpg)
-
-Once the entity field is added to the configurator, it is added to the `ID` drop-down list on the [`SIMPLE TYPE SETTINGS`](#simple-type-settings) panel. 
-
-#### Adding Product Attributes
-
-The "Import Feeds" module also allows you to import *[product attribute](https://atropim.com/help/products) values*, including [multilingual attributes](https://atropim.com/store/multi-languages#multilingual-attributes). They can be added to the import feed on the `CONFIGURATOR` panel via the `Add product attribute` option from the adding drop-down menu:
-
-![Product attribute adding](_assets/add-attribute.jpg)
-
-Please, note that this feature is available only when the [AtroPIM module](https://atropim.com/help/what-is-atropim) is installed together with the "Import Feeds" module.
-
-In the creation pop-up that appears, select the attribute from the list of the existing attributes, define its default value and/or select its file column. Also define the attribute scope level – `Global` or `Channel`. 
-
-Make sure that the `File column` or `Default value` field is filled in; otherwise, the given product attribute will not be created.
-
-Please, note that the same product attribute can be added to the import feed record more than once, but with different scope levels (`Global` or `Channel`) and different channels.
-
-#### Adding Product Images
-
-*Product images* can also be added for import via the "Import Feeds" module. For this select the `Add product image` option from the adding drop-down menu on the `CONFIGURATOR` panel:
-
-![Product image adding](_assets/add-product-image.jpg)
-
-Please, note that this feature is available only when the AtroPIM module is installed together with the "Import Feeds" module.
-
-In the creation pop-up that appears, select the file column for the image import and/or attach the locally stored image file to be used as the default value for import. Also define the image scope level – `Global` or `Channel`. 
-
-Make sure that at least the `File column` field is filled in; otherwise, the given product image will not be created.
-
-Having added the [entity field](#adding-entity-fields), [product attribute](#adding-product-attributes) and [product image](#adding-product-images) records to the import feed, you can edit or remove them via the corresponding options of the single record actions menu:
-
-![Single record menu](_assets/single-record-menu.jpg)
-
-If you have any further questions about the import feed configuration, please, feel free to [contact us](https://atropim.com/contact) any time.
+### Attributes
+Only product entity has attributes.
+![Configurator attributes](_assets/import-feeds-configurator-new-attribute.png)
 
 ## Running Import Feed
 
