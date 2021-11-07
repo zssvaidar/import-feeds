@@ -115,63 +115,19 @@ Um die im 'Konfigurator' angezeigte Zuordnungsregel zu ändern, verwenden Sie di
 
 ![Konfigurator-Panel](_assets/import-feeds-configurator-menu.png)
 
+### Kennung (Identifier)
+Für jedes Feld können Sie festlegen, ob dieses als Kennung (Identifier) gilt oder nicht. Alle Kennungen werden gemeinsam bei der Suche nach einem Datensatz in der Datenbank verwendet. Wenn ein Datensatz gefunden wird, wird dieser mit den Werten aus der Importdatei aktualisiert. Wenn mehr als ein Datensatz gefunden wird, erhalten Sie eine Fehlermeldung und der Import wird nicht ausgeführt.
 
-#### Hinzufügen von Entitätsfeldern 
-Es ist möglich, weitere *Entitätsfelder* für den Import hinzuzufügen. Wählen Sie dazu die Option `Entitätsfeld hinzufügen` aus dem Drop-down-Menü zum Hinzufügen. Folgendes Erstellungs-Pop-up wird angezeigt:
+![Konfigurator-ID](_assets/import-feeds-configurator-identifiers.png)
 
-![Entity field adding](_assets/add-field.jpg)
+### Standardwert
+Für jede Zuordnungsregel sollten die Spalte(n) oder der Standardwert oder beide ausgefüllt werden. Somit ist es möglich, den Standardwert festzulegen, ohne die Spalte(n) auszuwählen. In diesem Fall wird dieser Wert auf alle Datensätze angewendet. Sie können beispielsweise einen Wert für den "Katalog" festlegen. Wenn Sie Produktdaten importieren würden, werden alle Produkte automatisch dem ausgewählten Katalog zugeordnet, auch wenn Ihre Importdatei keine Spalte für "Katalog" enthält. Wird "Standardwert" leer gelassen oder kein Wert gesetzt, wird kein Standardwert als Wert übernommen.
 
-Wählen Sie hier das Feld aus der Drop-down-Liste aller Felder, die im System für die angegebene Entität verfügbar sind, definieren Sie seinen Standardwert und/oder wählen Sie seine Datei-Spalte aus.  Bestimmen Sie zudem, ob der Datenimport nach ID, Name oder Code durchgeführt werden soll (für die Felder, wo diese Auswahl verfügbar ist).
 
-Bitte beachten Sie, dass entweder das Feld `Datei-Spalte` oder ` Standardwert` ausgefüllt werden soll. Andernfalls kann das aktuelle Entitätsfeld nicht erstellt werden:
 
-![Field creation error](_assets/field-creation-error.jpg)
 
-Entitätsfelder der Typen `Currency` und `Unit` sowie [mehrsprachige Felder](https://atropim.com/de/shop/multi-languages) können auch zu Import Feeds hinzugefügt werden:
 
-![Field creation unit](_assets/field-creation-unit.jpg)
 
-Für das Feld `Product categories` können Sie auch die Umfangsebene auswählen:
-
-![Product category scope](_assets/product-category-scope.jpg)
-
-Wenn die `Channel`-Umfangsebene definiert ist, sollten Sie auch im entsprechenden Feld den benötigten Kanal auswählen, der für die Produktkategorien verwendet werden soll. 
-
-Bitte beachten Sie, dass Entitätsfelder nur einmal zum Import-Feed-Datensatz hinzugefügt werden können. Eine Ausnahme bildet einzig das Feld `Product categories`. Dies kann so oft wie nötig hinzugefügt werden, aber mit unterschiedlichen Umfangsebenen und unterschiedlichen Kanälen:
-
-![Product categories](_assets/product-categories.jpg)
-
-Wenn das Entitätsfeld zu dem Konfigurator hinzugefügt wurde, wird es zu der Drop-down-Liste `ID` im Panel [`EINFACHE TYP-ENEINSTELLUNGEN`](#einfache-typ-einstellungen) hinzugefügt.
-
-#### Hinzufügen von Produktattributen 
-Das Modul „Import Feeds“ ermöglicht es ebenfalls, [Produktattribut](https://atropim.com/help/products)-Werte zu importieren, darunter auch [mehrsprachige Attribute](https://atropim.com/de/shop/multi-languages#mehrsprachige-attribute). Sie können zum Import Feed im `KONFIGURATOR`-Panel mit Hilfe der Option `Produktattribut hinzufügen` aus dem Drop-down-Menü hinzugefügt werden:
-
-![Product attribute adding](_assets/add-attribute.jpg)
-
-Bitte beachten Sie, dass diese Funktion nur dann verfügbar ist, wenn das [AtroPIM-Modul](https://atropim.com/help/what-is-atropim) zusammen mit dem Modul "Import Feeds" installiert ist.
-
-Wählen Sie im angezeigten Erstellungs-Pop-up das Attribut aus der Liste der vorhandenen Attribute aus, definieren Sie dessen Standardwert und/oder wählen Sie dessen Datei-Spalte aus. Außerdem definieren Sie die Umfangsebene des Attributes - `Global` oder `Channel`. 
-
-Vergewissern Sie sich, dass das Feld `Datei-spalte` oder `Standardwert` ausgefüllt ist. Andernfalls wird das nötige Produktattribut nicht erstellt.
-
-Bitte beachten Sie, dass dasselbe Produktattribut mehrmals zum Import-Feed-Datensatz hinzugefügt werden kann, aber mit unterschiedlichen Umfangsebenen (`Global` oder `Channel`) und unterschiedlichen Kanälen.
-
-#### Hinzufügen von Produktbildern 
-Mit Hilfe des Moduls "Import Feeds" können des Weiteren *Produktbilder* zum Import hinzugefügt werden. Wählen Sie dazu im Panel `Konfigurator` die Option `Produktbild hinzufügen` aus dem Drop-down-Menü : 
-
-![Product image adding](_assets/add-product-image.jpg)
-
-Bitte beachten Sie, dass diese Funktion nur dann verfügbar ist, wenn das AtroPIM-Modul zusammen mit dem Modul "Import Feeds" installiert ist.
-
-Wählen Sie im angezeigten Erstellungs-Pop-up die Datei-Spalte für den Bildimport aus und/oder hängen Sie  die lokal gespeicherte Bilddatei an, die als Standardwert für Import verwendet werden soll. Definieren Sie auch die Umfangsebene für das Bild - `Global` oder `Channel`. 
-
-Stellen Sie sicher, dass mindestens das Feld `Datei-spalte` ausgefüllt ist. Ansonsten wird das nötige Produktbild nicht erstellt.
-
-Nachdem Sie die Datensätze [Entitätsfeld](#hinzufügen-der-entitätsfelder), [Produktattribut](#hinzufügen-der-produktattribute) und [Produktbild](#hinzufügen-der-produktbilder) zum Import Feed hinzugefügt haben, können Sie diese über die entsprechenden Optionen im Menü für einzelne Datensatzaktionen bearbeiten oder entfernen:
-
-![Single record menu](_assets/single-record-menu.jpg)
-
-Wenn Sie weitere Fragen zur Konfiguration des Import Feeds haben, können Sie gerne jederzeit mit uns [Kontakt aufnehmen](https://atropim.com/de/kontakt).
 
 ## Import-Feed-Ausführung  
 Um den Import der Daten über den aktiven Import Feed zu starten, wählen Sie die Option `Import durchführen` im Menü "Aktionen" auf der Detail-Ansichtsseite des Import Feeds oder im Menü für einzelne Datensatzaktionen auf der Seite der Listenansicht von "Import Feeds":
