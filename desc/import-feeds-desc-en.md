@@ -133,6 +133,14 @@ Only product entity has attributes. All products have the same fields, but may h
 
 ![Configurator attributes](_assets/import-feeds-configurator-new-attribute.png)
 
+### Marking attributes as not linked
+You can use the `mark for a non linked attribute` to mark explicitly the attributes which should not be linked. Per default "--" is used.
+
+![Configurator attributes](_assets/import-feeds-example-unlink-attributes.png)
+
+According to this example the product "all attributes 4" will not have the attributes "\_asset", "\_varchar" and "\_varchar DE" linked to it.
+
+
 ### Boolean
 By importing boolean fields or attributes "0" and "False" regardsless case (uppercase, lowercase) are interpreted as FALSE value. "1" and "True" relardless case are interpreted as TRUE value. If NULL value for boolean field or attribute is not allowed "" and "empty" value are also interpreted as FALSE value.
 
