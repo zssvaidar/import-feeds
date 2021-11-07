@@ -155,12 +155,16 @@ If "Brand1" exists it will be found and linked. If "Brand2" doesn't exist it wil
 
 The system uses all related entity fields to seach for the relation. If no relation is found and the checkbox "create if not exists" is not set the relation will be ignored – no relation will be created.
 
+The amount of the configured related entity fields should be less or equal to the amount of values for the relation in the cell. For example if you choose only "ID" and "Name" as related entity fields the data will be still imported and only these two values will be used to search for a category.
+
 If the new data record for the relation cannot be created, the system will generate an error and the system will import nothing from the respective row.
 
 ### Multiple Relations
 Multiple relations works like simple relations. The only difference is, that you can create multiple relations at once. Multiple data records for the related entities should be separated by using `data record delimiter`. For example products are linked with categories via many-to-many relation, which means that some product can be assigned to different categories and some category may have many products assigned to it. For example we can import product data together with categories as follows:
 
 ![Configurator multiple_relations](_assets/import-feeds-example-multiple-relation.png)
+
+Following related entity fields should be set in the mapping rule "Name", "Name in German", "Active" and "Code" for the data to be successfully imported.
 
 According to this example the product from the first data row will be linked with "Category1" and "Category2", here the "," symbol is used as `data record delimiter`.
 The second and the third product will be linked with "Category2" and "Category3" respectively. Data record for "Category2" will be created only once (if it does not exist in the system), during creating/updating the first product, and linked with the first and the secord product.
