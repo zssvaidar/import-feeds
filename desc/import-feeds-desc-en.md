@@ -140,8 +140,15 @@ You can import product data for product fields and product attributes simultaneo
 
 According to this example the product "all attributes 4" will not have the attributes "\_asset", "\_varchar" and "\_varchar DE" linked to it.
 
-### Boolean
+### Boolean fields and attributes
 By importing boolean fields or attributes "0" and "False" regardsless case (uppercase, lowercase) are interpreted as FALSE value. "1" and "True" relardless case are interpreted as TRUE value. If NULL value for boolean field or attribute is not allowed "" and "empty" value are also interpreted as FALSE value.
+
+### Multienum fields and attributes
+You can import multienum values for fields and attributes by separating its values with help of `field delimiter for relation`. In our example we use "," symbol for it.
+
+![Configurator multienum](_assets/import-feeds-example-multienum.png).
+
+Only predefined values can be accepted, if your multienum have predefined options. If one of the multienum values, provided in the file to be imported, is not valid, the whole row will not be imported. If your multienum field or attribute have no predified options any value will be accepted.
 
 ### Relations
 Each entity may have one-to-many, many-to-one or many-to-many relations to other entities. Import feeds module enables to import data with direct relations of all types. Data record from the related entity can can be found and linked or new data record for the related entity can be created and linked. Each relation is available for configuration as a field. To create a mapping rule for a relation you need to set the "Type" of your mapping rule to "Field" and choose your relation name as a "Field". Let's configure a "Brand" relation. So we choose "Brand" in the "Field" field and "Brand" in the "Column(s)" field. For a relation we also need to select the related entity fields, we choose ID, Name, Name in German, Active and Code.
