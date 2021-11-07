@@ -151,7 +151,7 @@ Wenn "Brand1" existiert, wird es gefunden und verlinkt. Wenn "Brand2" nicht exis
 
 Das System verwendet alle zugehörigen Entitätsfelder, um nach der Beziehung zu suchen. Wird keine Relation gefunden und ist die Checkbox „Erstellen falls nicht vorhanden“ nicht gesetzt, wird die Relation ignoriert – keine Relation wird erstellt.
 
-
+Kann der neue Datensatz für die Relation nicht angelegt werden, generiert das System einen Fehler und das System importiert nichts aus der entsprechenden Zeile.
 
 
 ## Import-Feed-Ausführung  
