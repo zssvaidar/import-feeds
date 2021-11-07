@@ -1,4 +1,4 @@
-The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system and its direct relations, eg it is possible to import the product data together with the corresponding categories. You can create, configure and use many inport feeds.
+The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system, link related entities or even create them, eg it is possible to import the product data together with the corresponding categories, brands etc. You can create, configure and use many inport feeds.
 
 With the help of the "Import Feeds" module, data import may be performed in two ways:
 
@@ -120,7 +120,7 @@ To modify the mapping rule displayed on the `Configurator` panel, use the `Edit`
 ![Configurator panel](_assets/import-feeds-configurator-menu.png)
 
 ### Identifier
-For each field you can define whether it is the identifier or not. All identifiers are used together in search for a data record in the database. If some data record is found, it will be updated with the values which come from the import file. If more then one data record is found you will get an error and import will not be executed.
+For each field you can define whether it is the identifier or not. All identifiers are used together in search for a data record in the database. Eg if you choose "Name" and "Brand" as identifier for an import to the product entity, the system will try to fild such a product by using the cell values for these two fields. If some data record is found, it will be updated with the values which come from the import file. If more then one data record is found you will get an error and import will not be executed.
 
 ![Configurator identifier](_assets/import-feeds-configurator-identifiers.png)
 
@@ -128,12 +128,22 @@ For each field you can define whether it is the identifier or not. All identifie
 For any mapping rule the column(s) or default value or both should be filled. Thus, it is possible to set the default value without choosing the column(s). In this case this value will be applied to all data records. For example you can set a value for a "Catalog". If you would import product data, all the products will be automatically assigned to the selected catalog, even if you import file have no column for a "Catalog". If "default value" is left emply or no value is set, no default value will be applied as value.
 
 ### Attributes
-Only product entity has attributes. All products have the same fields, but may have different attributes (attribute can be seen as a dynamic field). Attributes can also have channel-specific values. To create a mapping rule for some attribute you need to select by "Type" "Attribute" as a value. Set the Scope to "Global" if you want that the value to be imported should be set as a global attribute value. If you want that this value for the attribute should be set as a channel-specific value you need to set the "Scope" to "Channel" and select the appropriate channel in the next field. 
+Only product entity has attributes. All products have the same fields, but may have different attributes (attribute can be seen as a dynamic field). Only attributes can have channel-specific values. To create a mapping rule for some attribute you need to select by "Type" "Attribute" as a value. Set the Scope to "Global" if you want that the value to be imported should be set as a global attribute value. If you want that this value for the attribute should be set as a channel-specific value you need to set the "Scope" to "Channel" and select the appropriate channel in the next field. 
 
 ![Configurator attributes](_assets/import-feeds-configurator-new-attribute.png)
 
+### Relations
+Each entity may have one-to-many, many-to-one or many-to-many relations to other entities. Import feeds module enables to import data with direct relations of all types. Existing relations can be found and linked or new data records for relations can be created and linked. Each relation is available for configuration as a field. To create a mapping rule for a relation you need to set the "Type" of your mapping rule to "Field" and choose your relation name as a "Field".
+
+![Configurator relations](_assets/import-feeds-configurator-relations.png)
 
 
+### Multiple Relations
+For example products are linked with categories via many-to-many relation, which means that some product can be assigned to different categories and some category may have many products assigned to it. For example you want to import product data with categories. You can import following 
+
+
+
+![Configurator attributes](_assets/import-feeds-configurator-relations.png)
 
 ## Running Import Feed
 
