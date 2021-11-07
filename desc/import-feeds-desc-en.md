@@ -125,11 +125,15 @@ For each field you can define whether it is the identifier or not. All identifie
 ![Configurator identifier](_assets/import-feeds-configurator-identifiers.png)
 
 ### Default Value
-For any mapping rule the column(s) or default value or both should be filled. Thus, it is possible to set the default value without choosing the column(s). In this case this value will be applied to all data records. For example you can set a value for a "Catalog". If you would import product data, all the products will be automatically assigned to the selected catalog, even if you import file have no column for a "Catalog". If "default value" is left emply or no value is set, no default value will be applied as default value.
+For any mapping rule the column(s) or default value or both should be filled. Thus, it is possible to set the default value without choosing the column(s). In this case this value will be applied to all data records. For example you can set a value for a "Catalog". If you would import product data, all the products will be automatically assigned to the selected catalog, even if you import file have no column for a "Catalog". If "default value" is left emply or no value is set, no default value will be applied as value.
 
 ### Attributes
-Only product entity has attributes.
+Only product entity has attributes. All products have the same fields, but may have different attributes (attribute can be seen as a dynamic field). Attributes can also have channel-specific values. To create a mapping rule for some attribute you need to select by "Type" "Attribute" as a value. Set the Scope to "Global" if you want that the value to be imported should be set as a global attribute value. If you want that this value for the attribute should be set as a channel-specific value you need to set the "Scope" to "Channel" and select the appropriate channel in the next field. 
+
 ![Configurator attributes](_assets/import-feeds-configurator-new-attribute.png)
+
+
+
 
 ## Running Import Feed
 
