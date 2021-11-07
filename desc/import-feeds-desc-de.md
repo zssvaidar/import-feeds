@@ -77,6 +77,7 @@ Das nächste Panel ist das Einstellungspanel:
 
 - **Entität** – wählen Sie die gewünschte Entität für die zu importierenden Daten aus der Dropdown-Liste aller im System verfügbaren Entitäten aus.
 - **Unbenutzte Spalten** – dieses Feld ist zunächst leer. Nach dem Speichern sehen Sie hier die Liste der verfügbaren nicht zugeordneten Spalten.
+- **Feldtrennzeichen für Relation** – Feldtrennzeichen, das verwendet wird, um Felder in der Relation zu trennen, Standardwert ist "|".
 - **Datensatz-Trennzeichen** – ist das Trennzeichen zum Aufteilen mehrerer Werte (zB für Multienum- oder Array-Felder und -Attribute) oder mehrerer zusammengehöriger Datensätze.
 - **Markierung für ein nicht verknüpftes Attribut** – diese Markierung ist nur für die Produktentität verfügbar. Dieses Symbol kennzeichnet Attribute, die nicht mit dem jeweiligen Produkt verknüpft werden sollen.
 - **Leerer Wert** – Dieses Symbol wird zusätzlich zur leeren Zelle als "leerer" Wert interpretiert, zB "" und "kein" wird als "" interpretiert, wenn Sie "kein" als leeren Wert definieren.
