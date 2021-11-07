@@ -153,6 +153,15 @@ Das System verwendet alle zugehörigen Entitätsfelder, um nach der Beziehung zu
 
 Kann der neue Datensatz für die Relation nicht angelegt werden, generiert das System einen Fehler und das System importiert nichts aus der entsprechenden Zeile.
 
+### Mehrere Beziehungen
+Mehrere Beziehungen funktionieren wie einfache Beziehungen. Der einzige Unterschied besteht darin, dass Sie mehrere Beziehungen gleichzeitig erstellen können. Mehrere Datensätze für eine zugehörige Entität sollten durch `Datensatz-Trennzeichen` getrennt werden. Zum Beispiel Produkte sind über eine Viele-zu-Viele-Beziehung mit Kategorien verknüpft, was bedeutet, dass ein Produkt verschiedenen Kategorien zugeordnet werden kann und eine Kategorien viele zugeordnete Produkte haben kann. Beispielsweise können wir Produktdaten zusammen mit Kategorien wie folgt importieren:
+
+![Konfigurator multiple_relations](_assets/import-feeds-example-multiple-relation.png)
+
+In diesem Beispiel wird das Produkt aus der ersten Datenzeile mit "Kategorie1" und "Kategorie2" verknüpft, hier wird das ","-Symbol als `Datensatz-Trennzeichen` verwendet.
+Das zweite und das dritte Produkt werden mit "Kategorie2" bzw. "Kategorie3" verknüpft. Der Datensatz für "Kategorie2" wird nur einmal beim Anlegen/Aktualisieren des ersten Produkts erstellt (falls es im System nicht vorhanden ist) und mit dem ersten und dem zweiten Produkt verknüpft.
+
+Wenn eine der mehreren Relationen nicht gefunden und der Datensatz nicht erstellt werden kann (vorausgesetzt, die Checkbox `Erstellen, wenn nicht vorhanden` ist gesetzt), wird die ganze Zeile nicht importiert. Wenn die Option `Erstellen, wenn nicht existiert` nicht gesetzt ist, werden alle nicht gefundenen Beziehungen ignoriert.
 
 ## Import-Feed-Ausführung  
 Um den Import der Daten über den aktiven Import Feed zu starten, wählen Sie die Option `Import durchführen` im Menü "Aktionen" auf der Detail-Ansichtsseite des Import Feeds oder im Menü für einzelne Datensatzaktionen auf der Seite der Listenansicht von "Import Feeds":
