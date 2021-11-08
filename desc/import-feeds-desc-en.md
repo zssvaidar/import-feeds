@@ -222,15 +222,17 @@ Started import job is added to the Queue Manager, where you can see the current 
 
 ![Queue manager](_assets/import-feeds-queue-manager.png)
 
-The new record is also added to the "Import Results" Panel with the state `Pending`. After the import job is completed the state will be automatically changed to `Done`.
+The new record is also added to the "Import Results" Panel with the state `Pending`. After the import job is successfully completed the state will be automatically changed to `Done`.
 
 
 ## Import Results
 
-Information about completed import jobs is displayed on the `IMPORT RESULTS` panel, which is empty on the import feed [creation](#import-feed-creation) step, but gets filled in after the data import is performed via the given import feed.
+Information about completed import jobs is displayed on the `Import results` panel, which is empty on the import feed [creation](#import-feed-creation) step, but gets filled in after the data import is performed via the given import feed.
 
-Results of the data import operations can be viewed in two ways:
-- on the **`IMPORT RESULTS` panel** of the import feed – the details on the import operations performed via the currently open import feed:
+![Queue manager](_assets/import-feeds-import-results.png)
+
+Results of the data import can be viewed in two ways:
+- on the "Import Results" panel of the respective import feed – the details on the import operations performed via the currently open import feed:
 
 ![Import results panel](_assets/import-results-panel.jpg)
 
