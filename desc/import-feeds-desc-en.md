@@ -67,7 +67,7 @@ The import file parameters are configured on the `FILE PROPERTIES` panel:
 
 ![Import feed cfg file](_assets/import-feeds-create-file-properties.png)
 
-- **File** – here you can upload the file which is to be imported or its shortened version, which will be used for the configuration. The file should be UTF-8 encoded. 
+- **File** – here you can upload the file which is to be imported or its shortened version (as a sample), which will be used for the configuration. The file should be UTF-8 encoded. 
 - **Header row** – activate the checkbox if the column names are included in the import file or leave it empty if the file to be imported has no header row with column names.
 - **Thousand separator** –  define the symbol, which is used as thousand separator. This parameter is optional. The numerical values without thousand separator will be also imported (eg both values 1234,34 and 1.234,34 will be imported, if "." is defined as a thousand separator).
 - **Decimal mark** – select the used decimal mark, usually `.` or `,` should be defined here.
@@ -206,25 +206,26 @@ Import of assets via local server path is currently not supported.
 
 ## Running Import Feed
 
-To start importing the data via the active import feed, select the `Run import` option from the actions menu on its detail view page or from the single record actions menu on the "Import Feeds" list view page:
+Click on `Import` button to import the data from the file, which you have uploaded during configuration of your import feed (which is a sample file). 
 
-![Run import option](_assets/run-import-option.jpg)
+![Run import option](_assets/import-feeds-buttons.png)
 
-In the pop-up that appears, attach the CSV file with data to be imported and click the `Run import` button to start the process:
+Alternatively you can import the data from a new file. Click on the `Upload & Import` button.
 
-![Run import pop-up](_assets/run-import-popup.jpg)
+![Run import option](_assets/import-feeds-upload-and-import.png)
 
-Please, note that the data file must match the example file, defined for the given import feed. Otherwise, the error message will appear:
+In the pop-up that appears you can upload your new CSV file, which should be UTF-8 encoded and have the same structure as you sample file. Click on `Import` button to start the process.
 
-![Wrong file error](_assets/wrong-file-error.jpg) 
+![Run import option](_assets/import-feeds-upload-and-import-popup.png)
 
-When import is started, its details and current status are displayed in the Queue Manager pop-up that appears automatically:
+Started import job is added to the Queue Manager, where you can see the current status:
 
-![Queue manager](_assets/queue-manager.jpg)
+![Queue manager](_assets/import-feeds-queue-manager.png)
 
-Please, note that if the number of records in the data file exceeds the [limit](#import-feed-configuration) value defined on the `OVERVIEW` panel of the given import feed, the import job will be split into the corresponding parts in accordance with the limit value.
+The new record is also added to the "Import Results" Panel with the state `Pending`. After the import job is completed the state will be automatically changed to `Done`.
 
-### Import Results
+
+## Import Results
 
 Information about completed import jobs is displayed on the `IMPORT RESULTS` panel, which is empty on the import feed [creation](#import-feed-creation) step, but gets filled in after the data import is performed via the given import feed.
 
