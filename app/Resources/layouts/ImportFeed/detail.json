@@ -45,14 +45,6 @@
       ],
       [
         {
-          "name": "thousandSeparator"
-        },
-        {
-          "name": "decimalMark"
-        }
-      ],
-      [
-        {
           "name": "fileFieldDelimiter"
         },
         {
@@ -79,6 +71,14 @@
         },
         {
           "name": "markForNotLinkedAttribute"
+        }
+      ],
+      [
+        {
+          "name": "thousandSeparator"
+        },
+        {
+          "name": "decimalMark"
         }
       ],
       [
