@@ -110,94 +110,9 @@
           ]
         }
       },
-      "decimalMark": {
-        "visible": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        },
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        }
-      },
-      "fileDataAction": {
-        "visible": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        },
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        }
-      },
-      "entity": {
-        "visible": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        },
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        }
-      },
-      "delimiter": {
-        "visible": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        },
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            }
-          ]
-        }
-      },
       "markForNotLinkedAttribute": {
         "visible": {
           "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            },
             {
               "type": "equals",
               "attribute": "entity",
@@ -207,11 +122,6 @@
         },
         "required": {
           "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            },
             {
               "type": "equals",
               "attribute": "entity",
