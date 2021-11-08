@@ -28,7 +28,7 @@
     ]
   },
   {
-    "label": "File properties",
+    "label": "Import Data Settings",
     "style": "default",
     "dynamicLogicVisible": {
       "conditionGroup": [
@@ -71,7 +71,7 @@
     ]
   },
   {
-    "label": "Settings",
+    "label": "Feed Settings",
     "style": "default",
     "dynamicLogicVisible": {
       "conditionGroup": [

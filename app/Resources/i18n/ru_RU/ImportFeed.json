@@ -29,8 +29,8 @@
   "labels": {
     "currency": "Валюта",
     "unit": "Единица",
-    "File properties": "Свойства файла",
-    "Settings": "Настройки",
+    "Import Data Settings": "Настройки импорта данных",
+    "Feed Settings": "Настройки фида",
     "Create ImportFeed": "Создать импортный фид",
     "convertFile": "Загрузка файла, подождите...",
     "convertSuccess": "Файл загружен",

@@ -29,8 +29,8 @@
   "labels": {
     "currency": "Currency",
     "unit": "Unit",
-    "File properties": "File properties",
-    "Settings": "Settings",
+    "Import Data Settings": "Import Data Settings",
+    "Feed Settings": "Feed Settings",
     "Create ImportFeed": "Create Import Feed",
     "convertFile": "Loading file, please wait...",
     "convertSuccess": "File loaded",
