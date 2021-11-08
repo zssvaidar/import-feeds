@@ -197,24 +197,25 @@ Die Konfiguration für die Felder und Attribute vom Typ "Asset" ist dieselbe. Ih
 
 Der Import von Assets über den lokalen Serverpfad wird derzeit nicht unterstützt.
 
-## Import-Feed-Ausführung  
-Um den Import der Daten über den aktiven Import Feed zu starten, wählen Sie die Option `Import durchführen` im Menü "Aktionen" auf der Detail-Ansichtsseite des Import Feeds oder im Menü für einzelne Datensatzaktionen auf der Seite der Listenansicht von "Import Feeds":
+## Import-Feed ausführen
 
-![Run import option](_assets/run-import-option.jpg)
+Klicken Sie auf den Button "Importieren", um die Daten aus der Datei zu importieren, die Sie während der Konfiguration Ihres Import-Feeds hochgeladen haben (Beispieldatei).
 
-Hängen Sie im angezeigten Pop-up die CSV-Datei mit den zu importierenden Daten an und klicken Sie auf den Button `Import durchführen`, um den Vorgang zu starten:
+![Importoption ausführen](_assets/import-feeds-buttons.png)
 
-![Run import pop-up](_assets/run-import-popup.jpg)
+Alternativ können Sie die Daten aus einer neuen Datei importieren. Klicken Sie auf den Button "Hochladen & Importieren".
 
-Achten Sie bitte darauf, dass die zu importierende Datei mit der Beispieldatei übereinstimmen muss, die für den bestimmten Import Feed definiert ist. Andernfalls wird die folgende Fehlermeldung angezeigt:
+![Importoption ausführen](_assets/import-feeds-upload-and-import.png)
 
-![Wrong file error](_assets/wrong-file-error.jpg) 
+Im erscheinenden Pop-up können Sie Ihre neue CSV-Datei hochladen, die UTF-8-codiert sein sollte und dieselbe Struktur wie Ihre Beispieldatei aufweisen sollte. Klicken Sie auf die Schaltfläche "Importieren", um den Vorgang zu starten.
 
-Wenn der Import gestartet ist, werden seine Details und aktueller Status im Pop-up des Queue Managers angezeigt, das automatisch erscheint:
+![Importoption ausführen](_assets/import-feeds-upload-and-import-popup.png)
 
-![Queue manager](_assets/queue-manager.jpg)
+Der gestartete Importjob wird zum Wartenschlangenmanager hinzugefügt, in dem Sie den aktuellen Status sehen können:
 
-Bitte beachten Sie, dass wenn die Anzahl der Datensätze in der zu importierenden Datei den [Grenzwert](#konfiguration-von-import-feeds) überschreitet, der im Panel `ÜBERBLICK` des entsprechenden Import Feeds definiert ist, der Import Job gemäß dem Grenzwert in entsprechende Teile aufgeteilt wird.
+![Warteschlangenmanager](_assets/import-feeds-queue-manager.png)
+
+Der neue Datensatz wird auch zum Panel "Import-Ergebnisse" mit dem Status "Ausstehend" hinzugefügt. Nach einem erfolgreichen Abschluss des Importauftrags wird der Status automatisch auf `Fertig` geändert.
 
 ### Importergebnisse
 Informationen über abgeschlossene Import Jobs werden im Panel `IMPORT RESULTS` angezeigt. Dieses Panel ist  während des Vorgangs der [Erstellung](#erstellung-von-import-feeds) eines Import Feeds zunächst leer, wird jedoch ausgefüllt, nachdem der Datenimport über den bestimmten Import Feed durchgeführt wurde.
