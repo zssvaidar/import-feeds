@@ -329,57 +329,7 @@ The "Import Feeds" module also supports common AtroCore *mass actions* that can 
 - **Add relation** – to relate the selected import feed records with other import result record(s).
 - **Remove relation** – to remove the relations that have been added to the selected import feed records.
 
-## Import Cron Job Configuration
 
-In order to run import automatically according to the schedule, you can configure **import cron jobs**. To create a new job record, click the `Import Cron Jobs` in the navigation menu to get to the import cron jobs list view, and then click the `Create Import Cron Job` button. 
-
-> If there is no `Import Cron Jobs` option in the navigation menu, please, contact your administrator.
-
-The common creation window will open:
-
-![Cron job creation](_assets/cron-job-create.jpg)
-
-Here define the following parameters for the import cron job being created:
-
-- **Active** – select the checkbox to activate the job.
-- **Name** – enter the import cron job name. 
-- **Import feed** – select the desired import feed, based on which the data will be imported.
-- **Link** – enter a direct link to the example file (CSV) from which the data will be imported.
-- **Scheduling** – enter a desired cron job schedule, i.e. frequency of job runs, using common syntax rules. 
-
-When an import cron job is started, its details are shown in the Queue Manager pop-up.
-
-The results of the run import cron job are displayed on the	`LOGS` panel of the corresponding job record:
-
-![Cron job logs](_assets/cron-job-logs.jpg)
-
-To view the import cron jobs queue and status details, please, go to `Administration > Schedule Jobs` and click the `Jobs` button:
-
-![Cron jobs queue](_assets/cron-jobs-queue.jpg)
-
-## Special Import Cases
-
-### Product Variants
-
-If there is the ["Product Variants" module](https://atropim.com/store/product-variants) installed in your [AtroPIM system](https://atropim.com/help/what-is-atropim), product variants can be imported via import feeds. For this, add the `Configurable Product` entity field in the same way as described [above](#adding-entity-fields):
-
-![Create configurable product](_assets/create-configurable-product.jpg)
-
-Make sure the configurable product and its variant(s) belong to the same [product family](https://atropim.com/help/product-families) and [catalog](https://atropim.com/help/catalogs). Otherwise, these records will not be imported, but added to the [error file](#error-file).
-
-The setup of other fields and attributes for the configurable product record is the same as for the [simple product](#import-feed-configuration).
-
-All attributes of the `Enum` type as well as [multilingual attributes](https://atropim.com/store/multi-languages#multilingual-attributes), added on the `CONFIGURATOR` panel within the desired import feed record detail view page, become *variant-forming*, whereas attributes of other types are imported as common attributes of the product variants.
-
-Prior to running the import process for product variants, data validation is performed on the basis of the `Configurable Product` entity field, and depending on the validation results, there may be several scenarios:
-
-- the `Configurable Product` field is **empty** for some records: these product records are imported as records of the `Simple Product` type, i.e. you can import at the same time not only product variant records, but also product records of other types;
-
-- a configurable product, which is added to the import file, already **exists** in the system: as a result of the import operation, product variant records are created on the basis of the given configurable product;
-
-- a configurable product defined in the import file **is missing** in the system: [running](#running-import-feed) the import operation results in the creation of this configurable product record on the basis of the corresponding import file row.
-
-In all other cases, besides the described scenarios, the product variants import via import feeds is performed in the same way as the [simple product import](#running-import-feed). Also note that once the import process is completed, all fields and panels are automatically unlocked for the imported product variants.
 
 ## Customization
 The module can be adapted to your needs, additional functions can be programmed, existing functions can be changed. Please contact us regarding this. Our GTC (General Terms and Conditions) apply.
