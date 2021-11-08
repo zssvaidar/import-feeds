@@ -62,7 +62,7 @@ Die Parameter der Importdatei werden im Panel `FILE PROPERTIES` konfiguriert:
 
 ![Feed-CFG-Datei importieren](_assets/import-feeds-create-file-properties.png)
 
-- **Datei** – hier können Sie die zu importierende Datei oder deren gekürzte Version hochladen, die für die Konfiguration verwendet wird. Die Datei sollte UTF-8-kodiert sein.
+- **Datei** – hier können Sie die zu importierende Datei oder deren gekürzte Version (als Beispiel-Datei) hochladen, die für die Konfiguration verwendet wird. Die Datei sollte UTF-8-kodiert sein.
 - **Kopfzeile** – Aktivieren Sie die Checkbox, wenn die Importdatei Spaltennamen hat oder lassen Sie diese leer, wenn die zu importierende Datei keine Kopfzeile mit Spaltennamen hat.
 - **Tausender-Trennzeichen** – Definieren Sie das Symbol, das als Tausender-Trennzeichen verwendet wird. Dieser Parameter ist optional. Es werden auch die Zahlenwerte ohne Tausendertrennzeichen importiert (zB beide Werte 1234,34 und 1.234,34 werden importiert, wenn "." als Tausendertrennzeichen definiert ist).
 - **Dezimalzeichen** – Wählen Sie das verwendete Dezimalzeichen aus, normalerweise sollte hier `.` oder `,` gesetzt werden.
