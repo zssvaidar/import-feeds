@@ -1,4 +1,4 @@
-Das Modul "Feeds importieren" ermöglicht, alle Daten für beliebige Entität im AtroCore-System zu importieren, verwandte Entitäten zu verknüpfen oder neue Datensätze für sie zu erstellen, z. B. ist es möglich, die Produktdaten zusammen mit den entsprechenden Kategorien, Marken usw. zu importieren. Sie können viele Import-Feeds erstellen, konfigurieren und verwenden.
+Das Modul "Feeds importieren" ermöglicht, alle Daten für beliebige Entität im AtroCore-System zu importieren, verwandte Entitäten zu verknüpfen oder neue Datensätze für sie zu erstellen, z. B. ist es möglich, die Produktdaten zusammen mit den entsprechenden Kategorien, Marken usw. zu importieren. Sie können viele Import-Feeds erstellen, konfigurieren und verwenden. Import-Feeds verwenden die AtroCore REST API, sodass alle Daten automatisch mit denselben Regeln validiert werden, als ob Sie alle Datensätze manuell erstellen würden.
 
 Mit Hilfe des Moduls "Import Feeds" kann der Datenimport auf zwei Arten erfolgen:
 
