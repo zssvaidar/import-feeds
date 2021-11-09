@@ -62,7 +62,7 @@ Die Parameter der Importdatei werden im Panel `FILE PROPERTIES` konfiguriert:
 
 ![Feed-CFG-Datei importieren](_assets/import-feeds-create-file-properties.png)
 
-- **Datei** – hier können Sie die zu importierende Datei oder deren gekürzte Version hochladen, die für die Konfiguration verwendet wird. Die Datei sollte UTF-8-kodiert sein.
+- **Datei** – hier können Sie die zu importierende Datei oder deren gekürzte Version (als Beispiel-Datei) hochladen, die für die Konfiguration verwendet wird. Die Datei sollte UTF-8-kodiert sein.
 - **Kopfzeile** – Aktivieren Sie die Checkbox, wenn die Importdatei Spaltennamen hat oder lassen Sie diese leer, wenn die zu importierende Datei keine Kopfzeile mit Spaltennamen hat.
 - **Tausender-Trennzeichen** – Definieren Sie das Symbol, das als Tausender-Trennzeichen verwendet wird. Dieser Parameter ist optional. Es werden auch die Zahlenwerte ohne Tausendertrennzeichen importiert (zB beide Werte 1234,34 und 1.234,34 werden importiert, wenn "." als Tausendertrennzeichen definiert ist).
 - **Dezimalzeichen** – Wählen Sie das verwendete Dezimalzeichen aus, normalerweise sollte hier `.` oder `,` gesetzt werden.
@@ -197,26 +197,59 @@ Die Konfiguration für die Felder und Attribute vom Typ "Asset" ist dieselbe. Ih
 
 Der Import von Assets über den lokalen Serverpfad wird derzeit nicht unterstützt.
 
-## Import-Feed-Ausführung  
-Um den Import der Daten über den aktiven Import Feed zu starten, wählen Sie die Option `Import durchführen` im Menü "Aktionen" auf der Detail-Ansichtsseite des Import Feeds oder im Menü für einzelne Datensatzaktionen auf der Seite der Listenansicht von "Import Feeds":
+## Import-Feed ausführen
 
-![Run import option](_assets/run-import-option.jpg)
+Klicken Sie auf den Button "Importieren", um die Daten aus der Datei zu importieren, die Sie während der Konfiguration Ihres Import-Feeds hochgeladen haben (Beispieldatei).
 
-Hängen Sie im angezeigten Pop-up die CSV-Datei mit den zu importierenden Daten an und klicken Sie auf den Button `Import durchführen`, um den Vorgang zu starten:
+![Importoption ausführen](_assets/import-feeds-buttons.png)
 
-![Run import pop-up](_assets/run-import-popup.jpg)
+Alternativ können Sie die Daten aus einer neuen Datei importieren. Klicken Sie auf den Button "Hochladen & Importieren".
 
-Achten Sie bitte darauf, dass die zu importierende Datei mit der Beispieldatei übereinstimmen muss, die für den bestimmten Import Feed definiert ist. Andernfalls wird die folgende Fehlermeldung angezeigt:
+![Importoption ausführen](_assets/import-feeds-upload-and-import.png)
 
-![Wrong file error](_assets/wrong-file-error.jpg) 
+Im erscheinenden Pop-up können Sie Ihre neue CSV-Datei hochladen, die UTF-8-codiert sein sollte und dieselbe Struktur wie Ihre Beispieldatei aufweisen sollte. Klicken Sie auf die Schaltfläche "Importieren", um den Vorgang zu starten.
 
-Wenn der Import gestartet ist, werden seine Details und aktueller Status im Pop-up des Queue Managers angezeigt, das automatisch erscheint:
+![Importoption ausführen](_assets/import-feeds-upload-and-import-popup.png)
 
-![Queue manager](_assets/queue-manager.jpg)
+Der gestartete Importjob wird zum Wartenschlangenmanager hinzugefügt, in dem Sie den aktuellen Status sehen können:
 
-Bitte beachten Sie, dass wenn die Anzahl der Datensätze in der zu importierenden Datei den [Grenzwert](#konfiguration-von-import-feeds) überschreitet, der im Panel `ÜBERBLICK` des entsprechenden Import Feeds definiert ist, der Import Job gemäß dem Grenzwert in entsprechende Teile aufgeteilt wird.
+![Warteschlangenmanager](_assets/import-feeds-queue-manager.png)
+
+Der neue Datensatz wird auch zum Panel "Import-Ergebnisse" mit dem Status "Ausstehend" hinzugefügt. Nach einem erfolgreichen Abschluss des Importauftrags wird der Status automatisch auf `Fertig` geändert.
 
 ### Importergebnisse
+
+Informationen zu abgeschlossenen Importaufträgen werden im Bereich "Import-Ergebnisse" angezeigt. Zunächst wird hier nichts angezeigt, erst mit der Ausführung des Import-Feeds werden hier neue Einträge erscheinen.
+
+Die Ergebnisse des Datenimports können auf zwei Arten angezeigt werden:
+- im Bereich "Import-Ergebnisse" des jeweiligen Import-Feeds, der die Details zu den über den aktuell geöffneten Import-Feed durchgeführten Importvorgängen anzeigt:
+
+![Warteschlangenmanager](_assets/import-feeds-import-results.png)
+
+- auf der "Import Results Listenseite", die Details zu allen Importjobs anzeigt, die im System über Importfeeds ausgeführt wurden. Um diese Seite zu öffnen, klicken Sie in Ihrer Hauptnavigation auf `Export-Ergebnisse` oder verwenden Sie die Schaltfläche `Vollständige Liste anzeigen` in Ihrem Panel "Import-Ergebnise".
+
+![Warteschlangenmanager](_assets/import-feeds-import-results-show-full-list.png)
+
+Die Details zu den Importergebnissen enthalten die folgenden Informationen:
+
+- **Name** – der Name des Datensatzes mit den Importergebnissen, der automatisch basierend auf Datum und Uhrzeit des Starts des Importauftrags generiert wird. Klicken Sie auf den Namen, um die Detailansichtsseite zu öffnen.
+- **Import-Feed** – der Name des Import-Feeds, der für den Importauftrag verwendet wird. Klicken Sie auf den Namen des Import-Feeds, um die Seite des Import-Feeds zu öffnen.
+- **Importierte Datei** – der Name der Datendatei (CSV), die für den Importvorgang verwendet wird. Klicken Sie auf den Namen der importierten Datei, um sie herunterzuladen.
+- **State** – der aktuelle Status des Importvorgangs.
+- **Wiederhergestellt** – die Angabe, ob der angegebene Importergebnissatz wiederhergestellt wurde (das Kontrollkästchen ist aktiviert) oder nicht.
+- **Start** – Datum und Uhrzeit des Starts des Importjobs.
+- **Ende** – Datum und Uhrzeit des Endes des Importjobs.
+- **Erstellt** – die Anzahl der Datensätze, die als Ergebnis des durchgeführten Importjobs erstellt wurden. Klicken Sie auf diesen Wert, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem angegebenen Importergebnis gefiltert sind, d. h. mit dem Filter "Erstellt durch Import".
+- **Aktualisiert** – Die Anzahl der Datensätze, die als Ergebnis des ausgeführten Importjobs aktualisiert wurden. Klicken Sie auf diesen Wert für das gewünschte Importergebnis, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem angegebenen Importergebnis gefiltert sind, d. h. mit dem Filter "Aktualisiert durch Import".
+- **Fehler** – die Anzahl der Fehler, falls vorhanden, die während des Importauftrags aufgetreten sind. Klicken Sie auf diesen Wert für das gewünschte Importergebnis, um die Listenansichtsseite der Importergebnisprotokollsätze zu öffnen, auf der Sie die Details zu allen Fehlern sehen können.
+- **[Error file](#error-file)** – der Name der CSV-Datei, die nur Zeilen mit Fehlern enthält, die nicht importiert wurden. Der Fehlerdateiname wird automatisch basierend auf dem importierten Dateinamen generiert. Klicken Sie auf den Namen der Fehlerdatei, um sie herunterzuladen.
+
+Folgende Staaten stehen zur Verfügung:
+- **Running** – für den aktuell laufenden Importjob.
+- **Pending** – für den Importjob, der als nächstes zur Ausführung ansteht.
+- **Erfolg** – für den erfolgreich abgeschlossenen Importjob, unabhängig davon, ob er Fehler enthält.
+- **Fehlgeschlagen** – für den Importjob, der aufgrund technischer Probleme nicht ausgeführt werden konnte.
+------------------------
 Informationen über abgeschlossene Import Jobs werden im Panel `IMPORT RESULTS` angezeigt. Dieses Panel ist  während des Vorgangs der [Erstellung](#erstellung-von-import-feeds) eines Import Feeds zunächst leer, wird jedoch ausgefüllt, nachdem der Datenimport über den bestimmten Import Feed durchgeführt wurde.
 
 Die Ergebnisse der Daten-Importvorgänge können auf zwei Arten angezeigt werden:
@@ -309,54 +342,8 @@ Das Modul "Import Feeds" unterstützt auch allgemeine AtroCore-Massenaktionen, d
 - **Exportieren** – um die gewünschten Datenfelder der ausgewählten Import Feed Datensätze im XLSX- oder CSV-Format zu exportieren.
 - **Beziehung hinzufügen** – um die ausgewählten Import Feed Datensätze mit anderen Import-Ergebnisdatensätzen zu verknüpfen.
 - **Beziehung entfernen** – um die Beziehungen zu entfernen, die den ausgewählten Import Feed Datensätzen hinzugefügt wurden.
-## Konfiguration von Import Cron Job
-Um den Import automatisch gemäß einem festgelegten Zeitplan auszuführen, können Sie die **Import Cron Jobs** konfigurieren. Um einen neuen Job-Datensatz zu erstellen, klicken Sie im Navigationsmenü auf `Import Cron Jobs`, um zur Listenansicht von Import Cron Jobs zu übergehen, und klicken Sie dann auf den Button `Import Cron Job erstellen`.
-
-> Wenn es im Navigationsmenü keine `Import Cron Jobs` Option angezeigt wird, wenden Sie sich an Ihren Administrator.
-
-Das allgemeine Fenster zur Erstellung wird geöffnet:
-
-![Cron job creation](_assets/cron-job-create.jpg)
-
-Definieren Sie hier die folgenden Parameter für den zu erstellenden Import Cron Job:
-
-- **Aktiv** – setzen Sie die Checkbox, um den Job zu aktivieren.
-- **Name** – geben Sie den Namen des Import Cron Jobs ein. 
-- **Import Feed** – wählen Sie den gewünschten Import Feed aus, anhand dessen die Daten importiert werden.
-- **Link** – geben Sie einen direkten Link zu der Beispieldatei (CSV) ein, aus der die Daten importiert werden.
-- **Scheduling (Zeitplanung) ** – geben Sie einen gewünschten Cron Job Zeitplan ein, d.h. die Häufigkeit von Cron Jobs, und nutzen Sie dabei allgemeine Syntaxregeln.
-  Wenn ein Import-Cron-Job gestartet wird, werden dessen Details im Queue Manager Popup angezeigt.
-
-Die Ergebnisse des ausgeführten Import Cron Jobs werden im Panel `LOGS` des entsprechenden Job-Datensatzes angezeigt:
-
-![Cron job logs](_assets/cron-job-logs.jpg)
-
-Um den Import Cron Jobs Queue und die Statusdetails anzusehen, gehen Sie zu `Administration> Schedule Jobs` und klicken Sie auf den Button `Jobs`:
-
-![Cron jobs queue](_assets/cron-jobs-queue.jpg)
-
-## Besondere Importfälle
-
-### Produktvarianten 
-
-Wenn das Modul ["Product Variants"](https://atropim.com/de/shop/product-variants) in Ihrem [AtroPIM-System]((https://atropim.com/help/what-is-atropim))  installiert ist,  können Produktvarianten über Import Feeds importiert werden. Fügen Sie dazu das Entitätsfeld `Konfigurierbares Produkt` auf die [oben beschriebene Weise](#hinzufügen-der-entitätsfelder) hinzu :
-
-![Create configurable product](_assets/create-configurable-product.jpg)
-
-Stellen Sie sicher, dass das konfigurierbare Produkt und seine Variante(-n) zu derselben [Produktfamilie](https://atropim.com/help/product-families) und demselben [Katalog](https://atropim.com/help/catalogs) gehören. Andernfalls werden diese Datensätze nicht importiert, sondern zu der [Fehlerdatei](#fehlerdatei) hinzugefügt.
-
-Die Einrichtung anderer Felder und Attribute für den Datensatz des konfigurierbaren Produkts ist gleich wie bei dem [einfachen Produkt](#konfiguration-von-import-feeds).
-
-Alle Attribute vom Typ `Enum` sowie [mehrsprachige Attribute](https://atropim.com/de/shop/multi-languages#mehrsprachige-attribute), die im Panel `Konfigurator` auf der Detailansichtsseite des gewünschten Import-Feed-Datensatzes hinzugefügt wurden, werden zu *variantenbildenden*, während Attribute von anderen Typen als einfache Attribute der Produktvarianten importiert werden.
-
-Vor der Durchführung des Importvorgangs für Produktvarianten wird die Datenvalidierung aufgrund des Entitätsfelds `Konfigurierbares Produkt` vorgenommen. Abhängig von den Validierungsergebnissen kann es verschiedene Szenarien geben:
-
-- das Feld `Konfigurierbares Produkt` ist bei einigen Datensätzen **leer**: diese Produktdatensätze werden als Datensätze vom Typ `Einfaches Produkt` importiert, d. h. Sie können gleichzeitig nicht nur die Datensätze der Produktvarianten, sondern auch Produktdatensätze von andere Typen importieren;
-- das konfigurierbare Produkt, das zur Importdatei hinzugefügt ist, ist schon im System **vorhanden**: als Ergebnis des Importvorgangs werden die Datensätze der Produktvarianten aufgrund des angegebenen konfigurierbaren Produkt erstellt; 
-- das  konfigurierbare Produkt, das in der Importdatei angegeben ist, **fehlt** im System:  wenn der Importvorgang durchgeführt wird, wird der Datensatz dieses konfigurierbaren Produkts aufgrund der entsprechenden Zeile der Importdatei erstellt. 
 
 
-In allen anderen Fällen, wird, neben den beschriebenen Szenarien, der Import der Produktvarianten über Import Feeds genauso wie der [Import der einfachen Produkte](#import-feed-ausführung) durchgeführt. Bitte beachten Sie, dass alle Felder und Panels für die importierten Produktvarianten nach dem Abschluss des Importvorgangs automatisch entsperrt werden.
 
 ## Anpassung
 Das Modul kann an Ihre Bedürfnisse angepasst werden – zusätzliche Funktionen können hinzu programmiert werden, vorhandene Funktionen können geändert werden. Bitte kontaktieren Sie uns diesbezüglich. Es gelten unsere AGB (Allgemeine Geschäftsbedingungen).

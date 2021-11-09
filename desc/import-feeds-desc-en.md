@@ -67,7 +67,7 @@ The import file parameters are configured on the `FILE PROPERTIES` panel:
 
 ![Import feed cfg file](_assets/import-feeds-create-file-properties.png)
 
-- **File** – here you can upload the file which is to be imported or its shortened version, which will be used for the configuration. The file should be UTF-8 encoded. 
+- **File** – here you can upload the file which is to be imported or its shortened version (as a sample), which will be used for the configuration. The file should be UTF-8 encoded. 
 - **Header row** – activate the checkbox if the column names are included in the import file or leave it empty if the file to be imported has no header row with column names.
 - **Thousand separator** –  define the symbol, which is used as thousand separator. This parameter is optional. The numerical values without thousand separator will be also imported (eg both values 1234,34 and 1.234,34 will be imported, if "." is defined as a thousand separator).
 - **Decimal mark** – select the used decimal mark, usually `.` or `,` should be defined here.
@@ -206,55 +206,55 @@ Import of assets via local server path is currently not supported.
 
 ## Running Import Feed
 
-To start importing the data via the active import feed, select the `Run import` option from the actions menu on its detail view page or from the single record actions menu on the "Import Feeds" list view page:
+Click on `Import` button to import the data from the file, which you have uploaded during configuration of your import feed (which is a sample file). 
 
-![Run import option](_assets/run-import-option.jpg)
+![Run import option](_assets/import-feeds-buttons.png)
 
-In the pop-up that appears, attach the CSV file with data to be imported and click the `Run import` button to start the process:
+Alternatively you can import the data from a new file. Click on the `Upload & Import` button.
 
-![Run import pop-up](_assets/run-import-popup.jpg)
+![Run import option](_assets/import-feeds-upload-and-import.png)
 
-Please, note that the data file must match the example file, defined for the given import feed. Otherwise, the error message will appear:
+In the pop-up that appears you can upload your new CSV file, which should be UTF-8 encoded and have the same structure as you sample file. Click on `Import` button to start the process.
 
-![Wrong file error](_assets/wrong-file-error.jpg) 
+![Run import option](_assets/import-feeds-upload-and-import-popup.png)
 
-When import is started, its details and current status are displayed in the Queue Manager pop-up that appears automatically:
+Started import job is added to the Queue Manager, where you can see the current status:
 
-![Queue manager](_assets/queue-manager.jpg)
+![Queue manager](_assets/import-feeds-queue-manager.png)
 
-Please, note that if the number of records in the data file exceeds the [limit](#import-feed-configuration) value defined on the `OVERVIEW` panel of the given import feed, the import job will be split into the corresponding parts in accordance with the limit value.
+The new record is also added to the "Import Results" Panel with the state `Pending`. After the import job is successfully completed the state will be automatically changed to `Done`.
 
-### Import Results
 
-Information about completed import jobs is displayed on the `IMPORT RESULTS` panel, which is empty on the import feed [creation](#import-feed-creation) step, but gets filled in after the data import is performed via the given import feed.
+## Import Results
 
-Results of the data import operations can be viewed in two ways:
-- on the **`IMPORT RESULTS` panel** of the import feed – the details on the import operations performed via the currently open import feed:
+Information about completed import jobs is displayed on the `Import results` panel, which is empty on the import feed [creation](#import-feed-creation) step, but gets filled in after the data import is performed via the given import feed.
 
-![Import results panel](_assets/import-results-panel.jpg)
+Results of the data import can be viewed in two ways:
+- on the "Import Results" panel of the respective import feed, which shows the details on the import operations performed via the currently open import feed:
 
-- on the **import results list view page** – the details on all import operations performed in the system via import feeds:
+![Queue manager](_assets/import-feeds-import-results.png)
 
-![Import results list](_assets/import-results-list.jpg)
+- on the "Import Results List Page", which shows details on all import jobs performed in the system via import feeds. To open this page click on the `Export Results` in your main navigation or use the button `Show Full List` on your "Import Results Panel".
+
+![Queue manager](_assets/import-feeds-import-results-show-full-list.png)
 
 The import results details contain the following information:
 
-- **Name** – the import result record name, which is generated automatically based on the date and time of the import operation start. Click the import result record name to open its detail view page.
-- **Import feed** – the name of the import feed used for the import operation. Click the import feed record name to open its detail view page.
+- **Name** – the import result record name, which is generated automatically based on the date and time of the import job start. Click the import result record name to open its detail view page.
+- **Import feed** – the name of the import feed used for the import job. Click on the import feed record name to open its detail page.
 - **Imported file** – the name of the data file (CSV) used for the import operation. Click the imported file name to download it. 
-- **Status** – the current status of the import operation.
-- **Restored** – the indication of whether the given import result record has been restored (the checkbox is selected) or not.
-- **Start** – the date and time of the import operation start.
-- **End** – the date and time of the import operation end.
-- **Created** – the number of records created as a result of the performed import operation. Click this value for the desired import result to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Created by import` filter applied.
-- **Updated** – the number of records updated as a result of the performed import operation. Click this value for the desired import result to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Updated by import` filter applied.
-- **Errors** – the number of errors, if any, that occurred during the import operation. Click this value for the desired import result to open the list view page of the import result log records.
-- **[Error file](#error-file)** – the name of the CSV file that contains only rows with errors. The error file name is generated automatically based on the imported file name. Click the error file name to download it.
+- **State** – the current status of the import operation.
+- **Start** – the date and time of the import job start.
+- **End** – the date and time of the import job end.
+- **Created** – the number of records created as a result of the performed import job. Click on this value to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Created by import` filter applied.
+- **Updated** – the number of records updated as a result of the performed import job. Click on this value for the desired import result to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Updated by import` filter applied.
+- **Errors** – the number of errors, if any, that occurred during the import job. Click on this value for the desired import result to open the list view page of the import result log records, where you can see the details on all errors.
+- **[Error file](#error-file)** – the name of the CSV file that contains only rows with errors, which were not imported. The error file name is generated automatically based on the imported file name. Click on the error file name to download it.
 
-The following status options are available:
+The following States are available:
 - **Running** – for the currently running import job.
 - **Pending** – for the import job, which is next in line for execution.
-- **Success** – for the successfully finished import job (no matter if it contains any errors in it).
+- **Success** – for the successfully finished import job, regardless if it contains any errors in it.
 - **Failed** – for the import job that could not be performed due to some technical issues.
 
 #### Details
@@ -326,57 +326,7 @@ The "Import Feeds" module also supports common AtroCore *mass actions* that can 
 - **Add relation** – to relate the selected import feed records with other import result record(s).
 - **Remove relation** – to remove the relations that have been added to the selected import feed records.
 
-## Import Cron Job Configuration
 
-In order to run import automatically according to the schedule, you can configure **import cron jobs**. To create a new job record, click the `Import Cron Jobs` in the navigation menu to get to the import cron jobs list view, and then click the `Create Import Cron Job` button. 
-
-> If there is no `Import Cron Jobs` option in the navigation menu, please, contact your administrator.
-
-The common creation window will open:
-
-![Cron job creation](_assets/cron-job-create.jpg)
-
-Here define the following parameters for the import cron job being created:
-
-- **Active** – select the checkbox to activate the job.
-- **Name** – enter the import cron job name. 
-- **Import feed** – select the desired import feed, based on which the data will be imported.
-- **Link** – enter a direct link to the example file (CSV) from which the data will be imported.
-- **Scheduling** – enter a desired cron job schedule, i.e. frequency of job runs, using common syntax rules. 
-
-When an import cron job is started, its details are shown in the Queue Manager pop-up.
-
-The results of the run import cron job are displayed on the	`LOGS` panel of the corresponding job record:
-
-![Cron job logs](_assets/cron-job-logs.jpg)
-
-To view the import cron jobs queue and status details, please, go to `Administration > Schedule Jobs` and click the `Jobs` button:
-
-![Cron jobs queue](_assets/cron-jobs-queue.jpg)
-
-## Special Import Cases
-
-### Product Variants
-
-If there is the ["Product Variants" module](https://atropim.com/store/product-variants) installed in your [AtroPIM system](https://atropim.com/help/what-is-atropim), product variants can be imported via import feeds. For this, add the `Configurable Product` entity field in the same way as described [above](#adding-entity-fields):
-
-![Create configurable product](_assets/create-configurable-product.jpg)
-
-Make sure the configurable product and its variant(s) belong to the same [product family](https://atropim.com/help/product-families) and [catalog](https://atropim.com/help/catalogs). Otherwise, these records will not be imported, but added to the [error file](#error-file).
-
-The setup of other fields and attributes for the configurable product record is the same as for the [simple product](#import-feed-configuration).
-
-All attributes of the `Enum` type as well as [multilingual attributes](https://atropim.com/store/multi-languages#multilingual-attributes), added on the `CONFIGURATOR` panel within the desired import feed record detail view page, become *variant-forming*, whereas attributes of other types are imported as common attributes of the product variants.
-
-Prior to running the import process for product variants, data validation is performed on the basis of the `Configurable Product` entity field, and depending on the validation results, there may be several scenarios:
-
-- the `Configurable Product` field is **empty** for some records: these product records are imported as records of the `Simple Product` type, i.e. you can import at the same time not only product variant records, but also product records of other types;
-
-- a configurable product, which is added to the import file, already **exists** in the system: as a result of the import operation, product variant records are created on the basis of the given configurable product;
-
-- a configurable product defined in the import file **is missing** in the system: [running](#running-import-feed) the import operation results in the creation of this configurable product record on the basis of the corresponding import file row.
-
-In all other cases, besides the described scenarios, the product variants import via import feeds is performed in the same way as the [simple product import](#running-import-feed). Also note that once the import process is completed, all fields and panels are automatically unlocked for the imported product variants.
 
 ## Customization
 The module can be adapted to your needs, additional functions can be programmed, existing functions can be changed. Please contact us regarding this. Our GTC (General Terms and Conditions) apply.
