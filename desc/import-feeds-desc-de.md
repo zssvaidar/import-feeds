@@ -257,13 +257,13 @@ Um die Details der Import-Ergebnisse anzusehen klicken Sie auf deren Namen im je
 
 Die Fehlermeldungen, falls vorhanden, werden im Feld `Error Log` auf dieser Seite angezeigt.
 
-Um eine vollständige Liste der Fehler zu sehen, klicken Sie auf `Vollständige Liste anzeigen`. Die Fehler werden gruppiert nach Import Job angezeigt.
+Um eine vollständige Liste der Fehler zu sehen, klicken Sie auf `Vollständige Liste anzeigen`. Die Fehler werden gruppiert nach den aktuellen Import Job angezeigt.
 
 ![Ergebnisprotokolle importieren](_assets/import-feeds-import-results-error-log.png)
 
 ### Importierte Datei
 
-Die importierte Datei kann heruntergeladen werden, um zB zu überprüfen, was genau importiert wurde, wenn Sie in Ihrem Importergebnissatz auf den Dateinamen klicken.
+Die importierte Datei kann heruntergeladen werden, um zB zu überprüfen, was genau importiert wurde. Klicken Sie dafür auf den Dateinamen im Datensatz mit Importergebnissen.
 
 ### Fehlerdatei
 
