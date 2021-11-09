@@ -275,9 +275,13 @@ Imported file can be downloaded, eg to check what exactly was imported, if you c
 
 ### Error File
 
-All data of the required entity fields are added to the import file. In case any required field is empty (i.e. not filled in) in the entity record added to the import feed, or the entered data are not validated (e.g. the data entered do not match the field type (e.g. text instead of numerical values in the `Boolean`, `Currency`, `Float`, `Unit` field types), the link entered does not exist in the system, etc.), this record is not imported. Instead, it is added to the error file – a separately generated CSV file containing only rows of records with errors.
+Data to be imported is automatically validated with the same rules, as if you would add this data manually. It means you would be able to import product data with empty required fields only if you use "completeness" module. In other case error will be generated. Other examples of not valid data are wrong data types (eg "boolean" value is expected and some "string" is transfered, "integer" is expected, "float" is transfered), missing links, etc.
 
-You can download the error file from any [interface page](https://atropim.com/help/views-and-panels) where its name is clickable (e.g. import results list view, import result record detail/quick detail view, etc.), correct the data in the defined rows, and run the import operation again using the corrected error file as the data file.
+Import job is done row by row. It means the whole row is either processed in full or is completely not processed. In case of some error this line is added to the error file, which can be downloaded from your import results. Just click on it for that. Error file contains only rows, which were not processed bacause of some error. The error is always written in the last column of the error file.
+
+> Please note, first error occurence is enough to stop processing of the certain row. So in the error file you will see only one error. It is still possible that this row has more then one error. 
+
+After import job is done you can download the error file, correct your data in all rows, and reimport your data again, by uploading your modified error file. 
 
 
 ## Import Feed Operations and Actions
@@ -306,8 +310,6 @@ The "Import Feeds" module also supports common AtroCore *mass actions* that can 
 - **Export** – to export the desired data fields of the selected import feed records in the XLSX or CSV format.
 - **Add relation** – to relate the selected import feed records with other import result record(s).
 - **Remove relation** – to remove the relations that have been added to the selected import feed records.
-
-
 
 ## Customization
 The module can be adapted to your needs, additional functions can be programmed, existing functions can be changed. Please contact us regarding this. Our GTC (General Terms and Conditions) apply.
