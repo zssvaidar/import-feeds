@@ -218,6 +218,38 @@ Der gestartete Importjob wird zum Wartenschlangenmanager hinzugefügt, in dem Si
 Der neue Datensatz wird auch zum Panel "Import-Ergebnisse" mit dem Status "Ausstehend" hinzugefügt. Nach einem erfolgreichen Abschluss des Importauftrags wird der Status automatisch auf `Fertig` geändert.
 
 ### Importergebnisse
+
+Informationen zu abgeschlossenen Importaufträgen werden im Bereich "Import-Ergebnisse" angezeigt. Zunächst wird hier nichts angezeigt, erst mit der Ausführung des Import-Feeds werden hier neue Einträge erscheinen.
+
+Die Ergebnisse des Datenimports können auf zwei Arten angezeigt werden:
+- im Bereich "Import-Ergebnisse" des jeweiligen Import-Feeds, der die Details zu den über den aktuell geöffneten Import-Feed durchgeführten Importvorgängen anzeigt:
+
+![Warteschlangenmanager](_assets/import-feeds-import-results.png)
+
+- auf der "Import Results Listenseite", die Details zu allen Importjobs anzeigt, die im System über Importfeeds ausgeführt wurden. Um diese Seite zu öffnen, klicken Sie in Ihrer Hauptnavigation auf `Export-Ergebnisse` oder verwenden Sie die Schaltfläche `Vollständige Liste anzeigen` in Ihrem Panel "Import-Ergebnise".
+
+![Warteschlangenmanager](_assets/import-feeds-import-results-show-full-list.png)
+
+Die Details zu den Importergebnissen enthalten die folgenden Informationen:
+
+- **Name** – der Name des Datensatzes mit den Importergebnissen, der automatisch basierend auf Datum und Uhrzeit des Starts des Importauftrags generiert wird. Klicken Sie auf den Namen, um die Detailansichtsseite zu öffnen.
+- **Import-Feed** – der Name des Import-Feeds, der für den Importauftrag verwendet wird. Klicken Sie auf den Namen des Import-Feeds, um die Seite des Import-Feeds zu öffnen.
+- **Importierte Datei** – der Name der Datendatei (CSV), die für den Importvorgang verwendet wird. Klicken Sie auf den Namen der importierten Datei, um sie herunterzuladen.
+- **State** – der aktuelle Status des Importvorgangs.
+- **Wiederhergestellt** – die Angabe, ob der angegebene Importergebnissatz wiederhergestellt wurde (das Kontrollkästchen ist aktiviert) oder nicht.
+- **Start** – Datum und Uhrzeit des Starts des Importjobs.
+- **Ende** – Datum und Uhrzeit des Endes des Importjobs.
+- **Erstellt** – die Anzahl der Datensätze, die als Ergebnis des durchgeführten Importjobs erstellt wurden. Klicken Sie auf diesen Wert, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem angegebenen Importergebnis gefiltert sind, d. h. mit dem Filter "Erstellt durch Import".
+- **Aktualisiert** – Die Anzahl der Datensätze, die als Ergebnis des ausgeführten Importjobs aktualisiert wurden. Klicken Sie auf diesen Wert für das gewünschte Importergebnis, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem angegebenen Importergebnis gefiltert sind, d. h. mit dem Filter "Aktualisiert durch Import".
+- **Fehler** – die Anzahl der Fehler, falls vorhanden, die während des Importauftrags aufgetreten sind. Klicken Sie auf diesen Wert für das gewünschte Importergebnis, um die Listenansichtsseite der Importergebnisprotokollsätze zu öffnen, auf der Sie die Details zu allen Fehlern sehen können.
+- **[Error file](#error-file)** – der Name der CSV-Datei, die nur Zeilen mit Fehlern enthält, die nicht importiert wurden. Der Fehlerdateiname wird automatisch basierend auf dem importierten Dateinamen generiert. Klicken Sie auf den Namen der Fehlerdatei, um sie herunterzuladen.
+
+Folgende Staaten stehen zur Verfügung:
+- **Running** – für den aktuell laufenden Importjob.
+- **Pending** – für den Importjob, der als nächstes zur Ausführung ansteht.
+- **Erfolg** – für den erfolgreich abgeschlossenen Importjob, unabhängig davon, ob er Fehler enthält.
+- **Fehlgeschlagen** – für den Importjob, der aufgrund technischer Probleme nicht ausgeführt werden konnte.
+------------------------
 Informationen über abgeschlossene Import Jobs werden im Panel `IMPORT RESULTS` angezeigt. Dieses Panel ist  während des Vorgangs der [Erstellung](#erstellung-von-import-feeds) eines Import Feeds zunächst leer, wird jedoch ausgefüllt, nachdem der Datenimport über den bestimmten Import Feed durchgeführt wurde.
 
 Die Ergebnisse der Daten-Importvorgänge können auf zwei Arten angezeigt werden:
