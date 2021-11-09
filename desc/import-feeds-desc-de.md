@@ -222,7 +222,7 @@ Der neue Datensatz wird auch zum Panel "Import-Ergebnisse" mit dem Status "Ausst
 Informationen zu abgeschlossenen Importaufträgen werden im Bereich "Import-Ergebnisse" angezeigt. Zunächst wird hier nichts angezeigt, erst mit der Ausführung des Import-Feeds werden hier neue Einträge erscheinen.
 
 Die Ergebnisse des Datenimports können auf zwei Arten angezeigt werden:
-- im Bereich "Import-Ergebnisse" des jeweiligen Import-Feeds, der die Details zu den über den aktuell geöffneten Import-Feed durchgeführten Importvorgängen anzeigt:
+- im Panel "Import-Ergebnisse" des jeweiligen Import-Feeds, der die Details zu den über den aktuell geöffneten Import-Feed durchgeführten Importvorgängen anzeigt:
 
 ![Warteschlangenmanager](_assets/import-feeds-import-results.png)
 
@@ -232,59 +232,23 @@ Die Ergebnisse des Datenimports können auf zwei Arten angezeigt werden:
 
 Die Details zu den Importergebnissen enthalten die folgenden Informationen:
 
-- **Name** – der Name des Datensatzes mit den Importergebnissen, der automatisch basierend auf Datum und Uhrzeit des Starts des Importauftrags generiert wird. Klicken Sie auf den Namen, um die Detailansichtsseite zu öffnen.
-- **Import-Feed** – der Name des Import-Feeds, der für den Importauftrag verwendet wird. Klicken Sie auf den Namen des Import-Feeds, um die Seite des Import-Feeds zu öffnen.
-- **Importierte Datei** – der Name der Datendatei (CSV), die für den Importvorgang verwendet wird. Klicken Sie auf den Namen der importierten Datei, um sie herunterzuladen.
+- **Name** – der Name des Datensatzes mit den Importergebnissen, der automatisch nach dem Startdatum und -Uhrzeit des Importauftrags genannt wird. Klicken Sie auf den Namen, um die Detailansichtsseite zu öffnen.
+- **Import-Feed** – der Name des für den Importauftrag verwendeten Import-Feeds. Klicken Sie auf den Namen des Import-Feeds, um die Seite des Import-Feeds zu öffnen.
+- **Importierte Datei** – der Name der für den Importvorgang verwendeten Datendatei (CSV). Klicken Sie auf den Dateinamen, um diese Datei herunterzuladen.
 - **State** – der aktuelle Status des Importvorgangs.
-- **Wiederhergestellt** – die Angabe, ob der angegebene Importergebnissatz wiederhergestellt wurde (das Kontrollkästchen ist aktiviert) oder nicht.
-- **Start** – Datum und Uhrzeit des Starts des Importjobs.
-- **Ende** – Datum und Uhrzeit des Endes des Importjobs.
-- **Erstellt** – die Anzahl der Datensätze, die als Ergebnis des durchgeführten Importjobs erstellt wurden. Klicken Sie auf diesen Wert, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem angegebenen Importergebnis gefiltert sind, d. h. mit dem Filter "Erstellt durch Import".
-- **Aktualisiert** – Die Anzahl der Datensätze, die als Ergebnis des ausgeführten Importjobs aktualisiert wurden. Klicken Sie auf diesen Wert für das gewünschte Importergebnis, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem angegebenen Importergebnis gefiltert sind, d. h. mit dem Filter "Aktualisiert durch Import".
-- **Fehler** – die Anzahl der Fehler, falls vorhanden, die während des Importauftrags aufgetreten sind. Klicken Sie auf diesen Wert für das gewünschte Importergebnis, um die Listenansichtsseite der Importergebnisprotokollsätze zu öffnen, auf der Sie die Details zu allen Fehlern sehen können.
-- **[Error file](#error-file)** – der Name der CSV-Datei, die nur Zeilen mit Fehlern enthält, die nicht importiert wurden. Der Fehlerdateiname wird automatisch basierend auf dem importierten Dateinamen generiert. Klicken Sie auf den Namen der Fehlerdatei, um sie herunterzuladen.
+- **Start** – Startdatum und -Uhrzeit des Importjobs.
+- **Ende** – Enddatum und -Uhrzeit des Importjobs.
+- **Erstellt** – die Anzahl der Datensätze, die infolge der Ausführung des Importjobs erstellt wurden. Klicken Sie auf diesen Wert, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem entpsrechenden Import-Ergebnis gefiltert sind, d. h. mit dem Filter "Erstellt durch Import".
+- **Aktualisiert** – Die Anzahl der Datensätze, die aktualisiert wurden. Klicken Sie auf diesen Wert, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem angegebenen Import-Ergebnis gefiltert sind, d. h. mit dem Filter "Aktualisiert durch Import".
+- **Fehler** – die Anzahl der Fehler, falls vorhanden, die während des Importauftrags aufgetreten sind. Klicken Sie auf diesen Wert, um die Listenansichtsseite des Importergebnislogs zu öffnen, auf der Sie alle aufgetretenen Fehler sehen können.
+- **[Error file](#error-file)** – CSV-Datei, die nur Zeilen mit Fehlern enthält, die nicht importiert wurden. Klicken Sie auf den Fehlerdateinamen, um diese Datei herunterzuladen.
 
-Folgende Staaten stehen zur Verfügung:
+Folgende Statuswerte sind möglich:
 - **Running** – für den aktuell laufenden Importjob.
 - **Pending** – für den Importjob, der als nächstes zur Ausführung ansteht.
-- **Erfolg** – für den erfolgreich abgeschlossenen Importjob, unabhängig davon, ob er Fehler enthält.
+- **Erfolg** – für den erfolgreich abgeschlossenen Importjob, unabhängig davon, ob es Fehler gibt.
 - **Fehlgeschlagen** – für den Importjob, der aufgrund technischer Probleme nicht ausgeführt werden konnte.
-------------------------
-Informationen über abgeschlossene Import Jobs werden im Panel `IMPORT RESULTS` angezeigt. Dieses Panel ist  während des Vorgangs der [Erstellung](#erstellung-von-import-feeds) eines Import Feeds zunächst leer, wird jedoch ausgefüllt, nachdem der Datenimport über den bestimmten Import Feed durchgeführt wurde.
 
-Die Ergebnisse der Daten-Importvorgänge können auf zwei Arten angezeigt werden:
-
-- im **Panel `IMPORT RESULTS` ** des Import Feeds - die Details zu den Importvorgängen, die über den aktuell geöffneten Import Feed durchgeführt werden: 
-
-  ![Import results panel](_assets/import-results-panel.jpg)
-
-
-- auf der **Seite der Listenansicht von Importergebnissen** - Details zu allen Importvorgängen, die im System über Import Feeds durchgeführt werden:
-
-  ![Import results list](_assets/import-results-list.jpg)
-
-Die Details der Importergebnisse enthalten folgende Informationen: 
-
-- **Name** – der Name des Datensatzes mit den Importergebnissen, der basierend auf dem Datum und der Zeit des Starts des Importvorgangs automatisch generiert wird. Klicken Sie auf den Namen des Datensatzes mit den Importergebnissen, um dessen Detail-Ansichtsseite zu öffnen.
-- **Import Feed** – der Name des Import Feeds, der für den Importvorgang verwendet wird.
-- **Importierte Datei** – der Name der Datei (CSV), die für den Importvorgang verwendet wird. 
-- **Status** – der aktuelle Status des Importvorgangs. 
-- **Wiederhergestellt** – die Angabe, ob der bestimmte Datensatz mit dem Importergebniss wiederhergestellt wurde (die Checkbox ist gesetzt) oder nicht. Verfügbar nur auf der Seite der Listenansicht  der Importergebnisse. 
-- **Start** – das Datum und die Zeit des Starts des Importvorgangs. 
-- **Ende** – das Datum und die Zeit der Beendigung des Importvorgangs.
-- **Erstellt** – die Anzahl der Datensätze, die als Ergebnis des durchgeführten Importvorgangs erstellt wurden. Klicken Sie auf diesen Wert für das gewünschte Importergebnis, um die Seite mit der Listenansicht der entsprechenden Entitätsdatensätze zu öffnen, welche nach dem angegebenen Importergebnis gefiltert sind, d.h. mit dem angewendeten Filter `Erstellt durch Import`. 
-- **Aktualisiert** – die Anzahl der Datensätze, die als Ergebnis des durchgeführten Importvorgangs aktualisiert wurden. Klicken Sie auf diesen Wert für das gewünschte Importergebnis, um die Seite mit der Listenansicht der entsprechenden Entitätsdatensätze zu öffnen, welche nach dem angegebenen Importergebnis gefiltert sind, d.h. mit dem angewendeten Filter `Aktualisiert durch Import`.
-- **Fehler** - die Anzahl der Fehler, soweit vorhanden, die während des Importvorgangs aufgetreten sind. 
-- **[Fehlerdatei](#fehlerdatei)** – der Name der CSV-Datei, die nur Zeilen mit Fehlern enthält. Die Fehlerdatei wird auf Grund des Namens der importierten Datei automatisch generiert. 
-
-Folgende Statusmeldungen können auftreten: 
-
-- **Running** – für den aktuell laufenden Import Job. 
-
-
-- **Pending** –  für den Import Job, der als nächster ausgeführt werden soll. 
-- **Success** – für den erfolgreich abgeschlossenen Import Job (unabhängig davon, ob er Fehler enthält). 
-- **Failed** – für den Import Job, der wegen einiger technischer Probleme nicht ausgeführt werden konnte. 
 
 #### Details
 
