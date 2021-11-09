@@ -275,7 +275,9 @@ Imported file can be downloaded, eg to check what exactly was imported, if you c
 
 ### Error File
 
-Data to be imported is automatically validated with the same rules, as if you would add this data manually. It means you would be able to import product data with empty required fields only if you use "completeness" module. In other case error will be generated. Other examples of not valid data are wrong data types (eg "boolean" value is expected and some "string" is transfered, "integer" is expected, "float" is transfered), missing links, etc.
+Data to be imported is automatically validated with the same rules, as if you would add this data manually. If your import file has no value for some required field error will be generated. Other examples of not valid data are usage of wrong data types (eg "boolean" value is expected and some "string" is transfered, "integer" is expected, "float" is transfered), missing links, etc.
+
+> Please note, you will be able to import data with empty required fields if you use "completeness" module and "completeness" is activated for the choosen entity.
 
 Import job is done row by row. It means the whole row is either processed in full or is completely not processed. In case of some error this line is added to the error file, which can be downloaded from your import results. Just click on it for that. Error file contains only rows, which were not processed bacause of some error. The error is always written in the last column of the error file.
 
