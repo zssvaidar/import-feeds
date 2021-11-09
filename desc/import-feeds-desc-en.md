@@ -81,7 +81,7 @@ The next panel is the settings panel:
 ![Simple type settings](_assets/import-feeds-create-settings.png)
 
 - **Entity** – select the desired entity for the imported data from the drop-down list of all entities available in the system.
-- **  Columns** – this field is initially empty. After save you will see here the list of available unmapped columns.
+- **Unused Columns** – this field is initially empty. After save you will see here the list of available unmapped columns.
 - **Field delimiter for relation** – field delimiter, which is used to separate fields in the relation, default value is "|".
 - **Data record delimiter** – is the delimiter to split multiple values (eg for multienum or array fields and attributes) or multiple related records.
 - **Mark for a non-linked attribute** – this mark is only available for the product entity. This symbol marks attribute which should not be linked to the respective product.
@@ -90,9 +90,14 @@ The next panel is the settings panel:
 
 If you import product data, some products may have certain attributes, other not. If the value for some attribute is empty it is not clear, whether this attribute have an empty value, or this product does not have this attribute at all. That is why the **mark for a non-linked attribute** should be used, to mark clearly, which attribute should not be linked to a certain product.
 
+After the file is uploaded and file settings are properly configured you should see column names from your file in the field `Unused Columns`.
+
+![unused_columns](_assets/import-feeds-configurator-unused-columns.png)
+
+
 If the `Unused Columns` field is empty after saving your feed you should check your field delimiter for correctness. If some column names has single or double quotes you may have set the wrong text qualifier.
 
-After the file is 
+
 
 > Please, note that the defined `field delimiter`, `data record delimiter`, `empty value`, `null value`, `thousand separator`, `decimal mark`, `text qualifier` and `mark for a non-linked attribute` symbols must be different.
 
@@ -236,9 +241,15 @@ Results of the data import can be viewed in two ways:
 
 ![Queue manager](_assets/import-feeds-import-results.png)
 
-- on the "Import Results List Page", which shows details on all import jobs performed in the system via import feeds. To open this page click on the `Export Results` in your main navigation or use the button `Show Full List` on your "Import Results Panel".
+- on the "Import Results List Page", which shows details on all import jobs performed in the system via import feeds. To open this page click on the `Export Results` in your main navigation 
+
+![import-results-list](_assets/import-feeds-import-results-list.png)
+
+or use the button `Show Full List` on your "Import Results Panel".
 
 ![Queue manager](_assets/import-feeds-import-results-show-full-list.png)
+
+
 
 The import results details contain the following information:
 
@@ -258,6 +269,9 @@ The following States are available:
 - **Pending** – for the import job, which is next in line for execution.
 - **Success** – for the successfully finished import job, regardless if it contains any errors in it.
 - **Failed** – for the import job that could not be performed due to some technical issues.
+
+You can use the data record action menu to view details of the respective import job or remove it.
+![data-record-action](_assets/import-feeds-import-results-menu.png)
 
 ### Import Result Details
 
@@ -296,7 +310,6 @@ To *duplicate* the existing import feed record, use the corresponding option fro
 You will be redirected to the import feed creation page and get all the values of the last chosen import feed record copied in the empty fields of the new feed record to be created. After save the mapping rules from the configurator will be copied too.
 
 To *remove* the import feed record, use the corresponding option from the actions menu of your import feed.
-
 
 ## Customization
 The module can be adapted to your needs, additional functions can be programmed, existing functions can be changed. Please contact us regarding this. Our GTC (General Terms and Conditions) apply.
