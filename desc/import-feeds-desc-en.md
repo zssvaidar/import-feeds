@@ -259,7 +259,7 @@ The following States are available:
 
 ### Import Result Details
 
-To view the import result record details, click its name on the `Import Results` panel within the desired import feed detail view page or in the import results list; the corresponding import result record detail view page opens:
+To view the import result record details, click on its name in the "Import Results" record.
 
 ![Import result details](_assets/import-feeds-import-results-detail.png)
 
