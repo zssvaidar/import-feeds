@@ -18,7 +18,8 @@
     "Create ImportResult": "Сгенерировать результаты импорта",
     "Pending": "В очереди",
     "Running": "Выполняется",
-    "Done": "Выполнено"
+    "Done": "Создано",
+    "Failed": "Не выполнено"
   },
   "tooltips": {
     "errorsAttachment": "Строчки с 'Imported file' которые не были проимпортированы."

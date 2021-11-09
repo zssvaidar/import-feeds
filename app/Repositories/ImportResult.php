@@ -32,9 +32,22 @@ class ImportResult extends Base
 {
     public const IMPORT_ERRORS_COLUMN = 'Import Errors';
 
+    protected function beforeSave(Entity $entity, array $options = [])
+    {
+        if ($entity->isAttributeChanged('state')) {
+            if ($entity->get('state') == 'Running') {
+                $entity->set('start', date('Y-m-d H:i:s'));
+            } elseif ($entity->get('state') == 'Success') {
+                $entity->set('end', date('Y-m-d H:i:s'));
+            }
+        }
+
+        parent::beforeSave($entity, $options);
+    }
+
     protected function afterSave(Entity $entity, array $options = [])
     {
-        if ($entity->isAttributeChanged('state') && $entity->get('state') == 'Done') {
+        if ($entity->isAttributeChanged('state') && $entity->get('state') == 'Success') {
             $this->generateErrorsAttachment($entity);
         }
 

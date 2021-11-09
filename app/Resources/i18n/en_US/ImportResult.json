@@ -18,7 +18,8 @@
     "Create ImportResult": "Create Import Result",
     "Pending": "Pending",
     "Running": "Running",
-    "Done": "Done"
+    "Done": "Done",
+    "Failed": "Failed"
   },
   "tooltips": {
     "errorsAttachment": "Rows from 'Imported file' that have not been imported."

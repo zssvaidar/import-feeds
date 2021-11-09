@@ -1,7 +1,7 @@
 {
   "fields": {
     "entity": "Entität",
-    "delimiter": "Datensatztrennzeichen",
+    "delimiter": "Listenwerttrennzeichen",
     "unusedColumns": "Nicht verwendete Spalten Column",
     "file": "Datei",
     "isActive": "Aktiv",
@@ -54,7 +54,7 @@
     "importNow": "Möchten Sie die Daten aus der ausgewählten Datei wirklich importieren?"
   },
   "exceptions": {
-    "delimitersMustBeDifferent": "Tausendertrennzeichen, Dezimalzeichen, Feldtrennzeichen, Datensatztrennzeichen (und Zeichen für ein nicht verknüpftes Attribut) sollten eindeutige Werte haben.",
+    "delimitersMustBeDifferent": "Alle Feedparameter sollten eindeutige Werte haben.",
     "unlinkAndLinkInOneRow": "Das mehrsprachige Attribut sollte für alle Sprachen als nicht verknüpftes Attribut markiert werden, um die Verknüpfung aufzuheben.",
     "alreadyProceeded": "Datensatz mit dieser(n) Kennung(en) wurde bereits bearbeitet.",
     "relatedEntityCreatingFailed": "Die Erstellung des neuen Datensatzes in der Entität '%s' ist fehlgeschlagen:",

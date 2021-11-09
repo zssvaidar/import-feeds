@@ -100,6 +100,11 @@
       "required": false,
       "default": ","
     },
+    "allColumns": {
+      "type": "array",
+      "notStorable": true,
+      "dataField": true
+    },
     "thousandSeparator": {
       "type": "varchar",
       "notStorable": true,

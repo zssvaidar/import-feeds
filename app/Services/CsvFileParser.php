@@ -53,11 +53,11 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
         if (isset($data[0])) {
             if ($isFileHeaderRow && isset($data[1])) {
                 foreach ($data[0] as $k => $value) {
-                    $result[] = $this->prepareFileColumn($k, $value, $data[1][$k]);
+                    $result[] = $value;
                 }
             } else {
                 foreach ($data[0] as $k => $value) {
-                    $result[] = $this->prepareFileColumn($k, 'Column ' . $k, $value);
+                    $result[] = 'Column ' . $k;
                 }
             }
         }
@@ -180,24 +180,6 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
             }
             fclose($handle);
         }
-
-        return $result;
-    }
-
-    /**
-     * @param int    $column
-     * @param string $name
-     * @param        $value
-     *
-     * @return array
-     */
-    protected function prepareFileColumn(int $column, string $name, $value): array
-    {
-        $result = [
-            'column'     => $column,
-            'name'       => $name,
-            'firstValue' => $value
-        ];
 
         return $result;
     }

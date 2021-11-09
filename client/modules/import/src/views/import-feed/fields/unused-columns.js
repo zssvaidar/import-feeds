@@ -23,15 +23,37 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
         setup() {
             Dep.prototype.setup.call(this);
 
-            this.loadFileColumns();
-
-            this.listenTo(this.model, 'fileUpdate change:fileFieldDelimiter change:fileTextQualifier change:isFileHeaderRow after:relate', () => {
+            this.listenTo(this.model, 'fileUpdate change:fileFieldDelimiter change:fileTextQualifier change:isFileHeaderRow', () => {
                 this.loadFileColumns();
             });
 
-            this.listenTo(this.model, 'updateUnusedColumns', () => {
-                setTimeout(() => this.loadFileColumns(), 1000);
+            this.loadUnusedColumns();
+            this.listenTo(this.model, 'change:allColumns after:relate after:save', () => {
+                this.loadUnusedColumns();
             });
+
+            this.listenTo(this.model, 'updateUnusedColumns', () => {
+                setTimeout(() => this.loadUnusedColumns(), 1000);
+            });
+        },
+
+        loadUnusedColumns() {
+            const allColumns = this.model.get('allColumns') || [];
+
+            console.log(allColumns)
+
+            // this.ajaxGetRequest(`ImportFeed/${this.model.get('id')}/configuratorItems`).success(response => {
+            //     let usedColumns = [];
+            //
+            //     (response.list || []).forEach(item => {
+            //         (item.column || []).forEach(column => {
+            //             usedColumns.push(column);
+            //         });
+            //     });
+            //
+            //     // this.model.set('unusedColumns', unusedColumns);
+            //     // this.reRender();
+            // });
         },
 
         loadFileColumns() {
@@ -48,18 +70,7 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
             };
 
             this.ajaxGetRequest(`ImportFeed/${fileId}/fileColumns`, data).success(response => {
-                let columns = [];
-                response.forEach(row => {
-                    if (!row.isUsed) {
-                        columns.push(row.name);
-                    }
-                });
-
-                localStorage.setItem('importAllColumns', response.map(row => {
-                    return row.name
-                }).join(','))
-                this.model.set('unusedColumns', columns);
-                this.reRender();
+                this.model.set('allColumns', response);
             });
         },
 

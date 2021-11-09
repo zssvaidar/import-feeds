@@ -16,9 +16,10 @@
   },
   "labels": {
     "Create ImportResult": "Importergebnis erstellen",
-    "Pending": "Schwebend",
-    "Running": "Läuft",
-    "Done": "Erledigt"
+    "Pending": "Steht aus",
+    "Running": "In Arbeit",
+    "Done": "Erledigt",
+    "Failed": "Fehlgeschlagen"
   },
   "tooltips": {
     "errorsAttachment": "Zeilen aus 'Importierter Datei', die nicht importiert wurden."
