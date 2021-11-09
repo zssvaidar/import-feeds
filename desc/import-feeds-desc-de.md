@@ -298,29 +298,15 @@ Infolgedessen verschwindet der 'wiederhergestellte' Datensatz mit den Importerge
 
 Bitte beachten Sie, dass die Datenwiederherstellung nur für das neueste Importergebnis durchgeführt wird. Die Zurücksetzung der Importergebnisse erfolgt schrittweise, d.h., dass das neueste Importergebnis nur zur vorherigen Version zurückgesetzt werden kann.
 
-## Vorgänge und Aktionen des Moduls “Import Feeds”
-Import Feed Datensätze können bei Bedarf dupliziert und entfernt werden.
-Um den vorhandenen Import-Feed-Datensatz zu *duplizieren*, nutzen Sie die entsprechende Option aus dem Aktionsmenü auf der gewünschten Detail-Ansichtsseite des Import-Feed-Datensatzes:
-![Duplicate feed](_assets/duplicate-feed.jpg)
+## Aktionen
 
-Sie werden zur Import Feed Erstellungsseite weitergeleitet und alle Werte des zuletzt ausgewählten Import Feed Datensatzes werden in die leeren Felder des neu zu erstellenden Feed Datensatzes kopiert.
+Um den bestehenden Import-Feed-Datensatz zu *duplizieren*, verwenden Sie die entsprechende Option aus dem Aktionsmenü auf der Datenansichtsseite des gewünschten Import-Feeds:
 
-Um den Import Feed Datensatz zu *entfernen*, nutzen Sie die entsprechende Option aus dem Aktionsmenü auf der gewünschten Detail-Ansichtsseite des Import Feed Datensatzes oder aus dem Menü für einzelne Datensatzaktionen auf der Ansichtsseite der Import Feeds Liste:
-![Remove feed](_assets/remove-import-feed.jpg)
+![Feed duplizieren](_assets/import-feeds-duplicate.png)
 
-Klicken Sie in der angezeigten Bestätigungsnachricht auf den Button `Entfernen`, um den Vorgang abzuschließen.
+Sie werden zur Erstellungsseite des Import-Feeds weitergeleitet, dabei werden alle Werte des zuletzt ausgewählten Import-Feeds kopiert. Nach dem Speichern werden auch die Mapping-Regeln aus dem Konfigurator kopiert.
 
-Das Modul "Import Feeds" unterstützt auch allgemeine AtroCore-Massenaktionen, die für mehrere ausgewählte Import Feed Datensätze gelten, d.h. Datensätze mit festgelegten Checkboxen. Diese Aktionen finden Sie im entsprechenden Menü auf der Ansichtsseite der Import Feeds Liste:
-![Mass actions](_assets/mass-actions.jpg)
-
-- **Löschen** – um die ausgewählten Import Feed Datensätze zu entfernen (Mehrfachlöschung).
-- **Zusammenführen** – um die ausgewählten Import Feed Datensätze zusammenzuführen.
-- **Massenänderung** – um mehrere ausgewählte Import Feed Datensätze gleichzeitig zu ändern. Um eine längere Liste von Feldern für die Massenänderung zu erhalten, wenden Sie sich an Ihren Administrator.
-- **Exportieren** – um die gewünschten Datenfelder der ausgewählten Import Feed Datensätze im XLSX- oder CSV-Format zu exportieren.
-- **Beziehung hinzufügen** – um die ausgewählten Import Feed Datensätze mit anderen Import-Ergebnisdatensätzen zu verknüpfen.
-- **Beziehung entfernen** – um die Beziehungen zu entfernen, die den ausgewählten Import Feed Datensätzen hinzugefügt wurden.
-
-
+Um den Import-Feed-Datensatz zu *entfernen*, verwenden Sie die entsprechende Option aus dem Aktionsmenü Ihres Import-Feeds.
 
 ## Anpassung
 Das Modul kann an Ihre Bedürfnisse angepasst werden – zusätzliche Funktionen können hinzu programmiert werden, vorhandene Funktionen können geändert werden. Bitte kontaktieren Sie uns diesbezüglich. Es gelten unsere AGB (Allgemeine Geschäftsbedingungen).
