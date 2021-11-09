@@ -255,7 +255,7 @@ The import results details contain the following information:
 The following States are available:
 - **Running** – for the currently running import job.
 - **Pending** – for the import job, which is next in line for execution.
-- **Done** – for the successfully finished import job (no matter if it contains any errors in it).
+- **Success** – for the successfully finished import job, regardless if it contains any errors in it.
 - **Failed** – for the import job that could not be performed due to some technical issues.
 
 #### Details
