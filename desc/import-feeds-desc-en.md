@@ -61,7 +61,7 @@ The following settings are available here:
     - *Update Only* – existing records will be updated, new data records will not be created
     - *Create & Update* – new data records will be created and the existing records will be updated.
 
-### File Properties
+### File Settings
 
 The import file parameters are configured on the `FILE PROPERTIES` panel:
 
@@ -74,14 +74,14 @@ The import file parameters are configured on the `FILE PROPERTIES` panel:
 - **Field delimiter** – select the preferred field delimiter to be used in the CSV import file, possible values are `,`, `;`,`\t`, `|`.
 - **Text qualifier** – select the preferred separator of the values within a cell: single or double quotes can be selected.
 
-### Settings
+### Feed Settings
 
 The next panel is the settings panel:
 
 ![Simple type settings](_assets/import-feeds-create-settings.png)
 
 - **Entity** – select the desired entity for the imported data from the drop-down list of all entities available in the system.
-- **Unused Columns** – this field is initially empty. After save you will see here the list of available unmapped columns.
+- **  Columns** – this field is initially empty. After save you will see here the list of available unmapped columns.
 - **Field delimiter for relation** – field delimiter, which is used to separate fields in the relation, default value is "|".
 - **Data record delimiter** – is the delimiter to split multiple values (eg for multienum or array fields and attributes) or multiple related records.
 - **Mark for a non-linked attribute** – this mark is only available for the product entity. This symbol marks attribute which should not be linked to the respective product.
@@ -91,6 +91,8 @@ The next panel is the settings panel:
 If you import product data, some products may have certain attributes, other not. If the value for some attribute is empty it is not clear, whether this attribute have an empty value, or this product does not have this attribute at all. That is why the **mark for a non-linked attribute** should be used, to mark clearly, which attribute should not be linked to a certain product.
 
 If the `Unused Columns` field is empty after saving your feed you should check your field delimiter for correctness. If some column names has single or double quotes you may have set the wrong text qualifier.
+
+After the file is 
 
 > Please, note that the defined `field delimiter`, `data record delimiter`, `empty value`, `null value`, `thousand separator`, `decimal mark`, `text qualifier` and `mark for a non-linked attribute` symbols must be different.
 
