@@ -1,4 +1,4 @@
-The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system, link related entities or even create data records for them, eg it is possible to import the product data together with the corresponding categories, brands etc. You can create, configure and use many inport feeds.
+The "Import Feeds" module enables you to import all the data for any entity in the AtroCore system, link related entities or even create data records for them, eg it is possible to import the product data together with the corresponding categories, brands etc. You can create, configure and use many inport feeds. Import feeds use AtroCore REST API, so all the data is automatically validated with the same rules, as if you would create all data records manually.
 
 With the help of the "Import Feeds" module, data import may be performed in two ways:
 
@@ -257,47 +257,28 @@ The following States are available:
 - **Success** – for the successfully finished import job, regardless if it contains any errors in it.
 - **Failed** – for the import job that could not be performed due to some technical issues.
 
-#### Details
+### Import Result Details
 
-To view the import result record details, click its name on the `IMPORT RESULTS` panel within the desired import feed detail view page or in the import results list; the corresponding import result record detail view page opens:
+To view the import result record details, click its name on the `Import Results` panel within the desired import feed detail view page or in the import results list; the corresponding import result record detail view page opens:
 
-![Import result details](_assets/import-result-details.jpg)
+![Import result details](_assets/import-feeds-import-results-detail.png)
 
-The error messages, if any, are displayed on the `ERRORS LOG` panel on this page: 
+The error messages, if any, are displayed on the `ERRORS LOG` panel on this page. 
 
-![Errors log](_assets/errors-log.jpg)
+To see a full list of error records, use the `Show Full List` action menu command. The errors will be displayed grouped by your current Import Results record.
 
-To see a full list of error records, use the `Show Full List` action menu command – the import result logs list appears with records filtered by the given import result:
+![Import result logs](_assets/import-feeds-import-results-error-log.png)
 
-![Import result logs](_assets/import-result-logs.jpg)
+### Imported File
 
-Alternatively, view the import result record details in the pop-up that appears when you use the `View` option from the single record actions menu for the desired record on the import results list view page or on the `IMPORT RESULTS` panel of the currently open import feed:
+Imported file can be downloaded, eg to check what exactly was imported, if you click on the file name in your import results record.
 
-![Import result pop-up](_assets/import-result-popup.jpg)
-
-Please, note that you can download the imported file from any [interface page](https://atropim.com/help/views-and-panels), where its name is clickable.
-
-#### Error File
+### Error File
 
 All data of the required entity fields are added to the import file. In case any required field is empty (i.e. not filled in) in the entity record added to the import feed, or the entered data are not validated (e.g. the data entered do not match the field type (e.g. text instead of numerical values in the `Boolean`, `Currency`, `Float`, `Unit` field types), the link entered does not exist in the system, etc.), this record is not imported. Instead, it is added to the error file – a separately generated CSV file containing only rows of records with errors.
 
 You can download the error file from any [interface page](https://atropim.com/help/views-and-panels) where its name is clickable (e.g. import results list view, import result record detail/quick detail view, etc.), correct the data in the defined rows, and run the import operation again using the corrected error file as the data file.
 
-#### Data Restoration
-
-The "Import Feeds" module supports data restoration for separate import results record to the pre-import state. To do this, select the `Restore` option from the single record actions menu for the desired import result record on the import feed detail view page:
-
-![Restore option](_assets/restore-option.jpg)
-
-Click the `Restore` button in the confirmation message that appears to start the process or `Cancel` to abort the process. The Queue Manager pop-up will automatically appear:
-
-![Restore process](_assets/queue-manager-restore.jpg)
-
-As a consequence, the 'reverted' import result record will disappear from the `IMPORT RESULTS` panel, and on the import results list view page the `Restored` checkbox will become selected for the 'initial' import result record:
-
-![Restored checkbox](_assets/restored-checkbox.jpg)
-
-Please, note that data restoration is performed only for the latest import result. 
 
 ## Import Feed Operations and Actions
 
