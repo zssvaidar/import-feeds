@@ -279,11 +279,11 @@ Data to be imported is automatically validated with the same rules, as if you wo
 
 > Please note, you will be able to import data with empty required fields if you use "completeness" module and "completeness" is activated for the choosen entity.
 
-Import job is done row by row. It means the whole row is either processed in full or is completely not processed. In case of some error this line is added to the error file, which can be downloaded from your import results. Just click on it for that. Error file contains only rows, which were not processed bacause of some error. The error is always written in the last column of the error file.
+Import job is done row by row. It means the whole row is either processed in full or is completely not processed. In case of some error this line is added to the error file, which can be downloaded. Just click on its name for that. Error file contains only rows, which were not processed because of some error. The error message is always written in the last column of the error file.
 
-> Please note, first error occurence is enough to stop processing of the certain row. So in the error file you will see only one error. It is still possible that this row has more then one error. 
+> Please note, first error occurence is enough to stop processing of the certain row. So in the error file you will see only one error message. It is still possible that this row can have more then one error. 
 
-After import job is done you can download the error file, correct your data in all rows, and reimport your data again, by uploading your modified error file. 
+After import job is done you can download the error file, correct your data in all rows, and reimport your data again by using the same import feed. 
 
 
 ## Import Feed Operations and Actions
