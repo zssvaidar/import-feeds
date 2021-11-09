@@ -229,35 +229,33 @@ The new record is also added to the "Import Results" Panel with the state `Pendi
 
 Information about completed import jobs is displayed on the `Import results` panel, which is empty on the import feed [creation](#import-feed-creation) step, but gets filled in after the data import is performed via the given import feed.
 
+Results of the data import can be viewed in two ways:
+- on the "Import Results" panel of the respective import feed, which shows the details on the import operations performed via the currently open import feed:
+
 ![Queue manager](_assets/import-feeds-import-results.png)
 
-Results of the data import can be viewed in two ways:
-- on the "Import Results" panel of the respective import feed – the details on the import operations performed via the currently open import feed:
+- on the "Import Results List Page", which shows details on all import jobs performed in the system via import feeds. To open this page click on the `Export Results` in your main navigation or use the button `Show Full List` on your "Import Results Panel".
 
-![Import results panel](_assets/import-results-panel.jpg)
-
-- on the **import results list view page** – the details on all import operations performed in the system via import feeds:
-
-![Import results list](_assets/import-results-list.jpg)
+![Queue manager](_assets/import-feeds-import-results-show-full-list.png)
 
 The import results details contain the following information:
 
-- **Name** – the import result record name, which is generated automatically based on the date and time of the import operation start. Click the import result record name to open its detail view page.
-- **Import feed** – the name of the import feed used for the import operation. Click the import feed record name to open its detail view page.
+- **Name** – the import result record name, which is generated automatically based on the date and time of the import job start. Click the import result record name to open its detail view page.
+- **Import feed** – the name of the import feed used for the import job. Click the import feed record name to open its detail view page.
 - **Imported file** – the name of the data file (CSV) used for the import operation. Click the imported file name to download it. 
-- **Status** – the current status of the import operation.
+- **State** – the current status of the import operation.
 - **Restored** – the indication of whether the given import result record has been restored (the checkbox is selected) or not.
-- **Start** – the date and time of the import operation start.
-- **End** – the date and time of the import operation end.
-- **Created** – the number of records created as a result of the performed import operation. Click this value for the desired import result to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Created by import` filter applied.
-- **Updated** – the number of records updated as a result of the performed import operation. Click this value for the desired import result to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Updated by import` filter applied.
-- **Errors** – the number of errors, if any, that occurred during the import operation. Click this value for the desired import result to open the list view page of the import result log records.
-- **[Error file](#error-file)** – the name of the CSV file that contains only rows with errors. The error file name is generated automatically based on the imported file name. Click the error file name to download it.
+- **Start** – the date and time of the import job start.
+- **End** – the date and time of the import job end.
+- **Created** – the number of records created as a result of the performed import job. Click on this value to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Created by import` filter applied.
+- **Updated** – the number of records updated as a result of the performed import job. Click on this value for the desired import result to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Updated by import` filter applied.
+- **Errors** – the number of errors, if any, that occurred during the import job. Click on this value for the desired import result to open the list view page of the import result log records, where you can see the details on all errors.
+- **[Error file](#error-file)** – the name of the CSV file that contains only rows with errors, which were not imported. The error file name is generated automatically based on the imported file name. Click on the error file name to download it.
 
-The following status options are available:
+The following States are available:
 - **Running** – for the currently running import job.
 - **Pending** – for the import job, which is next in line for execution.
-- **Success** – for the successfully finished import job (no matter if it contains any errors in it).
+- **Done** – for the successfully finished import job (no matter if it contains any errors in it).
 - **Failed** – for the import job that could not be performed due to some technical issues.
 
 #### Details
