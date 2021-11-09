@@ -40,20 +40,31 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
         loadUnusedColumns() {
             const allColumns = this.model.get('allColumns') || [];
 
-            console.log(allColumns)
+            if (!this.model.get('id')) {
+                this.model.set('unusedColumns', allColumns);
+                this.reRender();
+                return;
+            }
 
-            // this.ajaxGetRequest(`ImportFeed/${this.model.get('id')}/configuratorItems`).success(response => {
-            //     let usedColumns = [];
-            //
-            //     (response.list || []).forEach(item => {
-            //         (item.column || []).forEach(column => {
-            //             usedColumns.push(column);
-            //         });
-            //     });
-            //
-            //     // this.model.set('unusedColumns', unusedColumns);
-            //     // this.reRender();
-            // });
+            this.ajaxGetRequest(`ImportFeed/${this.model.get('id')}/configuratorItems`).success(response => {
+                let usedColumns = [];
+                (response.list || []).forEach(item => {
+                    (item.column || []).forEach(column => {
+                        usedColumns.push(column);
+                    });
+                });
+
+                let unusedColumns = [];
+
+                allColumns.forEach(column => {
+                    if (!usedColumns.includes(column)) {
+                        unusedColumns.push(column);
+                    }
+                })
+
+                this.model.set('unusedColumns', unusedColumns);
+                this.reRender();
+            });
         },
 
         loadFileColumns() {

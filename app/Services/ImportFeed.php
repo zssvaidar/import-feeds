@@ -48,6 +48,11 @@ class ImportFeed extends Base
      */
     protected $validFileTypes = ['text/csv', 'application/vnd.ms-excel', 'text/plain'];
 
+    /**
+     * @var array
+     */
+    protected $mandatorySelectAttributeList = ['allColumns'];
+
     public function prepareEntityForOutput(Entity $entity)
     {
         parent::prepareEntityForOutput($entity);

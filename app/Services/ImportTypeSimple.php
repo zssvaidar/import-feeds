@@ -50,10 +50,15 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest('No such Attachment.');
         }
 
-        $fileData = $this->getService('CsvFileParser')->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
+        /** @var \Import\Services\CsvFileParser $csvParser */
+        $csvParser = $this->getService('CsvFileParser');
+
+        $fileData = $csvParser->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
         if (empty($fileData)) {
             throw new BadRequest('File is empty.');
         }
+
+        $allColumns = $csvParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
 
         $scope = $data['data']['entity'];
 
@@ -62,7 +67,12 @@ class ImportTypeSimple extends QueueManagerBase
         // prepare file row
         $fileRow = (int)$data['offset'];
 
-        foreach ($fileData as $row) {
+        foreach ($fileData as $fileLine) {
+            $row = [];
+            foreach ($fileLine as $k => $v) {
+                $row[$allColumns[$k]] = $v;
+            }
+
             // increment file row number
             $fileRow++;
 

@@ -30,6 +30,18 @@ class ImportFeed extends Base
 {
     protected $entityType = "ImportFeed";
 
+    public function setFeedField(string $name, $value): void
+    {
+        $data = [];
+        if (!empty($this->get('data'))) {
+            $data = Json::decode(Json::encode($this->get('data')), true);
+        }
+
+        $data['feedFields'][$name] = $value;
+
+        $this->set('data', $data);
+    }
+
     public function getFeedField(string $name)
     {
         $data = $this->getFeedFields();
