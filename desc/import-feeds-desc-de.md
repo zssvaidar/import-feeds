@@ -17,7 +17,7 @@ Sie können nur dann einen geplanten Job für Ihre Importaufgaben erstellen, wen
 - Connector – orchestriert mehrere Import- und Export-Feeds, um einen komplexen Datenaustausch zu automatisieren
 
 ## Funktionen für den Administrator
-Nach der Modulinstallation werden in Ihrem System zwei neue Entitäten erstellt - `Import Feeds` und `Import-Ergenisse`. Über `Administration > System > User Interface` können Sie diese Elemente zur Navigation Ihres Systems hinzufügen, falls es nicht automatisch geschehen ist.
+Nach der Modulinstallation werden in Ihrem System zwei neue Entitäten erstellt - `Import Feeds` und `Import-Ergebnisse`. Über `Administration > System > User Interface` können Sie diese Elemente zur Navigation Ihres Systems hinzufügen, falls es nicht automatisch geschehen ist.
 ![Feeds importieren hinzufügen](_assets/import-feeds-admin-layout-manager.png)
 
 ### Zugangsrechte
@@ -26,14 +26,14 @@ Um die Erstellung, Bearbeitung, Nutzung und Entfernung des Import Feeds für and
 Bitte beachten Sie, dass für einen Nutzer mindestens die Gewährung des Leserechts auf `Import-Feeds` erforderlich ist, damit er die Import Feeds auszuführen kann.   
 
 ## Funktionen für den Nutzer
-Nachdem das Modul „Import Feeds“ vom Administrator installiert und konfiguriert wurde, kann der Nutzer mit Import Feeds entsprechend seiner Rollenrechte arbeiten, die vom Administrator vordefiniert wurden.
+Nachdem das Modul „Import Feeds“ vom Administrator installiert und konfiguriert wurde, kann der Nutzer mit Import Feeds entsprechend seinen Rollenrechten arbeiten, die vom Administrator vordefiniert wurden.
 
 ## Erstellung von Import Feeds
 Um einen neuen Import Feed zu erstellen, klicken Sie im Navigationsmenü auf `Import Feeds` und dann auf den Button `Import Feed erstellen`. 
 
 > Wenn es im Navigationsmenü keine `Import-Feeds`-Option gibt, wenden Sie sich bitte an Ihren Administrator.
 
-Das Standardformular für die Importfeederstellung erscheint:
+Das Standardformular für die Erstellung eines Import Feeds erscheint:
 ![Import feed creation](_assets/import-feeds-create.png)
 
 Füllen Sie hier die Pflichtfelder aus und wählen den Import-Feed-Typ aus der entsprechenden Drop-down-Liste aus. Dieses Modul fügt den Import-Feed-Typ **CSV Datei** hinzu. 
@@ -41,13 +41,13 @@ Klicken Sie auf den Button `Speichern`. Der neue Datensatz wird zu der Import-Fe
 
 ### Übersicht
 
-Im Abschnitt Übersicht können Sie die wichtigsten Feedparameter (Name, Aktion, Aktivität usw.) definieren:
+Im Abschnitt Übersicht können Sie die wichtigsten Feed-Parameter (Name, Aktion, Aktivität usw.) definieren:
 ![Feed-cfg importieren](_assets/import-feeds-create-overview.png)
 
 Folgende Einstellungen stehen hier zur Verfügung:
 
 - **Aktiv** – Aktivität des Import-Feeds, Import ist nicht möglich, wenn dieses Kontrollkästchen nicht aktiviert ist
-- **Name** – Importfeedname
+- **Name** – Importfeed-Name
 - **Beschreibung** – Beschreibung des Import-Feeds, kann als Erinnerung für die Zukunft oder als Hinweis für andere Benutzer des angegebenen Import-Feeds verwendet werden
 - **Typ** – der Import-Feed-Typ, kann später nicht geändert werden
 - **Aktion** – Definieren Sie die Aktion, die beim Datenimport im System ausgeführt werden soll:
@@ -91,7 +91,7 @@ Nachdem die Datei hochgeladen und die Dateieinstellungen richtig konfiguriert wu
 
 Wenn das Feld `Unbenutzte Spalten` nach dem Speichern Ihres Feeds leer ist, sollten Sie Ihr Feldtrennzeichen auf Richtigkeit überprüfen. Wenn einige Spaltennamen einfache oder doppelte Anführungszeichen enthalten, haben Sie möglicherweise den falschen Textqualifizierer eingestellt.
 
-> Bitte beachten Sie, dass die definierten Symbole `Feldbegrenzer`, `Datensatzbegrenzer`, `Nullwert`, `Nullwert`, `Tausender-Trennzeichen`, `Dezimalzeichen`, `Textqualifizierer`  und `Markierung für ein nicht verknüpftes Attribut` unterschiedlich sein müssen.
+> Bitte beachten Sie, dass die definierten Symbole `Feldbegrenzer`, `Datensatzbegrenzer`, `Nullwert`, `Nullwert`, `Tausender-Trennzeichen`, `Dezimalzeichen`, `Textqualifizierer` und `Markierung für ein nicht verknüpftes Attribut` unterschiedlich sein müssen.
 
 ### Konfigurator
 
@@ -134,7 +134,7 @@ Nur die Produktentität kann Attribute haben. Alle Produkte haben die gleichen F
 ![Konfiguratorattribute](_assets/import-feeds-configurator-new-attribute.png)
 
 ### Attribute als nicht verknüpft markieren
-Sie können Produktdaten für Produktfelder und Produktattribute gleichzeitig importieren. In diesem Fall sind Produktfelder und Produktattribute Spalten in Ihrer zu importierenden Datei. Wenn Sie für ein Attribut den Wert "", "leer" oder "null" verwenden, ist es unmöglich festzustellen, ob dieses Produkt dieses Attribut ohne Wert hat oder gar nicht nicht hat. Mit der `Markierung für ein nicht verlinktes Attribut` können Sie explizit die Attribute markieren, die mit einem bestimmten Produkt nicht verknüpft werden sollen. Standardmäßig wird "--" verwendet. Lassen wir uns ein Beispiel ansehen.
+Sie können Produktdaten für Produktfelder und Produktattribute gleichzeitig importieren. In diesem Fall sind Produktfelder und Produktattribute Spalten in Ihrer zu importierenden Datei. Wenn Sie für ein Attribut den Wert "", "leer" oder "null" verwenden, ist es unmöglich festzustellen, ob dieses Produkt dieses Attribut ohne Wert hat oder gar nicht hat. Mit der `Markierung für ein nicht verlinktes Attribut` können Sie explizit die Attribute markieren, die mit einem bestimmten Produkt nicht verknüpft werden sollen. Standardmäßig wird "--" verwendet. Lassen wir uns ein Beispiel ansehen.
 
 ![Konfiguratorattribute](_assets/import-feeds-example-unlink-attributes.png)
 
@@ -151,9 +151,9 @@ Sie können Multienum-Werte für Felder und Attribute importieren, indem Sie ihr
 Es können nur vordefinierte Werte akzeptiert werden, wenn Ihr Multienum-Feld oder -Attribut vordefinierte Optionen hat. Wenn einer der in der zu importierenden Datei angegebenen Multienum-Werte nicht gültig ist, wird die gesamte Zeile nicht importiert. Wenn Ihr Multienum-Feld oder -Attribut keine vordefinierten Optionen hat, wird jeder Wert akzeptiert.
 
 ### Currency- und Unit-Felder und Attribute
-Felder und Attribute von Währungs- und Einheittypen haben Werte, die aus zwei Teilen bestehen – der erste ist vom Typ Float und der zweite vom Typ Enum, diese sind durch ein Leerzeichen getrennt. Beispiele für gültige Werte sind also "9 cm", "110,50 EUR", "100.000 USD", "3000 EUR" usw.
+Felder und Attribute von Währungs- und Einheitstypen haben Werte, die aus zwei Teilen bestehen – der erste ist vom Typ Float und der zweite vom Typ Enum, diese sind durch ein Leerzeichen getrennt. Beispiele für gültige Werte sind also "9 cm", "110,50 EUR", "100.000 USD", "3000 EUR" usw.
 
-Daten für Währungs- und Einheitfelder und Attribute können in einer oder in zwei Spalten bereitgestellt werden. Wenn Sie im Feld "Spalte(n)" zwei Spalten angeben, wird in der ersten Spalte immer der Zahlenwert und in der zweiten Spalte der Währungs- oder Einheitsname erwartet.
+Daten für Währungs- und Einheitsfelder und Attribute können in einer oder in zwei Spalten bereitgestellt werden. Wenn Sie im Feld "Spalte(n)" zwei Spalten angeben, wird in der ersten Spalte immer der Zahlenwert und in der zweiten Spalte der Währungs- oder Einheitsname erwartet.
 
 Wenn nur eine Spalte angegeben wird, wird erwartet, dass sich der gesamte Währungs- oder Einheitswert in dieser einzelnen Spalte befindet.
 
@@ -183,7 +183,7 @@ Die Anzahl der konfigurierten zugehörigen Entitätsfelder sollte kleiner oder g
 Kann der neue Datensatz für die Relation nicht angelegt werden, generiert das System einen Fehler und das System importiert nichts aus der entsprechenden Zeile.
 
 ### Mehrere Beziehungen
-Mehrere Beziehungen funktionieren wie einfache Beziehungen. Der einzige Unterschied besteht darin, dass Sie mehrere Beziehungen gleichzeitig erstellen können. Mehrere Datensätze für eine zugehörige Entität sollten durch `Datensatz-Trennzeichen` getrennt werden. Zum Beispiel Produkte sind über eine Viele-zu-Viele-Beziehung mit Kategorien verknüpft, was bedeutet, dass ein Produkt verschiedenen Kategorien zugeordnet werden kann und eine Kategorien viele zugeordnete Produkte haben kann. Beispielsweise können wir Produktdaten zusammen mit Kategorien wie folgt importieren:
+Mehrere Beziehungen funktionieren wie einfache Beziehungen. Der einzige Unterschied besteht darin, dass Sie mehrere Beziehungen gleichzeitig erstellen können. Mehrere Datensätze für eine zugehörige Entität sollten durch `Datensatz-Trennzeichen` getrennt werden. Zum Beispiel Produkte sind über eine Viele-zu-Viele-Beziehung mit Kategorien verknüpft, was bedeutet, dass ein Produkt verschiedenen Kategorien zugeordnet werden kann und eine Kategorie viele zugeordnete Produkte haben kann. Beispielsweise können wir Produktdaten zusammen mit Kategorien wie folgt importieren:
 
 ![Konfigurator multiple_relations](_assets/import-feeds-example-multiple-relation.png)
 
@@ -215,7 +215,7 @@ Im erscheinenden Pop-up können Sie Ihre neue CSV-Datei hochladen, die UTF-8-cod
 
 ![Importoption ausführen](_assets/import-feeds-upload-and-import-popup.png)
 
-Der gestartete Importjob wird zum Wartenschlangenmanager hinzugefügt, in dem Sie den aktuellen Status sehen können:
+Der gestartete Importjob wird zum Warteschlangenmanager hinzugefügt, in dem Sie den aktuellen Status sehen können:
 
 ![Warteschlangenmanager](_assets/import-feeds-queue-manager.png)
 
@@ -230,11 +230,11 @@ Die Ergebnisse des Datenimports können auf zwei Arten angezeigt werden:
 
 ![Warteschlangenmanager](_assets/import-feeds-import-results.png)
 
-- auf der "Import Results Listenseite", die Details zu allen Importjobs anzeigt, die im System über Importfeeds ausgeführt wurden. Um diese Seite zu öffnen, klicken Sie in Ihrer Hauptnavigation auf `Export-Ergebnisse` 
+- auf der Listenseite "Import-Ergebnisse", die Details zu allen Importjobs anzeigt, die im System über Importfeeds ausgeführt wurden. Um diese Seite zu öffnen, klicken Sie in Ihrer Hauptnavigation auf `Export-Ergebnisse` 
 
 ![import-results-list](_assets/import-feeds-import-results-list.png)
 
-oder verwenden Sie die Schaltfläche `Vollständige Liste anzeigen` in Ihrem Panel "Import-Ergebnise".
+oder verwenden Sie die Schaltfläche `Vollständige Liste anzeigen` in Ihrem Panel "Import-Ergebnisse".
 
 ![Warteschlangenmanager](_assets/import-feeds-import-results-show-full-list.png)
 
@@ -246,7 +246,7 @@ Die Details zu den Importergebnissen enthalten die folgenden Informationen:
 - **State** – der aktuelle Status des Importvorgangs.
 - **Start** – Startdatum und -Uhrzeit des Importjobs.
 - **Ende** – Enddatum und -Uhrzeit des Importjobs.
-- **Erstellt** – die Anzahl der Datensätze, die infolge der Ausführung des Importjobs erstellt wurden. Klicken Sie auf diesen Wert, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem entpsrechenden Import-Ergebnis gefiltert sind, d. h. mit dem Filter "Erstellt durch Import".
+- **Erstellt** – die Anzahl der Datensätze, die infolge der Ausführung des Importjobs erstellt wurden. Klicken Sie auf diesen Wert, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem entsprechenden Import-Ergebnis gefiltert sind, d. h. mit dem Filter "Erstellt durch Import".
 - **Aktualisiert** – Die Anzahl der Datensätze, die aktualisiert wurden. Klicken Sie auf diesen Wert, um die Listenansichtsseite der entsprechenden Entitätsdatensätze zu öffnen, die nach dem angegebenen Import-Ergebnis gefiltert sind, d. h. mit dem Filter "Aktualisiert durch Import".
 - **Fehler** – die Anzahl der Fehler, falls vorhanden, die während des Importauftrags aufgetreten sind. Klicken Sie auf diesen Wert, um die Listenansichtsseite des Importergebnislogs zu öffnen, auf der Sie alle aufgetretenen Fehler sehen können.
 - **[Fehlerdatei](#error-file)** – CSV-Datei, die nur Zeilen mit Fehlern enthält, die nicht importiert wurden. Klicken Sie auf den Fehlerdateinamen, um diese Datei herunterzuladen.
@@ -279,36 +279,16 @@ Die importierte Datei kann heruntergeladen werden, um zB zu überprüfen, was ge
 
 ### Fehlerdatei
 
-Die zu importierenden Daten werden automatisch mit denselben Regeln validiert, als ob Sie diese Daten manuell hinzufügen würden. Wenn Ihre Importdatei keinen Wert für ein Pflichtfeld enthält, wird ein Fehler generiert. Andere Beispiele für ungültige Daten sind die Verwendung falscher Datentypen (z. B. wird ein "boolescher" Wert erwartet und ein "String" wird übertragen, "Integer" wird erwartet, "float" wird übertragen), fehlende Links usw.
+Die zu importierenden Daten werden automatisch mit denselben Regeln validiert, als ob Sie diese Daten manuell hinzufügen würden. Wenn Ihre Importdatei keinen Wert für ein Pflichtfeld enthält, wird ein Fehler generiert. Andere Beispiele für ungültige Daten sind die Verwendung falscher Datentypen (z. B. wird ein "boolescher" Wert erwartet und ein "String" wird übertragen, "Integer" wird erwartet, "Float" wird übertragen), fehlende Links usw.
 
 > Bitte beachten Sie, dass Sie Daten mit leeren Pflichtfeldern importieren können, wenn Sie das Modul "Completeness" verwenden und die "Vollständigkeit" für die gewählte Entität aktiviert ist.
 
-Der Importjob wird Zeile für Zeile ausgeführt. Dies bedeutet, dass die gesamte Zeile entweder vollständig verarbeitet wird oder vollständig nicht verarbeitet wird. Im Fehlerfall wird diese Zeile der Fehlerdatei hinzugefügt. Klicken Sie auf den Dateinamen, um diese Datei zu herunterladen. Die Fehlerdatei enthält nur Zeilen, die aufgrund eines Fehlers nicht verarbeitet wurden. Der Fehler wird immer in der letzte Spalte der Fehlerdatei beschrieben.
+Der Importjob wird Zeile für Zeile ausgeführt. Dies bedeutet, dass die gesamte Zeile entweder vollständig verarbeitet wird oder vollständig nicht verarbeitet wird. Im Fehlerfall wird diese Zeile der Fehlerdatei hinzugefügt. Klicken Sie auf den Dateinamen, um diese Datei zu herunterladen. Die Fehlerdatei enthält nur Zeilen, die aufgrund eines Fehlers nicht verarbeitet wurden. Der Fehler wird immer in der letzten Spalte der Fehlerdatei beschrieben.
 
 > Bitte beachten Sie, dass das erste Auftreten eines Fehlers ausreicht, um die Verarbeitung einer bestimmten Zeile zu stoppen. In der Fehlerdatei sehen Sie also nur einen Fehler. Es ist immer noch möglich, dass diese Zeile mehr als einen Fehler enthält.
 
 Nachdem der Importvorgang abgeschlossen ist, können Sie die Fehlerdatei herunterladen, Ihre Daten in allen Zeilen korrigieren und diese Datei über den aktuellen Import Feed erneut importieren.
 
-
-
-
-
-
-
-
-
-
-#### Datenwiederherstellung 
-Das Modul "Import Feeds" unterstützt die Wiederherstellung für einzelne Datensätze der Importergebnisse in den Vor-Import-Zustand. Dafür wählen Sie die Option `Wiederherstellen` aus dem Menü für einzelne Datensatzaktionen für den gewünschten Datensatz mit den Importergebnissen auf der Detail-Ansichtsseite des Import Feeds:
-![Restore option](_assets/restore-option.jpg)
-
-Klicken Sie in der angezeigten Bestätigungsnachricht auf den Button `Wiederherstellen`, um den Vorgang zu starten, oder auf `Abbrechen`, um den Vorgang abzubrechen. Das Pop-up des Queue Managers wird automatisch angezeigt:
-![Restore process](_assets/queue-manager-restore.jpg)
-
-Infolgedessen verschwindet der 'wiederhergestellte' Datensatz mit den Importergebnissen aus dem Panel `IMPORT RESULTS`. Auf der Seite der Listenansicht  von Importergebnissen wird dabei die Checkbox  `Wiederhergestellt` für den Datensatz mit 'ursprünglichen' Importergebnissen aktiviert:
-![Restored checkbox](_assets/restored-checkbox.jpg)
-
-Bitte beachten Sie, dass die Datenwiederherstellung nur für das neueste Importergebnis durchgeführt wird. Die Zurücksetzung der Importergebnisse erfolgt schrittweise, d.h., dass das neueste Importergebnis nur zur vorherigen Version zurückgesetzt werden kann.
 
 ## Aktionen
 
@@ -328,7 +308,7 @@ https://demo.atropim.com/
 
 ### Installation
 
-The Installation Guide is available [here](https://github.com/atrocore/atrocore-docs/blob/master/en/administration/installation.md).
+Die Installationsanleitung ist [hier](https://github.com/atrocore/atrocore-docs/blob/master/en/administration/installation.md) verfügbar.
 
 ## Lizenz
 
