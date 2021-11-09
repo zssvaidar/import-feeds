@@ -85,6 +85,10 @@ Das nächste Panel ist das Einstellungspanel:
 
 Wenn Sie Produktdaten importieren, können einige Produkte bestimmte Attribute haben, andere nicht. Wenn der Wert für ein Attribut leer ist, ist nicht klar, ob dieses Attribut einen leeren Wert hat oder ob dieses Produkt dieses Attribut gar nicht hat. Aus diesem Grund sollte die **Markierung für ein nicht verlinktes Attribut** verwendet werden, um eindeutig zu kennzeichnen, welches Attribut nicht mit einem bestimmten Produkt verknüpft werden soll.
 
+Nachdem die Datei hochgeladen und die Dateieinstellungen richtig konfiguriert wurden, sollten Sie die Spaltennamen aus Ihrer Datei im Feld `Unbenutzte Spalten` sehen.
+
+![unused_columns](_assets/import-feeds-configurator-unused-columns.png)
+
 Wenn das Feld `Unbenutzte Spalten` nach dem Speichern Ihres Feeds leer ist, sollten Sie Ihr Feldtrennzeichen auf Richtigkeit überprüfen. Wenn einige Spaltennamen einfache oder doppelte Anführungszeichen enthalten, haben Sie möglicherweise den falschen Textqualifizierer eingestellt.
 
 > Bitte beachten Sie, dass die definierten Symbole `Feldbegrenzer`, `Datensatzbegrenzer`, `Nullwert`, `Nullwert`, `Tausender-Trennzeichen`, `Dezimalzeichen`, `Textqualifizierer`  und `Markierung für ein nicht verknüpftes Attribut` unterschiedlich sein müssen.
@@ -217,7 +221,7 @@ Der gestartete Importjob wird zum Wartenschlangenmanager hinzugefügt, in dem Si
 
 Der neue Datensatz wird auch zum Panel "Import-Ergebnisse" mit dem Status "Ausstehend" hinzugefügt. Nach einem erfolgreichen Abschluss des Importauftrags wird der Status automatisch auf `Fertig` geändert.
 
-### Importergebnisse
+### Import-Ergebnisse
 
 Informationen zu abgeschlossenen Importaufträgen werden im Bereich "Import-Ergebnisse" angezeigt. Zunächst wird hier nichts angezeigt, erst mit der Ausführung des Import-Feeds werden hier neue Einträge erscheinen.
 
@@ -226,7 +230,11 @@ Die Ergebnisse des Datenimports können auf zwei Arten angezeigt werden:
 
 ![Warteschlangenmanager](_assets/import-feeds-import-results.png)
 
-- auf der "Import Results Listenseite", die Details zu allen Importjobs anzeigt, die im System über Importfeeds ausgeführt wurden. Um diese Seite zu öffnen, klicken Sie in Ihrer Hauptnavigation auf `Export-Ergebnisse` oder verwenden Sie die Schaltfläche `Vollständige Liste anzeigen` in Ihrem Panel "Import-Ergebnise".
+- auf der "Import Results Listenseite", die Details zu allen Importjobs anzeigt, die im System über Importfeeds ausgeführt wurden. Um diese Seite zu öffnen, klicken Sie in Ihrer Hauptnavigation auf `Export-Ergebnisse` 
+
+![import-results-list](_assets/import-feeds-import-results-list.png)
+
+oder verwenden Sie die Schaltfläche `Vollständige Liste anzeigen` in Ihrem Panel "Import-Ergebnise".
 
 ![Warteschlangenmanager](_assets/import-feeds-import-results-show-full-list.png)
 
@@ -248,6 +256,10 @@ Folgende Statuswerte sind möglich:
 - **Pending** – für den Importjob, der als nächstes zur Ausführung ansteht.
 - **Erfolg** – für den erfolgreich abgeschlossenen Importjob, unabhängig davon, ob es Fehler gibt.
 - **Fehlgeschlagen** – für den Importjob, der aufgrund technischer Probleme nicht ausgeführt werden konnte.
+
+Über das Datensatz-Aktionsmenü können Sie sich Details zum jeweiligen Importauftrag anzeigen lassen oder diesen entfernen.
+
+![Datensatzaktion](_assets/import-feeds-import-results-menu.png)
 
 ### Details über Import-Ergebnisse
 
