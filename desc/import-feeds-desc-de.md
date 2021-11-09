@@ -56,7 +56,7 @@ Folgende Einstellungen stehen hier zur Verfügung:
      - *Create & Update* – neue Datensätze werden erstellt und die bestehenden Datensätze werden aktualisiert.
 
 
-### Dateieigenschaften 
+### Datei-Einstellungen
 
 Die Parameter der Importdatei werden im Panel `FILE PROPERTIES` konfiguriert:
 
@@ -70,7 +70,7 @@ Die Parameter der Importdatei werden im Panel `FILE PROPERTIES` konfiguriert:
 - **Textqualifizierer** – Wählen Sie das Trennzeichen der Werte innerhalb einer Zelle: Es können einfache oder doppelte Anführungszeichen ausgewählt werden.
 
 
-### Einstellungen
+### Feed-Einstellungen
 Das nächste Panel ist das Einstellungspanel:
 
 ![Einfache Typeinstellungen](_assets/import-feeds-create-settings.png)
