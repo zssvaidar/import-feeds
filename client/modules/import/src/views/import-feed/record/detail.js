@@ -20,22 +20,32 @@
 Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
     Dep => Dep.extend({
 
-        template: 'import:import-feed/record/detail',
-
         setup() {
             Dep.prototype.setup.call(this);
+
+            this.additionalButtons = [
+                {
+                    "action": "runImport",
+                    "label": this.translate('import', 'labels', 'ImportFeed')
+                }
+            ];
+
+            if (this.model.get('type') === 'simple') {
+                this.additionalButtons.push({
+                    "action": "uploadAndRunImport",
+                    "label": this.translate('uploadAndImport', 'labels', 'ImportFeed')
+                })
+            }
 
             this.listenTo(this.model, 'after:save', () => {
                 this.handleButtonsDisability();
             });
         },
 
-        data() {
-            let data = Dep.prototype.data.call(this);
+        afterRender() {
+            Dep.prototype.afterRender.call(this);
 
-            data['importButtonsDisabled'] = this.isButtonsDisabled();
-
-            return data;
+            this.handleButtonsDisability();
         },
 
         isButtonsDisabled() {
@@ -43,7 +53,7 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
         },
 
         handleButtonsDisability() {
-            const $buttons = $('.import-actions');
+            const $buttons = $('.additional-button');
             if (this.isButtonsDisabled()) {
                 $buttons.addClass('disabled');
             } else {
