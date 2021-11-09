@@ -265,7 +265,7 @@ To view the import result record details, click on its name in the "Import Resul
 
 The error messages, if any, are displayed on the `ERRORS LOG` panel on this page. 
 
-To see a full list of error records, use the `Show Full List` action menu command. The errors will be displayed grouped by your current Import Results record.
+To see a full list of error records, use the `Show Full List` action menu command. The errors will be displayed grouped by your current import job.
 
 ![Import result logs](_assets/import-feeds-import-results-error-log.png)
 
