@@ -285,33 +285,16 @@ Import job is done row by row. It means the whole row is either processed in ful
 
 After import job is done you can download the error file, correct your data in all rows, and reimport your data again by using the same import feed. 
 
+## Import Feed Actions
 
-## Import Feed Operations and Actions
+To *duplicate* the existing import feed record, use the corresponding option from the actions menu on the datail view page of the desired import feed record:
 
-Import feed records can be duplicated and removed whenever needed.
+![Duplicate feed](_assets/import-feeds-duplicate.png)
 
-To *duplicate* the existing import feed record, use the corresponding option from the actions menu on the desired import feed record detail view page:
+You will be redirected to the import feed creation page and get all the values of the last chosen import feed record copied in the empty fields of the new feed record to be created. After save the mapping rules from the configurator will be copied too.
 
-![Duplicate feed](_assets/duplicate-feed.jpg)
+To *remove* the import feed record, use the corresponding option from the actions menu of your import feed.
 
-You will be redirected to the import feed creation page and get all the values of the last chosen import feed record copied in the empty fields of the new feed record to be created. 
-
-In order to *remove* the import feed record, use the corresponding option from the actions menu on the desired import feed record detail view page or from the single record actions menu on the import feeds list view page:
-
-![Remove feed](_assets/remove-import-feed.jpg)
-
-To complete the operation, click the `Remove` button in the confirmation message that appears.
-
-The "Import Feeds" module also supports common AtroCore *mass actions* that can be applied to several selected import feed records, i.e. records with set checkboxes. These actions can be found in the corresponding menu on the import feeds list view page:
-
-![Mass actions](_assets/mass-actions.jpg)
-
-- **Remove** – to remove the selected import feed records (multiple deletion).
-- **Merge** – to merge the selected import feed records.
-- **Mass update** – to update several selected import feed records at once. To have a longer list of fields available for mass updating, please, contact your administrator.
-- **Export** – to export the desired data fields of the selected import feed records in the XLSX or CSV format.
-- **Add relation** – to relate the selected import feed records with other import result record(s).
-- **Remove relation** – to remove the relations that have been added to the selected import feed records.
 
 ## Customization
 The module can be adapted to your needs, additional functions can be programmed, existing functions can be changed. Please contact us regarding this. Our GTC (General Terms and Conditions) apply.
