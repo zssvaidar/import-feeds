@@ -267,13 +267,15 @@ Die importierte Datei kann heruntergeladen werden, um zB zu überprüfen, was ge
 
 ### Fehlerdatei
 
-Die zu importierenden Daten werden automatisch mit denselben Regeln validiert, als ob Sie diese Daten manuell hinzufügen würden. Das bedeutet, dass Sie Produktdaten mit leeren Pflichtfeldern nur importieren können, wenn Sie das Modul "Vollständigkeit" verwenden. Andernfalls wird ein Fehler generiert. Andere Beispiele für ungültige Daten sind falsche Datentypen (z. B. wird ein "boolescher" Wert erwartet und ein "String" wird übertragen, "integer" wird erwartet, "float" wird übertragen), fehlende Links usw.
+Die zu importierenden Daten werden automatisch mit denselben Regeln validiert, als ob Sie diese Daten manuell hinzufügen würden. Wenn Ihre Importdatei keinen Wert für ein Pflichtfeld enthält, wird ein Fehler generiert. Andere Beispiele für ungültige Daten sind die Verwendung falscher Datentypen (z. B. wird ein "boolescher" Wert erwartet und ein "String" wird übertragen, "Integer" wird erwartet, "float" wird übertragen), fehlende Links usw.
 
-Der Importjob wird Zeile für Zeile ausgeführt. Dies bedeutet, dass die gesamte Zeile entweder vollständig verarbeitet wird oder vollständig nicht verarbeitet wird. Im Fehlerfall wird diese Zeile der Fehlerdatei hinzugefügt, die aus Ihren Importergebnissen heruntergeladen werden kann. Klicken Sie dazu einfach darauf. Die Fehlerdatei enthält nur Zeilen, die aufgrund eines Fehlers nicht verarbeitet wurden. Der Fehler wird immer in die letzte Spalte der Fehlerdatei geschrieben.
+> Bitte beachten Sie, dass Sie Daten mit leeren Pflichtfeldern importieren können, wenn Sie das Modul "Completeness" verwenden und die "Vollständigkeit" für die gewählte Entität aktiviert ist.
 
-> Bitte beachten Sie, dass das erste Auftreten eines Fehlers ausreicht, um die Verarbeitung der bestimmten Zeile zu stoppen. In der Fehlerdatei sehen Sie also nur einen Fehler. Es ist immer noch möglich, dass diese Zeile mehr als einen Fehler enthält.
+Der Importjob wird Zeile für Zeile ausgeführt. Dies bedeutet, dass die gesamte Zeile entweder vollständig verarbeitet wird oder vollständig nicht verarbeitet wird. Im Fehlerfall wird diese Zeile der Fehlerdatei hinzugefügt. Klicken Sie auf den Dateinamen, um diese Datei zu herunterladen. Die Fehlerdatei enthält nur Zeilen, die aufgrund eines Fehlers nicht verarbeitet wurden. Der Fehler wird immer in der letzte Spalte der Fehlerdatei beschrieben.
 
-Nachdem der Importvorgang abgeschlossen ist, können Sie die Fehlerdatei herunterladen, Ihre Daten in allen Zeilen korrigieren und Ihre Daten erneut importieren, indem Sie Ihre geänderte Fehlerdatei hochladen.
+> Bitte beachten Sie, dass das erste Auftreten eines Fehlers ausreicht, um die Verarbeitung einer bestimmten Zeile zu stoppen. In der Fehlerdatei sehen Sie also nur einen Fehler. Es ist immer noch möglich, dass diese Zeile mehr als einen Fehler enthält.
+
+Nachdem der Importvorgang abgeschlossen ist, können Sie die Fehlerdatei herunterladen, Ihre Daten in allen Zeilen korrigieren und diese Datei über den aktuellen Import Feed erneut importieren.
 
 
 
