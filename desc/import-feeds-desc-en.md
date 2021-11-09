@@ -241,10 +241,9 @@ Results of the data import can be viewed in two ways:
 The import results details contain the following information:
 
 - **Name** – the import result record name, which is generated automatically based on the date and time of the import job start. Click the import result record name to open its detail view page.
-- **Import feed** – the name of the import feed used for the import job. Click the import feed record name to open its detail view page.
+- **Import feed** – the name of the import feed used for the import job. Click on the import feed record name to open its detail page.
 - **Imported file** – the name of the data file (CSV) used for the import operation. Click the imported file name to download it. 
 - **State** – the current status of the import operation.
-- **Restored** – the indication of whether the given import result record has been restored (the checkbox is selected) or not.
 - **Start** – the date and time of the import job start.
 - **End** – the date and time of the import job end.
 - **Created** – the number of records created as a result of the performed import job. Click on this value to open the list view page of the corresponding entity records filtered by the given import result, i.e. with the `Created by import` filter applied.
