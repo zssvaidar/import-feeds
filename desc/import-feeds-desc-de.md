@@ -249,29 +249,40 @@ Folgende Statuswerte sind möglich:
 - **Erfolg** – für den erfolgreich abgeschlossenen Importjob, unabhängig davon, ob es Fehler gibt.
 - **Fehlgeschlagen** – für den Importjob, der aufgrund technischer Probleme nicht ausgeführt werden konnte.
 
+### Details über Import-Ergebnisse
 
-#### Details
+Um die Details der Import-Ergebnisse anzusehen klicken Sie auf deren Namen im jeweiligen Datensatz "Import-Ergebnisse".
 
-Um die Details des Datensatzes mit den Importergebnissen anzusehen, klicken Sie auf dessen Namen im Panel `IMPORT RESULTS` auf der Detail-Ansichtsseite des gewünschten Import Feeds oder in der Liste der Importergebnisse. Es wird die Detail-Ansichtsseite des entsprechenden Datensatzes angezeigt:
+![Ergebnisdetails importieren](_assets/import-feeds-import-results-detail.png)
 
-![Import result details](_assets/import-result-details.jpg)
+Die Fehlermeldungen, falls vorhanden, werden im Feld `Error Log` auf dieser Seite angezeigt.
 
-Die Fehlermeldungen, falls solche vorhanden sind, werden im Panel `ERRORS LOG` auf dieser Seite angezeigt:  
+Um eine vollständige Liste der Fehler zu sehen, klicken Sie auf `Vollständige Liste anzeigen`. Die Fehler werden gruppiert nach Import Job angezeigt.
 
-![Errors log](_assets/errors-log.jpg)
+![Ergebnisprotokolle importieren](_assets/import-feeds-import-results-error-log.png)
 
-Um die vollständige Liste der Fehlerdatensätze anzuschauen, nutzen Sie den Befehl `Vollständige Liste anzeigen` im Aktionsmenü. Die Liste der Logs der Importergebnisse wird mit Datensätzen angezeigt, die nach dem angegebenen Importergebnis gefiltert sind:
+### Importierte Datei
 
-![Import result logs](_assets/import-result-logs.jpg)
+Die importierte Datei kann heruntergeladen werden, um zB zu überprüfen, was genau importiert wurde, wenn Sie in Ihrem Importergebnissatz auf den Dateinamen klicken.
 
-Alternativ können Sie die Details des Datensatzes mit den Importergebnissen in dem Pop-up ansehen, welches angezeigt wird, wenn Sie die Option `Ansehen` aus dem Menü für einzelne Datensatzaktionen für den gewünschten Datensatz auf der Seite der Listenansicht  von Importergebnissen nutzen. Das Gleiche gilt für das Panel `IMPORT RESULTS`  des aktuell geöffneten Import Feeds:
-![Import result pop-up](_assets/import-result-popup.jpg)
-Bitte beachten Sie, dass Sie die importierte Datei von jeder [Interface-Seite](https://atropim.com/help/views-and-panels) herunterladen können, wo ihr Name anklickbar ist.
+### Fehlerdatei
 
-#### Fehlerdatei
-Alle Daten der erforderlichen Entitätsfelder werden zu der Importdatei hinzugefügt. Falls ein Pflichtfeld in dem zum Import Feed hinzugefügten Entitätsdatensatz leer (d. h. nicht ausgefüllt) ist oder die eingegebenen Daten nicht validiert werden (z. B. stimmen die eingegebenen Daten mit dem Feldtyp nicht überein, beispielsweise Text anstelle von numerischen Werten in den Feldern von Typen `Boolean`,` Currency`, `Float`,` Unit`, sodass der eingegebene Link im System nicht existiert usw.), wird dieser Datensatz nicht importiert. Stattdessen wird er zu der Fehlerdatei hinzugefügt - einer separat generierten CSV-Datei, die nur Zeilen der Datensätze mit Fehlern enthält.
+Die zu importierenden Daten werden automatisch mit denselben Regeln validiert, als ob Sie diese Daten manuell hinzufügen würden. Das bedeutet, dass Sie Produktdaten mit leeren Pflichtfeldern nur importieren können, wenn Sie das Modul "Vollständigkeit" verwenden. Andernfalls wird ein Fehler generiert. Andere Beispiele für ungültige Daten sind falsche Datentypen (z. B. wird ein "boolescher" Wert erwartet und ein "String" wird übertragen, "integer" wird erwartet, "float" wird übertragen), fehlende Links usw.
 
-Sie können die Fehlerdatei von jeder [Interface-Seite](https://atropim.com/help/views-and-panels) herunterladen, wo ihr Name anklickbar ist, (z.B. Seite der Listenansicht von Importergebnissen, Seite der Detailansicht/ schnellen Detailansicht von Importergebnissen usw.), die Daten in den definierten Zeilen korrigieren und den Importvorgang erneut durchführen. Dabei sollen Sie die korrigierte Fehlerdatei als die zu importierende Datei nutzen. 
+Der Importjob wird Zeile für Zeile ausgeführt. Dies bedeutet, dass die gesamte Zeile entweder vollständig verarbeitet wird oder vollständig nicht verarbeitet wird. Im Fehlerfall wird diese Zeile der Fehlerdatei hinzugefügt, die aus Ihren Importergebnissen heruntergeladen werden kann. Klicken Sie dazu einfach darauf. Die Fehlerdatei enthält nur Zeilen, die aufgrund eines Fehlers nicht verarbeitet wurden. Der Fehler wird immer in die letzte Spalte der Fehlerdatei geschrieben.
+
+> Bitte beachten Sie, dass das erste Auftreten eines Fehlers ausreicht, um die Verarbeitung der bestimmten Zeile zu stoppen. In der Fehlerdatei sehen Sie also nur einen Fehler. Es ist immer noch möglich, dass diese Zeile mehr als einen Fehler enthält.
+
+Nachdem der Importvorgang abgeschlossen ist, können Sie die Fehlerdatei herunterladen, Ihre Daten in allen Zeilen korrigieren und Ihre Daten erneut importieren, indem Sie Ihre geänderte Fehlerdatei hochladen.
+
+
+
+
+
+
+
+
+
 
 #### Datenwiederherstellung 
 Das Modul "Import Feeds" unterstützt die Wiederherstellung für einzelne Datensätze der Importergebnisse in den Vor-Import-Zustand. Dafür wählen Sie die Option `Wiederherstellen` aus dem Menü für einzelne Datensatzaktionen für den gewünschten Datensatz mit den Importergebnissen auf der Detail-Ansichtsseite des Import Feeds:
