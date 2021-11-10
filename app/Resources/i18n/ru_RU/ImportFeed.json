@@ -16,14 +16,14 @@
     "thousandSeparator": "Тысячный разделитель",
     "decimalMark": "Десятичный разделитель",
     "importFile": "Файл данных",
-    "importResults": "Результаты импорта",
+    "importResults": "Задания импорта",
     "configuratorItems": "Конфигуратор",
     "emptyValue": "Пустое значение",
     "nullValue": "Нулевое значение",
     "markForNotLinkedAttribute": "Пометка непривязанного атрибута"
   },
   "links": {
-    "importResults": "Результаты импорта",
+    "importResults": "Задания импорта",
     "configuratorItems": "Конфигуратор"
   },
   "labels": {

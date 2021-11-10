@@ -8,14 +8,15 @@
     "updatedCount": "Обновлен",
     "errorsCount": "Ошибка",
     "attachment": "Проимпортированный файл",
-    "errorsAttachment": "Файл ошибок"
+    "errorsAttachment": "Файл ошибок",
+    "importResultLogs": "Лог ошибок"
   },
   "links": {
     "importFeed": "Импортный фид",
-    "importResultLogs": "Лог с ошибками"
+    "importResultLogs": "Лог ошибок"
   },
   "labels": {
-    "Create ImportResult": "Сгенерировать результаты импорта",
+    "Create ImportResult": "Создать задание импорта",
     "Pending": "В очереди",
     "Running": "Выполняется",
     "Done": "Создано",

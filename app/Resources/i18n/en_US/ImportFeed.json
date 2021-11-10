@@ -16,14 +16,14 @@
     "thousandSeparator": "Thousand Separator",
     "decimalMark": "Decimal Mark",
     "importFile": "Data File",
-    "importResults": "Import Results",
+    "importResults": "Import Jobs",
     "configuratorItems": "Configurator",
     "emptyValue": "Empty Value",
     "nullValue": "Null Value",
     "markForNotLinkedAttribute": "Mark for a not linked attribute"
   },
   "links": {
-    "importResults": "Import Results",
+    "importResults": "Import Jobs",
     "configuratorItems": "Configurator"
   },
   "labels": {

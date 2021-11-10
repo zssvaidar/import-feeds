@@ -8,14 +8,15 @@
     "updatedCount": "Aktualisiert",
     "errorsCount": "Fehler",
     "attachment": "Importierte Datei",
-    "errorsAttachment": "Fehlerdatei"
+    "errorsAttachment": "Fehlerdatei",
+    "importResultLogs": "Fehlerlogs"
   },
   "links": {
     "importFeed": "Import Feed",
-    "importResultLogs": "Fehlerprotokoll"
+    "importResultLogs": "Fehlerlogs"
   },
   "labels": {
-    "Create ImportResult": "Importergebnis erstellen",
+    "Create ImportResult": "Importauftrag erstellen",
     "Pending": "Steht aus",
     "Running": "In Arbeit",
     "Done": "Erledigt",

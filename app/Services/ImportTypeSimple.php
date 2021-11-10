@@ -37,6 +37,7 @@ class ImportTypeSimple extends QueueManagerBase
     private array $restore = [];
     private array $updatedPav = [];
     private array $deletedPav = [];
+    private int $iterations = 0;
 
     public function run(array $data = []): bool
     {
@@ -45,21 +46,6 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest('No such ImportResult.');
         }
 
-        $attachment = $this->getEntityManager()->getEntity('Attachment', $data['attachmentId']);
-        if (empty($attachment)) {
-            throw new BadRequest('No such Attachment.');
-        }
-
-        /** @var \Import\Services\CsvFileParser $csvParser */
-        $csvParser = $this->getService('CsvFileParser');
-
-        $fileData = $csvParser->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
-        if (empty($fileData)) {
-            throw new BadRequest('File is empty.');
-        }
-
-        $allColumns = $csvParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
-
         $scope = $data['data']['entity'];
 
         $updatedIds = [];
@@ -67,102 +53,99 @@ class ImportTypeSimple extends QueueManagerBase
         // prepare file row
         $fileRow = (int)$data['offset'];
 
-        foreach ($fileData as $fileLine) {
-            $row = [];
-            foreach ($fileLine as $k => $v) {
-                $row[$allColumns[$k]] = $v;
-            }
+        while (!empty($inputData = $this->getInputData($data))) {
+            foreach ($inputData as $row) {
+                // increment file row number
+                $fileRow++;
 
-            // increment file row number
-            $fileRow++;
+                try {
+                    $entity = $this->findExistEntity($this->getService($scope)->getEntityType(), $data['data'], $row);
+                    $id = null;
 
-            try {
-                $entity = $this->findExistEntity($this->getService($scope)->getEntityType(), $data['data'], $row);
-                $id = null;
-
-                if (!empty($entity)) {
-                    $id = $entity->get('id');
-                    if (in_array($id, $updatedIds)) {
-                        throw new BadRequest($this->translate('alreadyProceeded', 'exceptions', 'ImportFeed'));
-                    }
-                }
-            } catch (\Throwable $e) {
-                $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $e->getMessage());
-            }
-
-            if ($data['action'] == 'create' && !empty($entity)) {
-                continue 1;
-            }
-
-            if ($data['action'] == 'update' && empty($entity)) {
-                continue 1;
-            }
-
-            if (!$this->getEntityManager()->getPDO()->inTransaction()) {
-                $this->getEntityManager()->getPDO()->beginTransaction();
-            }
-
-            try {
-                $input = new \stdClass();
-                $restore = new \stdClass();
-
-                $attributes = [];
-                foreach ($data['data']['configuration'] as $item) {
-                    if ($item['type'] == 'Attribute') {
-                        $attributes[] = ['item' => $item, 'row' => $row];
-                        continue 1;
-                    }
-
-                    $type = $this->getMetadata()->get(['entityDefs', $item['entity'], 'fields', $item['name'], 'type'], 'varchar');
-                    $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->convert($input, $item, $row);
                     if (!empty($entity)) {
-                        $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->prepareValue($restore, $entity, $item);
+                        $id = $entity->get('id');
+                        if (in_array($id, $updatedIds)) {
+                            throw new BadRequest($this->translate('alreadyProceeded', 'exceptions', 'ImportFeed'));
+                        }
                     }
+                } catch (\Throwable $e) {
+                    $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $e->getMessage());
                 }
 
-                if (empty($id)) {
-                    $updatedEntity = $this->getService($scope)->createEntity($input);
-                    $this->importAttributes($attributes, $updatedEntity);
-                    $this->saveRestoreRow('created', $scope, $updatedEntity->get('id'));
-                } else {
-                    $notModified = true;
-                    try {
-                        $updatedEntity = $this->getService($scope)->updateEntity($id, $input);
-                        $this->saveRestoreRow('updated', $scope, [$id => $restore]);
-                        $notModified = false;
-                    } catch (NotModified $e) {
+                if ($data['action'] == 'create' && !empty($entity)) {
+                    continue 1;
+                }
+
+                if ($data['action'] == 'update' && empty($entity)) {
+                    continue 1;
+                }
+
+                if (!$this->getEntityManager()->getPDO()->inTransaction()) {
+                    $this->getEntityManager()->getPDO()->beginTransaction();
+                }
+
+                try {
+                    $input = new \stdClass();
+                    $restore = new \stdClass();
+
+                    $attributes = [];
+                    foreach ($data['data']['configuration'] as $item) {
+                        if ($item['type'] == 'Attribute') {
+                            $attributes[] = ['item' => $item, 'row' => $row];
+                            continue 1;
+                        }
+
+                        $type = $this->getMetadata()->get(['entityDefs', $item['entity'], 'fields', $item['name'], 'type'], 'varchar');
+                        $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->convert($input, $item, $row);
+                        if (!empty($entity)) {
+                            $this->getService('ImportConfiguratorItem')->getFieldConverter($type)->prepareValue($restore, $entity, $item);
+                        }
                     }
 
-                    if ($this->importAttributes($attributes, $entity)) {
-                        $notModified = false;
-                        $updatedEntity = $entity;
+                    if (empty($id)) {
+                        $updatedEntity = $this->getService($scope)->createEntity($input);
+                        $this->importAttributes($attributes, $updatedEntity);
+                        $this->saveRestoreRow('created', $scope, $updatedEntity->get('id'));
+                    } else {
+                        $notModified = true;
+                        try {
+                            $updatedEntity = $this->getService($scope)->updateEntity($id, $input);
+                            $this->saveRestoreRow('updated', $scope, [$id => $restore]);
+                            $notModified = false;
+                        } catch (NotModified $e) {
+                        }
+
+                        if ($this->importAttributes($attributes, $entity)) {
+                            $notModified = false;
+                            $updatedEntity = $entity;
+                        }
+
+                        if ($notModified) {
+                            throw new NotModified();
+                        }
                     }
 
-                    if ($notModified) {
-                        throw new NotModified();
+                    if ($this->getEntityManager()->getPDO()->inTransaction()) {
+                        $this->getEntityManager()->getPDO()->commit();
+                        $updatedIds[] = $updatedEntity->get('id');
                     }
+                } catch (\Throwable $e) {
+                    if ($this->getEntityManager()->getPDO()->inTransaction()) {
+                        $this->getEntityManager()->getPDO()->rollBack();
+                    }
+
+                    $message = empty($e->getMessage()) ? $this->getCodeMessage($e->getCode()) : $e->getMessage();
+
+                    if (!$e instanceof NotModified) {
+                        $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $message);
+                    }
+
+                    continue 1;
                 }
 
-                if ($this->getEntityManager()->getPDO()->inTransaction()) {
-                    $this->getEntityManager()->getPDO()->commit();
-                    $updatedIds[] = $updatedEntity->get('id');
-                }
-            } catch (\Throwable $e) {
-                if ($this->getEntityManager()->getPDO()->inTransaction()) {
-                    $this->getEntityManager()->getPDO()->rollBack();
-                }
-
-                $message = empty($e->getMessage()) ? $this->getCodeMessage($e->getCode()) : $e->getMessage();
-
-                if (!$e instanceof NotModified) {
-                    $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $message);
-                }
-
-                continue 1;
+                $action = empty($id) ? 'create' : 'update';
+                $this->log($data['data']['entity'], $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
             }
-
-            $action = empty($id) ? 'create' : 'update';
-            $this->log($data['data']['entity'], $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
         }
 
         return true;
@@ -193,6 +176,39 @@ class ImportTypeSimple extends QueueManagerBase
         $this->restore = [];
 
         return $log;
+    }
+
+    protected function getInputData(array $data): array
+    {
+        if ($this->iterations > 0) {
+            return [];
+        }
+
+        $attachment = $this->getEntityManager()->getEntity('Attachment', $data['attachmentId']);
+        if (empty($attachment)) {
+            throw new BadRequest('No such Attachment.');
+        }
+
+        /** @var \Import\Services\CsvFileParser $csvParser */
+        $csvParser = $this->getService('CsvFileParser');
+
+        $fileData = $csvParser->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
+        if (empty($fileData)) {
+            throw new BadRequest('File is empty.');
+        }
+
+        $allColumns = $csvParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
+
+        $result = [];
+        foreach ($fileData as $line => $fileLine) {
+            foreach ($fileLine as $k => $v) {
+                $result[$line][$allColumns[$k]] = $v;
+            }
+        }
+
+        $this->iterations++;
+
+        return $result;
     }
 
     protected function findExistEntity(string $entityType, array $configuration, array $row): ?Entity

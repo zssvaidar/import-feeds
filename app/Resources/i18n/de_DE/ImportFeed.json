@@ -12,14 +12,14 @@
     "fileDataAction": "Aktion",
     "thousandSeparator": "Tausendertrennzeichen",
     "decimalMark": "Dezimaltrennzeichen",
-    "importResults": "Ergebnisse importieren",
+    "importResults": "Importaufträge",
     "configuratorItems": "Konfigurator",
     "emptyValue": "Leerer Wert",
     "nullValue": "Nullwert",
     "markForNotLinkedAttribute": "Markierung für ein nicht verknüpftes Attribut"
   },
   "links": {
-    "importResults": "Ergebnisse importieren",
+    "importResults": "Importaufträge",
     "configuratorItems": "Konfigurator"
   },
   "labels": {

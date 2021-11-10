@@ -8,14 +8,15 @@
     "updatedCount": "Updated",
     "errorsCount": "Errors",
     "attachment": "Imported file",
-    "errorsAttachment": "Error file"
+    "errorsAttachment": "Error file",
+    "importResultLogs": "Error Logs"
   },
   "links": {
     "importFeed": "Import Feed",
-    "importResultLogs": "Errors Log"
+    "importResultLogs": "Error Logs"
   },
   "labels": {
-    "Create ImportResult": "Create Import Result",
+    "Create ImportResult": "Create Import Job",
     "Pending": "Pending",
     "Running": "Running",
     "Done": "Done",

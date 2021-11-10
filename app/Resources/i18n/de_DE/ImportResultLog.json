@@ -1,16 +1,16 @@
 {
   "fields": {
     "rowNumber": "Reihennummer",
-    "importResult": "Importergebnis",
+    "importResult": "Importauftrag",
     "type": "Typ",
     "entityName": "Entität",
     "entityId": "Objekt-ID",
     "message": "Nachricht"
   },
   "links": {
-    "importResult": "Importergebnis"
+    "importResult": "Importauftrag"
   },
   "labels": {
-    "Create ImportResultLog": "Importergebnisprotokoll erstellen"
+    "Create ImportResultLog": "Import-Auftragslog erstellen"
   }
 }
