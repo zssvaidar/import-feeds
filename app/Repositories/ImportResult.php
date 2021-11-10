@@ -61,8 +61,12 @@ class ImportResult extends Base
         $this->exec("UPDATE import_result_log SET deleted=1 WHERE import_result_id='$id'");
         $this->exec("UPDATE queue_item SET deleted=1 WHERE data LIKE '%\"importResultId\":\"$id\"%'");
 
-        if (!empty($attachment = $entity->get('errorsAttachment'))) {
+        if (!empty($attachment = $entity->get('attachment'))) {
             $this->getEntityManager()->removeEntity($attachment);
+        }
+
+        if (!empty($errorsAttachment = $entity->get('errorsAttachment'))) {
+            $this->getEntityManager()->removeEntity($errorsAttachment);
         }
 
         parent::afterRemove($entity, $options);

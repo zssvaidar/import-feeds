@@ -89,16 +89,6 @@ class ImportFeed extends Base
         return $this->getCsvFileParser()->getFileColumns($attachment, $delimiter, $enclosure, $isFileHeaderRow);
     }
 
-    /**
-     * @param string $importFeedId
-     * @param string $attachmentId
-     *
-     * @return bool
-     * @throws BadRequest
-     * @throws Error
-     * @throws Forbidden
-     * @throws NotFound
-     */
     public function runImport(string $importFeedId, string $attachmentId): bool
     {
         $feed = $this->getImportFeed($importFeedId);
@@ -220,16 +210,12 @@ class ImportFeed extends Base
         return $feed;
     }
 
-    /**
-     * @param string           $attachmentId
-     * @param ImportFeedEntity $feed
-     *
-     * @return Attachment
-     * @throws BadRequest
-     * @throws NotFound
-     */
     protected function validateFile(string $attachmentId, ImportFeedEntity $feed): void
     {
+        if (empty($attachmentId)) {
+            return;
+        }
+
         if (empty($file = $this->getEntityManager()->getEntity('Attachment', $attachmentId))) {
             throw new NotFound($this->exception("noSuchFile"));
         }
@@ -300,7 +286,7 @@ class ImportFeed extends Base
     {
         return [
             "offset"          => $feed->isFileHeaderRow() ? 1 : 0,
-            "limit"           => \PHP_INT_MAX,
+            "limit"           => empty($feed->getFeedField('limit')) ? \PHP_INT_MAX : (int)$feed->getFeedField('limit'),
             "delimiter"       => $feed->getDelimiter(),
             "enclosure"       => $feed->getEnclosure(),
             "isFileHeaderRow" => $feed->isFileHeaderRow(),
@@ -324,7 +310,9 @@ class ImportFeed extends Base
         $entity->set('name', date('Y-m-d H:i:s'));
         $entity->set('importFeedId', $feed->get('id'));
         $entity->set('entityName', $entityType);
-        $entity->set('attachmentId', $attachmentId);
+        if (!empty($attachmentId)) {
+            $entity->set('attachmentId', $attachmentId);
+        }
 
         $this->getEntityManager()->saveEntity($entity);
 

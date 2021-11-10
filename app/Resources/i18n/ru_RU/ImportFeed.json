@@ -20,7 +20,8 @@
     "configuratorItems": "Конфигуратор",
     "emptyValue": "Пустое значение",
     "nullValue": "Нулевое значение",
-    "markForNotLinkedAttribute": "Пометка непривязанного атрибута"
+    "markForNotLinkedAttribute": "Пометка непривязанного атрибута",
+    "jobsMax": "Максимальное количество заданий импорта"
   },
   "links": {
     "importResults": "Задания импорта",

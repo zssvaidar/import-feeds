@@ -26,6 +26,13 @@ class V1Dot2Dot4 extends \Treo\Core\Migration\Base
 {
     public function up(): void
     {
+        try {
+            $this->getPDO()->exec("ALTER TABLE `import_feed` ADD jobs_max INT DEFAULT '10' COLLATE utf8mb4_unicode_ci");
+            $this->getPDO()->exec("UPDATE `import_feed` SET `jobs_max`=10 WHERE 1");
+        } catch (\Throwable $e) {
+            // ignore
+        }
+
         $container = (new \Treo\Core\Application())->getContainer();
         $em = $container->get('entityManager');
 

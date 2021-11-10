@@ -16,7 +16,8 @@
     "configuratorItems": "Konfigurator",
     "emptyValue": "Leerer Wert",
     "nullValue": "Nullwert",
-    "markForNotLinkedAttribute": "Markierung für ein nicht verknüpftes Attribut"
+    "markForNotLinkedAttribute": "Markierung für ein nicht verknüpftes Attribut",
+    "jobsMax": "Anzahl der zu speichernden Importaufträge"
   },
   "links": {
     "importResults": "Importaufträge",

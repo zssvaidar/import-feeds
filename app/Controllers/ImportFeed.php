@@ -48,7 +48,7 @@ class ImportFeed extends \Espo\Core\Templates\Controllers\Base
     public function actionRunImport($params, $data, $request): bool
     {
         // checking request
-        if (!$request->isPost() || !property_exists($data, 'importFeedId') || !property_exists($data, 'attachmentId')) {
+        if (!$request->isPost() || !property_exists($data, 'importFeedId')) {
             throw new BadRequest();
         }
 
@@ -57,6 +57,8 @@ class ImportFeed extends \Espo\Core\Templates\Controllers\Base
             throw new Forbidden();
         }
 
-        return $this->getRecordService()->runImport((string)$data->importFeedId, (string)$data->attachmentId);
+        $attachmentId = property_exists($data, 'attachmentId') ? (string)$data->attachmentId : '';
+
+        return $this->getRecordService()->runImport((string)$data->importFeedId, $attachmentId);
     }
 }

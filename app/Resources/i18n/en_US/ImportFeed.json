@@ -20,7 +20,8 @@
     "configuratorItems": "Configurator",
     "emptyValue": "Empty Value",
     "nullValue": "Null Value",
-    "markForNotLinkedAttribute": "Mark for a not linked attribute"
+    "markForNotLinkedAttribute": "Mark for a not linked attribute",
+    "jobsMax": "Amount of Import Jobs to be stored"
   },
   "links": {
     "importResults": "Import Jobs",
