@@ -26,8 +26,15 @@ use Espo\Core\Jobs\Base;
 
 class ImportFeed extends Base
 {
-    public function run(): bool
+    public function run($data, $targetId, $targetType, $scheduledJobId): bool
     {
+        $scheduledJob = $this->getEntityManager()->getEntity('ScheduledJob', $scheduledJobId);
+        if (empty($scheduledJob) || empty($importFeedId = $scheduledJob->get('importFeedId'))) {
+            return true;
+        }
+
+        $this->getServiceFactory()->create('ImportFeed')->runImport($importFeedId, '');
+
         return true;
     }
 }
