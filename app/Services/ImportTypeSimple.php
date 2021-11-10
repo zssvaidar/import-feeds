@@ -33,6 +33,7 @@ use Espo\Services\QueueManagerBase;
 use Import\Exceptions\IgnoreAttribute;
 use Import\Entities\ImportFeed;
 use Treo\Core\Exceptions\NotModified;
+use Treo\Core\FilePathBuilder;
 
 class ImportTypeSimple extends QueueManagerBase
 {
@@ -53,6 +54,7 @@ class ImportTypeSimple extends QueueManagerBase
         }
 
         return [
+            "name"            => $feed->get('name'),
             "offset"          => $feed->isFileHeaderRow() ? 1 : 0,
             "limit"           => \PHP_INT_MAX,
             "delimiter"       => $feed->getDelimiter(),
@@ -78,8 +80,26 @@ class ImportTypeSimple extends QueueManagerBase
         // prepare file row
         $fileRow = (int)$data['offset'];
 
+        // create imported file
+        if (empty($data['attachmentId'])) {
+            $importedFileName = str_replace(' ', '_', strtolower($data['name'])) . '_' . time() . '.csv';
+            $importedFilePath = $this->getContainer()->get('filePathBuilder')->createPath(FilePathBuilder::UPLOAD);
+            $importedFileFullPath = $this->getConfig()->get('filesPath', 'upload/files/') . $importedFilePath;
+            Util::createDir($importedFileFullPath);
+            $importedFile = fopen($importedFileFullPath . '/' . $importedFileName, 'w');
+        }
+
         while (!empty($inputData = $this->getInputData($data))) {
             foreach ($inputData as $row) {
+                // push to imported file
+                if (empty($data['attachmentId'])) {
+                    if (empty($firstRow)) {
+                        $firstRow = true;
+                        fputcsv($importedFile, array_keys($row), ';');
+                    }
+                    fputcsv($importedFile, array_values($row), ';');
+                }
+
                 // increment file row number
                 $fileRow++;
 
@@ -171,6 +191,25 @@ class ImportTypeSimple extends QueueManagerBase
                 $action = empty($id) ? 'create' : 'update';
                 $this->log($data['data']['entity'], $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
             }
+        }
+
+        // save imported file
+        if (empty($data['attachmentId'])) {
+            fclose($importedFile);
+            $attachmentRepository = $this->getEntityManager()->getRepository('Attachment');
+            $attachment = $attachmentRepository->get();
+            $attachment->set('name', $importedFileName);
+            $attachment->set('role', 'Import');
+            $attachment->set('relatedType', 'ImportResult');
+            $attachment->set('relatedId', $importResult->get('id'));
+            $attachment->set('storage', 'UploadDir');
+            $attachment->set('storageFilePath', $importedFilePath);
+            $attachment->set('type', 'text/csv');
+            $attachment->set('size', \filesize($attachmentRepository->getFilePath($attachment)));
+            $this->getEntityManager()->saveEntity($attachment);
+
+            $importResult->set('attachmentId', $attachment->get('id'));
+            $this->getEntityManager()->saveEntity($importResult);
         }
 
         return true;
@@ -392,6 +431,11 @@ class ImportTypeSimple extends QueueManagerBase
         $fileColumns = $this->getService('CsvFileParser')->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
 
         return $templateColumns == $fileColumns;
+    }
+
+    protected function importedFileOpen()
+    {
+
     }
 
     protected function getService(string $name): Base
