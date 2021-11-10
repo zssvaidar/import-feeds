@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Import\Repositories;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Repositories\Base;
 use Espo\ORM\Entity;
 
@@ -34,11 +35,25 @@ class ImportResult extends Base
 
     protected function beforeSave(Entity $entity, array $options = [])
     {
+        $importFeed = $entity->get('importFeed');
+        if (empty($importFeed)) {
+            throw new BadRequest('Import Feed is required.');
+        }
+
         if ($entity->isAttributeChanged('state')) {
             if ($entity->get('state') == 'Running') {
                 $entity->set('start', date('Y-m-d H:i:s'));
             } elseif ($entity->get('state') == 'Success') {
                 $entity->set('end', date('Y-m-d H:i:s'));
+            }
+        }
+
+        $jobs = $this->where(['importFeedId' => $importFeed->get('id')])->order('createdAt')->find();
+        $jobsCount = count($jobs);
+        foreach ($jobs as $job) {
+            if ($jobsCount > $importFeed->get('jobsMax')) {
+                $this->getEntityManager()->removeEntity($job);
+                $jobsCount--;
             }
         }
 
@@ -58,10 +73,14 @@ class ImportResult extends Base
     {
         $id = (string)$entity->get('id');
 
-        $this->exec("UPDATE import_result_log SET deleted=1 WHERE import_result_id='$id'");
-        $this->exec("UPDATE queue_item SET deleted=1 WHERE data LIKE '%\"importResultId\":\"$id\"%'");
+        $this->exec("DELETE FROM `import_result_log` WHERE import_result_id='$id'");
+        $this->exec("DELETE FROM `queue_item` WHERE data LIKE '%\"importResultId\":\"$id\"%'");
 
-        if (!empty($attachment = $entity->get('attachment'))) {
+        if (
+            !empty($attachment = $entity->get('attachment'))
+            && !empty($importFeed = $entity->get('importFeed'))
+            && $importFeed->get('fileId') !== $attachment->get('id')
+        ) {
             $this->getEntityManager()->removeEntity($attachment);
         }
 
