@@ -1,0 +1,13 @@
+{
+  "fields": {
+    "importFeed": {
+      "type": "link"
+    }
+  },
+  "links": {
+    "importFeed": {
+      "type": "belongsTo",
+      "entity": "ImportFeed"
+    }
+  }
+}

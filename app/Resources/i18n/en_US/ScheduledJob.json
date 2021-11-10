@@ -1,0 +1,13 @@
+{
+  "fields": {
+    "importFeed": "Import Feed"
+  },
+  "links": {
+    "importFeed": "Import Feed"
+  },
+  "options": {
+    "job": {
+      "ImportFeed": "Import Feed"
+    }
+  }
+}

@@ -33,6 +33,13 @@ class V1Dot2Dot4 extends \Treo\Core\Migration\Base
             // ignore
         }
 
+        try {
+            $this->getPDO()->exec("ALTER TABLE `scheduled_job` ADD import_feed_id VARCHAR(24) DEFAULT NULL COLLATE utf8mb4_unicode_ci");
+            $this->getPDO()->exec("CREATE INDEX IDX_IMPORT_FEED_ID ON `scheduled_job` (import_feed_id)");
+        } catch (\Throwable $e) {
+            // ignore
+        }
+
         $container = (new \Treo\Core\Application())->getContainer();
         $em = $container->get('entityManager');
 
