@@ -23,12 +23,15 @@ declare(strict_types=1);
 namespace Import\Services;
 
 use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Services\Base;
 use Espo\Core\Utils\Metadata;
 use Espo\Core\Utils\Util;
+use Espo\Entities\Attachment;
 use Espo\ORM\Entity;
 use Espo\Services\QueueManagerBase;
 use Import\Exceptions\IgnoreAttribute;
+use Import\Entities\ImportFeed;
 use Treo\Core\Exceptions\NotModified;
 
 class ImportTypeSimple extends QueueManagerBase
@@ -38,6 +41,28 @@ class ImportTypeSimple extends QueueManagerBase
     private array $updatedPav = [];
     private array $deletedPav = [];
     private int $iterations = 0;
+
+    public function prepareJobData(ImportFeed $feed, string $attachmentId): array
+    {
+        if (empty($file = $this->getEntityManager()->getEntity('Attachment', $attachmentId))) {
+            throw new NotFound($this->translate('noSuchFile', 'exceptions', 'ImportFeed'));
+        }
+
+        if (!$this->isFileValid($feed, $file)) {
+            throw new BadRequest($this->translate('theFileDoesNotMatchTheTemplate', 'exceptions', 'ImportFeed'));
+        }
+
+        return [
+            "offset"          => $feed->isFileHeaderRow() ? 1 : 0,
+            "limit"           => \PHP_INT_MAX,
+            "delimiter"       => $feed->getDelimiter(),
+            "enclosure"       => $feed->getEnclosure(),
+            "isFileHeaderRow" => $feed->isFileHeaderRow(),
+            "action"          => $feed->get('fileDataAction'),
+            "attachmentId"    => $attachmentId,
+            "data"            => $feed->getConfiguratorData()
+        ];
+    }
 
     public function run(array $data = []): bool
     {
@@ -354,6 +379,19 @@ class ImportTypeSimple extends QueueManagerBase
         }
 
         return true;
+    }
+
+    protected function isFileValid(Entity $feed, Attachment $file): bool
+    {
+        // prepare settings
+        $delimiter = $feed->getDelimiter();
+        $enclosure = $feed->getEnclosure();
+        $isFileHeaderRow = $feed->isFileHeaderRow();
+
+        $templateColumns = $this->getService('CsvFileParser')->getFileColumns($feed->get('file'), $delimiter, $enclosure, $isFileHeaderRow);
+        $fileColumns = $this->getService('CsvFileParser')->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
+
+        return $templateColumns == $fileColumns;
     }
 
     protected function getService(string $name): Base

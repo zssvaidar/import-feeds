@@ -23,11 +23,9 @@ declare(strict_types=1);
 namespace Import\Services;
 
 use Espo\Core\Exceptions\BadRequest;
-use Espo\Core\Exceptions\Error;
 use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Templates\Services\Base;
-use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 use Import\Entities\ImportFeed as ImportFeedEntity;
 use Import\Entities\ImportResult;
@@ -93,12 +91,12 @@ class ImportFeed extends Base
     {
         $feed = $this->getImportFeed($importFeedId);
 
-        $this->validateFile($attachmentId, $feed);
+        $serviceName = $this->getImportTypeService($feed);
 
-        $data = $this->getPrepareData($feed, $attachmentId);
+        $data = $this->getServiceFactory()->create($serviceName)->prepareJobData($feed, $attachmentId);
         $data['data']['importResultId'] = $this->createImportResult($feed, $feed->getFeedField('entity'), $attachmentId)->get('id');
 
-        $this->push($this->getName($feed), $this->getImportTypeService($feed), $data);
+        $this->push($this->getName($feed), $serviceName, $data);
 
         return true;
     }
@@ -210,40 +208,6 @@ class ImportFeed extends Base
         return $feed;
     }
 
-    protected function validateFile(string $attachmentId, ImportFeedEntity $feed): void
-    {
-        if (empty($attachmentId)) {
-            return;
-        }
-
-        if (empty($file = $this->getEntityManager()->getEntity('Attachment', $attachmentId))) {
-            throw new NotFound($this->exception("noSuchFile"));
-        }
-
-        if (!$this->isFileValid($feed, $file)) {
-            throw new BadRequest($this->exception("theFileDoesNotMatchTheTemplate"));
-        }
-    }
-
-    /**
-     * @param ImportFeedEntity $feed
-     * @param Attachment       $file
-     *
-     * @return bool
-     */
-    protected function isFileValid(ImportFeedEntity $feed, Attachment $file): bool
-    {
-        // prepare settings
-        $delimiter = $feed->getDelimiter();
-        $enclosure = $feed->getEnclosure();
-        $isFileHeaderRow = $feed->isFileHeaderRow();
-
-        $templateColumns = $this->getCsvFileParser()->getFileColumns($feed->get('file'), $delimiter, $enclosure, $isFileHeaderRow);
-        $fileColumns = $this->getCsvFileParser()->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
-
-        return $templateColumns == $fileColumns;
-    }
-
     /**
      * @return CsvFileParser
      */
@@ -274,27 +238,6 @@ class ImportFeed extends Base
     protected function getImportTypeService(ImportFeedEntity $feed): string
     {
         return "ImportType" . ucfirst($feed->get('type'));
-    }
-
-    /**
-     * @param ImportFeedEntity $feed
-     * @param string           $attachmentId
-     *
-     * @return array
-     */
-    protected function getPrepareData(ImportFeedEntity $feed, string $attachmentId): array
-    {
-        return [
-            "offset"          => $feed->isFileHeaderRow() ? 1 : 0,
-            "limit"           => empty($feed->getFeedField('limit')) ? \PHP_INT_MAX : (int)$feed->getFeedField('limit'),
-            "delimiter"       => $feed->getDelimiter(),
-            "enclosure"       => $feed->getEnclosure(),
-            "isFileHeaderRow" => $feed->isFileHeaderRow(),
-            "action"          => $feed->get('fileDataAction'),
-            "decimalMark"     => $feed->getFeedField('decimalMark'),
-            "attachmentId"    => $attachmentId,
-            "data"            => $feed->getConfiguratorData()
-        ];
     }
 
     /**
