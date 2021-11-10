@@ -1,7 +1,11 @@
 {
   "controller": "controllers/record",
   "boolFilterList": [
-    "onlyMy"
+    "onlyMy",
+    "onlyExecutable"
+  ],
+  "hiddenBoolFilterList": [
+    "onlyExecutable"
   ],
   "iconClass": "fas fa-cloud-download-alt",
   "views": {
