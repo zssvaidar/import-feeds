@@ -433,11 +433,6 @@ class ImportTypeSimple extends QueueManagerBase
         return $templateColumns == $fileColumns;
     }
 
-    protected function importedFileOpen()
-    {
-
-    }
-
     protected function getService(string $name): Base
     {
         if (!isset($this->services[$name])) {
