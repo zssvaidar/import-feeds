@@ -12,6 +12,7 @@
     "attribute": "Attribute",
     "channel": "Channel",
     "scope": "Scope",
+    "unusedColumns": "Unused Columns",
     "type": "Type"
   },
   "links": {

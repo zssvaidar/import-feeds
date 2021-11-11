@@ -28,7 +28,8 @@ Espo.define('import:views/import-feed/detail', 'views/detail',
                 this.relatedAttributeFunctions['configuratorItems'] = () => {
                     return {
                         "entity": this.model.get('entity'),
-                        "allColumns": this.model.get('allColumns')
+                        "allColumns": this.model.get('allColumns'),
+                        "unusedColumns": this.model.get('unusedColumns')
                     }
                 };
 
