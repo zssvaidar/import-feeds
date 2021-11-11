@@ -41,8 +41,9 @@ class ImportFeed extends Base
 
         $removeConfigurator = false;
 
+        $this->validateFeed($entity);
+
         if ($entity->get('type') === 'simple') {
-            $this->validateSimpleType($entity);
             $removeConfigurator = $entity->has('entity') && !$entity->isNew() && $entity->getFeedField('entity') !== $entity->get('entity');
         }
 
@@ -57,23 +58,21 @@ class ImportFeed extends Base
         }
     }
 
-    protected function validateSimpleType(Entity $entity): void
+    protected function validateFeed(Entity $entity): void
     {
         $delimiters = [
             $entity->getFeedField('delimiter'),
-            $entity->getFeedField('fileFieldDelimiter'),
             $entity->getFeedField('decimalMark'),
-            $entity->getFeedField('thousandSeparator')
+            $entity->getFeedField('thousandSeparator'),
+            $entity->getFeedField('fieldDelimiterForRelation')
         ];
+
+        if ($entity->get('type') === 'simple') {
+            $delimiters[] = $entity->getFeedField('fileFieldDelimiter');
+        }
 
         if ($entity->getFeedField('entity') === 'Product') {
             $delimiters[] = $entity->getFeedField('markForNotLinkedAttribute');
-        }
-
-        foreach ($delimiters as $delimiter) {
-            if ($delimiter === '|') {
-                throw new BadRequest($this->getLanguage()->translate("pipelineIsNotAllowed", "exceptions", "ImportFeed"));
-            }
         }
 
         if (count(array_unique($delimiters)) !== count($delimiters)) {

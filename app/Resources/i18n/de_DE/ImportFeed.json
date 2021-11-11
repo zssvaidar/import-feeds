@@ -17,7 +17,8 @@
     "emptyValue": "Leerer Wert",
     "nullValue": "Nullwert",
     "markForNotLinkedAttribute": "Markierung für ein nicht verknüpftes Attribut",
-    "jobsMax": "Anzahl der zu speichernden Importaufträge"
+    "jobsMax": "Anzahl der zu speichernden Importaufträge",
+    "fieldDelimiterForRelation": "Feldtrennzeichen für Relation"
   },
   "links": {
     "importResults": "Importaufträge",
@@ -69,7 +70,6 @@
     "incorrectUnitValue": "Messwertformat ist ungültig. Wert wie \"10 mm\" wird erwartet.",
     "incorrectUnit": "Die Maßeinheit '%s' für das Feld '%s' ist falsch.",
     "incorrectAttributeUnit": "Die Maßeinheit '%s' für den Attributwert '%s' ist falsch.",
-    "pipelineIsNotAllowed": "Symbol \"|\" kann nicht als Trennzeichen verwendet werden.",
     "permissionDenied": "Zugriff verweigert",
     "nothingToUpdate": "Nichts zu aktualisieren",
     "configuratorEmpty": "Konfigurator kann nicht leer sein.",

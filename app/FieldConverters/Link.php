@@ -53,7 +53,7 @@ class Link extends Varchar
                 $user = $this->container->get('user');
                 $userId = empty($user) ? null : $user->get('id');
 
-                $values = explode('|', $value);
+                $values = explode($config['fieldDelimiterForRelation'], $value);
 
                 $input = new \stdClass();
 

@@ -145,6 +145,7 @@ class ImportFeed extends Base
                 'decimalMark'               => $this->getFeedField('decimalMark'),
                 'thousandSeparator'         => $this->getFeedField('thousandSeparator'),
                 'markForNotLinkedAttribute' => $this->getFeedField('markForNotLinkedAttribute'),
+                'fieldDelimiterForRelation' => $this->getFeedField('fieldDelimiterForRelation'),
             ];
         }
 

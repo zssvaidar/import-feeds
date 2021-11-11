@@ -77,6 +77,12 @@
       ],
       [
         {
+          "name": "fieldDelimiterForRelation"
+        },
+        false
+      ],
+      [
+        {
           "name": "thousandSeparator"
         },
         {

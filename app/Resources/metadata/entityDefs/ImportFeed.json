@@ -173,6 +173,13 @@
       "required": false,
       "default": "_"
     },
+    "fieldDelimiterForRelation": {
+      "type": "varchar",
+      "notStorable": true,
+      "dataField": true,
+      "required": true,
+      "default": "|"
+    },
     "emptyValue": {
       "type": "varchar",
       "notStorable": true,
