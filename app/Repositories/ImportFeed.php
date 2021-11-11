@@ -58,7 +58,7 @@ class ImportFeed extends Base
         }
     }
 
-    protected function validateFeed(Entity $entity): void
+    public function validateFeed(Entity $entity): void
     {
         $delimiters = [
             $entity->getFeedField('delimiter'),
