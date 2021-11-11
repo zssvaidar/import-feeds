@@ -65,6 +65,34 @@ class ImportFeed extends Base
         return [];
     }
 
+    public function getUnusedColumns(): array
+    {
+        if (empty($allColumns = $this->getFeedField('allColumns'))) {
+            return [];
+        }
+
+        $items = $this->get('configuratorItems');
+        if (empty($items) || count($items) === 0) {
+            return [];
+        }
+
+        $usedColumns = [];
+        foreach ($items as $item) {
+            if (!empty($columns = $item->get('column'))) {
+                $usedColumns = array_merge($usedColumns, $columns);
+            }
+        }
+
+        $unusedColumns = [];
+        foreach ($allColumns as $column) {
+            if (!in_array($column, $usedColumns)) {
+                $unusedColumns[] = $column;
+            }
+        }
+
+        return $unusedColumns;
+    }
+
     public function getDelimiter(): string
     {
         return (string)$this->getFeedField('fileFieldDelimiter');

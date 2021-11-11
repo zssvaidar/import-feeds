@@ -52,6 +52,12 @@
           "name": "locale"
         },
         false
+      ],
+      [
+        {
+          "name": "unusedColumns",
+          "fullWidth": true
+        }
       ]
     ]
   }

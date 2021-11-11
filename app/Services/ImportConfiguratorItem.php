@@ -41,6 +41,7 @@ class ImportConfiguratorItem extends Base
 
         $entity->set('entity', $importFeed->getFeedField('entity'));
         $entity->set('allColumns', $importFeed->getFeedField('allColumns'));
+        $entity->set('unusedColumns', $importFeed->getUnusedColumns());
 
         if ($entity->get('type') === 'Attribute') {
             if (empty($attribute = $this->getEntityManager()->getEntity('Attribute', $entity->get('attributeId')))) {
