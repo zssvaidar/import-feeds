@@ -57,7 +57,7 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
                 }
             } else {
                 foreach ($data[0] as $k => $value) {
-                    $result[] = $k + 1;
+                    $result[] = (string)($k + 1);
                 }
             }
         }

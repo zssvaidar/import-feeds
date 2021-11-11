@@ -44,9 +44,6 @@ class ImportFeed extends Base
         if ($entity->get('type') === 'simple') {
             $this->validateSimpleType($entity);
             $removeConfigurator = $entity->has('entity') && !$entity->isNew() && $entity->getFeedField('entity') !== $entity->get('entity');
-            if (!$removeConfigurator && $entity->isAttributeChanged('fileId')) {
-                $removeConfigurator = true;
-            }
         }
 
         parent::beforeSave($entity, $options);
