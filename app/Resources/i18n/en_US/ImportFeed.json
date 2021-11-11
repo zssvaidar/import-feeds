@@ -21,7 +21,8 @@
     "emptyValue": "Empty Value",
     "nullValue": "Null Value",
     "markForNotLinkedAttribute": "Mark for a not linked attribute",
-    "jobsMax": "Amount of Import Jobs to be stored"
+    "jobsMax": "Amount of Import Jobs to be stored",
+    "fieldDelimiterForRelation": "Field Delimiter for Relation"
   },
   "links": {
     "importResults": "Import Jobs",
@@ -72,7 +73,6 @@
     "incorrectUnitValue": "Measure value format is invalid. Value like \"10 mm\" is expected.",
     "incorrectUnit": "Measure unit '%s' for the field '%s' is incorrect.",
     "incorrectAttributeUnit": "Measure unit '%s' for the attribute value '%s' is incorrect.",
-    "pipelineIsNotAllowed": "Symbol \"|\" cannot be used as delimiter.",
     "permissionDenied": "Permission denied",
     "nothingToUpdate": "Nothing to update",
     "configuratorEmpty": "Configurator cannot be empty.",
