@@ -103,7 +103,7 @@
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
-      "required": false,
+      "required": true,
       "default": ","
     },
     "allColumns": {
@@ -170,7 +170,7 @@
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
-      "required": false,
+      "required": true,
       "default": "_"
     },
     "fieldDelimiterForRelation": {
