@@ -16,6 +16,7 @@ You will be able to create a scheduled job for your import tasks only if the app
 - Import Feeds: REST API – allows to import data via REST API
 - Connector – orchestrates multiple import and export feeds to automate the complex data exchange
 
+
 ## Administrator Functions
 
 After the module installation two new entities will be created in your system - `Import Feeds` and `Import Results`. Via `Administration > System > User Interface` you can add these items to the navigation of your system if it did not happen automatically.
