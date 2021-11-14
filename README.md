@@ -1,3 +1,3 @@
-# Import Feeds Module
+# Import Feeds
 
-please read the description [here](/desc/import-feeds-desc-en.md).
+Technical documentation is available here: https://help.atrocore.com/#/modules/import-feeds.
