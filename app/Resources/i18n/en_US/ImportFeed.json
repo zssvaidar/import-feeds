@@ -59,6 +59,7 @@
     "importNow": "Are you sure you want to import data from the selected file?"
   },
   "exceptions": {
+    "onlyCsvIsAllowed": "Only CSV file is allowed.",
     "noSpecified": "No '%s' specified.",
     "delimitersMustBeDifferent": "All feed parameters should have unique values.",
     "unlinkAndLinkInOneRow": "Multilingual attribute should be marked as a not linked attribute for all languages to unlink it.",
