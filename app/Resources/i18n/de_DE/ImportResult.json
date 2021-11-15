@@ -6,6 +6,7 @@
     "end": "Ende",
     "createdCount": "Erstellt",
     "updatedCount": "Aktualisiert",
+    "deletedCount": "Gelöscht",
     "errorsCount": "Fehler",
     "attachment": "Importierte Datei",
     "errorsAttachment": "Fehlerdatei",

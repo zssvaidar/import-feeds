@@ -60,6 +60,11 @@
       "readOnly": true,
       "view": "import:views/import-result/fields/updated-count"
     },
+    "deletedCount": {
+      "type": "int",
+      "notStorable": true,
+      "readOnly": true
+    },
     "errorsCount": {
       "type": "int",
       "notStorable": true,

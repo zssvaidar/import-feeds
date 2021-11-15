@@ -46,6 +46,10 @@
     "create": "Nur erstellen",
     "create_update": "Erstellen und aktualisieren",
     "update": "Nur aktualisieren",
+    "delete": "Nur löschen",
+    "create_delete": "Nur erstellen und löschen",
+    "update_delete": "Nur aktualisieren und löschen",
+    "create_update_delete": "Erstellen, aktualisieren und löschen",
     "import": "Importieren",
     "uploadAndImport": "Hochladen & Importieren"
   },

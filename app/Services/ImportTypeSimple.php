@@ -75,7 +75,7 @@ class ImportTypeSimple extends QueueManagerBase
 
         $scope = $data['data']['entity'];
 
-        $updatedIds = [];
+        $processesIds = [];
 
         // prepare file row
         $fileRow = (int)$data['offset'];
@@ -109,7 +109,7 @@ class ImportTypeSimple extends QueueManagerBase
 
                     if (!empty($entity)) {
                         $id = $entity->get('id');
-                        if (in_array($id, $updatedIds)) {
+                        if (in_array($id, $processesIds)) {
                             throw new BadRequest($this->translate('alreadyProceeded', 'exceptions', 'ImportFeed'));
                         }
                     }
@@ -122,6 +122,10 @@ class ImportTypeSimple extends QueueManagerBase
                 }
 
                 if ($data['action'] == 'update' && empty($entity)) {
+                    continue 1;
+                }
+
+                if ($data['action'] == 'delete') {
                     continue 1;
                 }
 
@@ -151,7 +155,9 @@ class ImportTypeSimple extends QueueManagerBase
                         $updatedEntity = $this->getService($scope)->createEntity($input);
                         $this->importAttributes($attributes, $updatedEntity);
                         $this->saveRestoreRow('created', $scope, $updatedEntity->get('id'));
+                        $processesIds[] = $updatedEntity->get('id');
                     } else {
+                        $processesIds[] = $id;
                         $notModified = true;
                         try {
                             $updatedEntity = $this->getService($scope)->updateEntity($id, $input);
@@ -172,7 +178,6 @@ class ImportTypeSimple extends QueueManagerBase
 
                     if ($this->getEntityManager()->getPDO()->inTransaction()) {
                         $this->getEntityManager()->getPDO()->commit();
-                        $updatedIds[] = $updatedEntity->get('id');
                     }
                 } catch (\Throwable $e) {
                     if ($this->getEntityManager()->getPDO()->inTransaction()) {
@@ -189,7 +194,28 @@ class ImportTypeSimple extends QueueManagerBase
                 }
 
                 $action = empty($id) ? 'create' : 'update';
-                $this->log($data['data']['entity'], $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
+                $this->log($scope, $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
+            }
+        }
+
+        if (in_array($data['action'], ['delete', 'create_delete', 'update_delete', 'create_update_delete'])) {
+            $toDeleteRecords = $this
+                ->getEntityManager()
+                ->getRepository($scope)
+                ->select(['id'])
+                ->where(['id!=' => $processesIds])
+                ->find();
+
+            if (!empty($toDeleteRecords) && count($toDeleteRecords) > 0) {
+                foreach ($toDeleteRecords as $record) {
+                    try {
+                        if ($this->getService($scope)->deleteEntity($record->get('id'))) {
+                            $this->log($scope, $importResult->get('id'), 'delete', null, $record->get('id'));
+                        }
+                    } catch (\Throwable $e) {
+                        // ignore all
+                    }
+                }
             }
         }
 
@@ -215,20 +241,28 @@ class ImportTypeSimple extends QueueManagerBase
         return true;
     }
 
-    public function log(string $entityName, string $importResultId, string $type, string $row, string $data): Entity
+    public function log(string $entityName, string $importResultId, string $type, ?string $row, string $data): Entity
     {
-        // create log
         $log = $this->getEntityManager()->getEntity('ImportResultLog');
         $log->set('name', $row);
-        $log->set('rowNumber', $row);
         $log->set('entityName', $entityName);
         $log->set('importResultId', $importResultId);
         $log->set('type', $type);
-        if ($type == 'error') {
-            $log->set('message', $data);
-        } else {
-            $log->set('entityId', $data);
-            $log->set('restoreData', $this->restore);
+
+        switch ($type) {
+            case 'create':
+            case 'update':
+                $log->set('rowNumber', (int)$row);
+                $log->set('entityId', $data);
+                $log->set('restoreData', $this->restore);
+                break;
+            case 'delete':
+                $log->set('entityId', $data);
+                break;
+            case 'error':
+                $log->set('rowNumber', (int)$row);
+                $log->set('message', $data);
+                break;
         }
 
         try {

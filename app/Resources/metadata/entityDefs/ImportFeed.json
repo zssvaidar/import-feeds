@@ -89,7 +89,11 @@
       "options": [
         "create",
         "update",
-        "create_update"
+        "delete",
+        "create_update",
+        "create_delete",
+        "update_delete",
+        "create_update_delete"
       ],
       "default": "create"
     },

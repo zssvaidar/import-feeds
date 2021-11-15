@@ -27,6 +27,10 @@
     "notSortable": true
   },
   {
+    "name": "deletedCount",
+    "notSortable": true
+  },
+  {
     "name": "errorsCount",
     "notSortable": true
   },

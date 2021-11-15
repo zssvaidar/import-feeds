@@ -49,6 +49,10 @@
     "create": "Create Only",
     "create_update": "Create & Update",
     "update": "Update Only",
+    "delete": "Delete only",
+    "create_delete": "Create and Delete only",
+    "update_delete": "Update and Delete only",
+    "create_update_delete": "Create, Update and Delete",
     "import": "Import",
     "uploadAndImport": "Upload & Import"
   },
