@@ -56,6 +56,7 @@
     "importNow": "Möchten Sie die Daten aus der ausgewählten Datei wirklich importieren?"
   },
   "exceptions": {
+    "noSpecified": "Kein '%s' angegeben.",
     "delimitersMustBeDifferent": "Alle Feedparameter sollten eindeutige Werte haben.",
     "unlinkAndLinkInOneRow": "Das mehrsprachige Attribut sollte für alle Sprachen als nicht verknüpftes Attribut markiert werden, um die Verknüpfung aufzuheben.",
     "alreadyProceeded": "Datensatz mit dieser(n) Kennung(en) wurde bereits bearbeitet.",

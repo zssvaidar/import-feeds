@@ -152,17 +152,19 @@ class Unit extends FloatValue
         $entity->set('defaultUnit', $unitData['unit']);
     }
 
-    /**
-     * @param string $unit
-     * @param string $entityType
-     * @param array  $config
-     *
-     * @return bool
-     */
-    protected function validateUnit(string $unit, string $entityType, array $config): bool
+    protected function validateUnit(?string $unit, ?string $entityType, array $config): bool
     {
+        if ($unit === null) {
+            throw new BadRequest(sprintf($this->translate('noSpecified', 'exceptions', 'ImportFeed'), 'unit'));
+        }
+
+        if ($entityType === null) {
+            throw new BadRequest(sprintf($this->translate('noSpecified', 'exceptions', 'ImportFeed'), 'entity'));
+        }
+
         // prepare result
         $result = false;
+
         // prepare exist measuring units list
         $units = $this->getConfig()->get('unitsOfMeasure', []);
 
