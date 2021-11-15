@@ -36,6 +36,7 @@ class ImportResult extends Base
 
         $entity->set('createdCount', $this->getLogCount('create', $id));
         $entity->set('updatedCount', $this->getLogCount('update', $id));
+        $entity->set('deletedCount', $this->getLogCount('delete', $id));
         $entity->set('errorsCount', $this->getLogCount('error', $id));
     }
 
