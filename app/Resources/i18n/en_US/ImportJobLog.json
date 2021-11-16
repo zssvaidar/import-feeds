@@ -1,0 +1,16 @@
+{
+  "fields": {
+    "rowNumber": "Row",
+    "importJob": "Import Job",
+    "type": "Type",
+    "entityName": "Entity",
+    "entityId": "Entity Id",
+    "message": "Error Message"
+  },
+  "links": {
+    "importJob": "Import Job"
+  },
+  "labels": {
+    "Create ImportJobLog": "Create Import Job Log"
+  }
+}

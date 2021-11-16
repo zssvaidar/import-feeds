@@ -12,7 +12,7 @@
     "fileDataAction": "Aktion",
     "thousandSeparator": "Tausendertrennzeichen",
     "decimalMark": "Dezimaltrennzeichen",
-    "importResults": "Importaufträge",
+    "importJobs": "Importaufträge",
     "configuratorItems": "Konfigurator",
     "emptyValue": "Leerer Wert",
     "nullValue": "Nullwert",
@@ -21,7 +21,7 @@
     "fieldDelimiterForRelation": "Feldtrennzeichen für Relation"
   },
   "links": {
-    "importResults": "Importaufträge",
+    "importJobs": "Importaufträge",
     "configuratorItems": "Konfigurator"
   },
   "labels": {

@@ -153,7 +153,7 @@
       "type": "linkMultiple",
       "view": "views/fields/teams"
     },
-    "importResults": {
+    "importJobs": {
       "type": "linkMultiple",
       "layoutDetailDisabled": true,
       "layoutMassUpdateDisabled": true,
@@ -245,10 +245,10 @@
       "relationName": "EntityTeam",
       "layoutRelationshipsDisabled": true
     },
-    "importResults": {
+    "importJobs": {
       "type": "hasMany",
       "foreign": "importFeed",
-      "entity": "ImportResult"
+      "entity": "ImportJob"
     }
   },
   "collection": {

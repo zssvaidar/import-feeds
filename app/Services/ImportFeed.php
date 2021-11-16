@@ -28,7 +28,7 @@ use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Templates\Services\Base;
 use Espo\ORM\Entity;
 use Import\Entities\ImportFeed as ImportFeedEntity;
-use Import\Entities\ImportResult;
+use Import\Entities\ImportJob;
 use Espo\Entities\Attachment;
 
 /**
@@ -97,7 +97,7 @@ class ImportFeed extends Base
         $serviceName = $this->getImportTypeService($feed);
 
         $data = $this->getServiceFactory()->create($serviceName)->prepareJobData($feed, $attachmentId);
-        $data['data']['importResultId'] = $this->createImportResult($feed, $feed->getFeedField('entity'), $attachmentId)->get('id');
+        $data['data']['importJobId'] = $this->createImportJob($feed, $feed->getFeedField('entity'), $attachmentId)->get('id');
 
         $this->push($this->getName($feed), $serviceName, $data);
 
@@ -277,11 +277,11 @@ class ImportFeed extends Base
      * @param string           $entityType
      * @param string           $attachmentId
      *
-     * @return ImportResult
+     * @return ImportJob
      */
-    protected function createImportResult(ImportFeedEntity $feed, string $entityType, string $attachmentId): ImportResult
+    protected function createImportJob(ImportFeedEntity $feed, string $entityType, string $attachmentId): ImportJob
     {
-        $entity = $this->getEntityManager()->getEntity('ImportResult');
+        $entity = $this->getEntityManager()->getEntity('ImportJob');
         $entity->set('name', date('Y-m-d H:i:s'));
         $entity->set('importFeedId', $feed->get('id'));
         $entity->set('entityName', $entityType);

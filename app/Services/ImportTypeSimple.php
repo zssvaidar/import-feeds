@@ -68,9 +68,9 @@ class ImportTypeSimple extends QueueManagerBase
 
     public function run(array $data = []): bool
     {
-        $importResult = $this->getEntityManager()->getEntity('ImportResult', $data['data']['importResultId']);
-        if (empty($importResult)) {
-            throw new BadRequest('No such ImportResult.');
+        $importJob = $this->getEntityManager()->getEntity('ImportJob', $data['data']['importJobId']);
+        if (empty($importJob)) {
+            throw new BadRequest('No such ImportJob.');
         }
 
         $scope = $data['data']['entity'];
@@ -114,7 +114,7 @@ class ImportTypeSimple extends QueueManagerBase
                         }
                     }
                 } catch (\Throwable $e) {
-                    $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $e->getMessage());
+                    $this->log($scope, $importJob->get('id'), 'error', (string)$fileRow, $e->getMessage());
                 }
 
                 if ($data['action'] == 'create' && !empty($entity)) {
@@ -187,14 +187,14 @@ class ImportTypeSimple extends QueueManagerBase
                     $message = empty($e->getMessage()) ? $this->getCodeMessage($e->getCode()) : $e->getMessage();
 
                     if (!$e instanceof NotModified) {
-                        $this->log($scope, $importResult->get('id'), 'error', (string)$fileRow, $message);
+                        $this->log($scope, $importJob->get('id'), 'error', (string)$fileRow, $message);
                     }
 
                     continue 1;
                 }
 
                 $action = empty($id) ? 'create' : 'update';
-                $this->log($scope, $importResult->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
+                $this->log($scope, $importJob->get('id'), $action, (string)$fileRow, $updatedEntity->get('id'));
             }
         }
 
@@ -210,7 +210,7 @@ class ImportTypeSimple extends QueueManagerBase
                 foreach ($toDeleteRecords as $record) {
                     try {
                         if ($this->getService($scope)->deleteEntity($record->get('id'))) {
-                            $this->log($scope, $importResult->get('id'), 'delete', null, $record->get('id'));
+                            $this->log($scope, $importJob->get('id'), 'delete', null, $record->get('id'));
                         }
                     } catch (\Throwable $e) {
                         // ignore all
@@ -226,27 +226,27 @@ class ImportTypeSimple extends QueueManagerBase
             $attachment = $attachmentRepository->get();
             $attachment->set('name', $importedFileName);
             $attachment->set('role', 'Import');
-            $attachment->set('relatedType', 'ImportResult');
-            $attachment->set('relatedId', $importResult->get('id'));
+            $attachment->set('relatedType', 'ImportJob');
+            $attachment->set('relatedId', $importJob->get('id'));
             $attachment->set('storage', 'UploadDir');
             $attachment->set('storageFilePath', $importedFilePath);
             $attachment->set('type', 'text/csv');
             $attachment->set('size', \filesize($attachmentRepository->getFilePath($attachment)));
             $this->getEntityManager()->saveEntity($attachment);
 
-            $importResult->set('attachmentId', $attachment->get('id'));
-            $this->getEntityManager()->saveEntity($importResult);
+            $importJob->set('attachmentId', $attachment->get('id'));
+            $this->getEntityManager()->saveEntity($importJob);
         }
 
         return true;
     }
 
-    public function log(string $entityName, string $importResultId, string $type, ?string $row, string $data): Entity
+    public function log(string $entityName, string $importJobId, string $type, ?string $row, string $data): Entity
     {
-        $log = $this->getEntityManager()->getEntity('ImportResultLog');
+        $log = $this->getEntityManager()->getEntity('ImportJobLog');
         $log->set('name', $row);
         $log->set('entityName', $entityName);
-        $log->set('importResultId', $importResultId);
+        $log->set('importJobId', $importJobId);
         $log->set('type', $type);
 
         switch ($type) {

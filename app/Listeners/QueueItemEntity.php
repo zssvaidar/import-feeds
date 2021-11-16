@@ -31,33 +31,33 @@ class QueueItemEntity extends AbstractListener
     public function afterSave(Event $event): void
     {
         $entity = $event->getArgument('entity');
-        if (!empty($entity->get('data')->data->importResultId)) {
-            $this->updateImportResultState($entity);
+        if (!empty($entity->get('data')->data->importJobId)) {
+            $this->updateImportJobState($entity);
         }
     }
 
     public function afterRemove(Event $event): void
     {
         $entity = $event->getArgument('entity');
-        if (!empty($entity->get('data')->data->importResultId)) {
-            $this->updateImportResultState($entity);
+        if (!empty($entity->get('data')->data->importJobId)) {
+            $this->updateImportJobState($entity);
         }
     }
 
-    private function updateImportResultState(Entity $entity): bool
+    private function updateImportJobState(Entity $entity): bool
     {
-        $importResult = $this->getEntityManager()->getEntity('ImportResult', $entity->get('data')->data->importResultId);
-        if (empty($importResult)) {
+        $importJob = $this->getEntityManager()->getEntity('ImportJob', $entity->get('data')->data->importJobId);
+        if (empty($importJob)) {
             return false;
         }
 
         if ($entity->get('status') === 'Canceled') {
-            $this->getEntityManager()->removeEntity($importResult);
+            $this->getEntityManager()->removeEntity($importJob);
             return true;
         }
 
-        $importResult->set('state', $entity->get('status'));
-        $this->getEntityManager()->saveEntity($importResult);
+        $importJob->set('state', $entity->get('status'));
+        $this->getEntityManager()->saveEntity($importJob);
         return true;
     }
 }

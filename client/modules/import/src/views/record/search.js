@@ -33,7 +33,7 @@ Espo.define('import:views/record/search', 'class-replace!import:views/record/sea
                     readOnly: true
                 },
                 link: {
-                    entity: 'ImportResult',
+                    entity: 'ImportJob',
                     type: "belongsTo"
                 }
             },
@@ -44,7 +44,7 @@ Espo.define('import:views/record/search', 'class-replace!import:views/record/sea
                     readOnly: true
                 },
                 link: {
-                    entity: 'ImportResult',
+                    entity: 'ImportJob',
                     type: "belongsTo"
                 }
             }

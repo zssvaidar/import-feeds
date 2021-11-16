@@ -1,0 +1,29 @@
+{
+  "fields": {
+    "importFeed": "Импортный фид",
+    "state": "Статус",
+    "start": "Н ",
+    "end": "Окончание",
+    "createdCount": "Создано",
+    "updatedCount": "Обновлено",
+    "deletedCount": "Удалено",
+    "errorsCount": "Ошибка",
+    "attachment": "Проимпортированный файл",
+    "errorsAttachment": "Файл ошибок",
+    "importJobLogs": "Лог ошибок"
+  },
+  "links": {
+    "importFeed": "Импортный фид",
+    "importJobLogs": "Лог ошибок"
+  },
+  "labels": {
+    "Create ImportJob": "Создать задание импорта",
+    "Pending": "В очереди",
+    "Running": "Выполняется",
+    "Done": "Создано",
+    "Failed": "Не выполнено"
+  },
+  "tooltips": {
+    "errorsAttachment": "Строчки с 'Imported file' которые не были проимпортированы."
+  }
+}
