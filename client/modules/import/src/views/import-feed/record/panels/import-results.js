@@ -17,7 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-Espo.define('import:views/import-feed/record/panels/import-results', 'views/record/panels/relationship',
+Espo.define('import:views/import-feed/record/panels/import-jobs', 'views/record/panels/relationship',
     Dep => Dep.extend({
 
         refreshIntervalGap: 5000,
@@ -47,7 +47,7 @@ Espo.define('import:views/import-feed/record/panels/import-results', 'views/reco
         },
 
         actionRefresh() {
-            if ($('.panel-body[data-name="importResults"] .list-row-buttons.open').length === 0) {
+            if ($('.panel-body[data-name="importJobs"] .list-row-buttons.open').length === 0) {
                 Dep.prototype.actionRefresh.call(this);
             }
         },

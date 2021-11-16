@@ -1,0 +1,16 @@
+{
+  "fields": {
+    "rowNumber": "Reihennummer",
+    "importJob": "Importauftrag",
+    "type": "Typ",
+    "entityName": "Entität",
+    "entityId": "Objekt-ID",
+    "message": "Nachricht"
+  },
+  "links": {
+    "importJob": "Importauftrag"
+  },
+  "labels": {
+    "Create ImportJobLog": "Import-Auftragslog erstellen"
+  }
+}

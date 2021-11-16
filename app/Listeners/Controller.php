@@ -67,22 +67,17 @@ class Controller extends AbstractListener
         }
     }
 
-    /**
-     * @param string $type
-     *
-     * @return array
-     */
-    private function getLogIds(string $type, string $entityName, string $importResultId): array
+    private function getLogIds(string $type, string $entityName, string $importJobId): array
     {
         $data = $this
             ->getEntityManager()
-            ->getRepository('ImportResultLog')
+            ->getRepository('ImportJobLog')
             ->select(['entityId'])
             ->where(
                 [
                     'type'           => $type,
                     'entityName'     => $entityName,
-                    'importResultId' => $importResultId
+                    'importJobId' => $importJobId
                 ]
             )
             ->find()->toArray();

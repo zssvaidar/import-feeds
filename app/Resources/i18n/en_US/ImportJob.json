@@ -1,0 +1,29 @@
+{
+  "fields": {
+    "importFeed": "Import Feed",
+    "state": "State",
+    "start": "Start",
+    "end": "End",
+    "createdCount": "Created",
+    "updatedCount": "Updated",
+    "deletedCount": "Deleted",
+    "errorsCount": "Errors",
+    "attachment": "Imported file",
+    "errorsAttachment": "Error file",
+    "importJobLogs": "Error Logs"
+  },
+  "links": {
+    "importFeed": "Import Feed",
+    "importJobLogs": "Error Logs"
+  },
+  "labels": {
+    "Create ImportJob": "Create Import Job",
+    "Pending": "Pending",
+    "Running": "Running",
+    "Done": "Done",
+    "Failed": "Failed"
+  },
+  "tooltips": {
+    "errorsAttachment": "Rows from 'Imported file' that have not been imported."
+  }
+}

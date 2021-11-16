@@ -16,7 +16,6 @@
     "thousandSeparator": "Thousand Separator",
     "decimalMark": "Decimal Mark",
     "importFile": "Data File",
-    "importResults": "Import Jobs",
     "configuratorItems": "Configurator",
     "emptyValue": "Empty Value",
     "nullValue": "Null Value",
@@ -25,7 +24,7 @@
     "fieldDelimiterForRelation": "Field Delimiter for Relation"
   },
   "links": {
-    "importResults": "Import Jobs",
+    "importJobs": "Import Jobs",
     "configuratorItems": "Configurator"
   },
   "labels": {

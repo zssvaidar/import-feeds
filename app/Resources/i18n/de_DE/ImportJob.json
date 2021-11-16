@@ -1,0 +1,29 @@
+{
+  "fields": {
+    "importFeed": "Import Feed",
+    "state": "Zustand",
+    "start": "Start",
+    "end": "Ende",
+    "createdCount": "Erstellt",
+    "updatedCount": "Aktualisiert",
+    "deletedCount": "Gelöscht",
+    "errorsCount": "Fehler",
+    "attachment": "Importierte Datei",
+    "errorsAttachment": "Fehlerdatei",
+    "importJobLogs": "Fehlerlogs"
+  },
+  "links": {
+    "importFeed": "Import Feed",
+    "importJobLogs": "Fehlerlogs"
+  },
+  "labels": {
+    "Create ImportJob": "Importauftrag erstellen",
+    "Pending": "Steht aus",
+    "Running": "In Arbeit",
+    "Done": "Erledigt",
+    "Failed": "Fehlgeschlagen"
+  },
+  "tooltips": {
+    "errorsAttachment": "Zeilen aus 'Importierter Datei', die nicht importiert wurden."
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "fields": {
+    "name": {
+      "type": "varchar",
+      "required": true,
+      "trim": true,
+      "readOnly": true
+    },
+    "importFeed": {
+      "type": "link",
+      "readOnly": true
+    },
+    "entityName": {
+      "type": "varchar",
+      "readOnly": true,
+      "layoutDetailDisabled": true,
+      "layoutDetailSmallDisabled": true,
+      "layoutListDisabled": true,
+      "layoutListSmallDisabled": true,
+      "layoutFilterDisabled": true
+    },
+    "state": {
+      "type": "enum",
+      "required": true,
+      "fontSize": 1,
+      "options": [
+        "Pending",
+        "Running",
+        "Success",
+        "Failed"
+      ],
+      "optionColors": [
+        "00AFFF",
+        "FFE208",
+        "1DFF08",
+        "FF0000"
+      ],
+      "default": "Pending",
+      "readOnly": true
+    },
+    "start": {
+      "notNull": false,
+      "type": "datetime",
+      "readOnly": true
+    },
+    "end": {
+      "notNull": false,
+      "type": "datetime",
+      "readOnly": true
+    },
+    "createdCount": {
+      "type": "int",
+      "notStorable": true,
+      "readOnly": true,
+      "view": "import:views/import-job/fields/created-count"
+    },
+    "updatedCount": {
+      "type": "int",
+      "notStorable": true,
+      "readOnly": true,
+      "view": "import:views/import-job/fields/updated-count"
+    },
+    "deletedCount": {
+      "type": "int",
+      "notStorable": true,
+      "readOnly": true
+    },
+    "errorsCount": {
+      "type": "int",
+      "notStorable": true,
+      "readOnly": true,
+      "view": "import:views/import-job/fields/errors-count"
+    },
+    "attachment": {
+      "type": "file",
+      "noAsset": true,
+      "readOnly": true
+    },
+    "errorsAttachment": {
+      "type": "file",
+      "noAsset": true,
+      "readOnly": true,
+      "tooltip": true
+    },
+    "importJobLogs": {
+      "type": "linkMultiple",
+      "layoutDetailDisabled": true,
+      "layoutMassUpdateDisabled": true,
+      "noLoad": true,
+      "importDisabled": true
+    },
+    "createdAt": {
+      "type": "datetime",
+      "readOnly": true
+    },
+    "modifiedAt": {
+      "type": "datetime",
+      "readOnly": true
+    },
+    "createdBy": {
+      "type": "link",
+      "readOnly": true,
+      "view": "views/fields/user"
+    },
+    "modifiedBy": {
+      "type": "link",
+      "readOnly": true,
+      "view": "views/fields/user"
+    }
+  },
+  "links": {
+    "importFeed": {
+      "type": "belongsTo",
+      "foreign": "importJobs",
+      "entity": "ImportFeed"
+    },
+    "attachment": {
+      "type": "belongsTo",
+      "entity": "Attachment",
+      "skipOrmDefs": true
+    },
+    "errorsAttachment": {
+      "type": "belongsTo",
+      "entity": "Attachment",
+      "skipOrmDefs": true
+    },
+    "importJobLogs": {
+      "type": "hasMany",
+      "foreign": "importJob",
+      "entity": "ImportJobLog"
+    },
+    "createdBy": {
+      "type": "belongsTo",
+      "entity": "User"
+    },
+    "modifiedBy": {
+      "type": "belongsTo",
+      "entity": "User"
+    }
+  },
+  "collection": {
+    "sortBy": "createdAt",
+    "asc": false
+  },
+  "indexes": {
+    "name": {
+      "columns": [
+        "name",
+        "deleted"
+      ]
+    }
+  }
+}

@@ -6,13 +6,13 @@
   "scopeNames": {
     "ImportFeed": "Import Feed",
     "ImportConfiguratorItem": "Konfigurator",
-    "ImportResult": "Importauftrag",
-    "ImportResultLog": "Import-Auftragslog"
+    "ImportJob": "Importauftrag",
+    "ImportJobLog": "Import-Auftragslog"
   },
   "scopeNamesPlural": {
     "ImportFeed": "Import Feeds",
     "ImportConfiguratorItem": "Konfigurator",
-    "ImportResult": "Importaufträge",
-    "ImportResultLog": "Importauftragslogs"
+    "ImportJob": "Importaufträge",
+    "ImportJobLog": "Importauftragslogs"
   }
 }

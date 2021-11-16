@@ -1,0 +1,22 @@
+{
+  "createDisabled": true,
+  "controller": "controllers/record",
+  "boolFilterList": [
+    "onlyMy"
+  ],
+  "recordViews": {
+    "detail": "import:views/import-job/record/detail",
+    "list": "import:views/import-job/record/list"
+  },
+  "modalViews": {
+    "detail": "import:views/import-job/modals/detail"
+  },
+  "iconClass": "fas fa-archive",
+  "relationshipPanels": {
+    "importJobLogs": {
+      "create": false,
+      "select": false,
+      "rowActionsView": "views/record/row-actions/empty"
+    }
+  }
+}

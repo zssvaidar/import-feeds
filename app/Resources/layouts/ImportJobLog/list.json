@@ -1,0 +1,12 @@
+[
+  {
+    "name": "rowNumber",
+    "link": true
+  },
+  {
+    "name": "importJob"
+  },
+  {
+    "name": "message"
+  }
+]

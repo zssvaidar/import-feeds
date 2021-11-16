@@ -16,7 +16,7 @@
     "thousandSeparator": "Тысячный разделитель",
     "decimalMark": "Десятичный разделитель",
     "importFile": "Файл данных",
-    "importResults": "Задания импорта",
+    "importJobs": "Задания импорта",
     "configuratorItems": "Конфигуратор",
     "emptyValue": "Пустое значение",
     "nullValue": "Нулевое значение",
@@ -25,7 +25,7 @@
     "fieldDelimiterForRelation": "Разделитель полей для связи"
   },
   "links": {
-    "importResults": "Задания импорта",
+    "importJobs": "Задания импорта",
     "configuratorItems": "Конфигуратор"
   },
   "labels": {
