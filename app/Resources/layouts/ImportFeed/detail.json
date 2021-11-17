@@ -35,9 +35,11 @@
     "rows": [
       [
         {
-          "name": "file"
+          "name": "format"
         },
-        false
+        {
+          "name": "file"
+        }
       ],
       [
         {
