@@ -1,5 +1,6 @@
 {
   "fields": {
+    "format": "Format",
     "entity": "Entity",
     "delimiter": "List Value Separator",
     "unusedColumns": "Unused Columns",
@@ -38,7 +39,7 @@
     "addEntityField": "Add entity field",
     "addProductAttribute": "Add Product attribute",
     "importRunning": "Import Running",
-    "simple": "CSV File",
+    "simple": "File",
     ",": ",",
     ";": ";",
     "\\t": "\\t",

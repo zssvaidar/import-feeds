@@ -29,6 +29,30 @@
   },
   "dynamicLogic": {
     "fields": {
+      "format": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "isNotEmpty",
+              "attribute": "id"
+            },
+            {
+              "type": "equals",
+              "attribute": "type",
+              "value": "simple"
+            }
+          ]
+        }
+      },
       "file": {
         "visible": {
           "conditionGroup": [

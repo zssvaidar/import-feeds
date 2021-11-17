@@ -70,6 +70,17 @@
       ],
       "default": ";"
     },
+    "format": {
+      "type": "enum",
+      "required": false,
+      "notStorable": true,
+      "dataField": true,
+      "prohibitedEmptyValue": true,
+      "options": [
+        "CSV"
+      ],
+      "default": "CSV"
+    },
     "fileTextQualifier": {
       "type": "enum",
       "notStorable": true,

@@ -1,5 +1,6 @@
 {
   "fields": {
+    "format": "Format",
     "entity": "Entität",
     "delimiter": "Listenwerttrennzeichen",
     "unusedColumns": "Nicht verwendete Spalten Column",
@@ -36,7 +37,7 @@
     "addEntityField": "Entitätsfeld hinzufügen",
     "addProductAttribute": "Produktattribut hinzufügen",
     "importRunning": "Import läuft",
-    "simple": "CSV-Datei",
+    "simple": "Datei",
     ",": ",",
     ";": ";",
     "\\t": "\\t",
