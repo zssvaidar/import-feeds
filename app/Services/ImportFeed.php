@@ -294,9 +294,15 @@ class ImportFeed extends Base
         return $entity;
     }
 
-    protected function getRequiredFields(Entity $entity, \stdClass $data): array
+    protected function beforeUpdateEntity(Entity $entity, $data)
     {
-        return [];
+        parent::beforeUpdateEntity($entity, $data);
+
+        foreach ($entity->getFeedFields() as $name => $value) {
+            if (!$entity->has($name)) {
+                $entity->set($name, $value);
+            }
+        }
     }
 
     protected function getFieldsThatConflict(Entity $entity, \stdClass $data): array
