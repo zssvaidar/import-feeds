@@ -33,10 +33,24 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
 
             this.createDefaultField();
 
-            this.listenTo(this.model, 'change:name change:attributeId', () => {
-                this.clearDefaultField();
-                this.createDefaultField();
-            });
+            if (this.mode === 'edit') {
+                this.listenTo(this.model, 'change:attributeId', () => {
+                    if (this.model.get('attributeId')) {
+                        this.ajaxGetRequest(`Attribute/${this.model.get('attributeId')}`).then(attribute => {
+                            this.model.set('attributeType', attribute.type);
+                            this.model.set('attributeTypeValue', attribute.typeValue || []);
+
+                            this.clearDefaultField();
+                            this.createDefaultField();
+                        });
+                    }
+                });
+
+                this.listenTo(this.model, 'change:name', () => {
+                    this.clearDefaultField();
+                    this.createDefaultField();
+                });
+            }
         },
 
         clearDefaultField() {
@@ -119,15 +133,8 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
             }
 
             if (this.model.get('type') === 'Attribute') {
-                if (this.model.get('attributeType')) {
-                    type = this.model.get('attributeType');
-                    options = this.model.get('attributeTypeValue');
-                } else {
-                    this.ajaxGetRequest(`Attribute/${this.model.get('attributeId')}`, null, {async: false}).then(response => {
-                        type = response.type;
-                        options = response.typeValue || [];
-                    });
-                }
+                type = this.model.get('attributeType');
+                options = this.model.get('attributeTypeValue') || [];
             }
 
             this.prepareDefaultModel(type, options);
