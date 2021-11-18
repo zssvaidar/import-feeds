@@ -75,7 +75,9 @@ class ImportTypeSimple extends QueueManagerBase
 
         $scope = $data['data']['entity'];
 
-        $processesIds = [];
+        $ids = [];
+
+        $updatedIds = [];
 
         // prepare file row
         $fileRow = (int)$data['offset'];
@@ -109,7 +111,12 @@ class ImportTypeSimple extends QueueManagerBase
 
                     if (!empty($entity)) {
                         $id = $entity->get('id');
-                        if (in_array($id, $processesIds)) {
+
+                        if (self::isDeleteAction($data['action'])) {
+                            $ids[] = $id;
+                        }
+
+                        if (in_array($id, $updatedIds)) {
                             throw new BadRequest($this->translate('alreadyProceeded', 'exceptions', 'ImportFeed'));
                         }
                     }
@@ -153,14 +160,18 @@ class ImportTypeSimple extends QueueManagerBase
 
                     if (empty($id)) {
                         $updatedEntity = $this->getService($scope)->createEntity($input);
+
+                        if (self::isDeleteAction($data['action'])) {
+                            $ids[] = $updatedEntity->get('id');
+                        }
+
                         $this->importAttributes($attributes, $updatedEntity);
                         $this->saveRestoreRow('created', $scope, $updatedEntity->get('id'));
-                        $processesIds[] = $updatedEntity->get('id');
                     } else {
-                        $processesIds[] = $id;
                         $notModified = true;
                         try {
                             $updatedEntity = $this->getService($scope)->updateEntity($id, $input);
+                            $updatedIds[] = $id;
                             $this->saveRestoreRow('updated', $scope, [$id => $restore]);
                             $notModified = false;
                         } catch (NotModified $e) {
@@ -198,12 +209,12 @@ class ImportTypeSimple extends QueueManagerBase
             }
         }
 
-        if (in_array($data['action'], ['delete', 'create_delete', 'update_delete', 'create_update_delete'])) {
+        if (self::isDeleteAction($data['action'])) {
             $toDeleteRecords = $this
                 ->getEntityManager()
                 ->getRepository($scope)
                 ->select(['id'])
-                ->where(['id!=' => $processesIds])
+                ->where(['id!=' => $ids])
                 ->find();
 
             if (!empty($toDeleteRecords) && count($toDeleteRecords) > 0) {
@@ -274,6 +285,11 @@ class ImportTypeSimple extends QueueManagerBase
         $this->restore = [];
 
         return $log;
+    }
+
+    protected static function isDeleteAction(string $action): bool
+    {
+        return in_array($action, ['delete', 'create_delete', 'update_delete', 'create_update_delete']);
     }
 
     protected function getInputData(array $data): array
