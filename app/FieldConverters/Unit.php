@@ -105,9 +105,7 @@ class Unit extends FloatValue
 
         if ($value !== null && !$this->validateUnit($unit, $config['entity'], $config)) {
             if (isset($config['attributeId'])) {
-                $attribute = $this->getEntityManager()->getEntity('Attribute', $config['attributeId']);
-                $fieldValue = empty($attribute) ? '-' : $attribute->get('name');
-                $message = sprintf($this->translate('incorrectAttributeUnit', 'exceptions', 'ImportFeed'), $unit, $fieldValue);
+                $message = sprintf($this->translate('incorrectAttributeUnit', 'exceptions', 'ImportFeed'), $unit, $this->getAttribute((string)$config['attributeId'])->get('name'));
             } else {
                 $message = sprintf($this->translate('incorrectUnit', 'exceptions', 'ImportFeed'), $unit, $config['name']);
             }
@@ -195,11 +193,11 @@ class Unit extends FloatValue
 
     protected function getMeasure(string $entityType, array $config): string
     {
-        if (!isset($config['attributeId'])) {
-            return (string)$this->getMetadata()->get(['entityDefs', $entityType, 'fields', $config['name'], 'measure']);
-        } else {
-            return $this->getEntityManager()->getEntity('Attribute', $config['attributeId'])->get('typeValue')[0];
+        if (isset($config['attributeId'])) {
+            return $this->getAttribute((string)$config['attributeId'])->get('typeValue')[0];
         }
+
+        return (string)$this->getMetadata()->get(['entityDefs', $entityType, 'fields', $config['name'], 'measure']);
     }
 
     protected function parseDefault(array $configuration): array
@@ -230,5 +228,15 @@ class Unit extends FloatValue
         }
 
         return [$value, $unit];
+    }
+
+    protected function getAttribute(string $attributeId): Entity
+    {
+        $attribute = $this->getEntityManager()->getEntity('Attribute', $attributeId);
+        if (empty($attribute)) {
+            throw new BadRequest("Attribute with ID '$attributeId' does not exist.");
+        }
+
+        return $attribute;
     }
 }
