@@ -124,11 +124,11 @@ class ImportTypeSimple extends QueueManagerBase
                     $this->log($scope, $importJob->get('id'), 'error', (string)$fileRow, $e->getMessage());
                 }
 
-                if ($data['action'] == 'create' && !empty($entity)) {
+                if (in_array($data['action'], ['create', 'create_delete']) && !empty($entity)) {
                     continue 1;
                 }
 
-                if ($data['action'] == 'update' && empty($entity)) {
+                if (in_array($data['action'], ['update', 'update_delete']) && empty($entity)) {
                     continue 1;
                 }
 
