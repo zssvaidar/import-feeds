@@ -42,7 +42,11 @@ class Unit extends FloatValue
                 $cell = $row[$config['column'][0]];
                 $this->ignoreAttribute($cell, $config);
 
-                if (strtolower((string)$cell) === strtolower((string)$config['emptyValue']) || $cell === '' || strtolower((string)$cell) === strtolower((string)$config['nullValue'])) {
+                if (
+                    strtolower((string)$cell) === strtolower((string)$config['emptyValue'])
+                    || $cell === ''
+                    || strtolower((string)$cell) === strtolower((string)$config['nullValue'])
+                ) {
                     $value = null;
                     $unit = null;
                 } else {
@@ -67,7 +71,11 @@ class Unit extends FloatValue
                 $cellValue = trim($row[$config['column'][0]]);
                 $this->ignoreAttribute($cellValue, $config);
 
-                if (strtolower((string)$cellValue) === strtolower((string)$config['emptyValue']) || $cellValue === '' || strtolower((string)$cellValue) === strtolower((string)$config['nullValue'])) {
+                if (
+                    strtolower((string)$cellValue) === strtolower((string)$config['emptyValue'])
+                    || $cellValue === ''
+                    || strtolower((string)$cellValue) === strtolower((string)$config['nullValue'])
+                ) {
                     $value = null;
                     $unit = null;
                 } else {
@@ -83,9 +91,12 @@ class Unit extends FloatValue
                 $cellUnit = trim($row[$config['column'][1]]);
                 $this->ignoreAttribute($cellUnit, $config);
 
-                if (strtolower((string)$cellUnit) === strtolower((string)$config['emptyValue']) || $cellUnit === '' || strtolower((string)$cellUnit) === strtolower((string)$config['nullValue'])) {
-                    $value = null;
-                    $unit = null;
+                if (
+                    strtolower((string)$cellUnit) === strtolower((string)$config['emptyValue'])
+                    || $cellUnit === ''
+                    || strtolower((string)$cellUnit) === strtolower((string)$config['nullValue'])
+                ) {
+                    $unit = $parsedDefault[1];
                 } else {
                     $unit = $cellUnit;
                 }
@@ -182,18 +193,12 @@ class Unit extends FloatValue
         return $result;
     }
 
-    /**
-     * @param string $entityType
-     * @param array  $config
-     *
-     * @return string
-     */
     protected function getMeasure(string $entityType, array $config): string
     {
         if (!isset($config['attributeId'])) {
             return (string)$this->getMetadata()->get(['entityDefs', $entityType, 'fields', $config['name'], 'measure']);
         } else {
-            return $config['attribute']->get('typeValue')[0];
+            return $this->getEntityManager()->getEntity('Attribute', $config['attributeId'])->get('typeValue')[0];
         }
     }
 
@@ -215,6 +220,12 @@ class Unit extends FloatValue
 
             if (!empty($default['unit'])) {
                 $unit = (string)$default['unit'];
+            } else {
+                $measure = $this->getMeasure($configuration['entity'], $configuration);
+                $units = $this->getConfig()->get('unitsOfMeasure', []);
+                if (property_exists($units, $measure) && property_exists($units->{$measure}, 'unitList') && isset($units->{$measure}->unitList[0])) {
+                    $unit = $units->{$measure}->unitList[0];
+                }
             }
         }
 
