@@ -37,24 +37,19 @@ class ImportFeed extends Base
 
     protected function beforeSave(Entity $entity, array $options = [])
     {
-        $this->setFeedFieldsToDataJson($entity);
+        $fetchedEntity = $entity->getFeedField('entity');
 
-        $removeConfigurator = false;
+        $this->setFeedFieldsToDataJson($entity);
 
         $this->validateFeed($entity);
 
-        if ($entity->get('type') === 'simple') {
-            $removeConfigurator = $entity->has('entity') && !$entity->isNew() && $entity->getFeedField('entity') !== $entity->get('entity');
-        }
-
         parent::beforeSave($entity, $options);
 
-        if ($removeConfigurator) {
-            $this
-                ->getEntityManager()
-                ->getRepository('ImportConfiguratorItem')
-                ->where(['importFeedId' => $entity->get('id')])
-                ->removeCollection();
+        if ($entity->get('type') === 'simple') {
+            // remove configurator items on Entity change
+            if (!$entity->isNew() && $entity->has('entity') && $fetchedEntity !== $entity->get('entity')) {
+                $this->getEntityManager()->getRepository('ImportConfiguratorItem')->where(['importFeedId' => $entity->get('id')])->removeCollection();
+            }
         }
     }
 
