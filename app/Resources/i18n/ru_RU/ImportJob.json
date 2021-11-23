@@ -18,9 +18,9 @@
   },
   "labels": {
     "Create ImportJob": "Создать задание импорта",
-    "Pending": "В очереди",
+    "Pending": "В ожидании",
+    "Success": "Успешно",
     "Running": "Выполняется",
-    "Done": "Создано",
     "Failed": "Не выполнено"
   },
   "tooltips": {

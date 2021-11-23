@@ -19,8 +19,8 @@
   "labels": {
     "Create ImportJob": "Create Import Job",
     "Pending": "Pending",
+    "Success": "Success",
     "Running": "Running",
-    "Done": "Done",
     "Failed": "Failed"
   },
   "tooltips": {

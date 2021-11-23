@@ -19,8 +19,8 @@
   "labels": {
     "Create ImportJob": "Importauftrag erstellen",
     "Pending": "Steht aus",
+    "Success": "Erfolg",
     "Running": "In Arbeit",
-    "Done": "Erledigt",
     "Failed": "Fehlgeschlagen"
   },
   "tooltips": {
