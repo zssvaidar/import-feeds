@@ -45,7 +45,7 @@ class ImportJob extends Base
             }
         }
 
-        $jobs = $this->where(['importFeedId' => $importFeed->get('id')])->order('createdAt')->find();
+        $jobs = $this->where(['importFeedId' => $importFeed->get('id'), 'state' => 'Success'])->order('createdAt')->find();
         $jobsCount = count($jobs);
         foreach ($jobs as $job) {
             if ($jobsCount > $importFeed->get('jobsMax')) {
