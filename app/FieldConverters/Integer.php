@@ -58,7 +58,7 @@ class Integer extends Varchar
         $inputRow->{$config['name']} = $value;
     }
 
-    public function prepareIntValue(string $value, array $config): float
+    public function prepareIntValue(string $value, array $config): int
     {
         $thousandSeparator = $config['thousandSeparator'];
         $decimalMark = $config['decimalMark'];
@@ -71,6 +71,6 @@ class Integer extends Varchar
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'integer'));
         }
 
-        return $intValue;
+        return (int)$intValue;
     }
 }
