@@ -17,7 +17,7 @@
       "layoutDetailSmallDisabled": true,
       "layoutListDisabled": true,
       "layoutListSmallDisabled": true,
-      "layoutFilterDisabled": true
+      "filterDisabled": true
     },
     "state": {
       "type": "enum",
