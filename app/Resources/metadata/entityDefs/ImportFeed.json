@@ -12,6 +12,7 @@
       "type": "linkMultiple",
       "layoutDetailDisabled": true,
       "layoutMassUpdateDisabled": true,
+      "filterDisabled": true,
       "noLoad": true
     },
     "jobsMax": {
@@ -34,6 +35,7 @@
     },
     "data": {
       "type": "jsonObject",
+      "filterDisabled": true,
       "layoutListDisabled": true
     },
     "importFile": {
@@ -53,6 +55,7 @@
       "type": "file",
       "noAsset": true,
       "required": false,
+      "filterDisabled": true,
       "tooltip": true,
       "sourceList": [],
       "view": "import:views/import-feed/fields/file"
@@ -61,6 +64,7 @@
       "type": "enum",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
@@ -75,6 +79,7 @@
       "required": false,
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "prohibitedEmptyValue": true,
       "options": [
         "CSV"
@@ -85,6 +90,7 @@
       "type": "enum",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": false,
       "prohibitedEmptyValue": true,
       "options": [
@@ -112,24 +118,28 @@
       "type": "bool",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "default": true
     },
     "decimalMark": {
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": true,
       "default": ","
     },
     "allColumns": {
       "type": "array",
       "notStorable": true,
-      "dataField": true
+      "dataField": true,
+      "filterDisabled": true
     },
     "thousandSeparator": {
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": false
     },
     "createdAt": {
@@ -168,6 +178,7 @@
       "type": "linkMultiple",
       "layoutDetailDisabled": true,
       "layoutMassUpdateDisabled": true,
+      "filterDisabled": true,
       "noLoad": true,
       "importDisabled": true
     },
@@ -175,6 +186,7 @@
       "type": "enum",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "view": "import:views/import-feed/fields/entity",
       "required": true,
       "prohibitedEmptyValue": true,
@@ -185,6 +197,7 @@
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": true,
       "default": "_"
     },
@@ -192,6 +205,7 @@
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": true,
       "default": "|"
     },
@@ -199,6 +213,7 @@
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": false,
       "default": ""
     },
@@ -206,6 +221,7 @@
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": false,
       "default": "Null"
     },
@@ -213,12 +229,14 @@
       "type": "varchar",
       "notStorable": true,
       "dataField": true,
+      "filterDisabled": true,
       "required": false,
       "default": "--"
     },
     "unusedColumns": {
       "type": "multi-enum",
       "notStorable": true,
+      "filterDisabled": true,
       "view": "import:views/import-feed/fields/unused-columns",
       "readOnly": true
     }
