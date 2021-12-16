@@ -22,11 +22,25 @@ declare(strict_types=1);
 
 namespace Import\Controllers;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Exceptions\NotFound;
 use Espo\Core\Templates\Controllers\Base;
 
 class ImportJob extends Base
 {
+    public function actionGetImportJobsViaScope($params, $data, $request): array
+    {
+        if (!$request->isGet() || empty($request->get('scope'))) {
+            throw new BadRequest();
+        }
+
+        if (!$this->getAcl()->check($this->name, 'read')) {
+            return [];
+        }
+
+        return $this->getRecordService()->getImportJobsViaScope((string)$request->get('scope'));
+    }
+
     /**
      * @inheritDoc
      */
