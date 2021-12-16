@@ -41,9 +41,8 @@ class Controller extends AbstractListener
         $request = $event->getArgument('request');
         if (!empty($where = $request->get('where'))) {
             foreach ($where as $k => $item) {
-                unset($where[$k]);
                 if (!empty($newItem = $this->prepareImportJobFilter($scope, $item))) {
-                    $where[] = $newItem;
+                    $where[$k] = $newItem;
                 }
             }
             $request->setQuery('where', array_values($where));
