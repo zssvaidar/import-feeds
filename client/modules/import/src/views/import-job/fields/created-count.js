@@ -33,14 +33,20 @@ Espo.define('import:views/import-job/fields/created-count', 'import:views/fields
                 presetName: null,
                 bool: {},
                 advanced: {
-                    'createdByImport-1': {
-                        type: 'equals',
-                        field: 'createdByImportId',
-                        value: this.model.id,
+                    'filterImportJob-1': {
+                        type: 'in',
+                        value: [this.model.id],
                         data: {
-                            type: 'is',
-                            idValue:  this.model.id,
-                            nameValue: this.model.get('name')
+                            type: 'anyOf',
+                            valueList: [this.model.id]
+                        }
+                    },
+                    'filterImportJobAction-1': {
+                        type: 'in',
+                        value: ['create'],
+                        data: {
+                            type: 'anyOf',
+                            valueList: ['create']
                         }
                     }
                 }
