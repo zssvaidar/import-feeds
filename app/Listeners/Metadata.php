@@ -55,10 +55,7 @@ class Metadata extends AbstractListener
             $data['entityDefs'][$scope]['fields']['filterImportJobAction'] = [
                 'type'                      => 'enum',
                 'notStorable'               => true,
-                'options'                   => [
-                    'create',
-                    'update'
-                ],
+                'view'                      => 'import:views/fields/filter-import-job-action',
                 'layoutDetailDisabled'      => true,
                 'layoutDetailSmallDisabled' => true,
                 'layoutListDisabled'        => true,
