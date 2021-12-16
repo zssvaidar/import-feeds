@@ -35,39 +35,134 @@ class Controller extends AbstractListener
      */
     public function beforeAction(Event $event)
     {
-        // get controller
-        $controller = $event->getArgument('controller');
+        $scope = $event->getArgument('controller');
 
         // get request
         $request = $event->getArgument('request');
-
         if (!empty($where = $request->get('where'))) {
             foreach ($where as $k => $item) {
-                // for create type
-                if (isset($item['attribute']) && $item['attribute'] == 'createdByImportId') {
-                    $where[$k] = [
-                        'type'      => 'in',
-                        'attribute' => 'id',
-                        'value'     => $this->getLogIds('create', $controller, $item['value'])
-                    ];
-                }
-
-                // for update type
-                if (isset($item['attribute']) && $item['attribute'] == 'updatedByImportId') {
-                    $where[$k] = [
-                        'type'      => 'in',
-                        'attribute' => 'id',
-                        'value'     => $this->getLogIds('update', $controller, $item['value'])
-                    ];
+                unset($where[$k]);
+                if (!empty($newItem = $this->prepareImportJobFilter($scope, $item))) {
+                    $where[] = $newItem;
                 }
             }
-
-            // set where
-            $request->setQuery('where', $where);
+            $request->setQuery('where', array_values($where));
         }
     }
 
-    private function getLogIds(string $type, string $entityName, string $importJobId): array
+    protected function prepareImportJobFilter(string $scope, array $item): array
+    {
+        if (isset($item['attribute']) && $item['attribute'] === 'filterImportJob') {
+            return [
+                'type'      => 'in',
+                'attribute' => 'id',
+                'value'     => $this->getEntitiesIds([
+                    'entityName'  => $scope,
+                    'type'        => [
+                        'create',
+                        'update'
+                    ],
+                    'importJobId' => (array)$item['value']
+                ])
+            ];
+        }
+
+        if (!empty($item['value'][1]['type']) && $item['value'][1]['type'] === 'notIn' && $item['value'][1]['attribute'] === 'filterImportJob') {
+            return [
+                'type'      => 'notIn',
+                'attribute' => 'id',
+                'value'     => $this->getEntitiesIds([
+                    'entityName'  => $scope,
+                    'type'        => [
+                        'create',
+                        'update'
+                    ],
+                    'importJobId' => (array)$item['value'][1]['value']
+                ])
+            ];
+        }
+
+        if (!empty($item['value'][1]['type']) && $item['value'][1]['type'] === 'equals' && $item['value'][1]['attribute'] === 'filterImportJob') {
+            return [
+                'type'      => 'notIn',
+                'attribute' => 'id',
+                'value'     => $this->getEntitiesIds([
+                    'entityName' => $scope,
+                    'type'       => [
+                        'create',
+                        'update'
+                    ]
+                ])
+            ];
+        }
+
+        if (!empty($item['value'][1]['type']) && $item['value'][1]['type'] === 'notEquals' && $item['value'][1]['attribute'] === 'filterImportJob') {
+            return [
+                'type'      => 'in',
+                'attribute' => 'id',
+                'value'     => $this->getEntitiesIds([
+                    'entityName' => $scope,
+                    'type'       => [
+                        'create',
+                        'update'
+                    ]
+                ])
+            ];
+        }
+
+        if (isset($item['attribute']) && $item['attribute'] === 'filterImportJobAction') {
+            return [
+                'type'      => 'in',
+                'attribute' => 'id',
+                'value'     => $this->getEntitiesIds([
+                    'entityName' => $scope,
+                    'type'       => (array)$item['value']
+                ])
+            ];
+        }
+
+        if (!empty($item['value'][1]['type']) && $item['value'][1]['type'] === 'notIn' && $item['value'][1]['attribute'] === 'filterImportJobAction') {
+            return [
+                'type'      => 'notIn',
+                'attribute' => 'id',
+                'value'     => $this->getEntitiesIds([
+                    'entityName' => $scope,
+                    'type'       => (array)$item['value'][1]['value']
+                ])
+            ];
+        }
+
+        if (!empty($item['value'][1]['type']) && $item['value'][1]['type'] === 'equals' && $item['value'][1]['attribute'] === 'filterImportJobAction') {
+            return [
+                'type'      => 'in',
+                'attribute' => 'id',
+                'value'     => ['no-such-id']
+            ];
+        }
+
+        if (!empty($item['value'][1]['type']) && $item['value'][1]['type'] === 'notEquals' && $item['value'][1]['attribute'] === 'filterImportJobAction') {
+            return [
+                'type'      => 'in',
+                'attribute' => 'id',
+                'value'     => $this->getEntitiesIds([
+                    'entityName' => $scope,
+                    'type'       => [
+                        'create',
+                        'update'
+                    ]
+                ])
+            ];
+        }
+
+        return [];
+    }
+
+    protected function getEntitiesIds(array $where): array
+    {
+        return array_column($this->getEntityManager()->getRepository('ImportJobLog')->select(['entityId'])->where($where)->find()->toArray(), 'entityId');
+    }
+
+    protected function getIdsViaJobType(string $scope, array $types): array
     {
         $data = $this
             ->getEntityManager()
@@ -75,13 +170,12 @@ class Controller extends AbstractListener
             ->select(['entityId'])
             ->where(
                 [
-                    'type'           => $type,
-                    'entityName'     => $entityName,
-                    'importJobId' => $importJobId
+                    'entityName' => $scope,
+                    'type'       => $types
                 ]
             )
-            ->find()->toArray();
+            ->find();
 
-        return array_column($data, 'entityId');
+        return array_column($data->toArray(), 'entityId');
     }
 }

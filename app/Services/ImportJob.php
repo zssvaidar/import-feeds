@@ -27,6 +27,26 @@ use Espo\ORM\Entity;
 
 class ImportJob extends Base
 {
+    public function getImportJobsViaScope(string $scope): array
+    {
+        $logs = $this
+            ->getEntityManager()
+            ->getRepository('ImportJobLog')
+            ->select(['importJobId', 'importJobName'])
+            ->where(['entityName' => $scope])
+            ->find();
+
+        $result = [];
+        foreach ($logs as $log) {
+            $result[$log->get('importJobId')] = [
+                'id'   => $log->get('importJobId'),
+                'name' => $log->get('importJobName'),
+            ];
+        }
+
+        return array_values($result);
+    }
+
     public function prepareEntityForOutput(Entity $entity)
     {
         parent::prepareEntityForOutput($entity);
