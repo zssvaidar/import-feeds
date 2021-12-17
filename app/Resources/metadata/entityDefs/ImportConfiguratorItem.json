@@ -23,7 +23,7 @@
     "createIfNotExist": {
       "type": "bool",
       "view": "import:views/import-configurator-item/fields/create-if-not-exist",
-      "default": true
+      "default": false
     },
     "type": {
       "type": "enum",
