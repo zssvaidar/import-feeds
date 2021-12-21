@@ -139,7 +139,7 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
             while (($data = fgetcsv($handle, 0, $delimiter, $enclosure)) !== false && (is_null($limit) || $count < $limit)) {
                 if ($row >= $offset) {
                     foreach ($data as &$v) {
-                        preg_match_all('/' . $enclosure . '(.*)' . $enclosure . '$/', $v, $matches);
+                        preg_match_all('/' . $enclosure . '(.*)' . $enclosure . '$/', (string)$v, $matches);
                         if (isset($matches[1][0])) {
                             $v = $matches[1][0];
                         }
