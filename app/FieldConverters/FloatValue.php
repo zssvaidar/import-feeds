@@ -42,7 +42,7 @@ class FloatValue extends Varchar
         $checkValueUnStrict = number_format($floatValue, $decimals, $decimalMark, '');
 
         if (!in_array($value, [$checkValueStrict, $checkValueUnStrict])) {
-            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), 'float'));
+            throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $value, 'float'));
         }
 
         return $floatValue;

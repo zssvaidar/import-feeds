@@ -50,7 +50,7 @@ class Date extends Varchar
             try {
                 $value = (new \DateTime($value))->format($this->format);
             } catch (\Throwable $e) {
-                throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $this->name));
+                throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $value, $this->name));
             }
         }
 
