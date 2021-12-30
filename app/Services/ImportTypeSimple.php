@@ -401,16 +401,13 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest("No such Attribute '{$conf['attributeId']}'.");
         }
         $conf['attribute'] = $attribute;
-
         $conf['name'] = 'value';
-        if ($conf['locale'] !== 'main') {
-            $conf['name'] .= Util::toCamelCase(strtolower($conf['locale']), '_', true);
-        }
 
         $pavWhere = [
             'productId'   => $product->get('id'),
             'attributeId' => $conf['attributeId'],
             'scope'       => $conf['scope'],
+            'language'    => $conf['locale'],
         ];
 
         if ($conf['scope'] === 'Channel') {
