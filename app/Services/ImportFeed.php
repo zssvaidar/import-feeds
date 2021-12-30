@@ -190,7 +190,7 @@ class ImportFeed extends Base
      */
     protected function push(string $name, string $serviceName, array $data = []): bool
     {
-        return $this->getInjection('queueManager')->push($name, $serviceName, $data, true);
+        return $this->getInjection('queueManager')->push($name, $serviceName, $data);
     }
 
     /**
