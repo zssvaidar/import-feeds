@@ -95,11 +95,19 @@ class ImportFeed extends Base
 
     public function getDelimiter(): string
     {
+        if (empty($this->getFeedField('fileFieldDelimiter'))) {
+            return ';';
+        }
+
         return (string)$this->getFeedField('fileFieldDelimiter');
     }
 
     public function getEnclosure(): string
     {
+        if (empty($this->getFeedField('fileTextQualifier'))) {
+            return '"';
+        }
+
         return $this->getFeedField('fileTextQualifier') == 'singleQuote' ? "'" : '"';
     }
 

@@ -90,7 +90,7 @@ class ImportJob extends Base
 
     public function generateErrorsAttachment(Entity $importJob): bool
     {
-        $errorsRows = $this
+        $errorLogs = $this
             ->getEntityManager()
             ->getRepository('ImportJobLog')
             ->select(['rowNumber', 'message'])
@@ -101,25 +101,35 @@ class ImportJob extends Base
             ->find()
             ->toArray();
 
-        if (empty($errorsRows)) {
+        if (empty($errorLogs)) {
             return false;
         }
-
-        $errorsRowsNumbers = array_column($errorsRows, 'message', 'rowNumber');
 
         // get importFeed
         $feed = $importJob->get('importFeed');
 
+        $errorsRowsNumbers = [];
+
         // add header row if it needs
-        if (!empty($feed->getFeedField('isFileHeaderRow'))) {
+        if ($feed->getFeedField('isFileHeaderRow') !== false) {
             $errorsRowsNumbers[1] = self::IMPORT_ERRORS_COLUMN;
         }
+
+        foreach ($errorLogs as $log) {
+            $rowNumber = (int)$log['rowNumber'];
+            if ($feed->getFeedField('isFileHeaderRow') === null) {
+                $rowNumber++;
+            }
+            $errorsRowsNumbers[$rowNumber] = $log['message'];
+        }
+
+        $attachment = $this->getEntityManager()->getEntity('Attachment', $importJob->get('attachmentId'));
 
         // get file data
         $data = $this
             ->getInjection('serviceFactory')
             ->create('CsvFileParser')
-            ->getFileData($importJob->get('attachment'), $feed->getDelimiter(), $feed->getEnclosure());
+            ->getFileData($attachment, $feed->getDelimiter(), $feed->getEnclosure());
 
         // collect errors rows
         $errorsRows = [];
