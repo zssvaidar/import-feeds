@@ -58,7 +58,7 @@
     "importName": "Importieren von Daten nach Feed '%s'"
   },
   "messages": {
-    "importNow": "Möchten Sie die Daten aus der ausgewählten Datei wirklich importieren?"
+    "importNow": "Möchten Sie wirklich die Daten aus der ausgewählten Quelle importieren?"
   },
   "exceptions": {
     "onlyCsvIsAllowed": "Nur CSV-Dateien sind zulässig.",

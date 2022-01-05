@@ -60,7 +60,7 @@
     "importName": "Importing data by feed '%s'"
   },
   "messages": {
-    "importNow": "Are you sure you want to import data from the selected file?"
+    "importNow": "Are you sure you want to import data from the selected source?"
   },
   "exceptions": {
     "onlyCsvIsAllowed": "Only CSV file is allowed.",
