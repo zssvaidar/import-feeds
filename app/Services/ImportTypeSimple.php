@@ -82,8 +82,10 @@ class ImportTypeSimple extends QueueManagerBase
         // prepare file row
         $fileRow = (int)$data['offset'];
 
+        $hasAttachment = !empty($data['attachmentId']);
+
         // create imported file
-        if (empty($data['attachmentId'])) {
+        if (!$hasAttachment) {
             $importedFileName = str_replace(' ', '_', strtolower($data['name'])) . '_' . time() . '.csv';
             $importedFilePath = $this->getContainer()->get('filePathBuilder')->createPath(FilePathBuilder::UPLOAD);
             $importedFileFullPath = $this->getConfig()->get('filesPath', 'upload/files/') . $importedFilePath;
@@ -94,10 +96,11 @@ class ImportTypeSimple extends QueueManagerBase
         while (!empty($inputData = $this->getInputData($data))) {
             foreach ($inputData as $row) {
                 // push to imported file
-                if (empty($data['attachmentId'])) {
+                if (!$hasAttachment) {
                     if (empty($firstRow)) {
                         $firstRow = true;
                         fputcsv($importedFile, array_keys($row), ';');
+                        $fileRow++;
                     }
                     fputcsv($importedFile, array_values($row), ';');
                 }
@@ -231,7 +234,7 @@ class ImportTypeSimple extends QueueManagerBase
         }
 
         // save imported file
-        if (empty($data['attachmentId'])) {
+        if (!$hasAttachment) {
             fclose($importedFile);
             $attachmentRepository = $this->getEntityManager()->getRepository('Attachment');
             $attachment = $attachmentRepository->get();
