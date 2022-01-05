@@ -108,16 +108,19 @@ class ImportJob extends Base
         // get importFeed
         $feed = $importJob->get('importFeed');
 
+        // for not simple type header is always exist
+        $isSimpleType = $feed->get('type') === 'simple';
+
         $errorsRowsNumbers = [];
 
         // add header row if it needs
-        if ($feed->getFeedField('isFileHeaderRow') !== false) {
+        if (!empty($feed->getFeedField('isFileHeaderRow')) || !$isSimpleType) {
             $errorsRowsNumbers[1] = self::IMPORT_ERRORS_COLUMN;
         }
 
         foreach ($errorLogs as $log) {
             $rowNumber = (int)$log['rowNumber'];
-            if ($feed->getFeedField('isFileHeaderRow') === null) {
+            if (!$isSimpleType) {
                 $rowNumber++;
             }
             $errorsRowsNumbers[$rowNumber] = $log['message'];
