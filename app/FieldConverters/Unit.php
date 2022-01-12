@@ -194,7 +194,12 @@ class Unit extends FloatValue
     protected function getMeasure(string $entityType, array $config): string
     {
         if (isset($config['attributeId'])) {
-            return $this->getAttribute((string)$config['attributeId'])->get('typeValue')[0];
+            $attribute = $this->getAttribute((string)$config['attributeId']);
+            if (empty($attribute->get('typeValue')) || empty($attribute->get('typeValue')[0])) {
+                throw new BadRequest(sprintf($this->translate('measureIsNotSet', 'exceptions', 'ImportFeed'), $attribute->get('name')));
+            }
+
+            return (string)$attribute->get('typeValue')[0];
         }
 
         return (string)$this->getMetadata()->get(['entityDefs', $entityType, 'fields', $config['name'], 'measure']);

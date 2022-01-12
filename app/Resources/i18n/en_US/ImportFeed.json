@@ -63,6 +63,7 @@
     "importNow": "Are you sure you want to import data from the selected source?"
   },
   "exceptions": {
+    "measureIsNotSet": "Measure for the attribute \"%s\" is not set.",
     "onlyCsvIsAllowed": "Only CSV file is allowed.",
     "noSpecified": "No '%s' specified.",
     "delimitersMustBeDifferent": "All feed parameters should have unique values.",
