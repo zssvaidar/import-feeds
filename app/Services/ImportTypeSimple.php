@@ -42,6 +42,7 @@ class ImportTypeSimple extends QueueManagerBase
     private array $updatedPav = [];
     private array $deletedPav = [];
     private int $iterations = 0;
+    private array $channels = [];
 
     public function prepareJobData(ImportFeed $feed, string $attachmentId): array
     {
@@ -453,6 +454,11 @@ class ImportTypeSimple extends QueueManagerBase
             foreach ($pavWhere as $name => $value) {
                 $inputRow->$name = $value;
             }
+
+            if (property_exists($inputRow, 'channelId')) {
+                $inputRow->channelName = $this->getChannel($inputRow->channelId)->get('name');
+            }
+
             $pavEntity = $service->createEntity($inputRow);
             $this->saveRestoreRow('created', $entityType, $pavEntity->get('id'));
         } else {
@@ -495,5 +501,17 @@ class ImportTypeSimple extends QueueManagerBase
     protected function getMetadata(): Metadata
     {
         return $this->getContainer()->get('metadata');
+    }
+
+    protected function getChannel(string $channelId): Entity
+    {
+        if (!isset($this->channels[$channelId])) {
+            $this->channels[$channelId] = $this->getEntityManager()->getEntity('Channel', $channelId);
+            if (empty($this->channels[$channelId])) {
+                throw new BadRequest("No such channel '$channelId'.");
+            }
+        }
+
+        return $this->channels[$channelId];
     }
 }
