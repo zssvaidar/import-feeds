@@ -53,11 +53,14 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
         if (isset($data[0])) {
             if ($isFileHeaderRow && isset($data[1])) {
                 foreach ($data[0] as $k => $value) {
+                    if (empty($value) && $value !== '0' && $value !== 0) {
+                        $value = self::createColumnName($k, $data);
+                    }
                     $result[] = $value;
                 }
             } else {
                 foreach ($data[0] as $k => $value) {
-                    $result[] = (string)($k + 1);
+                    $result[] = self::createColumnName($k, $data);
                 }
             }
         }
@@ -97,6 +100,23 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
     public function getCountRows(Attachment $attachment, string $delimiter = ";", string $enclosure = '"'): int
     {
         return $this->getFileRowsCount($this->getLocalFilePath($attachment), $delimiter, $enclosure);
+    }
+
+    protected static function createColumnName(int $k, array $data): string
+    {
+        $value = (string)($k + 1);
+        if (isset($data[1][$k])) {
+            $cropped = mb_substr($data[1][$k], 0, 24);
+            $value .= ' [' . $cropped;
+
+            if ($data[1][$k] != $cropped) {
+                $value .= '...';
+            }
+
+            $value .= ']';
+        }
+
+        return $value;
     }
 
     /**
