@@ -34,6 +34,10 @@ class Asset extends Link
             $config['importBy'] = ['url'];
         }
 
+        if ($config['importBy'] === ['url']) {
+            $config['createIfNotExist'] = true;
+        }
+
         parent::convert($inputRow, $config, $row);
     }
 
