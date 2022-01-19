@@ -53,6 +53,7 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
         if (isset($data[0])) {
             if ($isFileHeaderRow && isset($data[1])) {
                 foreach ($data[0] as $k => $value) {
+                    $value = trim($value);
                     if (empty($value) && $value !== '0' && $value !== 0) {
                         $value = self::createColumnName($k, $data);
                     }
@@ -106,14 +107,16 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
     {
         $value = (string)($k + 1);
         if (isset($data[1][$k])) {
-            $cropped = mb_substr($data[1][$k], 0, 24);
-            $value .= ' [' . $cropped;
+            $firstRowValue = trim($data[1][$k]);
+            if (empty($firstRowValue) && $firstRowValue !== '0' && $firstRowValue !== 0) {
+                return $value;
+            }
+            $cropped = mb_substr($firstRowValue, 0, 24);
+            $value .= ' ‹ ' . $cropped;
 
-            if ($data[1][$k] != $cropped) {
+            if ($firstRowValue != $cropped) {
                 $value .= '...';
             }
-
-            $value .= ']';
         }
 
         return $value;
