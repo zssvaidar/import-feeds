@@ -68,10 +68,18 @@ class LinkMultiple extends Varchar
             $ids = Json::decode($config['default'], true);
         }
 
-        $inputRow->{$config['name'] . 'Ids'} = array_values($ids);
+        $ids = array_values($ids);;
+
+        $fieldName = $config['name'] . 'Ids';
+
+        if (!empty($inputRow->$fieldName)) {
+            $inputRow->$fieldName = array_merge($inputRow->$fieldName, $ids);
+        } else {
+            $inputRow->$fieldName = $ids;
+        }
 
         if ($config['type'] === 'Attribute') {
-            $inputRow->{$config['name']} = $inputRow->{$config['name'] . 'Ids'};
+            $inputRow->{$config['name']} = $inputRow->$fieldName;
         }
     }
 

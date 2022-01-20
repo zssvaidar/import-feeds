@@ -47,7 +47,11 @@ class JsonArray extends Varchar
             $value = explode($config['delimiter'], $value);
         }
 
-        $inputRow->{$config['name']} = $value;
+        if (!empty($inputRow->{$config['name']}) && is_array($inputRow->{$config['name']}) && is_array($value)) {
+            $inputRow->{$config['name']} = array_merge($inputRow->{$config['name']}, $value);
+        } else {
+            $inputRow->{$config['name']} = $value;
+        }
     }
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void

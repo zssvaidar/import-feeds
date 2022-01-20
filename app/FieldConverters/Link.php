@@ -82,6 +82,10 @@ class Link extends Varchar
 
                 $entity = null;
 
+                if ($entityName === 'Asset' && in_array('url', $config['importBy'])) {
+                    $where = [];
+                }
+
                 if (!empty($where)) {
                     $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
                 }

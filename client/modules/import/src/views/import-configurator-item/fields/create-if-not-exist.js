@@ -26,6 +26,10 @@ Espo.define('import:views/import-configurator-item/fields/create-if-not-exist', 
             this.listenTo(this.model, 'change:name', () => {
                 this.reRender();
             });
+
+            this.listenTo(this.model, 'change:importBy', () => {
+                this.reRender();
+            });
         },
 
         afterRender() {
@@ -35,6 +39,7 @@ Espo.define('import:views/import-configurator-item/fields/create-if-not-exist', 
                 const $input = this.$el.find('input');
                 if (this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`) === 'Asset') {
                     $input.attr('disabled', 'disabled');
+                    this.model.set('createIfNotExist', (this.model.get('importBy') || []).includes('url'));
                 } else {
                     $input.removeAttr('disabled');
                 }
