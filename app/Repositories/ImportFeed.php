@@ -27,12 +27,23 @@ use Espo\Core\Templates\Repositories\Base;
 use Espo\Core\Utils\Json;
 use Espo\Core\Utils\Language;
 use Espo\ORM\Entity;
+use Import\Entities\ImportFeed as ImportFeedEntity;
 
 class ImportFeed extends Base
 {
     public function getLanguage(): Language
     {
         return $this->getInjection('language');
+    }
+
+    public function removeInvalidConfiguratorItems(ImportFeedEntity $feed): void
+    {
+        $feedId = $feed->get('id');
+
+        // delete attribute items
+        $this
+            ->getPDO()
+            ->exec("DELETE FROM import_configurator_item WHERE import_feed_id='$feedId' AND type='Attribute' AND attribute_id NOT IN (SELECT id FROM attribute WHERE deleted=0)");
     }
 
     protected function beforeSave(Entity $entity, array $options = [])

@@ -108,6 +108,7 @@ class ImportFeed extends Base
     {
         if ($link === 'configuratorItems') {
             if (!empty($feed = $this->getRepository()->get($id))) {
+                $this->getRepository()->removeInvalidConfiguratorItems($feed);
                 $allColumns = empty($feed->getFeedField('allColumns')) ? [] : $feed->getFeedField('allColumns');
                 $this->removeItemsByAllColumns($feed, $allColumns);
             }
