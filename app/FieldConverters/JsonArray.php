@@ -30,6 +30,12 @@ class JsonArray extends Varchar
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         $default = empty($config['default']) || $config['default'] === 'null' ? null : $config['default'];
+
+        $defaultArray = @json_decode($default, true);
+        if (!empty($defaultArray) && is_array($defaultArray)) {
+            $default = $defaultArray;
+        }
+
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             $this->ignoreAttribute($value, $config);
@@ -48,10 +54,14 @@ class JsonArray extends Varchar
         }
 
         if (!empty($inputRow->{$config['name']}) && is_array($inputRow->{$config['name']}) && is_array($value)) {
-            $inputRow->{$config['name']} = array_merge($inputRow->{$config['name']}, $value);
-        } else {
-            $inputRow->{$config['name']} = $value;
+            $value = array_merge($inputRow->{$config['name']}, $value);
         }
+
+        if (is_array($value)) {
+            $value = json_encode($value);
+        }
+
+        $inputRow->{$config['name']} = $value;
     }
 
     public function prepareFindExistEntityWhere(array &$where, array $configuration, array $row): void
