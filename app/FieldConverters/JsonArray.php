@@ -31,9 +31,11 @@ class JsonArray extends Varchar
     {
         $default = empty($config['default']) || $config['default'] === 'null' ? null : $config['default'];
 
-        $defaultArray = @json_decode($default, true);
-        if (!empty($defaultArray) && is_array($defaultArray)) {
-            $default = $defaultArray;
+        if (!empty($default)) {
+            $defaultArray = @json_decode((string)$default, true);
+            if (!empty($defaultArray) && is_array($defaultArray)) {
+                $default = $defaultArray;
+            }
         }
 
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
