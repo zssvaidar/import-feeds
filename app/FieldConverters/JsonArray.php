@@ -57,10 +57,6 @@ class JsonArray extends Varchar
             $value = array_merge($inputRow->{$config['name']}, $value);
         }
 
-        if (is_array($value)) {
-            $value = json_encode($value);
-        }
-
         $inputRow->{$config['name']} = $value;
     }
 
