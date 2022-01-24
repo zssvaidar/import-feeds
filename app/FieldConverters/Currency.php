@@ -109,10 +109,10 @@ class Currency extends FloatValue
         }
 
         $inputRow->{$config['name']} = $value;
+        $inputRow->{$config['name'] . 'Currency'} = $currency;
+
         if (isset($config['attributeId'])) {
             $inputRow->data = (object)['currency' => $currency];
-        } else {
-            $inputRow->{$config['name'] . 'Currency'} = $currency;
         }
     }
 
