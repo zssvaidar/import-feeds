@@ -113,10 +113,10 @@ class Unit extends FloatValue
         }
 
         $inputRow->{$config['name']} = $value;
+        $inputRow->{$config['name'] . 'Unit'} = $unit;
+
         if (isset($config['attributeId'])) {
             $inputRow->data = (object)['unit' => $unit];
-        } else {
-            $inputRow->{$config['name'] . 'Unit'} = $unit;
         }
     }
 
