@@ -8,7 +8,7 @@
     "updatedCount": "Обновлено",
     "deletedCount": "Удалено",
     "errorsCount": "Ошибка",
-    "attachment": "Проимпорт. файл",
+    "attachment": "Файл импорта",
     "errorsAttachment": "Файл ошибок",
     "importJobLogs": "Лог ошибок"
   },
