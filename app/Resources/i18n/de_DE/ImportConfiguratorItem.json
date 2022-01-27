@@ -1,7 +1,7 @@
 {
   "fields": {
     "entityIdentifier": "Kennung",
-    "name": "Gebiet",
+    "name": "Feld",
     "column": "Spalte(n)",
     "defaultContainer": "Default-Wert",
     "default": "Default-Wert",
