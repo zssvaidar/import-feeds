@@ -41,9 +41,9 @@ class Asset extends Link
         parent::convert($inputRow, $config, $row);
 
         /**
-         * For product main image
+         * For product/category main image
          */
-        if ($config['entity'] === 'Product' && $config['name'] === 'image') {
+        if (in_array($config['entity'], ['Product', 'Category']) && $config['name'] === 'image') {
             if (property_exists($inputRow, 'imageId')) {
                 $asset = $this->getEntityManager()->getEntity('Asset', $inputRow->imageId);
                 unset($inputRow->imageId);

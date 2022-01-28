@@ -43,9 +43,9 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
             let foreignEntity = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`);
 
             /**
-             * For product Main Image
+             * For product/category Main Image
              */
-            if (this.model.get('entity') === 'Product' && this.model.get('name') === 'image') {
+            if (['Product', 'Category'].includes(this.model.get('entity')) && this.model.get('name') === 'image') {
                 foreignEntity = 'Asset';
             }
 
