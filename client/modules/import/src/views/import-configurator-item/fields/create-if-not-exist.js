@@ -35,9 +35,9 @@ Espo.define('import:views/import-configurator-item/fields/create-if-not-exist', 
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            if (['asset', 'link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`))) {
+            if (['image', 'asset', 'link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`))) {
                 const $input = this.$el.find('input');
-                if (this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`) === 'Asset') {
+                if (['Asset', 'Attachment'].includes(this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`))) {
                     $input.attr('disabled', 'disabled');
                     this.model.set('createIfNotExist', (this.model.get('importBy') || []).includes('url'));
                 } else {

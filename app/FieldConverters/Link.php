@@ -108,7 +108,7 @@ class Link extends Varchar
                     }
 
                     // for attribute
-                    if (!empty($config['relEntityName']) && !empty($entity)) {
+                    if ($config['type'] === 'Attribute' && !empty($config['relEntityName']) && !empty($entity)) {
                         $entity = $entity->get('file');
                     }
                 }

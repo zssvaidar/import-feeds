@@ -41,6 +41,14 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
             this.translatedOptions = {};
 
             let foreignEntity = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`);
+
+            /**
+             * For product Main Image
+             */
+            if (this.model.get('entity') === 'Product' && this.model.get('name') === 'image') {
+                foreignEntity = 'Asset';
+            }
+
             if (foreignEntity) {
                 this.params.options.push('id');
                 this.translatedOptions['id'] = this.translate('id', 'fields', 'Global');

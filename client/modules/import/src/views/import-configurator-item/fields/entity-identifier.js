@@ -35,7 +35,7 @@ Espo.define('import:views/import-configurator-item/fields/entity-identifier', 'v
                 let show = false;
                 if (this.model.get('type') === 'Field') {
                     let type = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`) || 'varchar';
-                    if (!['asset', 'linkMultiple', 'jsonObject'].includes(type)) {
+                    if (!['image', 'asset', 'linkMultiple', 'jsonObject'].includes(type)) {
                         show = true;
                     }
                 }

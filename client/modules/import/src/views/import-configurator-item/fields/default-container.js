@@ -139,6 +139,17 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
 
             this.prepareDefaultModel(type, options);
 
+            /**
+             * For product Main Image
+             */
+            if (this.model.get('entity') === 'Product' && this.model.get('name') === 'image') {
+                type = 'link';
+                this.model.defs.links["default"] = {
+                    type: 'belongsTo',
+                    entity: 'Asset'
+                };
+            }
+
             this.createView('default', this.getFieldManager().getViewName(type), {
                 el: `${this.options.el} > .field[data-name="default"]`,
                 model: this.model,

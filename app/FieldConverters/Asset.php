@@ -39,6 +39,20 @@ class Asset extends Link
         }
 
         parent::convert($inputRow, $config, $row);
+
+        /**
+         * For product main image
+         */
+        if ($config['entity'] === 'Product' && $config['name'] === 'image') {
+            if (property_exists($inputRow, 'imageId')) {
+                $asset = $this->getEntityManager()->getEntity('Asset', $inputRow->imageId);
+                unset($inputRow->imageId);
+                if (!empty($asset)) {
+                    $inputRow->assetsIds = [$asset->get('id')];
+                    $inputRow->imageId = $asset->get('fileId');
+                }
+            }
+        }
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
