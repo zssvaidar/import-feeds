@@ -25,6 +25,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
 
             this.prepareImportByOptions();
             this.listenTo(this.model, 'change:name', () => {
+                this.model.set('importBy', null);
                 this.prepareImportByOptions(() => {
                     this.reRender();
                 });
