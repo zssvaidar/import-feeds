@@ -48,7 +48,6 @@ class Asset extends Link
                 $asset = $this->getEntityManager()->getEntity('Asset', $inputRow->imageId);
                 unset($inputRow->imageId);
                 if (!empty($asset)) {
-                    $inputRow->assetsIds = [$asset->get('id')];
                     $inputRow->imageId = $asset->get('fileId');
                 }
             }
