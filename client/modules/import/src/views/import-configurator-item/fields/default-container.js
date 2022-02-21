@@ -140,9 +140,9 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
             this.prepareDefaultModel(type, options);
 
             /**
-             * For product/category Main Image
+             * For Main Image
              */
-            if (['Product', 'Category'].includes(this.model.get('entity')) && this.model.get('name') === 'image') {
+            if (this.model.get('name') === 'mainImage' || ['Product', 'Category'].includes(this.model.get('entity')) && this.model.get('name') === 'image') {
                 type = 'link';
                 this.model.defs.links["default"] = {
                     type: 'belongsTo',
