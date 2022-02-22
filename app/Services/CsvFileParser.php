@@ -156,6 +156,10 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
         // prepare result
         $result = [];
 
+        if ($delimiter === '\t') {
+            $delimiter = "\t";
+        }
+
         if (file_exists($path) && ($handle = fopen($path, "r")) !== false) {
             $row = 0;
             $count = 0;
@@ -196,6 +200,10 @@ class CsvFileParser extends \Espo\Core\Templates\Services\HasContainer
     {
         // prepare result
         $result = 0;
+
+        if ($delimiter === '\t') {
+            $delimiter = "\t";
+        }
 
         if (file_exists($path) && ($handle = fopen($path, "r")) !== false) {
             while (($row = fgetcsv($handle, 0, $delimiter, $enclosure)) !== false) {
