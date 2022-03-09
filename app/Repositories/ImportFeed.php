@@ -73,10 +73,6 @@ class ImportFeed extends Base
             $entity->getFeedField('fieldDelimiterForRelation')
         ];
 
-        if ($entity->get('type') === 'simple') {
-            $delimiters[] = $entity->getFeedField('fileFieldDelimiter');
-        }
-
         if ($entity->getFeedField('entity') === 'Product') {
             $delimiters[] = $entity->getFeedField('markForNotLinkedAttribute');
         }
