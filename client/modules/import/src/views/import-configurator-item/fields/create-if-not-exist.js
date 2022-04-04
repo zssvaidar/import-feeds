@@ -37,9 +37,23 @@ Espo.define('import:views/import-configurator-item/fields/create-if-not-exist', 
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            if (['image', 'asset', 'link', 'linkMultiple'].includes(this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`))) {
+            let type = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`);
+            if (['image', 'asset', 'link', 'linkMultiple'].includes(type)) {
                 const $input = this.$el.find('input');
-                if (['Asset', 'Attachment'].includes(this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`))) {
+
+                let foreignEntity = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`);
+                if (type === 'asset'){
+                    foreignEntity = 'Asset';
+                }
+
+                /**
+                 * For Main Image
+                 */
+                if (this.model.get('name') === 'mainImage' || ['Product', 'Category'].includes(this.model.get('entity')) && this.model.get('name') === 'image') {
+                    foreignEntity = 'Asset';
+                }
+
+                if (['Asset', 'Attachment'].includes(foreignEntity)) {
                     $input.attr('disabled', 'disabled');
                     this.model.set('createIfNotExist', (this.model.get('importBy') || []).includes('url'));
                 } else {

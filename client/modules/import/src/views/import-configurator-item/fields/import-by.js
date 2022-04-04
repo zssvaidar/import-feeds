@@ -44,6 +44,10 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
 
             let foreignEntity = this.getMetadata().get(`entityDefs.${this.model.get('entity')}.links.${this.model.get('name')}.entity`);
 
+            if (this.getMetadata().get(`entityDefs.${this.model.get('entity')}.fields.${this.model.get('name')}.type`) === 'asset'){
+                foreignEntity = 'Asset';
+            }
+
             /**
              * For Main Image
              */
