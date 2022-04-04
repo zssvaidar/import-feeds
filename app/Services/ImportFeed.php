@@ -213,7 +213,7 @@ class ImportFeed extends Base
      * @return CsvFileParser|ExcelFileParser
      * @throws BadRequest
      */
-    protected function getFileParser(string $format)
+    public function getFileParser(string $format)
     {
         if ($format === 'CSV') {
             return $this->getInjection('serviceFactory')->create('CsvFileParser');

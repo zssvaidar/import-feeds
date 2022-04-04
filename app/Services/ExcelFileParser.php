@@ -30,23 +30,25 @@ class ExcelFileParser extends CsvFileParser
 {
     public function getFileData(Attachment $attachment, string $delimiter = ";", string $enclosure = '"', int $offset = 0, int $limit = null): array
     {
-        $path = $this->getCsvFilePath($this->getLocalFilePath($attachment), $delimiter, $enclosure);
+        $path = $this->getCsvFilePath($attachment, $delimiter, $enclosure);
 
         return $this->getParsedFileData($path, $delimiter, $enclosure, $offset, $limit);
     }
 
     public function getCountRows(Attachment $attachment, string $delimiter = ";", string $enclosure = '"'): int
     {
-        $path = $this->getCsvFilePath($this->getLocalFilePath($attachment), $delimiter, $enclosure);
+        $path = $this->getCsvFilePath($attachment, $delimiter, $enclosure);
 
         return $this->getFileRowsCount($path, $delimiter, $enclosure);
     }
 
-    protected function getCsvFilePath(string $path, string $delimiter = ";", string $enclosure = '"'): string
+    protected function getCsvFilePath(Attachment $attachment, string $delimiter = ";", string $enclosure = '"'): string
     {
+        $path = $this->getLocalFilePath($attachment);
+
         $parts = explode('.', $path);
         array_pop($parts);
-        $csvFilePath = implode('.', $parts) . '.csv';
+        $csvFilePath = implode('.', $parts) . '-' . $attachment->get('id') . '.csv';
 
         if (file_exists($csvFilePath)) {
             return $csvFilePath;

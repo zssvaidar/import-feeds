@@ -60,6 +60,7 @@ class ImportTypeSimple extends QueueManagerBase
             "name"            => $feed->get('name'),
             "offset"          => $feed->isFileHeaderRow() ? 1 : 0,
             "limit"           => \PHP_INT_MAX,
+            "fileFormat"          => $feed->getFeedField('format'),
             "delimiter"       => $feed->getDelimiter(),
             "enclosure"       => $feed->getEnclosure(),
             "isFileHeaderRow" => $feed->isFileHeaderRow(),
@@ -309,15 +310,14 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest('No such Attachment.');
         }
 
-        /** @var \Import\Services\CsvFileParser $csvParser */
-        $csvParser = $this->getService('CsvFileParser');
+        $fileParser = $this->getService('ImportFeed')->getFileParser($data['fileFormat']);
 
-        $fileData = $csvParser->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
+        $fileData = $fileParser->getFileData($attachment, $data['delimiter'], $data['enclosure'], $data['offset'], $data['limit']);
         if (empty($fileData)) {
             throw new BadRequest('File is empty.');
         }
 
-        $allColumns = $csvParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
+        $allColumns = $fileParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
 
         $result = [];
         foreach ($fileData as $line => $fileLine) {
