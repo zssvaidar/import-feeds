@@ -33,24 +33,8 @@ use Import\Entities\ImportFeed as ImportFeedEntity;
 use Import\Entities\ImportJob;
 use Espo\Entities\Attachment;
 
-/**
- * Class ImportFeed
- */
 class ImportFeed extends Base
 {
-    /**
-     * @var null|CsvFileParser
-     */
-    private $csvFileParser = null;
-
-    /**
-     * @var array
-     */
-    protected $validFileTypes = ['text/csv', 'application/vnd.ms-excel', 'text/plain'];
-
-    /**
-     * @var array
-     */
     protected $mandatorySelectAttributeList = ['allColumns'];
 
     public function prepareEntityForOutput(Entity $entity)
@@ -77,16 +61,13 @@ class ImportFeed extends Base
         if (!($attachment instanceof Attachment)) {
             throw new BadRequest($this->exception("noSuchFile"));
         }
-        if (!in_array($attachment->get('type'), $this->validFileTypes)) {
-            throw new BadRequest($this->exception("onlyCsvIsAllowed"));
-        }
 
         // prepare settings
         $delimiter = (!empty($request->get('delimiter'))) ? $request->get('delimiter') : ';';
         $enclosure = ($request->get('enclosure') == 'singleQuote') ? "'" : '"';
         $isFileHeaderRow = (is_null($request->get('isHeaderRow'))) ? true : !empty($request->get('isHeaderRow'));
 
-        return $this->getCsvFileParser()->getFileColumns($attachment, $delimiter, $enclosure, $isFileHeaderRow);
+        return $this->getFileParser($request->get('format'))->getFileColumns($attachment, $delimiter, $enclosure, $isFileHeaderRow);
     }
 
     public function runImport(string $importFeedId, string $attachmentId): bool
@@ -199,25 +180,6 @@ class ImportFeed extends Base
     }
 
     /**
-     * @param Attachment $attachment
-     * @param string     $delimiter
-     * @param string     $enclosure
-     *
-     * @return int
-     * @throws BadRequest
-     */
-    protected function getCountRows(Attachment $attachment, string $delimiter = ";", string $enclosure = '"'): int
-    {
-        $count = $this->getCsvFileParser()->getCountRows($attachment, $delimiter, $enclosure);
-
-        if ($count < 1) {
-            throw new BadRequest($this->exception("countOfFileRowsIsLessThanOne"));
-        }
-
-        return $count;
-    }
-
-    /**
      * @param string $importFeedId
      *
      * @return ImportFeedEntity
@@ -246,15 +208,22 @@ class ImportFeed extends Base
     }
 
     /**
-     * @return CsvFileParser
+     * @param string $format
+     *
+     * @return CsvFileParser|ExcelFileParser
+     * @throws BadRequest
      */
-    protected function getCsvFileParser(): CsvFileParser
+    public function getFileParser(string $format)
     {
-        if (is_null($this->csvFileParser)) {
-            $this->csvFileParser = $this->getInjection('serviceFactory')->create('CsvFileParser');
+        if ($format === 'CSV') {
+            return $this->getInjection('serviceFactory')->create('CsvFileParser');
         }
 
-        return $this->csvFileParser;
+        if ($format === 'Excel') {
+            return $this->getInjection('serviceFactory')->create('ExcelFileParser');
+        }
+
+        throw new BadRequest("No such file parser type '$format'.");
     }
 
     /**

@@ -3,7 +3,8 @@
   "description": "",
   "require": {
     "atrocore/core": "~1.4.0",
-    "atrocore/import-feeds-common": "~1.4.0"
+    "atrocore/import-feeds-common": "~1.4.0",
+    "phpoffice/phpspreadsheet": "~1.16.0"
   },
   "autoload": {
     "psr-4": {

@@ -62,7 +62,6 @@
   },
   "exceptions": {
     "measureIsNotSet": "Maß für das Attribut \"%s\" ist nicht gesetzt.",
-    "onlyCsvIsAllowed": "Nur CSV-Dateien sind zulässig.",
     "noSpecified": "Kein '%s' angegeben.",
     "delimitersMustBeDifferent": "Alle Feedparameter sollten eindeutige Werte haben.",
     "unlinkAndLinkInOneRow": "Das mehrsprachige Attribut sollte für alle Sprachen als nicht verknüpftes Attribut markiert werden, um die Verknüpfung aufzuheben.",
@@ -84,10 +83,10 @@
     "utf8Expected": "Die hochgeladene Datei sollte in UTF-8 Format sein.",
     "fileEmpty": "Die hochgeladene Datei kann nicht leer sein.",
     "csvExpected": "Hochgeladene Datei ist ungültig. CSV-Datei wird erwartet.",
+    "excelExpected": "Hochgeladene Datei ist ungültig. Excel-Datei wird erwartet.",
     "noSuchFile": "Keine solche Datei",
     "importFeedIsInactive": "Import Feed ist inaktiv",
-    "theFileDoesNotMatchTheTemplate": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein. Möglicherweise enthält Ihre Datei die Spalte mit Fehlermeldungen, diese soll gelöscht werden.",
-    "countOfFileRowsIsLessThanOne": "Die Anzahl der Dateireihen ist kleiner als eins"
+    "theFileDoesNotMatchTheTemplate": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein. Möglicherweise enthält Ihre Datei die Spalte mit Fehlermeldungen, diese soll gelöscht werden."
   },
   "tooltips": {
     "file": "Diese Datei wird für die Konfiguration verwendet. Es kann eine Beispieldatei oder die zu importierende Datei sein."

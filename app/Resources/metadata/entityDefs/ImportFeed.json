@@ -82,7 +82,8 @@
       "filterDisabled": true,
       "prohibitedEmptyValue": true,
       "options": [
-        "CSV"
+        "CSV",
+        "Excel"
       ],
       "default": "CSV"
     },

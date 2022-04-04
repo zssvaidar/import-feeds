@@ -44,6 +44,21 @@ class AttachmentController extends AbstractListener
             return;
         }
 
+        $content = $this->parseInputFileContent($data->file);
+        if (empty($content)) {
+            throw new BadRequest($this->getLanguage()->translate('fileEmpty', 'exceptions', 'ImportFeed'));
+        }
+
+        if (property_exists($data, 'modelAttributes') && property_exists($data->modelAttributes, 'format')) {
+            $method = "validate{$data->modelAttributes->format}File";
+            if (method_exists($this, $method)) {
+                $this->$method($data, $content);
+            }
+        }
+    }
+
+    protected function validateCSVFile(\stdClass $data, string $content): void
+    {
         $csvTypes = [
             "text/csv",
             "text/plain",
@@ -61,13 +76,20 @@ class AttachmentController extends AbstractListener
             throw new BadRequest($this->getLanguage()->translate('csvExpected', 'exceptions', 'ImportFeed'));
         }
 
-        $content = $this->parseInputFileContent($data->file);
-        if (empty($content)) {
-            throw new BadRequest($this->getLanguage()->translate('fileEmpty', 'exceptions', 'ImportFeed'));
-        }
-
         if (!preg_match('//u', $content)) {
             throw new BadRequest($this->getLanguage()->translate('utf8Expected', 'exceptions', 'ImportFeed'));
+        }
+    }
+
+    protected function validateExcelFile(\stdClass $data, string $content): void
+    {
+        $excelTypes = [
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-excel",
+        ];
+
+        if (!in_array($data->type, $excelTypes)) {
+            throw new BadRequest($this->getLanguage()->translate('excelExpected', 'exceptions', 'ImportFeed'));
         }
     }
 
