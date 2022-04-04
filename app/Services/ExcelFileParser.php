@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
+use Espo\Core\Utils\Util;
 use Espo\Entities\Attachment;
 
 class ExcelFileParser extends CsvFileParser
@@ -44,15 +45,15 @@ class ExcelFileParser extends CsvFileParser
 
     protected function getCsvFilePath(Attachment $attachment, string $delimiter = ";", string $enclosure = '"'): string
     {
-        $path = $this->getLocalFilePath($attachment);
-
-        $parts = explode('.', $path);
-        array_pop($parts);
-        $csvFilePath = implode('.', $parts) . '-' . $attachment->get('id') . '.csv';
+        $dir = 'data/cache/import-csv-cache/';
+        Util::createDir($dir);
+        $csvFilePath = $dir . $attachment->get('id') . '.csv';
 
         if (file_exists($csvFilePath)) {
             return $csvFilePath;
         }
+
+        $path = $this->getLocalFilePath($attachment);
 
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($path);
         $reader->setReadDataOnly(true);
