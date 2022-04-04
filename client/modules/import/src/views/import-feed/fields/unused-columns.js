@@ -77,6 +77,7 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
 
             let data = {
                 importFeedId: this.model.get('id'),
+                format: this.model.get('format'),
                 delimiter: this.model.get('fileFieldDelimiter'),
                 enclosure: this.model.get('fileTextQualifier'),
                 isHeaderRow: this.model.get('isFileHeaderRow') ? 1 : 0

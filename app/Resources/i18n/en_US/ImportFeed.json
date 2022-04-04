@@ -64,7 +64,6 @@
   },
   "exceptions": {
     "measureIsNotSet": "Measure for the attribute \"%s\" is not set.",
-    "onlyCsvIsAllowed": "Only CSV file is allowed.",
     "noSpecified": "No '%s' specified.",
     "delimitersMustBeDifferent": "All feed parameters should have unique values.",
     "unlinkAndLinkInOneRow": "Multilingual attribute should be marked as a not linked attribute for all languages to unlink it.",
@@ -89,8 +88,7 @@
     "excelExpected": "Uploaded file is not valid. Excel file is expected.",
     "noSuchFile": "No such file",
     "importFeedIsInactive": "Import feed is inactive",
-    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template. Maybe your file contain the column with error messages, which should be deleted.",
-    "countOfFileRowsIsLessThanOne": "Count of file rows is less than one"
+    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template. Maybe your file contain the column with error messages, which should be deleted."
   },
   "tooltips": {
     "file": "This file will be used to create the configuration. It could be an example file or file to be imported."
