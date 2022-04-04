@@ -22,10 +22,6 @@
 Espo.define('import:views/import-feed/fields/file', 'views/fields/file',
     Dep => Dep.extend({
 
-        editTemplate: 'import:import-feed/fields/file/edit',
-
-        accept: ['.csv'],
-
         setup() {
             Dep.prototype.setup.call(this);
 
@@ -33,7 +29,33 @@ Espo.define('import:views/import-feed/fields/file', 'views/fields/file',
                 this.listenTo(this.model, 'change:fileId', () => {
                     this.model.trigger('fileUpdate');
                 });
+
+                this.prepareAccept();
+                this.listenTo(this.model, 'change:format', () => {
+                    this.model.set('fileId', null);
+                    this.prepareAccept();
+                    this.reRender();
+                });
             }
-        }
+        },
+
+        prepareAccept() {
+            if (this.model.get('format') === 'CSV') {
+                this.acceptAttribue = ['.csv'];
+            }
+
+            if (this.model.get('format') === 'Excel') {
+                this.acceptAttribue = ['.xls', '.xlsx'];
+            }
+        },
+
+        afterRender() {
+            Dep.prototype.afterRender.call(this);
+
+            if (this.mode === 'edit' && this.model.get('format') === 'CSV') {
+                this.$el.find('.attachment-upload .attachment-button .pull-left').append('<div class="text-muted small">UTF-8</div>');
+            }
+        },
+
     })
 );

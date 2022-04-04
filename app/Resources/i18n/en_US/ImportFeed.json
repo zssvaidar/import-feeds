@@ -86,6 +86,7 @@
     "utf8Expected": "Uploaded file should be UTF-8 encoded.",
     "fileEmpty": "Uploaded file cannot be empty.",
     "csvExpected": "Uploaded file is not valid. CSV file is expected.",
+    "excelExpected": "Uploaded file is not valid. Excel file is expected.",
     "noSuchFile": "No such file",
     "importFeedIsInactive": "Import feed is inactive",
     "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template. Maybe your file contain the column with error messages, which should be deleted.",

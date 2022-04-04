@@ -101,6 +101,11 @@
               "type": "equals",
               "attribute": "type",
               "value": "simple"
+            },
+            {
+              "type": "equals",
+              "attribute": "format",
+              "value": "CSV"
             }
           ]
         },
@@ -110,6 +115,11 @@
               "type": "equals",
               "attribute": "type",
               "value": "simple"
+            },
+            {
+              "type": "equals",
+              "attribute": "format",
+              "value": "CSV"
             }
           ]
         }
@@ -121,6 +131,11 @@
               "type": "equals",
               "attribute": "type",
               "value": "simple"
+            },
+            {
+              "type": "equals",
+              "attribute": "format",
+              "value": "CSV"
             }
           ]
         },
@@ -130,6 +145,11 @@
               "type": "equals",
               "attribute": "type",
               "value": "simple"
+            },
+            {
+              "type": "equals",
+              "attribute": "format",
+              "value": "CSV"
             }
           ]
         }
