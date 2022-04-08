@@ -124,11 +124,10 @@ class ImportJob extends Base
 
         $attachment = $this->getEntityManager()->getEntity('Attachment', $importJob->get('attachmentId'));
 
+        $fileParser = $this->getInjection('serviceFactory')->create('ImportFeed')->getFileParser($feed->getFeedField('format'));
+
         // get file data
-        $data = $this
-            ->getInjection('serviceFactory')
-            ->create('CsvFileParser')
-            ->getFileData($attachment, $feed->getDelimiter(), $feed->getEnclosure());
+        $data = $fileParser->getFileData($attachment, $feed->getDelimiter(), $feed->getEnclosure());
 
         // collect errors rows
         $errorsRows = [];
@@ -143,9 +142,14 @@ class ImportJob extends Base
         // generate contents
         $contents = $this->generateCsvContents($errorsRows, $feed->getDelimiter(), $feed->getEnclosure());
 
+        // prepare attachment name
+        $nameParts = explode('.', $importJob->get('attachment')->get('name'));
+        array_pop($nameParts);
+        $name = 'errors-' . implode('.', $nameParts) . '.csv';
+
         // create attachment
         $attachment = $this->getEntityManager()->getEntity('Attachment');
-        $attachment->set('name', 'errors-' . $importJob->get('attachment')->get('name'));
+        $attachment->set('name', $name);
         $attachment->set('field', 'errorsAttachment');
         $attachment->set('role', 'Attachment');
         $attachment->set('type', 'text/csv');

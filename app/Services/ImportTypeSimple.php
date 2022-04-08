@@ -60,7 +60,7 @@ class ImportTypeSimple extends QueueManagerBase
             "name"            => $feed->get('name'),
             "offset"          => $feed->isFileHeaderRow() ? 1 : 0,
             "limit"           => \PHP_INT_MAX,
-            "fileFormat"          => $feed->getFeedField('format'),
+            "fileFormat"      => $feed->getFeedField('format'),
             "delimiter"       => $feed->getDelimiter(),
             "enclosure"       => $feed->getEnclosure(),
             "isFileHeaderRow" => $feed->isFileHeaderRow(),
@@ -485,8 +485,10 @@ class ImportTypeSimple extends QueueManagerBase
         $enclosure = $feed->getEnclosure();
         $isFileHeaderRow = $feed->isFileHeaderRow();
 
-        $templateColumns = $this->getService('CsvFileParser')->getFileColumns($feed->get('file'), $delimiter, $enclosure, $isFileHeaderRow);
-        $fileColumns = $this->getService('CsvFileParser')->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
+        $fileParser = $this->getService('ImportFeed')->getFileParser($feed->getFeedField('format'));
+
+        $templateColumns = $fileParser->getFileColumns($feed->get('file'), $delimiter, $enclosure, $isFileHeaderRow);
+        $fileColumns = $fileParser->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
 
         return $templateColumns == $fileColumns;
     }
