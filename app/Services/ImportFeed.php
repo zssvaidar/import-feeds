@@ -62,12 +62,53 @@ class ImportFeed extends Base
             throw new BadRequest($this->exception("noSuchFile"));
         }
 
+        $method = "validate{$request->get('format')}File";
+        if (method_exists($this, $method)) {
+            $this->$method($attachment->get('type'), file_get_contents($attachment->getFilePath()));
+        }
+
         // prepare settings
         $delimiter = (!empty($request->get('delimiter'))) ? $request->get('delimiter') : ';';
         $enclosure = ($request->get('enclosure') == 'singleQuote') ? "'" : '"';
         $isFileHeaderRow = (is_null($request->get('isHeaderRow'))) ? true : !empty($request->get('isHeaderRow'));
 
         return $this->getFileParser($request->get('format'))->getFileColumns($attachment, $delimiter, $enclosure, $isFileHeaderRow);
+    }
+
+    public function validateCSVFile(string $type, string $content): void
+    {
+        $csvTypes = [
+            "text/csv",
+            "text/plain",
+            "text/x-csv",
+            "application/vnd.ms-excel",
+            "text/x-csv",
+            "application/csv",
+            "application/x-csv",
+            "text/comma-separated-values",
+            "text/x-comma-separated-values",
+            "text/tab-separated-values"
+        ];
+
+        if (!in_array($type, $csvTypes)) {
+            throw new BadRequest($this->getInjection('language')->translate('csvExpected', 'exceptions', 'ImportFeed'));
+        }
+
+        if (!preg_match('//u', $content)) {
+            throw new BadRequest($this->getInjection('language')->translate('utf8Expected', 'exceptions', 'ImportFeed'));
+        }
+    }
+
+    public function validateExcelFile(string $type, string $content): void
+    {
+        $excelTypes = [
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-excel",
+        ];
+
+        if (!in_array($type, $excelTypes)) {
+            throw new BadRequest($this->getInjection('language')->translate('excelExpected', 'exceptions', 'ImportFeed'));
+        }
     }
 
     public function runImport(string $importFeedId, string $attachmentId): bool
