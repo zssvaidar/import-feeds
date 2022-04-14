@@ -26,7 +26,10 @@ namespace Import\Repositories;
 
 use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Templates\Repositories\Base;
+use Espo\Core\Utils\Util;
 use Espo\ORM\Entity;
+use Espo\Services\Attachment;
+use PhpOffice\PhpSpreadsheet\IOFactory as PhpSpreadsheet;
 
 class ImportJob extends Base
 {
@@ -139,28 +142,52 @@ class ImportJob extends Base
             }
         }
 
-        // generate contents
-        $contents = $this->generateCsvContents($errorsRows, $feed->getDelimiter(), $feed->getEnclosure());
+        /** @var Attachment $attachmentService */
+        $attachmentService = $this->getInjection('serviceFactory')->create('Attachment');
 
         // prepare attachment name
         $nameParts = explode('.', $importJob->get('attachment')->get('name'));
         array_pop($nameParts);
-        $name = 'errors-' . implode('.', $nameParts) . '.csv';
+        $name = 'errors-' . implode('.', $nameParts);
 
-        // create attachment
-        $attachment = $this->getEntityManager()->getEntity('Attachment');
-        $attachment->set('name', $name);
-        $attachment->set('field', 'errorsAttachment');
-        $attachment->set('role', 'Attachment');
-        $attachment->set('type', 'text/csv');
+        $inputData = new \stdClass();
+        $inputData->name = "{$name}.csv";
+        $inputData->contents = $this->generateCsvContents($errorsRows, $feed->getDelimiter(), $feed->getEnclosure());
+        $inputData->type = 'text/csv';
+        $inputData->relatedType = 'ImportJob';
+        $inputData->field = 'errorsAttachment';
+        $inputData->role = 'Attachment';
 
-        // store file
-        $this
-            ->getInjection('fileStorageManager')
-            ->putContents($attachment, $contents);
+        $attachment = $attachmentService->createEntity($inputData);
 
-        // save new attachment
-        $this->getEntityManager()->saveEntity($attachment);
+        // create xlsx
+        if ($feed->getFeedField('format') === 'Excel') {
+            $filePath = $this->getEntityManager()->getRepository('Attachment')->getFilePath($attachment);
+            $cacheDir = 'data/cache';
+
+            Util::createDir($cacheDir);
+            $cacheFile = "{$cacheDir}/{$name}.xlsx";
+
+            $reader = PhpSpreadsheet::createReaderForFile($filePath);
+            $reader->setReadDataOnly(true);
+            $reader->setDelimiter($feed->getDelimiter());
+            $reader->setEnclosure($feed->getEnclosure());
+            $writer = PhpSpreadsheet::createWriter($reader->load($filePath), "Xlsx");
+            $writer->save($cacheFile);
+
+            $inputData->name = "{$name}.xlsx";
+            $inputData->type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+            $inputData->contents = file_get_contents($cacheFile);
+
+            // remove csv
+            $this->getEntityManager()->removeEntity($attachment);
+
+            // remove cache file
+            unlink($cacheFile);
+
+            // create xlsx
+            $attachment = $attachmentService->createEntity($inputData);
+        }
 
         $importJob->set('errorsAttachmentId', $attachment->get('id'));
         $this->getEntityManager()->saveEntity($importJob, ['skipAll' => true]);
