@@ -163,15 +163,6 @@
               "value": "Product"
             }
           ]
-        },
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "entity",
-              "value": "Product"
-            }
-          ]
         }
       }
     }

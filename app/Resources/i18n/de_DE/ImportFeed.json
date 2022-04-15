@@ -61,6 +61,7 @@
     "importNow": "Möchten Sie wirklich die Daten aus der ausgewählten Quelle importieren?"
   },
   "exceptions": {
+    "nullNoneMarkForNotLinkedAttributeSame": "Markierung für ein nicht verknüpftes Attribut, leerer Wert und Nullwert sollten eindeutige Werte haben, nur ein Wert kann leer sein.",
     "measureIsNotSet": "Maß für das Attribut \"%s\" ist nicht gesetzt.",
     "noSpecified": "Kein '%s' angegeben.",
     "delimitersMustBeDifferent": "Alle Feedparameter sollten eindeutige Werte haben.",

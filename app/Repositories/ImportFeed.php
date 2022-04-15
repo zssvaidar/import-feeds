@@ -71,12 +71,16 @@ class ImportFeed extends Base
         $delimiters = [
             $entity->getFeedField('delimiter'),
             $entity->getFeedField('decimalMark'),
-            $entity->getFeedField('thousandSeparator'),
+//            $entity->getFeedField('thousandSeparator'),
             $entity->getFeedField('fieldDelimiterForRelation')
         ];
 
         if ($entity->getFeedField('entity') === 'Product') {
             $delimiters[] = $entity->getFeedField('markForNotLinkedAttribute');
+
+            if ($entity->getFeedField('emptyValue') === $entity->getFeedField('markForNotLinkedAttribute') || $entity->getFeedField('nullValue') === $entity->getFeedField('markForNotLinkedAttribute')) {
+                throw new BadRequest($this->getLanguage()->translate("nullNoneMarkForNotLinkedAttributeSame", "exceptions", "ImportFeed"));
+            }
         }
 
         if (count(array_unique($delimiters)) !== count($delimiters)) {
