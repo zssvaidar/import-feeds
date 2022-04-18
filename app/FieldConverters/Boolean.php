@@ -62,7 +62,7 @@ class Boolean extends Varchar
             $value = (bool)$value;
         }
 
-        $inputRow->{$config['name']} = $value;
+        $inputRow->{$config['name']} = !empty($value);
     }
 
     public function prepareForSaveConfiguratorDefaultField(Entity $entity): void
