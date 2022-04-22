@@ -32,7 +32,7 @@ Espo.define('import:views/import-feed/fields/file', 'views/fields/file',
 
                 this.prepareAccept();
                 this.listenTo(this.model, 'change:format', () => {
-                    this.model.set('fileId', null);
+                    this.model.trigger('fileUpdate');
                     this.prepareAccept();
                     this.reRender();
                 });
