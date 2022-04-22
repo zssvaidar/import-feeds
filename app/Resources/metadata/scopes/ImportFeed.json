@@ -19,6 +19,7 @@
   "type": "Base",
   "module": "Import",
   "object": true,
+  "overviewFilters": false,
   "hasOwner": true,
   "hasAssignedUser": true,
   "hasTeam": true,
