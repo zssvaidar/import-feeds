@@ -50,15 +50,6 @@ class ImportJob extends Base
             }
         }
 
-        $jobs = $this->where(['importFeedId' => $importFeed->get('id'), 'state' => 'Success'])->order('createdAt')->find();
-        $jobsCount = count($jobs);
-        foreach ($jobs as $job) {
-            if ($jobsCount > $importFeed->get('jobsMax')) {
-                $this->getEntityManager()->removeEntity($job);
-                $jobsCount--;
-            }
-        }
-
         parent::beforeSave($entity, $options);
     }
 
@@ -69,6 +60,17 @@ class ImportJob extends Base
         }
 
         parent::afterSave($entity, $options);
+
+        if (!empty($importFeed = $entity->get('importFeed'))) {
+            $jobs = $this->where(['importFeedId' => $importFeed->get('id'), 'state' => 'Success'])->order('createdAt')->find();
+            $jobsCount = count($jobs);
+            foreach ($jobs as $job) {
+                if ($jobsCount > $importFeed->get('jobsMax')) {
+                    $this->getEntityManager()->removeEntity($job);
+                    $jobsCount--;
+                }
+            }
+        }
     }
 
     protected function afterRemove(Entity $entity, array $options = [])
