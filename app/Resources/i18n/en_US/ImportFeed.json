@@ -1,5 +1,6 @@
 {
   "fields": {
+    "connection": "Connection",
     "format": "Format",
     "entity": "Entity",
     "delimiter": "List Value Separator",
@@ -25,6 +26,7 @@
     "fieldDelimiterForRelation": "Field Delimiter for Relation"
   },
   "links": {
+    "connection": "Connection",
     "importJobs": "Import Jobs",
     "configuratorItems": "Configurator"
   },

@@ -1,5 +1,6 @@
 {
   "fields": {
+    "connection": "Verbindung",
     "format": "Format",
     "entity": "Entität",
     "delimiter": "Listenwerttrennzeichen",
@@ -22,6 +23,7 @@
     "fieldDelimiterForRelation": "Feldtrennzeichen für Relation"
   },
   "links": {
+    "connection": "Verbindung",
     "importJobs": "Importaufträge",
     "configuratorItems": "Konfigurator"
   },

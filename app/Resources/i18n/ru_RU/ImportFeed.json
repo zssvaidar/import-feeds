@@ -1,5 +1,6 @@
 {
   "fields": {
+    "connection": "Соединение",
     "format": "Формат",
     "entity": "Сущность",
     "delimiter": "Разделитель значений списка",
@@ -25,6 +26,7 @@
     "fieldDelimiterForRelation": "Разделитель полей для связи"
   },
   "links": {
+    "connection": "Соединение",
     "importJobs": "Задания импорта",
     "configuratorItems": "Конфигуратор"
   },

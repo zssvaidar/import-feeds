@@ -240,6 +240,9 @@
       "filterDisabled": true,
       "view": "import:views/import-feed/fields/unused-columns",
       "readOnly": true
+    },
+    "connection": {
+      "type": "link"
     }
   },
   "links": {
@@ -279,6 +282,10 @@
       "type": "hasMany",
       "foreign": "importFeed",
       "entity": "ImportJob"
+    },
+    "connection": {
+      "type": "belongsTo",
+      "entity": "Connection"
     }
   },
   "collection": {
