@@ -24,30 +24,23 @@ declare(strict_types=1);
 
 namespace Import\Listeners;
 
-use Treo\Listeners\AbstractListener;
 use Treo\Core\EventManager\Event;
+use Treo\Listeners\AbstractListener;
 
-/**
- * Class Controller
- */
-class Controller extends AbstractListener
+class Entity extends AbstractListener
 {
-    /**
-     * @param Event $event
-     */
-    public function beforeAction(Event $event)
+    public function beforeGetSelectParams(Event $event): void
     {
-        $scope = $event->getArgument('controller');
+        $entityType = $event->getArgument('entityType');
+        $params = $event->getArgument('params');
 
-        // get request
-        $request = $event->getArgument('request');
-        if (!empty($where = $request->get('where'))) {
-            foreach ($where as $k => $item) {
-                if (!empty($newItem = $this->prepareImportJobFilter($scope, $item))) {
-                    $where[$k] = $newItem;
+        if (!empty($params['where'])) {
+            foreach ($params['where'] as $k => $item) {
+                if (!empty($newItem = $this->prepareImportJobFilter($entityType, $item))) {
+                    $params['where'][$k] = $newItem;
                 }
             }
-            $request->setQuery('where', array_values($where));
+            $event->setArgument('params', $params);
         }
     }
 
@@ -161,22 +154,5 @@ class Controller extends AbstractListener
     protected function getEntitiesIds(array $where): array
     {
         return array_column($this->getEntityManager()->getRepository('ImportJobLog')->select(['entityId'])->where($where)->find()->toArray(), 'entityId');
-    }
-
-    protected function getIdsViaJobType(string $scope, array $types): array
-    {
-        $data = $this
-            ->getEntityManager()
-            ->getRepository('ImportJobLog')
-            ->select(['entityId'])
-            ->where(
-                [
-                    'entityName' => $scope,
-                    'type'       => $types
-                ]
-            )
-            ->find();
-
-        return array_column($data->toArray(), 'entityId');
     }
 }

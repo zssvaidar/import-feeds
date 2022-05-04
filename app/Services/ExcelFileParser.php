@@ -24,46 +24,42 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
-use Espo\Core\Utils\Util;
 use Espo\Entities\Attachment;
 
 class ExcelFileParser extends CsvFileParser
 {
     public function getFileData(Attachment $attachment, string $delimiter = ";", string $enclosure = '"', int $offset = 0, int $limit = null): array
     {
-        $path = $this->getCsvFilePath($attachment, $delimiter, $enclosure);
-
-        return $this->getParsedFileData($path, $delimiter, $enclosure, $offset, $limit);
-    }
-
-    public function getCountRows(Attachment $attachment, string $delimiter = ";", string $enclosure = '"'): int
-    {
-        $path = $this->getCsvFilePath($attachment, $delimiter, $enclosure);
-
-        return $this->getFileRowsCount($path, $delimiter, $enclosure);
-    }
-
-    protected function getCsvFilePath(Attachment $attachment, string $delimiter = ";", string $enclosure = '"'): string
-    {
-        $dir = 'data/cache/import-csv-cache/';
-        Util::createDir($dir);
-        $csvFilePath = $dir . $attachment->get('id') . '.csv';
-
-        if (file_exists($csvFilePath)) {
-            return $csvFilePath;
-        }
-
         $path = $this->getLocalFilePath($attachment);
 
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($path);
         $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($path);
 
-        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
-        $writer->setDelimiter($delimiter);
-        $writer->setEnclosure($enclosure);
-        $writer->save($csvFilePath);
+        try {
+            $data = $reader->load($path)->getSheet(0)->toArray();
+        } catch (\Throwable $e) {
+            $data = [];
+        }
 
-        return $csvFilePath;
+        $result = [];
+        foreach ($data as $k => $row) {
+            if ($k < $offset) {
+                continue 1;
+            }
+            $result[] = $row;
+        }
+
+        if (!empty($limit)) {
+            $limited = [];
+            foreach ($result as $v) {
+                if (count($limited) >= $limit) {
+                    break;
+                }
+                $limited[] = $v;
+            }
+            $result = $limited;
+        }
+
+        return $result;
     }
 }
