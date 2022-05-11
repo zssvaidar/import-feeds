@@ -19,7 +19,7 @@
     "importFeed": "Import Feed"
   },
   "labels": {
-    "main": "Hauptsächlich"
+    "main": "Hauptsprache"
   },
   "exceptions": {
     "importByIsRequired": "Verwandte Entitätsfelder sind erforderlich.",
