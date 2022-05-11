@@ -47,14 +47,14 @@ class Currency extends FloatValue
 
         if ($isSingleColumn) {
             if (!empty($config['column'][0]) && isset($row[$config['column'][0]])) {
-                $cell = $row[$config['column'][0]];
+                $cell = trim((string)$row[$config['column'][0]]);
                 $this->ignoreAttribute($cell, $config);
 
-                if (strtolower((string)$cell) === strtolower((string)$config['emptyValue']) || $cell === '' || strtolower((string)$cell) === strtolower((string)$config['nullValue'])) {
+                if (strtolower($cell) === strtolower((string)$config['emptyValue']) || $cell === '' || strtolower($cell) === strtolower((string)$config['nullValue'])) {
                     $value = null;
                     $currency = null;
                 } else {
-                    $parts = explode(' ', preg_replace('!\s+!', ' ', trim($cell)));
+                    $parts = explode(' ', preg_replace('!\s+!', ' ', $cell));
                     if (count($parts) > 2) {
                         throw new BadRequest($this->translate('incorrectCurrencyValue', 'exceptions', 'ImportFeed'));
                     }
