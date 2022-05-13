@@ -149,6 +149,8 @@ class ImportTypeSimple extends QueueManagerBase
 
                 try {
                     $input = new \stdClass();
+                    $input->_importInputDataRow = $row;
+                   
                     $restore = new \stdClass();
 
                     $attributes = [];
