@@ -149,6 +149,7 @@ class ImportTypeSimple extends QueueManagerBase
 
                 try {
                     $input = new \stdClass();
+                    $input->_importJobData = $importJob->toArray();
                     $input->_importInputDataRow = $row;
                    
                     $restore = new \stdClass();
