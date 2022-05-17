@@ -1,14 +1,18 @@
 [
   {
-    "name": "name"
+    "name": "name",
+    "notSortable": true
   },
   {
-    "name": "entityIdentifier"
+    "name": "entityIdentifier",
+    "notSortable": true
   },
   {
-    "name": "column"
+    "name": "column",
+    "notSortable": true
   },
   {
-    "name": "defaultContainer"
+    "name": "defaultContainer",
+    "notSortable": true
   }
 ]
