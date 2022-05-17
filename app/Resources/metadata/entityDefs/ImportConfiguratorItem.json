@@ -132,6 +132,10 @@
     },
     "importFeed": {
       "type": "link"
+    },
+    "sortOrder": {
+      "type": "int",
+      "default": 0
     }
   },
   "links": {
