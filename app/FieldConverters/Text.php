@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
-class Varchar extends Text
+class Text extends Wysiwyg
 {
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
@@ -32,6 +32,6 @@ class Varchar extends Text
 
         $value = (string)$inputRow->{$config['name']};
 
-        $inputRow->{$config['name']} = preg_replace("/[\n\r\s]+/", " ", $value);
+        $inputRow->{$config['name']} = trim(html_entity_decode(strip_tags($value)));
     }
 }

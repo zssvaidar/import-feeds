@@ -3,6 +3,12 @@
     "varchar": {
       "converter": "\\Import\\FieldConverters\\Varchar"
     },
+    "text": {
+      "converter": "\\Import\\FieldConverters\\Text"
+    },
+    "wysiwyg": {
+      "converter": "\\Import\\FieldConverters\\Wysiwyg"
+    },
     "link": {
       "converter": "\\Import\\FieldConverters\\Link"
     },
