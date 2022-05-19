@@ -31,6 +31,7 @@ class Text extends Wysiwyg
         parent::convert($inputRow, $config, $row);
 
         $value = (string)$inputRow->{$config['name']};
+        $value = str_replace(['<br>', '<br/>', '<br />', '\n'], ["\n", "\n", "\n", "\n"], $value);
 
         $inputRow->{$config['name']} = trim(html_entity_decode(strip_tags($value)));
     }
