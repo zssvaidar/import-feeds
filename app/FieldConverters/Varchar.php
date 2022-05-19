@@ -32,6 +32,8 @@ class Varchar extends Text
 
         $value = (string)$inputRow->{$config['name']};
 
-        $inputRow->{$config['name']} = preg_replace("/[\n\r\s]+/", " ", $value);
+//        $value = preg_replace("/[\n\r\s]+/", " ", $value);
+
+        $inputRow->{$config['name']} = $value;
     }
 }
