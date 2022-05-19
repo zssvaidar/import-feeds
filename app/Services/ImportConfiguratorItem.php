@@ -62,9 +62,10 @@ class ImportConfiguratorItem extends Base
         $this->prepareDefaultField($fieldType, $entity);
     }
 
-    public function getFieldConverter($type): Varchar
+    public function getFieldConverter($type)
     {
         $class = $this->getMetadata()->get(['import', 'configurator', 'fields', $type, 'converter'], Varchar::class);
+
         return new $class($this->getInjection('container'));
     }
 
