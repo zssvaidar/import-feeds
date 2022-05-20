@@ -1,7 +1,7 @@
 {
   "fields": {
-    "filterImportJob": "Import Job",
-    "filterImportJobAction": "Import Job Action",
+    "filterCreateImportJob": "Created by Import Job",
+    "filterUpdateImportJob": "Updated by Import Job",
     "createdByImport": "Created by import",
     "updatedByImport": "Updated by import"
   },

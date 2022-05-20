@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace Import\Listeners;
 
-use Treo\Core\EventManager\Event;
-use Treo\Listeners\AbstractListener;
+use Espo\Core\EventManager\Event;
+use Espo\Listeners\AbstractListener;
 
 class Metadata extends AbstractListener
 {
@@ -48,7 +48,7 @@ class Metadata extends AbstractListener
                 continue;
             }
 
-            $data['entityDefs'][$scope]['fields']['filterImportJob'] = [
+            $data['entityDefs'][$scope]['fields']['filterCreateImportJob'] = [
                 'type'                      => 'enum',
                 'notStorable'               => true,
                 'view'                      => 'import:views/fields/filter-import-job',
@@ -64,10 +64,11 @@ class Metadata extends AbstractListener
                 'emHidden'                  => true,
             ];
 
-            $data['entityDefs'][$scope]['fields']['filterImportJobAction'] = [
+            $data['entityDefs'][$scope]['fields']['filterUpdateImportJob'] = [
                 'type'                      => 'enum',
                 'notStorable'               => true,
-                'view'                      => 'import:views/fields/filter-import-job-action',
+                'view'                      => 'import:views/fields/filter-import-job',
+                'scope'                     => $scope,
                 'layoutDetailDisabled'      => true,
                 'layoutDetailSmallDisabled' => true,
                 'layoutListDisabled'        => true,

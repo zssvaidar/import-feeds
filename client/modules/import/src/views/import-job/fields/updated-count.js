@@ -35,20 +35,12 @@ Espo.define('import:views/import-job/fields/updated-count', 'import:views/fields
                 presetName: null,
                 bool: {},
                 advanced: {
-                    'filterImportJob-1': {
+                    'filterUpdateImportJob-1': {
                         type: 'in',
                         value: [this.model.id],
                         data: {
                             type: 'anyOf',
                             valueList: [this.model.id]
-                        }
-                    },
-                    'filterImportJobAction-1': {
-                        type: 'in',
-                        value: ['update'],
-                        data: {
-                            type: 'anyOf',
-                            valueList: ['update']
                         }
                     }
                 }

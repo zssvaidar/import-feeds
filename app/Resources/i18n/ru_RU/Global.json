@@ -1,7 +1,7 @@
 {
   "fields": {
-    "filterImportJob": "Задание импорта",
-    "filterImportJobAction": "Задание импорта: Действие",
+    "filterCreateImportJob": "Создано при импорте",
+    "filterUpdateImportJob": "Обновлено при импорте",
     "createdByImport": "Создано при импорте",
     "updatedByImport": "Обновлено при импорте"
   },

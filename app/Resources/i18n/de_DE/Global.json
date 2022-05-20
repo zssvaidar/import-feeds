@@ -1,7 +1,7 @@
 {
   "fields": {
-    "filterImportJob": "Importauftrag",
-    "filterImportJobAction": "Importauftragsaktion",
+    "filterCreateImportJob": "Erstellt durch Importauftrag",
+    "filterUpdateImportJob": "Aktualisiert durch Importauftrag",
     "createdByImport": "Erstellt durch Import",
     "updatedByImport": "Aktualisiert durch Import"
   },

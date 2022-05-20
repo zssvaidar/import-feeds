@@ -23,7 +23,7 @@ Espo.define('import:views/fields/filter-import-job', 'views/fields/enum',
     Dep => Dep.extend({
 
         setup() {
-            const scope = this.model.defs.fields.filterImportJob.scope;
+            const scope = this.model.defs.fields.filterCreateImportJob.scope;
 
             this.params.options = [];
             this.translatedOptions = {};
