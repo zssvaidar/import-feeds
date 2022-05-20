@@ -129,6 +129,7 @@ class ImportTypeSimple extends QueueManagerBase
                     }
                 } catch (\Throwable $e) {
                     $this->log($scope, $importJob->get('id'), 'error', (string)$fileRow, $e->getMessage());
+                    continue 1;
                 }
 
                 if (in_array($data['action'], ['create', 'create_delete']) && !empty($entity)) {
