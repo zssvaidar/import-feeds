@@ -26,16 +26,16 @@ namespace Import\Services;
 
 use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Exceptions\NotFound;
+use Espo\Core\FilePathBuilder;
 use Espo\Core\Services\Base;
 use Espo\Core\Utils\Metadata;
 use Espo\Core\Utils\Util;
 use Espo\Entities\Attachment;
 use Espo\ORM\Entity;
 use Espo\Services\QueueManagerBase;
-use Import\Exceptions\IgnoreAttribute;
 use Import\Entities\ImportFeed;
+use Import\Exceptions\IgnoreAttribute;
 use Treo\Core\Exceptions\NotModified;
-use Treo\Core\FilePathBuilder;
 
 class ImportTypeSimple extends QueueManagerBase
 {
