@@ -25,8 +25,8 @@ declare(strict_types=1);
 namespace Import\Listeners;
 
 use Espo\Core\Exceptions\BadRequest;
-use Treo\Listeners\AbstractListener;
-use Treo\Core\EventManager\Event;
+use Espo\Listeners\AbstractListener;
+use Espo\Core\EventManager\Event;
 
 class AttachmentController extends AbstractListener
 {

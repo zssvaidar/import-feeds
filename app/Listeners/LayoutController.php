@@ -25,9 +25,9 @@ declare(strict_types=1);
 namespace Import\Listeners;
 
 use Espo\Core\Utils\Json;
-use Treo\Core\EventManager\Event;
+use Espo\Core\EventManager\Event;
 
-class LayoutController extends \Treo\Listeners\AbstractListener
+class LayoutController extends \Espo\Listeners\AbstractListener
 {
     public function afterActionRead(Event $event): void
     {
