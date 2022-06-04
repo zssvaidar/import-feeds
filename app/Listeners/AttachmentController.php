@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace Import\Listeners;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Listeners\AbstractListener;
 use Espo\Core\EventManager\Event;
 
@@ -65,7 +66,14 @@ class AttachmentController extends AbstractListener
             $method = "validate{$inputData->modelAttributes->format}File";
             $service = $this->getService('ImportFeed');
             if (method_exists($service, $method)) {
-                $service->$method($attachment->id);
+                try {
+                    $service->$method($attachment->id);
+                } catch (BadRequest $e) {
+                    if (!empty($attachment = $this->getEntityManager()->getEntity('Attachment', $attachment->id))) {
+                        $this->getEntityManager()->removeEntity($attachment);
+                    }
+                    throw $e;
+                }
             }
         }
     }
