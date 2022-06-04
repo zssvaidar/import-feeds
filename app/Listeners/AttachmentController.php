@@ -24,48 +24,49 @@ declare(strict_types=1);
 
 namespace Import\Listeners;
 
-use Espo\Core\Exceptions\BadRequest;
 use Espo\Listeners\AbstractListener;
 use Espo\Core\EventManager\Event;
 
 class AttachmentController extends AbstractListener
 {
-    public function beforeActionCreate(Event $event)
+    public function afterActionCreate(Event $event): void
     {
-        /** @var \stdClass $data */
         $data = $event->getArgument('data');
+        $result = $event->getArgument('result');
 
-        if (
-            !property_exists($data, 'relatedType')
-            || $data->relatedType !== 'ImportFeed'
-            || !property_exists($data, 'field')
-            || !in_array($data->field, ['importFile', 'file'])
-        ) {
-            return;
-        }
+        $this->validateImportAttachment($data, $result);
+    }
 
-        $content = $this->parseInputFileContent($data->file);
-        if (empty($content)) {
-            throw new BadRequest($this->getLanguage()->translate('fileEmpty', 'exceptions', 'ImportFeed'));
-        }
+    public function afterActionCreateChunks(Event $event): void
+    {
+        $data = $event->getArgument('data');
+        $result = $event->getArgument('result');
 
-        if (property_exists($data, 'modelAttributes') && property_exists($data->modelAttributes, 'format')) {
-            $method = "validate{$data->modelAttributes->format}File";
-            $service = $this->getService('ImportFeed');
-            if (method_exists($service, $method)) {
-                $service->$method($data->type, $content);
-            }
+        if (!empty($result['attachment'])) {
+            $this->validateImportAttachment($data, json_decode(json_encode($result['attachment'])));
         }
     }
 
-    protected function parseInputFileContent(string $fileContent): string
+    protected function validateImportAttachment($inputData, $attachment): void
     {
-        $arr = explode(',', $fileContent);
-        $contents = '';
-        if (count($arr) > 1) {
-            $contents = $arr[1];
+        if (empty($attachment) || !is_object($attachment)) {
+            return;
         }
 
-        return base64_decode($contents);
+        if (!property_exists($attachment, 'relatedType') || $attachment->relatedType !== 'ImportFeed') {
+            return;
+        }
+
+        if (!property_exists($attachment, 'field') || !in_array($attachment->field, ['importFile', 'file'])) {
+            return;
+        }
+
+        if (property_exists($inputData, 'modelAttributes') && property_exists($inputData->modelAttributes, 'format')) {
+            $method = "validate{$inputData->modelAttributes->format}File";
+            $service = $this->getService('ImportFeed');
+            if (method_exists($service, $method)) {
+                $service->$method($attachment->id);
+            }
+        }
     }
 }
