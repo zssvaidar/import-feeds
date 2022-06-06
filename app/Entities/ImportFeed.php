@@ -141,6 +141,8 @@ class ImportFeed extends Base
                 'name'                      => $item->get('name'),
                 'column'                    => $item->get('column'),
                 'createIfNotExist'          => !empty($item->get('createIfNotExist')),
+                'intermediateColumn'        => $item->get('intermediateColumn'),
+                'intermediateImportBy'      => $item->get('intermediateImportBy'),
                 'default'                   => $item->get('default'),
                 'importBy'                  => $item->get('importBy'),
                 'type'                      => $item->get('type'),

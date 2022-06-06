@@ -48,7 +48,7 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
                     }
                 });
 
-                this.listenTo(this.model, 'change:name', () => {
+                this.listenTo(this.model, 'change:name change:createIfNotExist', () => {
                     this.clearDefaultField();
                     this.createDefaultField();
                 });

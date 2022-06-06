@@ -2,7 +2,7 @@
   "fields": {
     "entityIdentifier": "Identifier",
     "name": "Field",
-    "column": "Column(s)",
+    "column": "Source Field(s)",
     "defaultContainer": "Default Value",
     "default": "Default Value",
     "importFeed": "Import Feed",
@@ -12,18 +12,29 @@
     "attribute": "Attribute",
     "channel": "Channel",
     "scope": "Scope",
-    "unusedColumns": "Unused Columns",
-    "type": "Type"
+    "unusedColumns": "Unused Source Fields",
+    "type": "Type",
+    "intermediateColumn": "Source Field(s)",
+    "intermediateImportBy": "Related Entity Fields to Insert/Update"
   },
   "links": {
     "importFeed": "Import Feed",
     "channel": "Channel"
   },
   "labels": {
-    "main": "Main"
+    "main": "Main",
+    "mapping": "Field mapping for insert/update",
+    "search": "Field mapping for search",
+    "additionalInformation": "Additional Information"
   },
   "exceptions": {
     "importByIsRequired": "Related Entity Fields are required.",
-    "columnOrDefaultValueIsRequired": "Column or Default should be filled."
+    "columnOrDefaultValueIsRequired": "Column or Default should be filled.",
+    "wrongFieldsNumber": "For search the amount of source fields should be the same as the amount of related entity fields.",
+    "wrongIntermediateFieldsNumber": "For insert/update the amount of source fields should be the same as the amount of related entity fields."
+  },
+  "tooltips": {
+    "column": "This(these) field value(s) will be used to search if related data record already exists.",
+    "intermediateColumn": "This(these) field value(s) will be used to create/update related data record."
   }
 }

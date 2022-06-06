@@ -11,7 +11,8 @@
     },
     "column": {
       "type": "array",
-      "view": "import:views/import-configurator-item/fields/column"
+      "view": "import:views/import-configurator-item/fields/column",
+      "tooltip": true
     },
     "importBy": {
       "type": "multiEnum",
@@ -35,6 +36,15 @@
       ],
       "default": "Field",
       "view": "import:views/import-configurator-item/fields/type"
+    },
+    "intermediateColumn": {
+      "type": "multiEnum",
+      "view": "import:views/import-configurator-item/fields/intermediate-column",
+      "tooltip": true
+    },
+    "intermediateImportBy": {
+      "type": "multiEnum",
+      "view": "import:views/import-configurator-item/fields/intermediate-import-by"
     },
     "attribute": {
       "type": "link"
@@ -124,7 +134,8 @@
     "unusedColumns": {
       "type": "array",
       "notStorable": true,
-      "readOnly": true
+      "readOnly": true,
+      "view": "import:views/import-configurator-item/fields/unused-columns"
     },
     "createdAt": {
       "type": "datetime",

@@ -4,7 +4,7 @@
     "format": "Format",
     "entity": "Entity",
     "delimiter": "List Value Separator",
-    "unusedColumns": "Unused Columns",
+    "unusedColumns": "Unused Source Fields",
     "file": "File",
     "isActive": "Active",
     "type": "Type",

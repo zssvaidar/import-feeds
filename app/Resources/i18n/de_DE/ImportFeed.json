@@ -4,7 +4,7 @@
     "format": "Format",
     "entity": "Entität",
     "delimiter": "Listenwerttrennzeichen",
-    "unusedColumns": "Nicht verwendete Spalten Column",
+    "unusedColumns": "Unbenutzte Quellfelder",
     "file": "Datei",
     "isActive": "Aktiv",
     "type": "Typ",
