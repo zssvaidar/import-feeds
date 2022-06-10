@@ -62,7 +62,7 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
             }
 
             if (this.model.get('type') === 'Attribute' && this.model.get('attributeIsMultilang') && this.model.get('locale') !== 'main') {
-                name += ' › ' + this.model.get('locale');
+                name += ' / ' + this.model.get('locale');
             }
 
             return name;
