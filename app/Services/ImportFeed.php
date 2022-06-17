@@ -31,7 +31,6 @@ use Espo\Core\Templates\Services\Base;
 use Espo\ORM\Entity;
 use Import\Entities\ImportFeed as ImportFeedEntity;
 use Import\Entities\ImportJob;
-use Espo\Entities\Attachment;
 
 class ImportFeed extends Base
 {
@@ -55,16 +54,14 @@ class ImportFeed extends Base
      */
     public function getFileColumns(string $attachmentId, $request): array
     {
-        // get attachment
         $attachment = $this->getEntityManager()->getEntity('Attachment', $attachmentId);
-
-        if (!($attachment instanceof Attachment)) {
+        if (empty($attachment)) {
             throw new BadRequest($this->exception("noSuchFile"));
         }
 
         $method = "validate{$request->get('format')}File";
         if (method_exists($this, $method)) {
-            $this->$method($attachment->get('type'), file_get_contents($attachment->getFilePath()));
+            $this->$method($attachmentId);
         }
 
         // prepare settings
@@ -75,8 +72,13 @@ class ImportFeed extends Base
         return $this->getFileParser($request->get('format'))->getFileColumns($attachment, $delimiter, $enclosure, $isFileHeaderRow);
     }
 
-    public function validateCSVFile(string $type, string $content): void
+    public function validateCSVFile(string $attachmentId): void
     {
+        $attachment = $this->getEntityManager()->getEntity('Attachment', $attachmentId);
+        if (empty($attachment)) {
+            throw new BadRequest($this->exception("noSuchFile"));
+        }
+
         $csvTypes = [
             "text/csv",
             "text/plain",
@@ -90,24 +92,36 @@ class ImportFeed extends Base
             "text/tab-separated-values"
         ];
 
-        if (!in_array($type, $csvTypes)) {
+        if (!in_array($attachment->get('type'), $csvTypes)) {
             throw new BadRequest($this->getInjection('language')->translate('csvExpected', 'exceptions', 'ImportFeed'));
         }
 
-        if (!preg_match('//u', $content)) {
+        $contents = file_get_contents($attachment->getFilePath());
+        if (!preg_match('//u', $contents)) {
             throw new BadRequest($this->getInjection('language')->translate('utf8Expected', 'exceptions', 'ImportFeed'));
         }
     }
 
-    public function validateExcelFile(string $type, string $content): void
+    public function validateExcelFile(string $attachmentId): void
     {
+        $attachment = $this->getEntityManager()->getEntity('Attachment', $attachmentId);
+        if (empty($attachment)) {
+            throw new BadRequest($this->exception("noSuchFile"));
+        }
+
         $excelTypes = [
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             "application/vnd.ms-excel",
         ];
 
-        if (!in_array($type, $excelTypes)) {
+        if (!in_array($attachment->get('type'), $excelTypes)) {
             throw new BadRequest($this->getInjection('language')->translate('excelExpected', 'exceptions', 'ImportFeed'));
+        }
+
+        $maxSize = 1000 * 1000 * 2;
+
+        if ($attachment->get('size') > $maxSize) {
+            throw new BadRequest($this->getInjection('language')->translate('excelFileTooBig', 'exceptions', 'ImportFeed'));
         }
     }
 
