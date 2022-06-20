@@ -41,7 +41,7 @@ class Link extends Varchar
             } else {
                 $value = [];
 
-                foreach ($config['column'] as $column) {
+                foreach ($config['column'] as $key => $column) {
                     $value[] = $this->getSearchValue($column, $config, $row, $default);
                 }
             }
@@ -90,7 +90,7 @@ class Link extends Varchar
                     $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
                 }
 
-                if (!empty($input) && !empty($config['createIfNotExist'])) {
+                if (!empty($input)) {
                     $user = $this->container->get('user');
                     $userId = empty($user) ? null : $user->get('id');
 
@@ -99,8 +99,10 @@ class Link extends Varchar
                     $input->assignedUserId = $userId;
                     $input->assignedUserName = $userId;
 
-                    if (!empty($intermediateImportBy = $config['intermediateImportBy']) && !empty($intermediateColumn = $config['intermediateColumn'])) {
+                    if ($this->isUpdate($config)) {
                         $intermediateValues = [];
+                        $intermediateColumn = $config['intermediateColumn'];
+                        $intermediateImportBy = $config['intermediateImportBy'];
 
                         if (count($intermediateColumn) === 1) {
                             $intermediateValues = explode($config['fieldDelimiterForRelation'], $row[$intermediateColumn[0]]);
@@ -118,14 +120,15 @@ class Link extends Varchar
                     }
 
                     try {
-                        $entity =
-                            !empty($entity)
-                                ? $this->getService($entityName)->updateEntity($entity->id, $input)
-                                : $this->getService($entityName)->createEntity($input);
+                        if (!empty($entity)) {
+                            $entity = $this->getService($entityName)->updateEntity($entity->id, $input);
+                        } elseif (!empty($config['createIfNotExist'])) {
+                            $entity = $this->getService($entityName)->createEntity($input);
+                        }
                     } catch (\Throwable $e) {
                         $className = get_class($e);
 
-                        $message = sprintf($this->translate('relatedEntityCreatingFailed', 'exceptions', 'ImportFeed'), $this->translate($entityName, 'scopeNames', 'Global'));
+                        $message = sprintf($this->translate('relatedEntityCreatingFailed', 'exceptions', 'ImportFeed'), $this->translate($entityName, 'scopeNames'));
                         $message .= ' ' . $e->getMessage();
 
                         throw new $className($message);
@@ -140,6 +143,10 @@ class Link extends Varchar
                 if (!empty($entity)) {
                     $value = $entity->get('id');
                 } else {
+                    if (empty($default) && $this->getMetadata()->get([$config['name'], 'fields', $config['entity']]) == 'link') {
+                        throw new BadRequest(sprintf($this->translate('noEntityFound', 'exceptions', 'ImportFeed'), $entityName));
+                    }
+
                     $value = $default;
                 }
             }
@@ -195,7 +202,7 @@ class Link extends Varchar
     }
 
     /**
-     * @param string $column
+     * @param mixed $column
      * @param array $config
      * @param array $row
      * @param mixed $default
@@ -204,7 +211,7 @@ class Link extends Varchar
      *
      * @throws \Import\Exceptions\IgnoreAttribute
      */
-    protected function getSearchValue(string $column, array $config, array $row, $default)
+    protected function getSearchValue($column, array $config, array $row, $default)
     {
         $value = $row[$column] ?? null;
         $this->ignoreAttribute($value, $config);
@@ -216,5 +223,13 @@ class Link extends Varchar
         }
 
         return $value;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isUpdate(array $config): bool
+    {
+        return !empty($config['intermediateImportBy']) && !empty($config['intermediateColumn']);
     }
 }

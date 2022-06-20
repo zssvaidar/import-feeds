@@ -6,8 +6,8 @@
     "defaultContainer": "Default-Wert",
     "default": "Default-Wert",
     "importFeed": "Import Feed",
-    "createIfNotExist": "Erstellen, falls nicht vorhanden",
-    "importBy": "Zugehörige Entitätsfelder",
+    "createIfNotExist": "Zugehörigen Datensatz anlegen",
+    "importBy": "Feld(er) der verknüpften Entität",
     "locale": "Sprache",
     "attribute": "Attribut",
     "channel": "Kanal",
@@ -15,7 +15,7 @@
     "unusedColumns": "Unbenutzte Quellfelder",
     "type": "Typ",
     "intermediateColumn": "Quellfeld(er)",
-    "intermediateImportBy": "Zugehörige Entitätsfelder zum Einfügen/Aktualisieren"
+    "intermediateImportBy": "Feld(er) der verknüpften Entität"
   },
   "links": {
     "importFeed": "Import Feed"
@@ -29,11 +29,14 @@
   "exceptions": {
     "importByIsRequired": "Verwandte Entitätsfelder sind erforderlich.",
     "columnOrDefaultValueIsRequired": "Spalte oder Standard sollte abgelegt werden.",
-    "wrongFieldsNumber": "Diese(r) Feldwert(e) werden (wird) verwendet, um zugehörige Datensätze zu erstellen/aktualisieren.",
-    "wrongIntermediateFieldsNumber": "Für die Suche sollte die Anzahl der Quellfelder gleich der Anzahl der Relationsfelder sein."
+    "wrongFieldsNumber": "Für die Suche sollte die Anzahl der Quellfelder gleich der Anzahl der Relationsfelder sein.",
+    "wrongIntermediateFieldsNumber": "Für Erstellen/Aktualisieren sollte die Anzahl der Quellfelder gleich der Anzahl der Relationsfelder sein."
   },
   "tooltips": {
     "column": "Diese(n) Feldwert(e) werden verwendet, um zu suchen, ob ein zugehöriger Datensatz bereits vorhanden ist.",
-    "intermediateColumn": "Diese(r) Feldwert(e) werden (wird) verwendet, um zugehörige Datensätze zu erstellen/aktualisieren."
+    "importBy": "Wählen Sie Feld(er) der verknüpfter Entität in Ihrem System aus, das (die) für die Suche basierend auf den in der Auswahlliste \"Quellfeld(er)\" bereitgestellten Daten verwendet wird (werden). Wenn nur ein Datenfeld bereitgestellt wird, kann \"Feldtrennzeichen für Relation\" angewendet werden. In anderen Fällen sollte die Anzahl der bereitgestellten Datenfelder und \"Feld(er) der verknüpften Entität\" gleich sein.",
+    "createIfNotExist": "Wenn anhand der bereitgestellten Daten nichts gefunden wird, wird ein neuer Datensatz für die verknüpfte Entität erstellt.",
+    "intermediateColumn": "Diese(r) Feldwert(e) werden (wird) verwendet, um zugehörige Datensätze zu erstellen/aktualisieren.",
+    "intermediateImportBy": "Wählen Sie Feld(er) der verknüpfter Entität in Ihrem System aus, das (die) fürs Einfügen/Aktualisieren basierend auf den in der Auswahlliste \"Quellfeld(er)\" bereitgestellten Daten verwendet wird (werden). Wenn nur ein Datenfeld bereitgestellt wird, kann \"Feldtrennzeichen für Relation\" angewendet werden. In anderen Fällen sollte die Anzahl der bereitgestellten Datenfelder und \"Feld(er) der verknüpften Entität\" gleich sein."
   }
 }

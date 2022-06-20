@@ -19,12 +19,14 @@
       "view": "import:views/import-configurator-item/fields/import-by",
       "default": [
         "id"
-      ]
+      ],
+      "tooltip": true
     },
     "createIfNotExist": {
       "type": "bool",
       "view": "import:views/import-configurator-item/fields/create-if-not-exist",
-      "default": false
+      "default": false,
+      "tooltip": true
     },
     "type": {
       "type": "enum",
@@ -44,7 +46,8 @@
     },
     "intermediateImportBy": {
       "type": "multiEnum",
-      "view": "import:views/import-configurator-item/fields/intermediate-import-by"
+      "view": "import:views/import-configurator-item/fields/intermediate-import-by",
+      "tooltip": true
     },
     "attribute": {
       "type": "link"

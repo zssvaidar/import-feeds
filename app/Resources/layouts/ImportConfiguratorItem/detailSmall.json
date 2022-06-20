@@ -73,15 +73,7 @@
           "name": "intermediateImportBy"
         }
       ]
-    ],
-    "dynamicLogicVisible": {
-      "conditionGroup": [
-        {
-          "type": "isTrue",
-          "attribute": "createIfNotExist"
-        }
-      ]
-    }
+    ]
   },
   {
     "label": "additionalInformation",

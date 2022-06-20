@@ -28,7 +28,7 @@ Espo.define('import:views/import-configurator-item/fields/intermediate-column', 
 
             Dep.prototype.setup.call(this);
 
-            this.listenTo(this.model, 'change:name change:createIfNotExist', () => {
+            this.listenTo(this.model, 'change:name', () => {
                 this.model.set(this.name, null);
             });
         }

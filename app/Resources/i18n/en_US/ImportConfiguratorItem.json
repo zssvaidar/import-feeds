@@ -6,8 +6,8 @@
     "defaultContainer": "Default Value",
     "default": "Default Value",
     "importFeed": "Import Feed",
-    "importBy": "Related Entity Fields",
-    "createIfNotExist": "Create if not exist",
+    "importBy": "Related entity field(s)",
+    "createIfNotExist": "Create related data record",
     "locale": "Language",
     "attribute": "Attribute",
     "channel": "Channel",
@@ -15,7 +15,7 @@
     "unusedColumns": "Unused Source Fields",
     "type": "Type",
     "intermediateColumn": "Source Field(s)",
-    "intermediateImportBy": "Related Entity Fields to Insert/Update"
+    "intermediateImportBy": "Related entity field(s)"
   },
   "links": {
     "importFeed": "Import Feed",
@@ -35,6 +35,9 @@
   },
   "tooltips": {
     "column": "This(these) field value(s) will be used to search if related data record already exists.",
-    "intermediateColumn": "This(these) field value(s) will be used to create/update related data record."
+    "importBy": "Choose related entity field(s) in your system, which should be used to search in based on the data provided in the select field \"Source Field(s)\". If only one data field is provided the \"Field Delimiter for Relation\" may apply. In other cases the amount of provided data fields and \"Related entity field(s)\" should be the same.",
+    "createIfNotExist": "New data record for related entity will be created, if nothing is found based on provided data.",
+    "intermediateColumn": "This(these) field value(s) will be used to create/update related data record.",
+    "intermediateImportBy": "Choose related entity field(s) in your system, which should be used for insert/update based on the data provided in the select field \"Source Field(s)\". If only one data field is provided the \"Field Delimiter for Relation\" may apply. In other cases the amount of provided data fields and \"Related entity field(s)\" should be the same."
   }
 }
