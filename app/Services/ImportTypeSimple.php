@@ -152,7 +152,7 @@ class ImportTypeSimple extends QueueManagerBase
                     $input = new \stdClass();
                     $input->_importJobData = $data;
                     $input->_importInputDataRow = $row;
-                   
+
                     $restore = new \stdClass();
 
                     $attributes = [];
@@ -484,6 +484,11 @@ class ImportTypeSimple extends QueueManagerBase
 
     protected function isFileValid(Entity $feed, Attachment $file): bool
     {
+        $feedFile = $feed->get('file');
+        if (empty($feedFile)) {
+            throw new BadRequest($this->translate('noFeedFileFound', 'exceptions', 'ImportFeed'));
+        }
+
         // prepare settings
         $delimiter = $feed->getDelimiter();
         $enclosure = $feed->getEnclosure();
@@ -491,7 +496,7 @@ class ImportTypeSimple extends QueueManagerBase
 
         $fileParser = $this->getService('ImportFeed')->getFileParser($feed->getFeedField('format'));
 
-        $templateColumns = $fileParser->getFileColumns($feed->get('file'), $delimiter, $enclosure, $isFileHeaderRow);
+        $templateColumns = $fileParser->getFileColumns($feedFile, $delimiter, $enclosure, $isFileHeaderRow);
         $fileColumns = $fileParser->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
 
         return $templateColumns == $fileColumns;

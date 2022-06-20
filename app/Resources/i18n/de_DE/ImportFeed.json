@@ -63,6 +63,7 @@
     "importNow": "Möchten Sie wirklich die Daten aus der ausgewählten Quelle importieren?"
   },
   "exceptions": {
+    "noFeedFileFound": "Feeddatei fehlt.",
     "excelFileTooBig": "Excel-Datei ist zu groß. Verwenden Sie stattdessen CSV.",
     "nullNoneMarkForNotLinkedAttributeSame": "Markierung für ein nicht verknüpftes Attribut, leerer Wert und Nullwert sollten eindeutige Werte haben, nur ein Wert kann leer sein.",
     "measureIsNotSet": "Maß für das Attribut \"%s\" ist nicht gesetzt.",
