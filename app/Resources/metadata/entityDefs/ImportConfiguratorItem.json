@@ -39,14 +39,14 @@
       "default": "Field",
       "view": "import:views/import-configurator-item/fields/type"
     },
-    "intermediateColumn": {
+    "foreignColumn": {
       "type": "multiEnum",
-      "view": "import:views/import-configurator-item/fields/intermediate-column",
+      "view": "import:views/import-configurator-item/fields/foreign-column",
       "tooltip": true
     },
-    "intermediateImportBy": {
+    "foreignImportBy": {
       "type": "multiEnum",
-      "view": "import:views/import-configurator-item/fields/intermediate-import-by",
+      "view": "import:views/import-configurator-item/fields/foreign-import-by",
       "tooltip": true
     },
     "attribute": {

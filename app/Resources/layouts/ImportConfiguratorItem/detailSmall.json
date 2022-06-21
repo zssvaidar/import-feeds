@@ -67,13 +67,21 @@
     "rows": [
       [
         {
-          "name": "intermediateColumn"
+          "name": "foreignColumn"
         },
         {
-          "name": "intermediateImportBy"
+          "name": "foreignImportBy"
         }
       ]
-    ]
+    ],
+    "dynamicLogicVisible": {
+      "conditionGroup": [
+        {
+          "type": "isTrue",
+          "attribute": "createIfNotExist"
+        }
+      ]
+    }
   },
   {
     "label": "additionalInformation",

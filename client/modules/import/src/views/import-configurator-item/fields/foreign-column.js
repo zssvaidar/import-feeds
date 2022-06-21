@@ -19,7 +19,7 @@
  * This software is not allowed to be used in Russia and Belarus.
  */
 
-Espo.define('import:views/import-configurator-item/fields/intermediate-column', 'views/fields/multi-enum',
+Espo.define('import:views/import-configurator-item/fields/foreign-column', 'views/fields/multi-enum',
     Dep => Dep.extend({
 
         setup() {

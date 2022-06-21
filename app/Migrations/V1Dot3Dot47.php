@@ -36,7 +36,7 @@ class V1Dot3Dot47 extends Base
      */
     public function up(): void
     {
-        $this->execute("ALTER TABLE `import_configurator_item` ADD intermediate_column MEDIUMTEXT DEFAULT NULL COLLATE utf8mb4_unicode_ci, ADD intermediate_import_by MEDIUMTEXT DEFAULT NULL COLLATE utf8mb4_unicode_ci");
+        $this->execute("ALTER TABLE `import_configurator_item` ADD foreign_column MEDIUMTEXT DEFAULT NULL COLLATE utf8mb4_unicode_ci, ADD foreign_import_by MEDIUMTEXT DEFAULT NULL COLLATE utf8mb4_unicode_ci");
     }
 
     /**
@@ -44,7 +44,7 @@ class V1Dot3Dot47 extends Base
      */
     public function down(): void
     {
-        $this->execute("ALTER TABLE `import_configurator_item` DROP intermediate_column, DROP intermediate_import_by");
+        $this->execute("ALTER TABLE `import_configurator_item` DROP foreign_column, DROP foreign_import_by");
     }
 
     /**

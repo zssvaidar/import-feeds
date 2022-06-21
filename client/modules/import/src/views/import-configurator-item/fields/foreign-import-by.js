@@ -19,7 +19,7 @@
  * This software is not allowed to be used in Russia and Belarus.
  */
 
-Espo.define('import:views/import-configurator-item/fields/intermediate-import-by', 'views/fields/multi-enum',
+Espo.define('import:views/import-configurator-item/fields/foreign-import-by', 'views/fields/multi-enum',
     Dep => Dep.extend({
 
         allowedTypes: ['bool', 'enum', 'varchar', 'float', 'int', 'text', 'wysiwyg'],
@@ -45,7 +45,7 @@ Espo.define('import:views/import-configurator-item/fields/intermediate-import-by
                 const importBy = this.model.get('importBy');
 
                 if (importBy && this.model.get(this.name)) {
-                    this.model.set(this.name, this.model.get('intermediateImportBy').filter(field => !importBy.includes(field)));
+                    this.model.set(this.name, this.model.get('foreignImportBy').filter(field => !importBy.includes(field)));
                 }
 
                 this.prepareOptions();
@@ -78,11 +78,11 @@ Espo.define('import:views/import-configurator-item/fields/intermediate-import-by
         validateColumns() {
             let validate = false;
 
-            const columns = (this.model.get('intermediateColumn') || []).length,
+            const columns = (this.model.get('foreignColumn') || []).length,
                   fields = (this.model.get(this.name) || []).length;
 
             if ((columns > 1 && fields !== columns) || (columns === 1 && fields < 1)) {
-                this.showValidationMessage(this.translate('wrongIntermediateFieldsNumber', 'exceptions', 'ImportConfiguratorItem'), this.$el);
+                this.showValidationMessage(this.translate('wrongForeignFieldsNumber', 'exceptions', 'ImportConfiguratorItem'), this.$el);
                 validate = true;
             }
 

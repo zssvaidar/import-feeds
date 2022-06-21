@@ -90,7 +90,7 @@ class Link extends Varchar
                     $entity = $this->getEntityManager()->getRepository($entityName)->select(['id'])->where($where)->findOne();
                 }
 
-                if (!empty($input)) {
+                if (empty($entity) && !empty($input) && !empty($config['createIfNotExist'])) {
                     $user = $this->container->get('user');
                     $userId = empty($user) ? null : $user->get('id');
 
@@ -99,32 +99,28 @@ class Link extends Varchar
                     $input->assignedUserId = $userId;
                     $input->assignedUserName = $userId;
 
-                    if ($this->isUpdate($config)) {
-                        $intermediateValues = [];
-                        $intermediateColumn = $config['intermediateColumn'];
-                        $intermediateImportBy = $config['intermediateImportBy'];
+                    if (!empty($config['foreignImportBy']) && !empty($config['foreignColumn'])) {
+                        $foreignValues = [];
+                        $foreignColumn = $config['foreignColumn'];
+                        $foreignImportBy = $config['foreignImportBy'];
 
-                        if (count($intermediateColumn) === 1) {
-                            $intermediateValues = explode($config['fieldDelimiterForRelation'], $row[$intermediateColumn[0]]);
+                        if (count($foreignColumn) === 1) {
+                            $foreignValues = explode($config['fieldDelimiterForRelation'], $row[$foreignColumn[0]]);
                         } else {
-                            foreach ($intermediateColumn as $column) {
-                                $intermediateValues[] = $row[$column];
+                            foreach ($foreignColumn as $column) {
+                                $foreignValues[] = $row[$column];
                             }
                         }
 
-                        foreach ($intermediateImportBy as $key => $field) {
-                            if (isset($intermediateValues[$key])) {
-                                $input->{$field} = $intermediateValues[$key];
+                        foreach ($foreignImportBy as $key => $field) {
+                            if (isset($foreignValues[$key])) {
+                                $input->{$field} = $foreignValues[$key];
                             }
                         }
                     }
 
                     try {
-                        if (!empty($entity)) {
-                            $entity = $this->getService($entityName)->updateEntity($entity->id, $input);
-                        } elseif (!empty($config['createIfNotExist'])) {
-                            $entity = $this->getService($entityName)->createEntity($input);
-                        }
+                        $entity = $this->getService($entityName)->createEntity($input);
                     } catch (\Throwable $e) {
                         $className = get_class($e);
 
@@ -143,10 +139,6 @@ class Link extends Varchar
                 if (!empty($entity)) {
                     $value = $entity->get('id');
                 } else {
-                    if (empty($default) && $this->getMetadata()->get([$config['name'], 'fields', $config['entity']]) == 'link') {
-                        throw new BadRequest(sprintf($this->translate('noEntityFound', 'exceptions', 'ImportFeed'), $entityName));
-                    }
-
                     $value = $default;
                 }
             }
@@ -223,13 +215,5 @@ class Link extends Varchar
         }
 
         return $value;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isUpdate(array $config): bool
-    {
-        return !empty($config['intermediateImportBy']) && !empty($config['intermediateColumn']);
     }
 }

@@ -56,8 +56,8 @@ class ImportConfiguratorItem extends Base
             throw new BadRequest($this->getInjection('language')->translate('columnOrDefaultValueIsRequired', 'exceptions', 'ImportConfiguratorItem'));
         }
 
-        if (!empty($entity->get('createIfNotExist')) && !empty($columns = $entity->get('intermediateColumn'))) {
-            $importBy = $entity->get('intermediateImportBy');
+        if (!empty($entity->get('createIfNotExist')) && !empty($columns = $entity->get('foreignColumn'))) {
+            $importBy = $entity->get('foreignImportBy');
 
             if ((count($columns) === 1 && count($importBy) < 1) || (count($columns) > 1 && count($columns) !== count($importBy))) {
                 throw new BadRequest($this->getInjection('language')->translate('wrongFieldsNumber', 'exceptions', 'ImportConfiguratorItem'));
