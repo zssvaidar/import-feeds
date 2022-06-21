@@ -11,19 +11,22 @@
     },
     "column": {
       "type": "array",
-      "view": "import:views/import-configurator-item/fields/column"
+      "view": "import:views/import-configurator-item/fields/column",
+      "tooltip": true
     },
     "importBy": {
       "type": "multiEnum",
       "view": "import:views/import-configurator-item/fields/import-by",
       "default": [
         "id"
-      ]
+      ],
+      "tooltip": true
     },
     "createIfNotExist": {
       "type": "bool",
       "view": "import:views/import-configurator-item/fields/create-if-not-exist",
-      "default": false
+      "default": false,
+      "tooltip": true
     },
     "type": {
       "type": "enum",
@@ -35,6 +38,16 @@
       ],
       "default": "Field",
       "view": "import:views/import-configurator-item/fields/type"
+    },
+    "foreignColumn": {
+      "type": "multiEnum",
+      "view": "import:views/import-configurator-item/fields/foreign-column",
+      "tooltip": true
+    },
+    "foreignImportBy": {
+      "type": "multiEnum",
+      "view": "import:views/import-configurator-item/fields/foreign-import-by",
+      "tooltip": true
     },
     "attribute": {
       "type": "link"
@@ -124,7 +137,8 @@
     "unusedColumns": {
       "type": "array",
       "notStorable": true,
-      "readOnly": true
+      "readOnly": true,
+      "view": "import:views/import-configurator-item/fields/unused-columns"
     },
     "createdAt": {
       "type": "datetime",
