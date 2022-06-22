@@ -25,6 +25,11 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
         setup() {
             Dep.prototype.setup.call(this);
 
+            this.validations = Espo.Utils.clone(this.validations);
+            if (!this.validations.includes('columns')) {
+                this.validations.push('columns');
+            }
+
             this.prepareImportByOptions();
             this.listenTo(this.model, 'change:name', () => {
                 this.model.set('importBy', null);
@@ -86,6 +91,20 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
                 this.hide();
             }
         },
+
+        validateColumns() {
+            let validate = false;
+
+            const columns = (this.model.get('column') || []).length,
+                fields = (this.model.get(this.name) || []).length;
+
+            if ((columns > 1 && fields !== columns) || (columns === 1 && fields < 1)) {
+                this.showValidationMessage(this.translate('wrongFieldsNumber', 'exceptions', 'ImportConfiguratorItem'), this.$el);
+                validate = true;
+            }
+
+            return validate;
+        }
 
     })
 );

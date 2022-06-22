@@ -25,15 +25,7 @@
       ],
       [
         {
-          "name": "column"
-        },
-        {
           "name": "defaultContainer"
-        }
-      ],
-      [
-        {
-          "name": "importBy"
         },
         {
           "name": "createIfNotExist"
@@ -52,7 +44,49 @@
           "name": "locale"
         },
         false
-      ],
+      ]
+    ]
+  },
+  {
+    "label": "search",
+    "style": "default",
+    "rows": [
+      [
+        {
+          "name": "column"
+        },
+        {
+          "name": "importBy"
+        }
+      ]
+    ]
+  },
+  {
+    "label": "mapping",
+    "style": "default",
+    "rows": [
+      [
+        {
+          "name": "foreignColumn"
+        },
+        {
+          "name": "foreignImportBy"
+        }
+      ]
+    ],
+    "dynamicLogicVisible": {
+      "conditionGroup": [
+        {
+          "type": "isTrue",
+          "attribute": "createIfNotExist"
+        }
+      ]
+    }
+  },
+  {
+    "label": "additionalInformation",
+    "style": "default",
+    "rows": [
       [
         {
           "name": "unusedColumns",

@@ -55,7 +55,7 @@ class LinkMultiple extends Varchar
                         $this
                             ->getService('ImportConfiguratorItem')
                             ->getFieldConverter('link')
-                            ->convert($input, array_merge($config, ['column' => [0], 'default' => null]), [$item]);
+                            ->convert($input, array_merge($config, ['column' => [0], 'default' => null]), array_merge([$item], $row));
 
                         $key = $config['name'] . 'Id';
                         if (property_exists($input, $key) && $input->$key !== null) {

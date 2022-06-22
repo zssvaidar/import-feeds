@@ -94,6 +94,16 @@
             }
           ]
         }
+      },
+      "defaultContainer": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "isFalse",
+              "attribute": "createIfNotExist"
+            }
+          ]
+        }
       }
     }
   }

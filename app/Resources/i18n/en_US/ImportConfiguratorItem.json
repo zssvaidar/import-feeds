@@ -2,28 +2,42 @@
   "fields": {
     "entityIdentifier": "Identifier",
     "name": "Field",
-    "column": "Column(s)",
+    "column": "Source Field(s)",
     "defaultContainer": "Default Value",
     "default": "Default Value",
     "importFeed": "Import Feed",
-    "importBy": "Related Entity Fields",
-    "createIfNotExist": "Create if not exist",
+    "importBy": "Related entity field(s)",
+    "createIfNotExist": "Create related data record",
     "locale": "Language",
     "attribute": "Attribute",
     "channel": "Channel",
     "scope": "Scope",
-    "unusedColumns": "Unused Columns",
-    "type": "Type"
+    "unusedColumns": "Unused Source Fields",
+    "type": "Type",
+    "foreignColumn": "Source Field(s)",
+    "foreignImportBy": "Related entity field(s)"
   },
   "links": {
     "importFeed": "Import Feed",
     "channel": "Channel"
   },
   "labels": {
-    "main": "Main"
+    "main": "Main",
+    "mapping": "Field mapping for insert",
+    "search": "Field mapping for search",
+    "additionalInformation": "Additional Information"
   },
   "exceptions": {
     "importByIsRequired": "Related Entity Fields are required.",
-    "columnOrDefaultValueIsRequired": "Column or Default should be filled."
+    "columnOrDefaultValueIsRequired": "Column or Default should be filled.",
+    "wrongFieldsNumber": "For search the amount of source fields should be the same as the amount of related entity fields.",
+    "wrongForeignFieldsNumber": "For insert the amount of source fields should be the same as the amount of related entity fields."
+  },
+  "tooltips": {
+    "column": "This(these) field value(s) will be used to search if related data record already exists.",
+    "importBy": "Choose related entity field(s) in your system, which should be used to search in based on the data provided in the select field \"Source Field(s)\". If only one data field is provided the \"Field Delimiter for Relation\" may apply. In other cases the amount of provided data fields and \"Related entity field(s)\" should be the same.",
+    "createIfNotExist": "New data record for related entity will be created, if nothing is found based on provided data.",
+    "foreignColumn": "This(these) field value(s) will be used to create related data record.",
+    "foreignImportBy": "Choose related entity field(s) in your system, which should be used for insert based on the data provided in the select field \"Source Field(s)\". If only one data field is provided the \"Field Delimiter for Relation\" may apply. In other cases the amount of provided data fields and \"Related entity field(s)\" should be the same."
   }
 }
