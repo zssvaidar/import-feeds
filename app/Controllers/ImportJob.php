@@ -72,18 +72,6 @@ class ImportJob extends Base
     }
 
     /**
-     * @param array  $params
-     * @param array  $data
-     * @param object $request
-     *
-     * @throws NotFound
-     */
-    public function actionUpdate($params, $data, $request)
-    {
-        throw new NotFound();
-    }
-
-    /**
      * @inheritDoc
      *
      * @throws NotFound

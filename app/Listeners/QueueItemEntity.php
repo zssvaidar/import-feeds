@@ -42,24 +42,36 @@ class QueueItemEntity extends AbstractListener
     {
         $entity = $event->getArgument('entity');
         if (!empty($entity->get('data')->data->importJobId)) {
-            $this->updateImportJobState($entity);
+            $this->removeImportJob($entity);
         }
     }
 
-    private function updateImportJobState(Entity $entity): bool
+    protected function updateImportJobState(Entity $entity): bool
     {
         $importJob = $this->getEntityManager()->getEntity('ImportJob', $entity->get('data')->data->importJobId);
         if (empty($importJob)) {
             return false;
         }
 
-        if ($entity->get('status') === 'Canceled') {
-            $this->getEntityManager()->removeEntity($importJob);
-            return true;
+        if ($entity->get('status') !== 'Success' && $importJob->get('state') !== $entity->get('status')) {
+            $importJob->set('state', $entity->get('status'));
+            $this->getEntityManager()->saveEntity($importJob);
         }
 
-        $importJob->set('state', $entity->get('status'));
-        $this->getEntityManager()->saveEntity($importJob);
+        return true;
+    }
+
+    protected function removeImportJob(Entity $entity): bool
+    {
+        $importJob = $this->getEntityManager()->getEntity('ImportJob', $entity->get('data')->data->importJobId);
+        if (empty($importJob)) {
+            return false;
+        }
+
+        if ($entity->get('status') === 'Pending') {
+            $this->getEntityManager()->removeEntity($importJob);
+        }
+
         return true;
     }
 }

@@ -50,6 +50,10 @@ class ImportJob extends Base
             }
         }
 
+        if ($entity->isAttributeChanged('state') && $entity->get('state') === 'Canceled' && !in_array($entity->getFetched('state'), ['Pending', 'Running'])) {
+            throw new BadRequest('Unexpected job state.');
+        }
+
         parent::beforeSave($entity, $options);
     }
 
@@ -57,6 +61,13 @@ class ImportJob extends Base
     {
         if ($entity->isAttributeChanged('state') && $entity->get('state') == 'Success') {
             $this->generateErrorsAttachment($entity);
+        }
+
+        if ($entity->isAttributeChanged('state') && $entity->get('state') === 'Canceled') {
+            $qmJob = $this->getQmJob($entity->get('id'));
+            if (!empty($qmJob)) {
+                $this->cancelQmJob($qmJob);
+            }
         }
 
         parent::afterSave($entity, $options);
@@ -75,10 +86,10 @@ class ImportJob extends Base
 
     protected function afterRemove(Entity $entity, array $options = [])
     {
-        $qmJob = $this->getEntityManager()->getRepository('QueueItem')->where(['data*' => '%"importJobId":"' . $entity->get('id') . '"%'])->findOne();
+        $qmJob = $this->getQmJob($entity->get('id'));
         if (!empty($qmJob)) {
-            $qmJob->set('status', 'Canceled');
-            $this->getEntityManager()->saveEntity($qmJob);
+            $this->cancelQmJob($qmJob);
+            $this->getEntityManager()->removeEntity($qmJob);
         }
 
         $this->getEntityManager()->getRepository('importJobLog')->where(['importJobId' => $entity->get('id')])->removeCollection();
@@ -219,6 +230,19 @@ class ImportJob extends Base
         unlink($fileName);
 
         return $contents;
+    }
+
+    public function getQmJob(string $id): ?Entity
+    {
+        return $this->getEntityManager()->getRepository('QueueItem')->where(['data*' => '%"importJobId":"' . $id . '"%'])->findOne();
+    }
+
+    protected function cancelQmJob(Entity $qmJob): void
+    {
+        if (in_array($qmJob->get('status'), ['Pending', 'Running'])) {
+            $qmJob->set('status', 'Canceled');
+            $this->getEntityManager()->saveEntity($qmJob);
+        }
     }
 
     protected function init()

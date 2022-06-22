@@ -21,7 +21,8 @@
     "Pending": "В ожидании",
     "Success": "Успешно",
     "Running": "Выполняется",
-    "Failed": "Не выполнено"
+    "Failed": "Не выполнено",
+    "Canceled": "Отменено"
   },
   "tooltips": {
     "errorsAttachment": "Строчки с 'Imported file' которые не были проимпортированы."

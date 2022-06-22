@@ -21,7 +21,8 @@
     "Pending": "Pending",
     "Success": "Success",
     "Running": "Running",
-    "Failed": "Failed"
+    "Failed": "Failed",
+    "Canceled": "Canceled"
   },
   "tooltips": {
     "errorsAttachment": "Rows from 'Imported file' that have not been imported."
