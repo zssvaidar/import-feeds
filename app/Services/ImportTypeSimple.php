@@ -72,6 +72,11 @@ class ImportTypeSimple extends QueueManagerBase
 
     public function run(array $data = []): bool
     {
+        while (true){
+            file_put_contents('import-1.txt', time());
+            sleep(1);
+        }
+
         $importJob = $this->getEntityManager()->getEntity('ImportJob', $data['data']['importJobId']);
         if (empty($importJob)) {
             throw new BadRequest('No such ImportJob.');

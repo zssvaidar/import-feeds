@@ -75,10 +75,13 @@ class ImportJob extends Base
 
     protected function afterRemove(Entity $entity, array $options = [])
     {
-        $id = (string)$entity->get('id');
+        $qmJob = $this->getEntityManager()->getRepository('QueueItem')->where(['data*' => '%"importJobId":"' . $entity->get('id') . '"%'])->findOne();
+        if (!empty($qmJob)) {
+            $qmJob->set('status', 'Canceled');
+            $this->getEntityManager()->saveEntity($qmJob);
+        }
 
-        $this->exec("DELETE FROM `import_job_log` WHERE import_job_id='$id'");
-        $this->exec("DELETE FROM `queue_item` WHERE data LIKE '%\"importJobId\":\"$id\"%'");
+        $this->getEntityManager()->getRepository('importJobLog')->where(['importJobId' => $entity->get('id')])->removeCollection();
 
         if (
             !empty($attachment = $entity->get('attachment'))
@@ -224,10 +227,5 @@ class ImportJob extends Base
 
         $this->addDependency('serviceFactory');
         $this->addDependency('fileStorageManager');
-    }
-
-    private function exec(string $sql): void
-    {
-        $this->getEntityManager()->nativeQuery($sql);
     }
 }
