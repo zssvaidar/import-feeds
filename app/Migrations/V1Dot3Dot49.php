@@ -27,9 +27,9 @@ namespace Import\Migrations;
 use Treo\Core\Migration\Base;
 
 /**
- * Migration class for version 1.3.47
+ * Migration class for version 1.3.49
  */
-class V1Dot3Dot47 extends Base
+class V1Dot3Dot49 extends Base
 {
     /**
      * @inheritDoc
