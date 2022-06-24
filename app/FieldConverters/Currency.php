@@ -137,7 +137,10 @@ class Currency extends FloatValue
         $inputRow = new \stdClass();
         $this->convert($inputRow, $configuration, $row);
 
-        $where[$configuration['name']] = $inputRow->{$configuration['name']};
+        if ($configuration['entity'] !== 'ProductPrice') {
+            $where[$configuration['name']] = $inputRow->{$configuration['name']};
+        }
+
         $where["{$configuration['name']}Currency"] = $inputRow->{"{$configuration['name']}Currency"};
     }
 

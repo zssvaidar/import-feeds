@@ -48,6 +48,16 @@ Espo.define('import:views/import-feed/record/panels/import-jobs', 'views/record/
             });
         },
 
+        actionCancelImportJob(data) {
+            let model = this.collection.get(data.id);
+
+            this.notify('Saving...');
+            model.set('state', 'Canceled');
+            model.save().then(() => {
+                this.notify('Saved', 'success');
+            });
+        },
+
         actionRefresh() {
             if ($('.panel-body[data-name="importJobs"] .list-row-buttons.open').length === 0) {
                 Dep.prototype.actionRefresh.call(this);

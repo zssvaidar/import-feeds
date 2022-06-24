@@ -36,6 +36,10 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
                 this.translatedOptions[field] = this.translate(field, 'fields', entity);
             });
 
+            this.listenTo(this.model, `change:${this.name}`, function () {
+                this.model.set('createIfNotExist', false);
+            }, this);
+
             Dep.prototype.setup.call(this);
         },
 
@@ -62,7 +66,7 @@ Espo.define('import:views/import-configurator-item/fields/name', 'views/fields/e
             }
 
             if (this.model.get('type') === 'Attribute' && this.model.get('attributeIsMultilang') && this.model.get('locale') !== 'main') {
-                name += ' › ' + this.model.get('locale');
+                name += ' / ' + this.model.get('locale');
             }
 
             return name;

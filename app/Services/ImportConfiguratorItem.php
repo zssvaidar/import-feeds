@@ -31,7 +31,7 @@ use Import\FieldConverters\Varchar;
 
 class ImportConfiguratorItem extends Base
 {
-    protected $mandatorySelectAttributeList = ['importFeedId', 'importBy', 'createIfNotExist', 'default', 'type', 'attributeId', 'scope', 'locale', 'sortOrder'];
+    protected $mandatorySelectAttributeList = ['importFeedId', 'importBy', 'createIfNotExist', 'default', 'type', 'attributeId', 'scope', 'locale', 'sortOrder', 'foreignColumn', 'foreignImportBy'];
 
     public function prepareEntityForOutput(Entity $entity)
     {

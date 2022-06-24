@@ -27,7 +27,7 @@
     "importJobs": {
       "create": false,
       "select": false,
-      "rowActionsView": "views/record/row-actions/view-and-remove",
+      "rowActionsView": "import:views/import-job/record/row-actions/relationship",
       "view": "import:views/import-feed/record/panels/import-jobs"
     }
   },

@@ -4,7 +4,7 @@
     "format": "Format",
     "entity": "Entität",
     "delimiter": "Listenwerttrennzeichen",
-    "unusedColumns": "Nicht verwendete Spalten Column",
+    "unusedColumns": "Unbenutzte Quellfelder",
     "file": "Datei",
     "isActive": "Aktiv",
     "type": "Typ",
@@ -63,6 +63,7 @@
     "importNow": "Möchten Sie wirklich die Daten aus der ausgewählten Quelle importieren?"
   },
   "exceptions": {
+    "noFeedFileFound": "Feeddatei fehlt.",
     "excelFileTooBig": "Excel-Datei ist zu groß. Verwenden Sie stattdessen CSV.",
     "nullNoneMarkForNotLinkedAttributeSame": "Markierung für ein nicht verknüpftes Attribut, leerer Wert und Nullwert sollten eindeutige Werte haben, nur ein Wert kann leer sein.",
     "measureIsNotSet": "Maß für das Attribut \"%s\" ist nicht gesetzt.",
@@ -90,7 +91,8 @@
     "excelExpected": "Hochgeladene Datei ist ungültig. Excel-Datei wird erwartet.",
     "noSuchFile": "Keine solche Datei",
     "importFeedIsInactive": "Import Feed ist inaktiv",
-    "theFileDoesNotMatchTheTemplate": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein. Möglicherweise enthält Ihre Datei die Spalte mit Fehlermeldungen, diese soll gelöscht werden."
+    "theFileDoesNotMatchTheTemplate": "Falsche Datei. Die Datei stimmt nicht mit der Vorlage überein. Möglicherweise enthält Ihre Datei die Spalte mit Fehlermeldungen, diese soll gelöscht werden.",
+    "noEntityFound": "Kein Datensatz für die zugehörige Entität '%s' gefunden."
   },
   "tooltips": {
     "file": "Diese Datei wird für die Konfiguration verwendet. Es kann eine Beispieldatei oder die zu importierende Datei sein."

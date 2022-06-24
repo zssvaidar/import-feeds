@@ -27,13 +27,15 @@
         "Pending",
         "Running",
         "Success",
-        "Failed"
+        "Failed",
+        "Canceled"
       ],
       "optionColors": [
         "00AFFF",
         "FFF677",
         "BDFF92",
-        "FFCBC5"
+        "FFCBC5",
+        "DDDDDD"
       ],
       "default": "Pending",
       "readOnly": true

@@ -35,14 +35,15 @@ class Link extends Varchar
     {
         $default = empty($config['default']) ? null : $config['default'];
 
-        if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
-            $value = $row[$config['column'][0]];
-            $this->ignoreAttribute($value, $config);
-            if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
-                $value = $default;
-            }
-            if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
-                $value = null;
+        if (isset($config['column'])) {
+            if (count($config['column']) === 1) {
+                $value = $this->getSearchValue($config['column'][0], $config, $row, $default);
+            } else {
+                $value = [];
+
+                foreach ($config['column'] as $key => $column) {
+                    $value[] = $this->getSearchValue($column, $config, $row, $default);
+                }
             }
 
             if ($value !== null) {
@@ -52,10 +53,7 @@ class Link extends Varchar
                     $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
                 }
 
-                $user = $this->container->get('user');
-                $userId = empty($user) ? null : $user->get('id');
-
-                $values = explode($config['fieldDelimiterForRelation'], $value);
+                $values = !is_array($value) ? explode($config['fieldDelimiterForRelation'], $value) : $value;
 
                 $input = new \stdClass();
 
@@ -93,17 +91,40 @@ class Link extends Varchar
                 }
 
                 if (empty($entity) && !empty($input) && !empty($config['createIfNotExist'])) {
+                    $user = $this->container->get('user');
+                    $userId = empty($user) ? null : $user->get('id');
+
                     $input->ownerUserId = $userId;
                     $input->ownerUserName = $userId;
                     $input->assignedUserId = $userId;
                     $input->assignedUserName = $userId;
+
+                    if (!empty($config['foreignImportBy']) && !empty($config['foreignColumn'])) {
+                        $foreignValues = [];
+                        $foreignColumn = $config['foreignColumn'];
+                        $foreignImportBy = $config['foreignImportBy'];
+
+                        if (count($foreignColumn) === 1) {
+                            $foreignValues = explode($config['fieldDelimiterForRelation'], $row[$foreignColumn[0]]);
+                        } else {
+                            foreach ($foreignColumn as $column) {
+                                $foreignValues[] = $row[$column];
+                            }
+                        }
+
+                        foreach ($foreignImportBy as $key => $field) {
+                            if (isset($foreignValues[$key])) {
+                                $input->{$field} = $foreignValues[$key];
+                            }
+                        }
+                    }
 
                     try {
                         $entity = $this->getService($entityName)->createEntity($input);
                     } catch (\Throwable $e) {
                         $className = get_class($e);
 
-                        $message = sprintf($this->translate('relatedEntityCreatingFailed', 'exceptions', 'ImportFeed'), $this->translate($entityName, 'scopeNames', 'Global'));
+                        $message = sprintf($this->translate('relatedEntityCreatingFailed', 'exceptions', 'ImportFeed'), $this->translate($entityName, 'scopeNames'));
                         $message .= ' ' . $e->getMessage();
 
                         throw new $className($message);
@@ -170,5 +191,29 @@ class Link extends Varchar
                 $entity->set('defaultName', empty($relEntity) ? $entity->get('defaultId') : $relEntity->get('name'));
             }
         }
+    }
+
+    /**
+     * @param mixed $column
+     * @param array $config
+     * @param array $row
+     * @param mixed $default
+
+     * @return mixed|null
+     *
+     * @throws \Import\Exceptions\IgnoreAttribute
+     */
+    protected function getSearchValue($column, array $config, array $row, $default)
+    {
+        $value = $row[$column] ?? null;
+        $this->ignoreAttribute($value, $config);
+        if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
+            $value = $default;
+        }
+        if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
+            $value = null;
+        }
+
+        return $value;
     }
 }

@@ -4,7 +4,7 @@
     "format": "Format",
     "entity": "Entity",
     "delimiter": "List Value Separator",
-    "unusedColumns": "Unused Columns",
+    "unusedColumns": "Unused Source Fields",
     "file": "File",
     "isActive": "Active",
     "type": "Type",
@@ -65,6 +65,7 @@
     "importNow": "Are you sure you want to import data from the selected source?"
   },
   "exceptions": {
+    "noFeedFileFound": "Feed file is missing.",
     "excelFileTooBig": "Excel file is too big. Use CSV instead.",
     "nullNoneMarkForNotLinkedAttributeSame": "Mark for a not linked attribute, empty value and null value should have unique values, only one value can be empty.",
     "measureIsNotSet": "Measure for the attribute \"%s\" is not set.",
@@ -92,7 +93,8 @@
     "excelExpected": "Uploaded file is not valid. Excel file is expected.",
     "noSuchFile": "No such file",
     "importFeedIsInactive": "Import feed is inactive",
-    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template. Maybe your file contain the column with error messages, which should be deleted."
+    "theFileDoesNotMatchTheTemplate": "Wrong file. The file does not match the template. Maybe your file contain the column with error messages, which should be deleted.",
+    "noEntityFound": "No data record found for the related entity '%s'."
   },
   "tooltips": {
     "file": "This file will be used to create the configuration. It could be an example file or file to be imported."

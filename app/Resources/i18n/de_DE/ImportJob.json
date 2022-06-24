@@ -21,7 +21,8 @@
     "Pending": "Steht aus",
     "Success": "Erfolg",
     "Running": "In Arbeit",
-    "Failed": "Fehlgeschlagen"
+    "Failed": "Fehlgeschlagen",
+    "Canceled": "Abgebrochen"
   },
   "tooltips": {
     "errorsAttachment": "Zeilen aus 'Importierter Datei', die nicht importiert wurden."
