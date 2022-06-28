@@ -65,8 +65,7 @@ Espo.define('import:views/import-configurator-item/fields/foreign-import-by', 'v
                         if (data.type
                             && this.allowedTypes.includes(data.type)
                             && !data.disabled
-                            && !data.importDisabled
-                            && !(this.model.get('importBy') || []).includes(name)) {
+                            && !data.importDisabled) {
                             this.params.options.push(name);
                             this.translatedOptions[name] = this.translate(name, 'fields', foreignEntity);
                         }
