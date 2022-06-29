@@ -50,11 +50,11 @@ class Boolean extends Varchar
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $value, 'boolean'));
         }
 
-        if (is_string($value) && (strtolower($value) === 'false' || $value === '0')) {
+        if (is_string($value) && (strtolower($value) === 'no' || strtolower($value) === 'false' || $value === '0')) {
             $value = false;
         }
 
-        if (is_string($value) && (strtolower($value) === 'true' || $value === '1')) {
+        if (is_string($value) && (strtolower($value) === 'yes' || strtolower($value) === 'true' || $value === '1')) {
             $value = true;
         }
 
