@@ -83,6 +83,10 @@ class LinkMultiple extends Varchar
         if ($config['type'] === 'Attribute') {
             $inputRow->{$config['name']} = $inputRow->$fieldName;
         }
+
+        if (empty($config['replaceRelation'])) {
+            $inputRow->{'_' . $config['name'] . 'AddOnlyMode'} = 1;
+        }
     }
 
     public function prepareValue(\stdClass $restore, Entity $entity, array $item): void
