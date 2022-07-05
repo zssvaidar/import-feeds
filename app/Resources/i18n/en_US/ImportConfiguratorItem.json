@@ -15,7 +15,8 @@
     "unusedColumns": "Unused Source Fields",
     "type": "Type",
     "foreignColumn": "Source Field(s)",
-    "foreignImportBy": "Related entity field(s)"
+    "foreignImportBy": "Related entity field(s)",
+    "replaceRelation": "Replace"
   },
   "links": {
     "importFeed": "Import Feed",
