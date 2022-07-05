@@ -28,6 +28,11 @@
       "default": false,
       "tooltip": true
     },
+    "replaceRelation": {
+      "type": "bool",
+      "view": "import:views/import-configurator-item/fields/replace-relation",
+      "default": false
+    },
     "type": {
       "type": "enum",
       "required": false,

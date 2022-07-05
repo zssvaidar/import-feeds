@@ -15,7 +15,8 @@
     "unusedColumns": "Неиспользуемые исходные поля",
     "type": "Тип",
     "foreignColumn": "Исходное поле(я)",
-    "foreignImportBy": "Поле(я) связанной сущности"
+    "foreignImportBy": "Поле(я) связанной сущности",
+    "replaceRelation": "Заменять"
   },
   "links": {
     "importFeed": "Импортный фид"
