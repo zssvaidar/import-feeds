@@ -85,7 +85,7 @@ class LinkMultiple extends Varchar
         }
 
         if (empty($config['replaceRelation'])) {
-            $inputRow->{'_' . $config['name'] . 'AddOnlyMode'} = 1;
+            $inputRow->{$config['name'] . 'AddOnlyMode'} = 1;
         }
     }
 
