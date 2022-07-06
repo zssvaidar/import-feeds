@@ -61,6 +61,8 @@ class ImportFeed extends \Espo\Core\Templates\Controllers\Base
 
         $attachmentId = property_exists($data, 'attachmentId') ? (string)$data->attachmentId : '';
 
-        return $this->getRecordService()->runImport((string)$data->importFeedId, $attachmentId);
+        $importJobId = $this->getRecordService()->runImport((string)$data->importFeedId, $attachmentId);
+
+        return !empty($importJobId);
     }
 }

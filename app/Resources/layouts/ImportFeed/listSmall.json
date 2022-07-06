@@ -1,15 +1,12 @@
 [
   {
     "name": "name",
-    "link": true,
-    "width": 40
+    "link": true
   },
   {
-    "name": "type",
-    "width": 20
+    "name": "type"
   },
   {
-    "name": "isActive",
-    "width": 10
+    "name": "isActive"
   }
 ]

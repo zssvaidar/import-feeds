@@ -25,11 +25,17 @@
       ],
       [
         {
-          "name": "defaultContainer"
+          "name": "createIfNotExist"
         },
         {
-          "name": "createIfNotExist"
+          "name": "replaceRelation"
         }
+      ],
+      [
+        {
+          "name": "defaultContainer"
+        },
+        false
       ],
       [
         {

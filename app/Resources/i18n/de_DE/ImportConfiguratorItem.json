@@ -15,7 +15,8 @@
     "unusedColumns": "Unbenutzte Quellfelder",
     "type": "Typ",
     "foreignColumn": "Quellfeld(er)",
-    "foreignImportBy": "Feld(er) der verknüpften Entität"
+    "foreignImportBy": "Feld(er) der verknüpften Entität",
+    "replaceRelation": "Ersetzen"
   },
   "links": {
     "importFeed": "Import Feed"
