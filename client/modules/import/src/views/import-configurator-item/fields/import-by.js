@@ -40,7 +40,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
         },
 
         isRequired: function () {
-            return this.params.options.length > 0;
+            return this.params.options.length > 0 && !this.model.get('defaultId') && !this.model.get('defaultIds');
         },
 
         prepareImportByOptions(callback) {
