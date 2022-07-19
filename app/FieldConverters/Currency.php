@@ -62,7 +62,7 @@ class Currency extends FloatValue
                     try {
                         $value = $this->prepareFloatValue((string)$parts[0], $config);
                     } catch (BadRequest $e) {
-                        throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $value, 'currency'));
+                        throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $parts[0], 'currency'));
                     }
 
                     if (isset($parts[1])) {
@@ -82,7 +82,7 @@ class Currency extends FloatValue
                     try {
                         $value = $this->prepareFloatValue((string)$cellValue, $config);
                     } catch (BadRequest $e) {
-                        throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $value, 'currency'));
+                        throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $cellValue, 'currency'));
                     }
                 }
             }

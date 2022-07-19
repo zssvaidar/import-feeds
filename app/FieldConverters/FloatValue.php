@@ -39,7 +39,7 @@ class FloatValue extends Varchar
             $decimals = strlen(array_pop($parts));
         }
 
-        $floatValue = round((float)str_replace($decimalMark, '.', str_replace($thousandSeparator, '', $value)), 5);
+        $floatValue = round((float)str_replace($decimalMark, '.', str_replace($thousandSeparator, '', $value)), 13);
         $checkValueStrict = number_format($floatValue, $decimals, $decimalMark, $thousandSeparator);
         $checkValueUnStrict = number_format($floatValue, $decimals, $decimalMark, '');
 
