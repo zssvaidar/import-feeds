@@ -43,12 +43,6 @@ class FloatValue extends Varchar
         $checkValueStrict = number_format($floatValue, $decimals, $decimalMark, $thousandSeparator);
         $checkValueUnStrict = number_format($floatValue, $decimals, $decimalMark, '');
 
-        if ($config['name'] == 'tax'){
-            echo '<pre>';
-            print_r($floatValue);
-            die();
-        }
-
         if (!in_array($value, [$checkValueStrict, $checkValueUnStrict])) {
             throw new BadRequest(sprintf($this->translate('unexpectedFieldType', 'exceptions', 'ImportFeed'), $value, 'float'));
         }
