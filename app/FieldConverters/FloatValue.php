@@ -52,7 +52,8 @@ class FloatValue extends Varchar
 
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
-        $default = empty($config['default']) ? null : $config['default'];
+        $isValid = false;
+        $default = empty($config['default']) ? null : (float)$config['default'];
         if ($config['default'] === '0' || $config['default'] === 0) {
             $default = 0;
         }
@@ -62,15 +63,17 @@ class FloatValue extends Varchar
             $this->ignoreAttribute($value, $config);
             if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
                 $value = $default;
+                $isValid = true;
             }
             if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
                 $value = null;
             }
         } else {
             $value = $default;
+            $isValid = true;
         }
 
-        if ($value !== null) {
+        if ($value !== null && !$isValid) {
             $value = $this->prepareFloatValue((string)$value, $config);
         }
 
