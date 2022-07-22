@@ -84,7 +84,7 @@ class ImportTypeSimple extends QueueManagerBase
         $updatedIds = [];
 
         // prepare file row
-        $fileRow = (int)$data['offset'];
+        $fileRow = empty($data['offset']) ? 0 : (int)$data['offset'];
 
         $hasAttachment = !empty($data['attachmentId']);
 
