@@ -44,11 +44,11 @@ class CsvFileParser extends HasContainer
                     if (empty($value) && $value !== '0' && $value !== 0) {
                         $value = self::createColumnName($k, $data);
                     }
-                    $result[] = $value;
+                    $result[] = $this->removeNonPrintableCharacters($value);
                 }
             } else {
                 foreach ($data[0] as $k => $value) {
-                    $result[] = self::createColumnName($k, $data);
+                    $result[] = $this->removeNonPrintableCharacters(self::createColumnName($k, $data));
                 }
             }
         }
@@ -62,6 +62,16 @@ class CsvFileParser extends HasContainer
         $path = $this->getLocalFilePath($attachment);
 
         return $this->getParsedFileData($path, $delimiter, $enclosure, $offset, $limit);
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function removeNonPrintableCharacters(string $value): string
+    {
+        return preg_replace('/[\x00-\x1f]/', '', $value);
     }
 
     protected static function createColumnName(int $k, array $data): string
