@@ -24,6 +24,9 @@
     "isActive": {
       "type": "bool"
     },
+    "ignoreAlreadyProceeded": {
+      "type": "bool"
+    },
     "type": {
       "type": "enum",
       "required": true,

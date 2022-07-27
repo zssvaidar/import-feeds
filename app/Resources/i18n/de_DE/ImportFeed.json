@@ -1,5 +1,6 @@
 {
   "fields": {
+    "ignoreAlreadyProceeded": "Wiederholte Datensatzbearbeitung ignorieren",
     "connection": "Verbindung",
     "format": "Format",
     "entity": "Entität",

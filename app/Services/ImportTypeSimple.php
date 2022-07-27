@@ -57,16 +57,17 @@ class ImportTypeSimple extends QueueManagerBase
         }
 
         return [
-            "name"            => $feed->get('name'),
-            "offset"          => $feed->isFileHeaderRow() ? 1 : 0,
-            "limit"           => \PHP_INT_MAX,
-            "fileFormat"      => $feed->getFeedField('format'),
-            "delimiter"       => $feed->getDelimiter(),
-            "enclosure"       => $feed->getEnclosure(),
-            "isFileHeaderRow" => $feed->isFileHeaderRow(),
-            "action"          => $feed->get('fileDataAction'),
-            "attachmentId"    => $attachmentId,
-            "data"            => $feed->getConfiguratorData()
+            "name"                   => $feed->get('name'),
+            "offset"                 => $feed->isFileHeaderRow() ? 1 : 0,
+            "limit"                  => \PHP_INT_MAX,
+            "fileFormat"             => $feed->getFeedField('format'),
+            "delimiter"              => $feed->getDelimiter(),
+            "enclosure"              => $feed->getEnclosure(),
+            "isFileHeaderRow"        => $feed->isFileHeaderRow(),
+            "action"                 => $feed->get('fileDataAction'),
+            "attachmentId"           => $attachmentId,
+            "data"                   => $feed->getConfiguratorData(),
+            "ignoreAlreadyProceeded" => !empty($feed->get("ignoreAlreadyProceeded")) ? 1 : 0
         ];
     }
 
@@ -124,6 +125,9 @@ class ImportTypeSimple extends QueueManagerBase
                         }
 
                         if (in_array($id, $updatedIds)) {
+                            if (!empty($data['ignoreAlreadyProceeded'])) {
+                                continue 1;
+                            }
                             throw new BadRequest($this->translate('alreadyProceeded', 'exceptions', 'ImportFeed'));
                         }
                     }
@@ -186,6 +190,7 @@ class ImportTypeSimple extends QueueManagerBase
                             $this->saveRestoreRow('updated', $scope, [$id => $restore]);
                             $notModified = false;
                         } catch (NotModified $e) {
+                            $updatedIds[] = $id;
                         }
 
                         if ($this->importAttributes($attributes, $entity)) {
