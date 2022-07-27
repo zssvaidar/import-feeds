@@ -66,7 +66,7 @@ class Link extends Varchar
                         continue 1;
                     }
 
-                    if (!isset($values[$k])) {
+                    if (!array_key_exists($k, $values)) {
                         throw new BadRequest(sprintf($this->translate('wrongImportByValuesCount', 'exceptions', 'ImportFeed'), $entityName));
                     }
 
