@@ -1,5 +1,6 @@
 {
   "fields": {
+    "ignoreAlreadyProceeded": "Игнорировать повторную обработку записи данных",
     "connection": "Соединение",
     "format": "Формат",
     "entity": "Сущность",
