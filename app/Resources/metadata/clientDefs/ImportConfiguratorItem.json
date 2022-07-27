@@ -104,16 +104,6 @@
             }
           ]
         }
-      },
-      "importBy": {
-        "required": {
-          "conditionGroup": [
-            {
-              "type": "isNotEmpty",
-              "attribute": "defaultContainer"
-            }
-          ]
-        }
       }
     }
   }

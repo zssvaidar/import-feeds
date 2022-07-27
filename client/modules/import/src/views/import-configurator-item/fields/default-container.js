@@ -52,6 +52,12 @@ Espo.define('import:views/import-configurator-item/fields/default-container', 'v
                     this.clearDefaultField();
                     this.createDefaultField();
                 });
+
+                this.listenTo(this.model, 'change:defaultId change:defaultIds', () => {
+                    if (!this.model.get('defaultId') && !this.model.get('defaultIds')) {
+                        this.model.set('default', null);
+                    }
+                });
             }
         },
 

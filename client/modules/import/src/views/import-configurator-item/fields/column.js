@@ -64,7 +64,14 @@ Espo.define('import:views/import-configurator-item/fields/column', 'views/fields
                     });
                 }
             });
+
+            this.listenTo(this.model, 'change:default change:defaultId change:defaultIds', () => {
+                this.reRender();
+            });
         },
 
+        isRequired: function () {
+            return this.params.options.length > 0 && !this.model.get('default') && !this.model.get('defaultId') && !this.model.get('defaultIds');
+        },
     })
 );
