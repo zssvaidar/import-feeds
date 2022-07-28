@@ -37,6 +37,9 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
                     this.reRender();
                 });
             });
+            this.listenTo(this.model, 'change:defaultId change:defaultIds', () => {
+                this.reRender();
+            });
         },
 
         isRequired: function () {
@@ -85,7 +88,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            if (this.isRequired()) {
+            if (this.params.options.length) {
                 this.show();
             } else {
                 this.hide();
