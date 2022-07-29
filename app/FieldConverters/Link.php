@@ -37,12 +37,12 @@ class Link extends Varchar
 
         if (isset($config['column'])) {
             if (count($config['column']) === 1) {
-                $value = $this->getSearchValue($config['column'][0], $config, $row, $default);
+                $value = $this->getSearchValue($config['column'][0], $config, $row);
             } else {
                 $value = [];
 
                 foreach ($config['column'] as $key => $column) {
-                    $value[] = $this->getSearchValue($column, $config, $row, $default);
+                    $value[] = $this->getSearchValue($column, $config, $row);
                 }
             }
 
@@ -197,18 +197,17 @@ class Link extends Varchar
      * @param mixed $column
      * @param array $config
      * @param array $row
-     * @param mixed $default
-
+     *
      * @return mixed|null
      *
      * @throws \Import\Exceptions\IgnoreAttribute
      */
-    protected function getSearchValue($column, array $config, array $row, $default)
+    protected function getSearchValue($column, array $config, array $row)
     {
         $value = $row[$column] ?? null;
         $this->ignoreAttribute($value, $config);
-        if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
-            $value = $default;
+        if (strtolower((string)$value) === strtolower((string)$config['emptyValue'])) {
+            $value = (string)$config['emptyValue'];
         }
         if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
             $value = null;
