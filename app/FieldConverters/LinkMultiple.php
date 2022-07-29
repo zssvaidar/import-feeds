@@ -57,7 +57,6 @@ class LinkMultiple extends Varchar
             }
         } else {
             $rows = [];
-            $columns = [];
 
             foreach ($config['column'] as $key => $column) {
                 $value = explode($config['delimiter'], $row[$column]);
@@ -73,7 +72,6 @@ class LinkMultiple extends Varchar
                 }
 
                 $rows[$key] = $value[0];
-                $columns[] = $key;
             }
 
             $id = $this->convertItem($config, ['column' => array_keys($rows)], $rows);
