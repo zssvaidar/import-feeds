@@ -101,7 +101,7 @@
       ],
       [
         {
-          "name": "ignoreAlreadyProceeded"
+          "name": "proceedAlreadyProceeded"
         },
         false
       ]
