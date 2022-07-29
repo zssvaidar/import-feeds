@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace Import\FieldConverters;
 
+use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Utils\Json;
 use Espo\ORM\Entity;
 
@@ -33,36 +34,56 @@ class LinkMultiple extends Varchar
     {
         $ids = [];
 
-        if (!empty($config['column'])) {
-            foreach ($config['column'] as $column) {
-                $value = $row[$column];
+        if (count($config['column']) == 1) {
+            $value = $row[$config['column'][0]];
 
-                if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
-                    $value = null;
-                }
+            if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
+                $value = null;
+            }
 
-                if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
-                    $value = null;
-                }
+            if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
+                $value = null;
+            }
 
-                if ($value !== null) {
-                    $items = explode($config['delimiter'], $value);
-                    if (empty($items)) {
+            if ($value !== null) {
+                $items = explode($config['delimiter'], $value);
+
+                foreach ($items as $item) {
+                    if (empty($item)) {
                         continue 1;
                     }
-                    foreach ($items as $item) {
-                        $input = new \stdClass();
-                        $this
-                            ->getService('ImportConfiguratorItem')
-                            ->getFieldConverter('link')
-                            ->convert($input, array_merge($config, ['column' => [0], 'default' => null]), array_merge([$item], $row));
 
-                        $key = $config['name'] . 'Id';
-                        if (property_exists($input, $key) && $input->$key !== null) {
-                            $ids[$input->$key] = $input->$key;
-                        }
+                    $id = $this->convertItem($config, ['column' => [0]], [$item]);
+                    if ($id !== null) {
+                        $ids[$id] = $id;
                     }
+
                 }
+            }
+        } else {
+            $rows = [];
+            $columns = [];
+
+            foreach ($config['column'] as $key => $column) {
+                $value = explode($config['delimiter'], $row[$column]);
+
+                if (count($value) > 1) {
+                    if (isset($config['relEntityName'])) {
+                        $entityName = $config['relEntityName'];
+                    } else {
+                        $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
+                    }
+
+                    throw new BadRequest(sprintf($this->translate('listSeparatorNotAllowed', 'exceptions', 'ImportFeed'), $entityName));
+                }
+
+                $rows[$key] = $value[0];
+                $columns[] = $key;
+            }
+
+            $id = $this->convertItem($config, ['column' => $columns], $rows);
+            if ($id !== null) {
+                $ids[$id] = $id;
             }
         }
 
@@ -131,5 +152,28 @@ class LinkMultiple extends Varchar
                 $entity->set('defaultNames', $names);
             }
         }
+    }
+
+    /**
+     * @param array $config
+     * @param array $column
+     * @param array $row
+     *
+     * @return string|null
+     */
+    protected function convertItem(array $config, array $column, array $row): ?string
+    {
+        $input = new \stdClass();
+        $this
+            ->getService('ImportConfiguratorItem')
+            ->getFieldConverter('link')
+            ->convert($input, array_merge($config, $column, ['default' => null]), $row);
+
+        $key = $config['name'] . 'Id';
+        if (property_exists($input, $key) && $input->$key !== null) {
+            return $input->$key;
+        }
+
+        return null;
     }
 }
