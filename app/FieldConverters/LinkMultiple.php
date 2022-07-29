@@ -49,10 +49,6 @@ class LinkMultiple extends Varchar
                 $items = explode($config['delimiter'], $value);
 
                 foreach ($items as $item) {
-                    if (empty($item)) {
-                        continue 1;
-                    }
-
                     $id = $this->convertItem($config, ['column' => [0]], [$item]);
                     if ($id !== null) {
                         $ids[$id] = $id;
