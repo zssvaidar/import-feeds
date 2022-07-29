@@ -53,7 +53,6 @@ class LinkMultiple extends Varchar
                     if ($id !== null) {
                         $ids[$id] = $id;
                     }
-
                 }
             }
         } else {
@@ -77,7 +76,7 @@ class LinkMultiple extends Varchar
                 $columns[] = $key;
             }
 
-            $id = $this->convertItem($config, ['column' => $columns], $rows);
+            $id = $this->convertItem($config, ['column' => array_keys($rows)], $rows);
             if ($id !== null) {
                 $ids[$id] = $id;
             }
@@ -87,7 +86,7 @@ class LinkMultiple extends Varchar
             $ids = Json::decode($config['default'], true);
         }
 
-        $ids = array_values($ids);;
+        $ids = array_values($ids);
 
         $fieldName = $config['name'] . 'Ids';
 
