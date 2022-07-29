@@ -24,7 +24,7 @@
     "isActive": {
       "type": "bool"
     },
-    "ignoreAlreadyProceeded": {
+    "proceedAlreadyProceeded": {
       "type": "bool"
     },
     "type": {

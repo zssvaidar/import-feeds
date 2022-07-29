@@ -67,7 +67,7 @@ class ImportTypeSimple extends QueueManagerBase
             "action"                 => $feed->get('fileDataAction'),
             "attachmentId"           => $attachmentId,
             "data"                   => $feed->getConfiguratorData(),
-            "ignoreAlreadyProceeded" => !empty($feed->get("ignoreAlreadyProceeded")) ? 1 : 0
+            "proceedAlreadyProceeded" => !empty($feed->get("proceedAlreadyProceeded")) ? 1 : 0
         ];
     }
 
@@ -124,10 +124,7 @@ class ImportTypeSimple extends QueueManagerBase
                             $ids[] = $id;
                         }
 
-                        if (in_array($id, $updatedIds)) {
-                            if (!empty($data['ignoreAlreadyProceeded'])) {
-                                continue 1;
-                            }
+                        if (empty($data['proceedAlreadyProceeded']) && in_array($id, $updatedIds)) {
                             throw new BadRequest($this->translate('alreadyProceeded', 'exceptions', 'ImportFeed'));
                         }
                     }
