@@ -30,58 +30,70 @@ use Espo\ORM\Entity;
 
 class LinkMultiple extends Varchar
 {
+    /**
+     * @var string
+     */
+    protected string $relationEntityName;
+
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         $ids = [];
 
-        if (count($config['column']) == 1) {
-            $value = $row[$config['column'][0]];
+        $this->relationEntityName = $config['relEntityName'] ?? $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
 
-            if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
-                $value = null;
-            }
+        $createIfNotExist = $config['createIfNotExist'];
+        $config['createIfNotExist'] = false;
 
-            if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
-                $value = null;
-            }
-
-            if ($value !== null) {
-                $items = explode($config['delimiter'], $value);
-
-                foreach ($items as $item) {
-                    $id = $this->convertItem($config, ['column' => [0]], [$item]);
-                    if ($id !== null) {
-                        $ids[$id] = $id;
-                    }
-                }
-            }
-        } else {
-            $rows = [];
-
-            foreach ($config['column'] as $key => $column) {
-                $value = explode($config['delimiter'], $row[$column]);
-
-                if (count($value) > 1) {
-                    if (isset($config['relEntityName'])) {
-                        $entityName = $config['relEntityName'];
-                    } else {
-                        $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
-                    }
-
-                    throw new BadRequest(sprintf($this->translate('listSeparatorNotAllowed', 'exceptions', 'ImportFeed'), $entityName));
-                }
-
-                $rows[$key] = $value[0];
-            }
-
-            $id = $this->convertItem($config, ['column' => array_keys($rows)], $rows);
+        foreach ($this->prepareItem($config, $config['column'], $row) as $item) {
+            $id = $this->convertItem($config, ['column' => array_keys($item)], $item);
             if ($id !== null) {
                 $ids[$id] = $id;
             }
         }
 
-        if (empty($ids) && !empty($config['default'])) {
-            $ids = Json::decode($config['default'], true);
+        if (empty($ids)) {
+            if (!empty($config['foreignColumn']) && !empty($config['foreignImportBy']) && !empty($createIfNotExist)) {
+                $data = $this->prepareItem($config, $config['foreignColumn'], $row);
+
+                if (count($data) > 0) {
+                    $user = $this->container->get('user');
+                    $userId = empty($user) ? null : $user->get('id');
+
+                    foreach ($data as $item) {
+                        if (count($config['foreignColumn']) == 1) {
+                            $item = explode($config['fieldDelimiterForRelation'], $item[0]);
+                        }
+
+                        $input = new \stdClass();
+
+                        $input->ownerUserId = $userId;
+                        $input->ownerUserName = $userId;
+                        $input->assignedUserId = $userId;
+                        $input->assignedUserName = $userId;
+
+                        foreach ($config['foreignImportBy'] as $key => $field) {
+                            if (isset($item[$key])) {
+                                $input->{$field} = $item[$key];
+                            }
+                        }
+
+                        try {
+                            $entity = $this->getService($this->relationEntityName)->createEntity($input);
+
+                            $ids[] = $entity->id;
+                        } catch (\Throwable $e) {
+                            $className = get_class($e);
+
+                            $message = sprintf($this->translate('relatedEntityCreatingFailed', 'exceptions', 'ImportFeed'), $this->translate($this->relationEntityName, 'scopeNames'));
+                            $message .= ' ' . $e->getMessage();
+
+                            throw new $className($message);
+                        }
+                    }
+                }
+            } elseif (!empty($config['default'])) {
+                $ids = Json::decode($config['default'], true);
+            }
         }
 
         $ids = array_values($ids);
@@ -168,5 +180,55 @@ class LinkMultiple extends Varchar
         }
 
         return null;
+    }
+
+    /**
+     * @param array $config
+     * @param array $columns
+     * @param array $row
+     *
+     * @return array
+     *
+     * @throws BadRequest
+     */
+    protected function prepareItem(array $config, array $columns, array $row): array
+    {
+        $result = [];
+
+        if (count($columns) == 1) {
+            $value = $row[$columns[0]];
+
+            if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
+                $value = null;
+            }
+
+            if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
+                $value = null;
+            }
+
+            if ($value !== null) {
+                $values = explode($config['delimiter'], $value);
+
+                foreach ($values as $value) {
+                    $result[] = [$value];
+                }
+            }
+        } else {
+            $rows = [];
+
+            foreach ($columns as $column) {
+                $value = explode($config['delimiter'], $row[$column]);
+
+                if (count($value) > 1) {
+                    throw new BadRequest(sprintf($this->translate('listSeparatorNotAllowed', 'exceptions', 'ImportFeed'), $this->relationEntityName));
+                }
+
+                $rows[] = $value[0];
+            }
+
+            $result[] = $rows;
+        }
+
+        return $result;
     }
 }
