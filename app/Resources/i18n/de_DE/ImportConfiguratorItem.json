@@ -31,13 +31,15 @@
     "importByIsRequired": "Verwandte Entitätsfelder sind erforderlich.",
     "columnOrDefaultValueIsRequired": "Spalte oder Standard sollte abgelegt werden.",
     "wrongFieldsNumber": "Für die Suche sollte die Anzahl der Quellfelder gleich der Anzahl der Relationsfelder sein.",
-    "wrongForeignFieldsNumber": "Für Erstellen sollte die Anzahl der Quellfelder gleich der Anzahl der Relationsfelder sein."
+    "wrongForeignFieldsNumber": "Für Erstellen sollte die Anzahl der Quellfelder gleich der Anzahl der Relationsfelder sein.",
+    "foreignColumnsAndFieldsEmpty": "Quellfeld(er) und Feld(er) der verknüpften Entität können nicht leer sein."
   },
   "tooltips": {
     "column": "Diese(n) Feldwert(e) werden verwendet, um zu suchen, ob ein zugehöriger Datensatz bereits vorhanden ist.",
     "importBy": "Wählen Sie Feld(er) der verknüpfter Entität in Ihrem System aus, das (die) für die Suche basierend auf den in der Auswahlliste \"Quellfeld(er)\" bereitgestellten Daten verwendet wird (werden). Wenn nur ein Datenfeld bereitgestellt wird, kann \"Feldtrennzeichen für Relation\" angewendet werden. In anderen Fällen sollte die Anzahl der bereitgestellten Datenfelder und \"Feld(er) der verknüpften Entität\" gleich sein.",
     "createIfNotExist": "Wenn anhand der bereitgestellten Daten nichts gefunden wird, wird ein neuer Datensatz für die verknüpfte Entität erstellt.",
     "foreignColumn": "Diese(r) Feldwert(e) werden (wird) verwendet, um zugehörige Datensätze zu Erstellen.",
-    "foreignImportBy": "Wählen Sie Feld(er) der verknüpfter Entität in Ihrem System aus, das (die) fürs Einfügen basierend auf den in der Auswahlliste \"Quellfeld(er)\" bereitgestellten Daten verwendet wird (werden). Wenn nur ein Datenfeld bereitgestellt wird, kann \"Feldtrennzeichen für Relation\" angewendet werden. In anderen Fällen sollte die Anzahl der bereitgestellten Datenfelder und \"Feld(er) der verknüpften Entität\" gleich sein."
+    "foreignImportBy": "Wählen Sie Feld(er) der verknüpfter Entität in Ihrem System aus, das (die) fürs Einfügen basierend auf den in der Auswahlliste \"Quellfeld(er)\" bereitgestellten Daten verwendet wird (werden). Wenn nur ein Datenfeld bereitgestellt wird, kann \"Feldtrennzeichen für Relation\" angewendet werden. In anderen Fällen sollte die Anzahl der bereitgestellten Datenfelder und \"Feld(er) der verknüpften Entität\" gleich sein.",
+    "replaceRelation": "Standardmäßig werden die bereitgestellten Relationen zu den vorhandenen hinzugefügt. Setzen Sie dieses Kontrollkästchen, wenn letztere ersetzt werden sollten."
   }
 }
