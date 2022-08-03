@@ -41,59 +41,29 @@ class LinkMultiple extends Varchar
 
         $this->relationEntityName = $config['relEntityName'] ?? $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
 
-        $createIfNotExist = $config['createIfNotExist'];
-        $config['createIfNotExist'] = false;
+        $searchData = $this->prepareItem($config, $config['column'], $row);
+        $insertData = $this->prepareItem($config, $config['foreignColumn'], $row);
 
-        foreach ($this->prepareItem($config, $config['column'], $row) as $item) {
-            $id = $this->convertItem($config, ['column' => array_keys($item)], $item);
+        foreach ($searchData as $key => $item) {
+            $foreignColumn = [];
+
+            if (isset($insertData[$key])) {
+                $k = count($item);
+                foreach ($insertData[$key] as $data) {
+                    $foreignColumn[$k] = $data;
+                    $k++;
+                }
+            }
+
+            $id = $this->convertItem($config, ['column' => array_keys($item), 'foreignColumn' => array_keys($foreignColumn)], array_merge($item, $foreignColumn));
             if ($id !== null) {
                 $ids[$id] = $id;
             }
+
         }
 
-        if (empty($ids)) {
-            if (!empty($config['foreignColumn']) && !empty($config['foreignImportBy']) && !empty($createIfNotExist)) {
-                $data = $this->prepareItem($config, $config['foreignColumn'], $row);
-
-                if (count($data) > 0) {
-                    $user = $this->container->get('user');
-                    $userId = empty($user) ? null : $user->get('id');
-
-                    foreach ($data as $item) {
-                        if (count($config['foreignColumn']) == 1) {
-                            $item = explode($config['fieldDelimiterForRelation'], $item[0]);
-                        }
-
-                        $input = new \stdClass();
-
-                        $input->ownerUserId = $userId;
-                        $input->ownerUserName = $userId;
-                        $input->assignedUserId = $userId;
-                        $input->assignedUserName = $userId;
-
-                        foreach ($config['foreignImportBy'] as $key => $field) {
-                            if (isset($item[$key])) {
-                                $input->{$field} = $item[$key];
-                            }
-                        }
-
-                        try {
-                            $entity = $this->getService($this->relationEntityName)->createEntity($input);
-
-                            $ids[] = $entity->id;
-                        } catch (\Throwable $e) {
-                            $className = get_class($e);
-
-                            $message = sprintf($this->translate('relatedEntityCreatingFailed', 'exceptions', 'ImportFeed'), $this->translate($this->relationEntityName, 'scopeNames'));
-                            $message .= ' ' . $e->getMessage();
-
-                            throw new $className($message);
-                        }
-                    }
-                }
-            } elseif (!empty($config['default'])) {
-                $ids = Json::decode($config['default'], true);
-            }
+        if (empty($ids) && !empty($config['default'])) {
+            $ids = Json::decode($config['default'], true);
         }
 
         $ids = array_values($ids);
