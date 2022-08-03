@@ -104,6 +104,26 @@
             }
           ]
         }
+      },
+      "foreignColumn": {
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "isTrue",
+              "attribute": "createIfNotExist"
+            }
+          ]
+        }
+      },
+      "foreignImportBy": {
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "isTrue",
+              "attribute": "createIfNotExist"
+            }
+          ]
+        }
       }
     }
   }

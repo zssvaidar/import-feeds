@@ -30,54 +30,36 @@ use Espo\ORM\Entity;
 
 class LinkMultiple extends Varchar
 {
+    /**
+     * @var string
+     */
+    protected string $relationEntityName;
+
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         $ids = [];
 
-        if (count($config['column']) == 1) {
-            $value = $row[$config['column'][0]];
+        $this->relationEntityName = $config['relEntityName'] ?? $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
 
-            if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
-                $value = null;
-            }
+        $searchData = $this->prepareItem($config, $config['column'], $row);
+        $insertData = $this->prepareItem($config, $config['foreignColumn'], $row);
 
-            if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
-                $value = null;
-            }
+        foreach ($searchData as $key => $item) {
+            $foreignColumn = [];
 
-            if ($value !== null) {
-                $items = explode($config['delimiter'], $value);
-
-                foreach ($items as $item) {
-                    $id = $this->convertItem($config, ['column' => [0]], [$item]);
-                    if ($id !== null) {
-                        $ids[$id] = $id;
-                    }
+            if (isset($insertData[$key])) {
+                $k = count($item);
+                foreach ($insertData[$key] as $data) {
+                    $foreignColumn[$k] = $data;
+                    $k++;
                 }
             }
-        } else {
-            $rows = [];
 
-            foreach ($config['column'] as $key => $column) {
-                $value = explode($config['delimiter'], $row[$column]);
-
-                if (count($value) > 1) {
-                    if (isset($config['relEntityName'])) {
-                        $entityName = $config['relEntityName'];
-                    } else {
-                        $entityName = $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
-                    }
-
-                    throw new BadRequest(sprintf($this->translate('listSeparatorNotAllowed', 'exceptions', 'ImportFeed'), $entityName));
-                }
-
-                $rows[$key] = $value[0];
-            }
-
-            $id = $this->convertItem($config, ['column' => array_keys($rows)], $rows);
+            $id = $this->convertItem($config, ['column' => array_keys($item), 'foreignColumn' => array_keys($foreignColumn)], array_merge($item, $foreignColumn));
             if ($id !== null) {
                 $ids[$id] = $id;
             }
+
         }
 
         if (empty($ids) && !empty($config['default'])) {
@@ -168,5 +150,55 @@ class LinkMultiple extends Varchar
         }
 
         return null;
+    }
+
+    /**
+     * @param array $config
+     * @param array $columns
+     * @param array $row
+     *
+     * @return array
+     *
+     * @throws BadRequest
+     */
+    protected function prepareItem(array $config, array $columns, array $row): array
+    {
+        $result = [];
+
+        if (count($columns) == 1) {
+            $value = $row[$columns[0]];
+
+            if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
+                $value = null;
+            }
+
+            if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
+                $value = null;
+            }
+
+            if ($value !== null) {
+                $values = explode($config['delimiter'], $value);
+
+                foreach ($values as $value) {
+                    $result[] = [$value];
+                }
+            }
+        } else {
+            $rows = [];
+
+            foreach ($columns as $column) {
+                $value = explode($config['delimiter'], $row[$column]);
+
+                if (count($value) > 1) {
+                    throw new BadRequest(sprintf($this->translate('listSeparatorNotAllowed', 'exceptions', 'ImportFeed'), $this->relationEntityName));
+                }
+
+                $rows[] = $value[0];
+            }
+
+            $result[] = $rows;
+        }
+
+        return $result;
     }
 }
