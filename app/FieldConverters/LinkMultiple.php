@@ -42,7 +42,7 @@ class LinkMultiple extends Varchar
         $this->relationEntityName = $config['relEntityName'] ?? $this->getMetadata()->get(['entityDefs', $config['entity'], 'links', $config['name'], 'entity']);
 
         $searchData = $this->prepareItem($config, $config['column'], $row);
-        $insertData = $this->prepareItem($config, $config['foreignColumn'], $row);
+        $insertData = $this->prepareItem($config, empty($config['foreignColumn']) ? $config['column'] : $config['foreignColumn'], $row);
 
         foreach ($searchData as $key => $item) {
             $foreignColumn = [];
