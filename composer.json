@@ -19,7 +19,7 @@
       "default": "Import Feeds"
     },
     "description": {
-      "default": "The module enables to use preconfigured feeds (templates) for data import."
+      "default": "The module enables to configure and execute multiple feeds for manual data import into any entity in the system and its direct relations. Different file formats can be used."
     },
     "tags": [
       "usability",
