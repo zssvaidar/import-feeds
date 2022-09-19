@@ -45,6 +45,7 @@ class ImportTypeSimple extends QueueManagerBase
     private array $deletedPav = [];
     private int $iterations = 0;
     private array $channels = [];
+    private array $products = [];
 
     public function prepareJobData(ImportFeed $feed, string $attachmentId): array
     {
@@ -57,16 +58,16 @@ class ImportTypeSimple extends QueueManagerBase
         }
 
         return [
-            "name"                   => $feed->get('name'),
-            "offset"                 => $feed->isFileHeaderRow() ? 1 : 0,
-            "limit"                  => \PHP_INT_MAX,
-            "fileFormat"             => $feed->getFeedField('format'),
-            "delimiter"              => $feed->getDelimiter(),
-            "enclosure"              => $feed->getEnclosure(),
-            "isFileHeaderRow"        => $feed->isFileHeaderRow(),
-            "action"                 => $feed->get('fileDataAction'),
-            "attachmentId"           => $attachmentId,
-            "data"                   => $feed->getConfiguratorData(),
+            "name"                    => $feed->get('name'),
+            "offset"                  => $feed->isFileHeaderRow() ? 1 : 0,
+            "limit"                   => \PHP_INT_MAX,
+            "fileFormat"              => $feed->getFeedField('format'),
+            "delimiter"               => $feed->getDelimiter(),
+            "enclosure"               => $feed->getEnclosure(),
+            "isFileHeaderRow"         => $feed->isFileHeaderRow(),
+            "action"                  => $feed->get('fileDataAction'),
+            "attachmentId"            => $attachmentId,
+            "data"                    => $feed->getConfiguratorData(),
             "proceedAlreadyProceeded" => !empty($feed->get("proceedAlreadyProceeded")) ? 1 : 0
         ];
     }
@@ -383,8 +384,19 @@ class ImportTypeSimple extends QueueManagerBase
         return 'HTTP Code: ' . $code;
     }
 
-    protected function importAttributes(array $attributes, Entity $product): bool
+    protected function importAttributes(array $attributes, Entity $entity): bool
     {
+        if ($entity->getEntityType() === 'Product') {
+            $product = $entity;
+        } elseif ($entity->getEntityType() === 'ProductAttributeValue') {
+            $product = $this->getProductViaId((string)$entity->get('productId'));
+            if (empty($product)) {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
         $result = false;
         foreach ($attributes as $attribute) {
             if ($this->importAttribute($product, $attribute)) {
@@ -396,6 +408,15 @@ class ImportTypeSimple extends QueueManagerBase
         $this->getEntityManager()->getRepository($product->getEntityType())->updateInconsistentAttributes($product);
 
         return $result;
+    }
+
+    protected function getProductViaId(string $productId): ?Entity
+    {
+        if (!isset($this->products[$productId])) {
+            $this->products[$productId] = $this->getEntityManager()->getEntity('Product', $productId);
+        }
+
+        return $this->products[$productId];
     }
 
     protected function importAttribute(Entity $product, array $data): bool
