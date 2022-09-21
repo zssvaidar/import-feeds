@@ -47,6 +47,14 @@ Espo.define('import:views/import-feed/fields/file', 'views/fields/file',
             if (this.model.get('format') === 'Excel') {
                 this.acceptAttribue = ['.xls', '.xlsx'];
             }
+
+            if (this.model.get('format') === 'JSON') {
+                this.acceptAttribue = ['.json'];
+            }
+
+            if (this.model.get('format') === 'XML') {
+                this.acceptAttribue = ['.xml'];
+            }
         },
 
         afterRender() {

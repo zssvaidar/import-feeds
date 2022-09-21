@@ -3,6 +3,7 @@
   "description": "",
   "require": {
     "atrocore/core": "~1.4.70",
+    "ext-simplexml": "*",
     "phpoffice/phpspreadsheet": "~1.16.0"
   },
   "conflict": {

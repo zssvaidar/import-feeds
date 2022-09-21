@@ -324,13 +324,17 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest('File is empty.');
         }
 
-        $allColumns = $fileParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
-
         $result = [];
-        foreach ($fileData as $line => $fileLine) {
-            foreach ($fileLine as $k => $v) {
-                $result[$line][$allColumns[$k]] = $v;
+
+        if (in_array($data['fileFormat'], ['CSV', 'Excel'])) {
+            $allColumns = $fileParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
+            foreach ($fileData as $line => $fileLine) {
+                foreach ($fileLine as $k => $v) {
+                    $result[$line][$allColumns[$k]] = $v;
+                }
             }
+        } elseif (in_array($data['fileFormat'], ['JSON', 'XML'])) {
+            $result = $fileData;
         }
 
         $this->iterations++;
