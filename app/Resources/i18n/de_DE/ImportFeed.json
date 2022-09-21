@@ -88,6 +88,8 @@
     "configuratorEmpty": "Konfigurator kann nicht leer sein.",
     "utf8Expected": "Die hochgeladene Datei sollte in UTF-8 Format sein.",
     "fileEmpty": "Die hochgeladene Datei kann nicht leer sein.",
+    "jsonExpected": "Hochgeladene Datei ist ungültig. JSON-Datei wird erwartet.",
+    "xmlExpected": "Hochgeladene Datei ist ungültig. XML-Datei wird erwartet.",
     "csvExpected": "Hochgeladene Datei ist ungültig. CSV-Datei wird erwartet.",
     "excelExpected": "Hochgeladene Datei ist ungültig. Excel-Datei wird erwartet.",
     "noSuchFile": "Keine solche Datei",
