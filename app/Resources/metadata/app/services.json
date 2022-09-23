@@ -1,5 +1,7 @@
 {
   "CsvFileParser": "\\Import\\Services\\CsvFileParser",
   "ExcelFileParser": "\\Import\\Services\\ExcelFileParser",
+  "JsonFileParser": "\\Import\\Services\\JsonFileParser",
+  "XmlFileParser": "\\Import\\Services\\XmlFileParser",
   "ImportTypeSimple": "\\Import\\Services\\ImportTypeSimple"
 }

@@ -86,7 +86,9 @@
       "prohibitedEmptyValue": true,
       "options": [
         "CSV",
-        "Excel"
+        "Excel",
+        "JSON",
+        "XML"
       ],
       "default": "CSV"
     },

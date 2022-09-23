@@ -72,6 +72,36 @@ class ImportFeed extends Base
         return $this->getFileParser($request->get('format'))->getFileColumns($attachment, $delimiter, $enclosure, $isFileHeaderRow);
     }
 
+    public function validateXMLFile(string $attachmentId): void
+    {
+        $attachment = $this->getEntityManager()->getEntity('Attachment', $attachmentId);
+        if (empty($attachment)) {
+            throw new BadRequest($this->exception("noSuchFile"));
+        }
+
+        $contents = file_get_contents($attachment->getFilePath());
+
+        $data = \simplexml_load_string($contents);
+        if (empty($data)) {
+            throw new BadRequest($this->getInjection('language')->translate('xmlExpected', 'exceptions', 'ImportFeed'));
+        }
+    }
+
+    public function validateJSONFile(string $attachmentId): void
+    {
+        $attachment = $this->getEntityManager()->getEntity('Attachment', $attachmentId);
+        if (empty($attachment)) {
+            throw new BadRequest($this->exception("noSuchFile"));
+        }
+
+        $contents = file_get_contents($attachment->getFilePath());
+
+        $data = @json_decode($contents, true);
+        if (empty($data)) {
+            throw new BadRequest($this->getInjection('language')->translate('jsonExpected', 'exceptions', 'ImportFeed'));
+        }
+    }
+
     public function validateCSVFile(string $attachmentId): void
     {
         $attachment = $this->getEntityManager()->getEntity('Attachment', $attachmentId);
@@ -276,6 +306,14 @@ class ImportFeed extends Base
 
         if ($format === 'Excel') {
             return $this->getInjection('serviceFactory')->create('ExcelFileParser');
+        }
+
+        if ($format === 'JSON') {
+            return $this->getInjection('serviceFactory')->create('JsonFileParser');
+        }
+
+        if ($format === 'XML') {
+            return $this->getInjection('serviceFactory')->create('XmlFileParser');
         }
 
         throw new BadRequest("No such file parser type '$format'.");

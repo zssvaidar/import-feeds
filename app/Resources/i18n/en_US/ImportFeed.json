@@ -90,6 +90,8 @@
     "configuratorEmpty": "Configurator cannot be empty.",
     "utf8Expected": "Uploaded file should be UTF-8 encoded.",
     "fileEmpty": "Uploaded file cannot be empty.",
+    "jsonExpected": "Uploaded file is not valid. JSON file is expected.",
+    "xmlExpected": "Uploaded file is not valid. XML file is expected.",
     "csvExpected": "Uploaded file is not valid. CSV file is expected.",
     "excelExpected": "Uploaded file is not valid. Excel file is expected.",
     "noSuchFile": "No such file",
