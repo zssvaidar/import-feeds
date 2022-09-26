@@ -247,7 +247,8 @@
       "readOnly": true
     },
     "connection": {
-      "type": "link"
+      "type": "link",
+      "view": "import:views/import-feed/fields/connection"
     }
   },
   "links": {
