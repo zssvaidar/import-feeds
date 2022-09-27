@@ -50,13 +50,13 @@ class ImportFeed extends Base
 
     protected function beforeSave(Entity $entity, array $options = [])
     {
+        parent::beforeSave($entity, $options);
+
         $fetchedEntity = $entity->getFeedField('entity');
 
         $this->setFeedFieldsToDataJson($entity);
 
         $this->validateFeed($entity);
-
-        parent::beforeSave($entity, $options);
 
         if ($entity->get('type') === 'simple') {
             // remove configurator items on Entity change
