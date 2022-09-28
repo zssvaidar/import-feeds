@@ -526,10 +526,21 @@ class ImportTypeSimple extends QueueManagerBase
 
         $fileParser = $this->getService('ImportFeed')->getFileParser($feed->getFeedField('format'));
 
-        $templateColumns = $fileParser->getFileColumns($feedFile, $delimiter, $enclosure, $isFileHeaderRow);
         $fileColumns = $fileParser->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
 
-        return $templateColumns == $fileColumns;
+        foreach ($feed->get('configuratorItems') as $item) {
+            $columns = $item->get('column');
+            if (empty($columns) || !is_array($columns)) {
+                continue 1;
+            }
+            foreach ($columns as $column) {
+                if (!in_array($column, $fileColumns)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     protected function getService(string $name): Base
