@@ -22,7 +22,7 @@
 Espo.define('import:views/import-configurator-item/fields/foreign-import-by', 'views/fields/multi-enum',
     Dep => Dep.extend({
 
-        allowedTypes: ['bool', 'enum', 'varchar', 'float', 'int', 'text', 'wysiwyg'],
+        allowedTypes: ['bool', 'enum', 'varchar', 'email', 'float', 'int', 'text', 'wysiwyg'],
 
         setup() {
             Dep.prototype.setup.call(this);

@@ -70,7 +70,7 @@ Espo.define('import:views/import-configurator-item/fields/import-by', 'views/fie
                 $.each(this.getMetadata().get(`entityDefs.${foreignEntity}.fields`) || {}, (name, data) => {
                     if (
                         data.type
-                        && ['bool', 'enum', 'varchar', 'float', 'int', 'text', 'wysiwyg'].includes(data.type)
+                        && ['bool', 'enum', 'varchar', 'email', 'float', 'int', 'text', 'wysiwyg'].includes(data.type)
                         && !data.disabled
                         && !data.importDisabled
                     ) {
