@@ -153,18 +153,18 @@ class ImportTypeSimple extends QueueManagerBase
                     continue 1;
                 }
 
+                $event = $this->getEventManager()->dispatch(new Event(['row' => $row, 'jobData' => $data, 'skip' => false]), 'prepareImportRow');
+                if (!empty($event->getArgument('skip'))) {
+                    continue 1;
+                }
+
+                $row = $event->getArgument('row');
+
                 if (!$this->getEntityManager()->getPDO()->inTransaction()) {
                     $this->getEntityManager()->getPDO()->beginTransaction();
                 }
 
                 try {
-                    $event = $this->getEventManager()->dispatch(new Event(['row' => $row, 'jobData' => $data, 'skip' => false]), 'prepareImportRow');
-                    if (!empty($event->getArgument('skip'))) {
-                        continue 1;
-                    }
-
-                    $row = $event->getArgument('row');
-
                     $input = new \stdClass();
                     $input->_importJobData = $data;
                     $input->_importInputDataRow = $row;
