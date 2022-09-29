@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
+use Espo\Core\EventManager\Event;
+use Espo\Core\EventManager\Manager;
 use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Exceptions\NotFound;
 use Espo\Core\FilePathBuilder;
@@ -57,7 +59,7 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest($this->translate('theFileDoesNotMatchTheTemplate', 'exceptions', 'ImportFeed'));
         }
 
-        return [
+        $result = [
             "name"                    => $feed->get('name'),
             "offset"                  => $feed->isFileHeaderRow() ? 1 : 0,
             "limit"                   => \PHP_INT_MAX,
@@ -70,6 +72,11 @@ class ImportTypeSimple extends QueueManagerBase
             "data"                    => $feed->getConfiguratorData(),
             "proceedAlreadyProceeded" => !empty($feed->get("proceedAlreadyProceeded")) ? 1 : 0
         ];
+
+        return $this
+            ->getEventManager()
+            ->dispatch(new Event(['result' => $result, 'importFeed' => $feed, 'attachment' => $file]), 'prepareJobData')
+            ->getArgument('result');
     }
 
     public function run(array $data = []): bool
@@ -151,6 +158,13 @@ class ImportTypeSimple extends QueueManagerBase
                 }
 
                 try {
+                    $event = $this->getEventManager()->dispatch(new Event(['row' => $row, 'jobData' => $data, 'skip' => false]), 'prepareImportRow');
+                    if (!empty($event->getArgument('skip'))) {
+                        continue 1;
+                    }
+
+                    $row = $event->getArgument('row');
+
                     $input = new \stdClass();
                     $input->_importJobData = $data;
                     $input->_importInputDataRow = $row;
@@ -567,5 +581,10 @@ class ImportTypeSimple extends QueueManagerBase
         }
 
         return $this->channels[$channelId];
+    }
+
+    protected function getEventManager(): Manager
+    {
+        return $this->getContainer()->get('eventManager');
     }
 }
