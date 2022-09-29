@@ -326,15 +326,15 @@ class ImportTypeSimple extends QueueManagerBase
 
         $result = [];
 
-        if (in_array($data['fileFormat'], ['CSV', 'Excel'])) {
+        if (in_array($data['fileFormat'], ['JSON', 'XML'])) {
+            $result = $fileData;
+        } else {
             $allColumns = $fileParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
             foreach ($fileData as $line => $fileLine) {
                 foreach ($fileLine as $k => $v) {
                     $result[$line][$allColumns[$k]] = $v;
                 }
             }
-        } elseif (in_array($data['fileFormat'], ['JSON', 'XML'])) {
-            $result = $fileData;
         }
 
         $this->iterations++;
