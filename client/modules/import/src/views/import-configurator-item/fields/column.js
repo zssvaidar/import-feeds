@@ -70,6 +70,23 @@ Espo.define('import:views/import-configurator-item/fields/column', 'views/fields
             });
         },
 
+        afterRender() {
+            Dep.prototype.afterRender.call(this);
+
+            if (this.mode === 'list') {
+                let originalValue = this.model.get(this.name) || [];
+
+                let items = [];
+                originalValue.forEach(column => {
+                    let parts = column.split('.');
+                    let last = parts.pop();
+                    items.push(last);
+                });
+
+                this.$el.html('<span title="' + originalValue.join(', ') + '">' + items.join(', ') + '</span>');
+            }
+        },
+
         isRequired: function () {
             return this.params.options.length > 0 && !this.model.get('default') && !this.model.get('defaultId') && !this.model.get('defaultIds');
         },

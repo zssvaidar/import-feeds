@@ -26,7 +26,37 @@ Espo.define('import:views/import-configurator-item/fields/unused-columns', 'view
 
         getValueForDisplay() {
             return this.selected.sort((a, b) => a.localeCompare(b));
-        }
+        },
+
+        afterRender() {
+            Dep.prototype.afterRender.call(this);
+
+            if (this.mode === 'detail' && ['JSON', 'XML'].includes(this.getFormat())) {
+                let html = '';
+                (this.model.get(this.name) || []).forEach(column => {
+                    let parts = column.split('.');
+                    let last = parts.pop();
+                    html += '<span style="width:100%;float:left"><span style="color: #bbb">' + parts.join('.') + '</span>.' + last + '</span>';
+                });
+
+                this.$el.html(html);
+            }
+        },
+
+        getFormat() {
+            if (
+                this.getParentView()
+                && this.getParentView().getParentView()
+                && this.getParentView().getParentView().getParentView()
+                && this.getParentView().getParentView().getParentView().getParentView()
+                && this.getParentView().getParentView().getParentView().getParentView().getParentView()
+                && this.getParentView().getParentView().getParentView().getParentView().getParentView().model
+            ) {
+                return this.getParentView().getParentView().getParentView().getParentView().getParentView().model.get('format');
+            }
+
+            return null;
+        },
 
     })
 });
