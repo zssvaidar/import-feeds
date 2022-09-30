@@ -5,7 +5,8 @@
   },
   {
     "name": "entityIdentifier",
-    "notSortable": true
+    "notSortable": true,
+    "width": 7
   },
   {
     "name": "column",

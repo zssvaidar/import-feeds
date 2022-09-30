@@ -59,10 +59,14 @@
     "rows": [
       [
         {
-          "name": "column"
-        },
+          "name": "column",
+          "fullWidth": true
+        }
+      ],
+      [
         {
-          "name": "importBy"
+          "name": "importBy",
+          "fullWidth": true
         }
       ]
     ]
@@ -73,10 +77,14 @@
     "rows": [
       [
         {
-          "name": "foreignColumn"
-        },
+          "name": "foreignColumn",
+          "fullWidth": true
+        }
+      ],
+      [
         {
-          "name": "foreignImportBy"
+          "name": "foreignImportBy",
+          "fullWidth": true
         }
       ]
     ],
