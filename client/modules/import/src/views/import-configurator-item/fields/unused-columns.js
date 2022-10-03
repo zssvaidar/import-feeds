@@ -49,10 +49,14 @@ Espo.define('import:views/import-configurator-item/fields/unused-columns', 'view
                 && this.getParentView().getParentView()
                 && this.getParentView().getParentView().getParentView()
                 && this.getParentView().getParentView().getParentView().getParentView()
-                && this.getParentView().getParentView().getParentView().getParentView().getParentView()
-                && this.getParentView().getParentView().getParentView().getParentView().getParentView().model
             ) {
-                return this.getParentView().getParentView().getParentView().getParentView().getParentView().model.get('format');
+                let view = this.getParentView().getParentView().getParentView().getParentView();
+                if (view.model) {
+                    return view.model.get('format');
+                }
+                if (view.getParentView() && view.getParentView().model) {
+                    return view.getParentView().model.get('format');
+                }
             }
 
             return null;
