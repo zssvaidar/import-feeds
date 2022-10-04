@@ -187,7 +187,7 @@ class LinkMultiple extends Varchar
             $rows = [];
 
             foreach ($columns as $column) {
-                $value = explode($config['delimiter'], $row[$column]);
+                $value = explode($config['delimiter'], (string)$row[$column]);
 
                 if (count($value) > 1) {
                     throw new BadRequest(sprintf($this->translate('listSeparatorNotAllowed', 'exceptions', 'ImportFeed'), $this->relationEntityName));

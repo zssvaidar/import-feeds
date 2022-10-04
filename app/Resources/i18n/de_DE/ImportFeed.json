@@ -29,6 +29,7 @@
     "configuratorItems": "Konfigurator"
   },
   "labels": {
+    "creatingImportJobs": "Importjobs erstellen...",
     "currency": "Währung",
     "unit": "Einheit",
     "Import Data Settings": "Datenimporteinstellungen",
@@ -39,7 +40,6 @@
     "importFile": "Daten Datei",
     "addEntityField": "Entitätsfeld hinzufügen",
     "addProductAttribute": "Produktattribut hinzufügen",
-    "importRunning": "Import läuft",
     "simple": "Datei",
     ",": ",",
     ";": ";",

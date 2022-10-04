@@ -73,9 +73,11 @@ Espo.define('import:views/import-feed/record/detail', 'views/record/detail',
                     importFeedId: this.model.get('id'),
                     attachmentId: this.model.get('fileId')
                 };
+
+                this.notify(this.translate('creatingImportJobs', 'labels', 'ImportFeed'));
                 this.ajaxPostRequest('ImportFeed/action/runImport', data).then(response => {
                     if (response) {
-                        this.notify(this.translate('importRunning', 'labels', 'ImportFeed'), 'success');
+                        this.notify('Created', 'success');
                         this.model.trigger('importRun');
                     }
                 });

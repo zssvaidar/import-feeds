@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace Import\Services;
 
+use Espo\Core\EventManager\Event;
+use Espo\Core\EventManager\Manager;
 use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Exceptions\NotFound;
 use Espo\Core\FilePathBuilder;
@@ -57,7 +59,7 @@ class ImportTypeSimple extends QueueManagerBase
             throw new BadRequest($this->translate('theFileDoesNotMatchTheTemplate', 'exceptions', 'ImportFeed'));
         }
 
-        return [
+        $result = [
             "name"                    => $feed->get('name'),
             "offset"                  => $feed->isFileHeaderRow() ? 1 : 0,
             "limit"                   => \PHP_INT_MAX,
@@ -70,6 +72,11 @@ class ImportTypeSimple extends QueueManagerBase
             "data"                    => $feed->getConfiguratorData(),
             "proceedAlreadyProceeded" => !empty($feed->get("proceedAlreadyProceeded")) ? 1 : 0
         ];
+
+        return $this
+            ->getEventManager()
+            ->dispatch(new Event(['result' => $result, 'importFeed' => $feed, 'attachment' => $file]), 'prepareJobData')
+            ->getArgument('result');
     }
 
     public function run(array $data = []): bool
@@ -145,6 +152,13 @@ class ImportTypeSimple extends QueueManagerBase
                 if ($data['action'] == 'delete') {
                     continue 1;
                 }
+
+                $event = $this->getEventManager()->dispatch(new Event(['row' => $row, 'jobData' => $data, 'skip' => false]), 'prepareImportRow');
+                if (!empty($event->getArgument('skip'))) {
+                    continue 1;
+                }
+
+                $row = $event->getArgument('row');
 
                 if (!$this->getEntityManager()->getPDO()->inTransaction()) {
                     $this->getEntityManager()->getPDO()->beginTransaction();
@@ -326,15 +340,15 @@ class ImportTypeSimple extends QueueManagerBase
 
         $result = [];
 
-        if (in_array($data['fileFormat'], ['CSV', 'Excel'])) {
+        if (in_array($data['fileFormat'], ['JSON', 'XML'])) {
+            $result = $fileData;
+        } else {
             $allColumns = $fileParser->getFileColumns($attachment, $data['delimiter'], $data['enclosure'], $data['isFileHeaderRow']);
             foreach ($fileData as $line => $fileLine) {
                 foreach ($fileLine as $k => $v) {
                     $result[$line][$allColumns[$k]] = $v;
                 }
             }
-        } elseif (in_array($data['fileFormat'], ['JSON', 'XML'])) {
-            $result = $fileData;
         }
 
         $this->iterations++;
@@ -526,10 +540,21 @@ class ImportTypeSimple extends QueueManagerBase
 
         $fileParser = $this->getService('ImportFeed')->getFileParser($feed->getFeedField('format'));
 
-        $templateColumns = $fileParser->getFileColumns($feedFile, $delimiter, $enclosure, $isFileHeaderRow);
         $fileColumns = $fileParser->getFileColumns($file, $delimiter, $enclosure, $isFileHeaderRow);
 
-        return $templateColumns == $fileColumns;
+        foreach ($feed->get('configuratorItems') as $item) {
+            $columns = $item->get('column');
+            if (empty($columns) || !is_array($columns)) {
+                continue 1;
+            }
+            foreach ($columns as $column) {
+                if (!in_array($column, $fileColumns)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     protected function getService(string $name): Base
@@ -556,5 +581,10 @@ class ImportTypeSimple extends QueueManagerBase
         }
 
         return $this->channels[$channelId];
+    }
+
+    protected function getEventManager(): Manager
+    {
+        return $this->getContainer()->get('eventManager');
     }
 }

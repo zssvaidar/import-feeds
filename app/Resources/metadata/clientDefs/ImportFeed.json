@@ -91,9 +91,12 @@
         "visible": {
           "conditionGroup": [
             {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
+              "type": "in",
+              "attribute": "format",
+              "value": [
+                "CSV",
+                "Excel"
+              ]
             }
           ]
         }
@@ -103,11 +106,6 @@
           "conditionGroup": [
             {
               "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            },
-            {
-              "type": "equals",
               "attribute": "format",
               "value": "CSV"
             }
@@ -115,11 +113,6 @@
         },
         "required": {
           "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            },
             {
               "type": "equals",
               "attribute": "format",
@@ -133,11 +126,6 @@
           "conditionGroup": [
             {
               "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            },
-            {
-              "type": "equals",
               "attribute": "format",
               "value": "CSV"
             }
@@ -145,11 +133,6 @@
         },
         "required": {
           "conditionGroup": [
-            {
-              "type": "equals",
-              "attribute": "type",
-              "value": "simple"
-            },
             {
               "type": "equals",
               "attribute": "format",

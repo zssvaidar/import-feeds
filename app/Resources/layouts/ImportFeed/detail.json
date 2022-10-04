@@ -43,6 +43,12 @@
       ],
       [
         {
+          "name": "connection"
+        },
+        false
+      ],
+      [
+        {
           "name": "isFileHeaderRow"
         },
         false

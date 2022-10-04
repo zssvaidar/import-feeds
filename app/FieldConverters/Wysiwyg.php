@@ -46,13 +46,16 @@ class Wysiwyg
     public function convert(\stdClass $inputRow, array $config, array $row): void
     {
         $default = empty($config['default']) ? '' : $config['default'];
+        $emptyValue = empty($config['emptyValue']) ? '' : (string)$config['emptyValue'];
+        $nullValue = empty($config['nullValue']) ? 'Null' : (string)$config['nullValue'];
+
         if (isset($config['column'][0]) && isset($row[$config['column'][0]])) {
             $value = $row[$config['column'][0]];
             $this->ignoreAttribute($value, $config);
-            if (strtolower((string)$value) === strtolower((string)$config['emptyValue']) || $value === '') {
+            if (strtolower((string)$value) === strtolower($emptyValue) || $value === '') {
                 $value = $default;
             }
-            if (strtolower((string)$value) === strtolower((string)$config['nullValue'])) {
+            if (strtolower((string)$value) === strtolower($nullValue)) {
                 $value = null;
             }
         } else {

@@ -94,12 +94,14 @@ class ImportJob extends Base
 
         $this->getEntityManager()->getRepository('importJobLog')->where(['importJobId' => $entity->get('id')])->removeCollection();
 
-        if (
-            !empty($attachment = $entity->get('attachment'))
-            && !empty($importFeed = $entity->get('importFeed'))
-            && $importFeed->get('fileId') !== $attachment->get('id')
-        ) {
-            $this->getEntityManager()->removeEntity($attachment);
+        $attachment = $entity->get('attachment');
+
+        $jobWithSuchAttachment = $this->where(['id!=' => $entity->get('id'), 'attachmentId' => $attachment->get('id')])->findOne();
+        if (empty($jobWithSuchAttachment)) {
+            $importFeedWithSuchAttachment = $this->where(['fileId' => $attachment->get('id')])->findOne();
+            if (empty($importFeedWithSuchAttachment)) {
+                $this->getEntityManager()->removeEntity($attachment);
+            }
         }
 
         if (!empty($errorsAttachment = $entity->get('errorsAttachment'))) {

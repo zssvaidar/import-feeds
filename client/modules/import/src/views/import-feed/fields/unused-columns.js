@@ -39,6 +39,21 @@ Espo.define('import:views/import-feed/fields/unused-columns', 'views/fields/mult
             });
         },
 
+        afterRender() {
+            Dep.prototype.afterRender.call(this);
+
+            if (this.mode === 'detail' && ['JSON', 'XML'].includes(this.model.get('format'))) {
+                let items = [];
+                (this.model.get(this.name) || []).forEach(column => {
+                    let parts = column.split('.');
+                    let last = parts.pop();
+                    items.push('<span style="color: #bbb">' + parts.join('.') + '</span>.' + last);
+                });
+
+                this.$el.html(items.join(', '));
+            }
+        },
+
         loadUnusedColumns() {
             const allColumns = this.model.get('allColumns') || [];
 

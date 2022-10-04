@@ -32,6 +32,7 @@
     "configuratorItems": "Configurator"
   },
   "labels": {
+    "creatingImportJobs": "Creating Import Jobs...",
     "currency": "Currency",
     "unit": "Unit",
     "Import Data Settings": "Import Data Settings",
@@ -41,7 +42,6 @@
     "convertSuccess": "File loaded",
     "addEntityField": "Add entity field",
     "addProductAttribute": "Add Product attribute",
-    "importRunning": "Import Running",
     "simple": "File",
     ",": ",",
     ";": ";",
