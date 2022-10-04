@@ -27,12 +27,12 @@ namespace Import\Listeners;
 use Espo\Core\EventManager\Event;
 use Espo\Listeners\AbstractListener;
 
-class AttributeService extends AbstractListener
+class AttributeEntity extends AbstractListener
 {
-    public function afterDeleteEntity(Event $event): void
+    public function afterRemove(Event $event): void
     {
-        $attribute_id = $event->getArgument('id');
-        $entities = $this->getEntityManager()->getRepository('ImportConfiguratorItem')->where(['attributeId' => $attribute_id])->find();
+        $attribute = $event->getArgument('entity');
+        $entities = $this->getEntityManager()->getRepository('ImportConfiguratorItem')->where(['attributeId' => $attribute->id])->find();
 
         $service = $this->getService('ImportConfiguratorItem');
         foreach ($entities as $entity) {
