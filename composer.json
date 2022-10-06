@@ -20,7 +20,7 @@
       "default": "Import Feeds"
     },
     "description": {
-      "default": "The module enables to configure and execute multiple feeds for manual data import into any entity in the system and its direct relations. Different file formats can be used."
+      "default": "This module allows you to configure and execute multiple feeds for manual data import into any entity in the system and its direct relations. Different file formats can be used. Save time on initial data import."
     },
     "tags": [
       "usability",
