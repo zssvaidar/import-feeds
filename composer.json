@@ -1,5 +1,5 @@
 {
-  "name": "atrocore/import-feeds",
+  "name": "zssvaidar/import-feeds",
   "description": "",
   "require": {
     "atrocore/core": "~1.4.70",
